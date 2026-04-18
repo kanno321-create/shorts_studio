@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-19T04:15:00.000Z"
+last_updated: "2026-04-19T04:20:00.000Z"
 progress:
   total_phases: 10
   completed_phases: 1
   total_plans: 16
-  completed_plans: 13
-  percent: 81
+  completed_plans: 14
+  percent: 87
 ---
 
 # STATE — naberal-shorts-studio
 
 **Last updated:** 2026-04-19
-**Session:** #15 (Phase 3 Wave 2 COMPLETE — Plan 03-07 DIFF-VERIFY + FAILURES-MERGE shipped studio@ad98b32 (Task 1: aggregate diff ALL_CLEAN, 0 mismatches across 4 raw dirs) + studio@1ff5768 (Task 2: HARVEST-04 _imported_from_shorts_naberal.md 500 lines, sha256=978bb9381fee..., idempotent SOURCES-locked merge, D-2 저수지 ready). Wave 1 all 4 raw dirs previously shipped: 03-03/fba21e4, 03-04/4bc7ece, 03-05/51205ba, 03-06/aeac16b. Next: 03-08 decisions.md (W3) → 03-09 lockdown (W4).)
+**Session:** #15 (Phase 3 Wave 3 COMPLETE — Plan 03-08 HARVEST-DECISIONS + BLACKLIST-AUDIT shipped studio@15b827f (Task 1: 03-HARVEST_DECISIONS.md 39 rows — A:13 verbatim + B:16 + C:10 via 5-rule algorithm) + studio@c14ab95 (Task 2: 7-check blacklist grep audit PASS, 0 matches across .preserved/harvested/**). Wave 2 previously: 03-07/ad98b32 aggregate diff ALL_CLEAN + 03-07/1ff5768 FAILURES merge. Wave 1 all 4 raw dirs: 03-03/fba21e4, 03-04/4bc7ece, 03-05/51205ba, 03-06/aeac16b. Next: 03-09 lockdown (W4).)
 
 ---
 
@@ -32,12 +32,12 @@ progress:
 ## Current Position
 
 Phase: 03 (harvest) — EXECUTING
-Plan: 7 of 9 complete in Phase 3 — Wave 0 (03-01/02) + Wave 1 (03-03/04/05/06) + Wave 2 (03-07) all shipped; W3 (03-08), W4 (03-09) pending
+Plan: 8 of 9 complete in Phase 3 — Wave 0 (03-01/02) + Wave 1 (03-03/04/05/06) + Wave 2 (03-07) + Wave 3 (03-08) all shipped; W4 (03-09 lockdown) pending
 
 - **Phase:** 3
-- **Next Phase:** 3 (Harvest) — Entry point: `/gsd:execute-phase 3` (continue at 03-08)
-- **Status:** Wave 2 complete — HARVEST-04 satisfied, aggregate diff ALL_CLEAN
-- **Progress:** [████████░░] 78%
+- **Next Phase:** 3 (Harvest) — Entry point: `/gsd:execute-phase 3` (continue at 03-09)
+- **Status:** Wave 3 complete — HARVEST-07 + HARVEST-08 satisfied. 39-row decision table canonical, 7-check blacklist audit 0 violations, Plan 09 lockdown gate cleared.
+- **Progress:** [█████████░] 87%
 
 ---
 
@@ -103,6 +103,13 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 20. **Ignore match via fnmatch.fnmatchcase** — matches shutil.ignore_patterns glob semantics used at Wave 1 copy time. Substring `in` containment would produce false positives on patterns like `*.pyc` vs `file.pyc.bak`. Critical for diff_verifier correctness.
 21. **HARVEST-04 satisfied via idempotent marker-guarded append** — `<!-- source: ... -->` + `<!-- END source: ... -->` pair enables deterministic idempotency check; sha256 per source block provides downstream integrity audit path. Archive is read-only (D-2 저수지 regime reference for Phase 10 첫 1~2개월 SKILL patch 금지).
 
+### Session #15 Decisions (Plan 03-08 — HARVEST-DECISIONS + BLACKLIST-AUDIT)
+
+22. **Blacklist count invariant delegation (Plan 01 M-2 contract honored)** — Plan 08 does NOT re-assert `len(blacklist) == 10`; that invariant is owned by `blacklist_parser.parse_blacklist()` which raises ValueError on mismatch. Redundant asserts would violate DRY + SSoT. A/B/C count assertion (13/16/10) IS preserved at decision_builder entry because it validates a DIFFERENT invariant (CONFLICT_MAP parse integrity).
+23. **Rule 1 deviation: narrowed Task 2 Audit 3 longform check** — plan's original `find ... -path "*/longform/*"` false-matched 6 legitimate Remotion composition files at `remotion_src_raw/components/longform/*.tsx` (harvested per Plan 03-04 studio@4bc7ece VALIDATION PASS). HARVEST_BLACKLIST `{path: "longform/"}` prohibits harvesting from `shorts_naberal/longform/` **source tree**, not arbitrary nested `longform/` subdirectories inside legitimately harvested source. Narrowed to `-maxdepth 1 -type d -name *longform*` — matches blacklist INTENT. Documented in audit_log.md + 03-08-SUMMARY.md.
+24. **Inline Python fallback over harvest_importer --stage 6** — matches Wave 1 precedent (03-04-SUMMARY.md). Stage 6 requires prior stages 1-2 in same invocation to populate blacklist/manifest; direct call to `decision_builder.build_decisions_md()` is byte-identical semantics. `.tmp_build_decisions.py` used and deleted post-run (no repo pollution).
+25. **39-row decision table verdict distribution locked** — 승계=2 (A-2, A-9) / 폐기=15 (A-5, A-6, A-11 + B-1, B-3, B-5, B-6, B-8, B-10, B-12, B-15 + C-1, C-6, C-7, C-8) / 통합-재작성=20 (A-1, A-3, A-4, A-7, A-8, A-10, A-12, A-13 + B-2, B-4, B-7, B-9, B-11, B-13, B-14, B-16 + C-3, C-4, C-9, C-10) / cleanup=2 (C-2, C-5). Rule distribution for B/C 26: rule1=10, rule2=2, rule3=0, rule4=2, rule5=12 (sum=26 ✓). Phase 4 agent designs can cite this table authoritatively.
+
 ### Session #14 Decisions (Plan 06 — Phase 2 Gate)
 
 14. **Phase 2 게이트 = 12/12 VALIDATION PASS + consolidated commit** — Phase 3 진입 허가. 모든 pre-commit check 통과 시에만 commit, 하나라도 FAIL 시 commit 보류 원칙 (다행히 전부 통과).
@@ -130,7 +137,8 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 - [x] **Phase 3 Plan 03-04 execute** → remotion_src_raw copy (studio@4bc7ece, 2026-04-19) — 40 files / 0.161 MB, node_modules 758 MB excluded via shutil.ignore_patterns, diff_verifier mismatches=[], __pycache__/secret 0 hits (HARVEST-02)
 - [x] **Phase 3 Wave 1 complete** → all 4 raw dirs shipped: theme_bible_raw (03-03) + remotion_src_raw (03-04) + hc_checks_raw (03-05) + api_wrappers_raw (03-06)
 - [x] **Phase 3 Plan 03-07 execute** → aggregate diff ALL_CLEAN (studio@ad98b32) + FAILURES merge _imported_from_shorts_naberal.md (studio@1ff5768, 500 lines, sha256=978bb9381fee..., idempotent SOURCES-locked, HARVEST-04 satisfied, D-2 저수지 regime ready)
-- [ ] **Phase 3 Wave 3+** → decisions.md (03-08, CONFLICT_MAP 39 전수 판정) → lockdown (03-09, chmod -w)
+- [x] **Phase 3 Plan 03-08 execute** → 03-HARVEST_DECISIONS.md 39 rows (studio@15b827f, A:13 verbatim + B:16 + C:10 via 5-rule algorithm, verdict dist 2/15/20/2, rule dist 10/2/0/2/12 for B/C) + 7-check blacklist grep audit PASS (studio@c14ab95, 0 matches across all audits, Rule 1 deviation: narrowed longform check from overbroad */longform/* to top-level raw dir detection). HARVEST-07 + HARVEST-08 satisfied.
+- [ ] **Phase 3 Wave 4** → lockdown (03-09, chmod -w / attrib +R on .preserved/harvested/, HARVEST-06)
 
 ### Blockers
 
@@ -166,6 +174,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 03-harvest P04 | 1 | 1 | 40 committed (4bc7ece: Remotion src tree — Root.tsx + index.ts + components/15 + compositions/11 + lib/12) + 1 meta (SUMMARY) |
 | Phase 03-harvest P03 | 1 | 1 | 8 committed (fba21e4: 7 channel bibles + audit_log) + 1 meta (SUMMARY) |
 | Phase 03-harvest P07 | 5 | 2 | 2 committed (ad98b32: audit_log Task 1 + 1ff5768: _imported_from_shorts_naberal.md 500 lines + audit_log Task 2) + 1 meta (SUMMARY) |
+| Phase 03-harvest P08 | 3 | 2 | 2 committed (15b827f: 03-HARVEST_DECISIONS.md 39 rows + audit_log Task 1 / c14ab95: audit_log Task 2 blacklist audit PASS) + 1 meta (SUMMARY) |
 
 ---
 

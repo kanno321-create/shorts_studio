@@ -80,7 +80,7 @@
 - [x] 03-05-PLAN.md — hc_checks_raw cherry_pick (W1, HARVEST-03) — ✅ shipped 2026-04-19, studio@51205ba (hc_checks.py 1129 lines + test_hc_checks.py byte-identical, orchestrate.py blacklist enforced)
 - [x] 03-06-PLAN.md — api_wrappers_raw cherry_pick 4+ wrappers (W1, HARVEST-05) — ✅ shipped 2026-04-19, studio@aeac16b (5/5 wrappers byte-identical: elevenlabs_alignment.py + tts_generate.py + _kling_i2v_batch.py + runway_client.py + heygen_client.py; 0 selenium imports; orchestrate.py absent)
 - [x] 03-07-PLAN.md — diff_verifier --all + FAILURES merge (W2, HARVEST-04) — ✅ shipped 2026-04-19, studio@ad98b32 (Task 1 ALL_CLEAN across 4 raw dirs) + studio@1ff5768 (Task 2 _imported_from_shorts_naberal.md 500 lines, sha256=978bb9381fee..., idempotent SOURCES-locked merge)
-- [ ] 03-08-PLAN.md — 03-HARVEST_DECISIONS.md 39 rows + blacklist grep audit (W3, HARVEST-07/08)
+- [x] 03-08-PLAN.md — 03-HARVEST_DECISIONS.md 39 rows + blacklist grep audit (W3, HARVEST-07/08) — ✅ shipped 2026-04-19, studio@15b827f (Task 1: decisions.md 39 rows A:13/B:16/C:10) + studio@c14ab95 (Task 2: 7-check blacklist audit PASS, 0 matches)
 - [ ] 03-09-PLAN.md — attrib +R lockdown + verify_harvest --full (W4, HARVEST-06)
 
 ---
@@ -202,7 +202,7 @@
 |-------|----------------|--------|-----------|
 | 1. Scaffold | N/A | ✅ Completed | 2026-04-18 (session #10) |
 | 2. Domain Definition | 5/6 | In Progress|  |
-| 3. Harvest | 6/9 | In Progress (Wave 1 complete; W2/W3/W4 pending) | - |
+| 3. Harvest | 8/9 | In Progress (Wave 1+2+3 complete; W4 lockdown pending) | - |
 | 4. Agent Team Design | 0/TBD | Not started | - |
 | 5. Orchestrator v2 | 0/TBD | Not started | - |
 | 6. Wiki + NotebookLM + FAILURES | 0/TBD | Not started | - |
