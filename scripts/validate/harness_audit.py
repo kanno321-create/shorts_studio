@@ -30,10 +30,12 @@ if __package__ in (None, ""):
         audit_agent,
         discover_agents,
     )
+    from scripts.validate.grep_gan_contamination import check_file as gan_check_file
 else:
     from .parse_frontmatter import parse_frontmatter  # noqa: F401
     from .rubric_stdlib_validator import validate_rubric
     from .validate_all_agents import audit_agent, discover_agents
+    from .grep_gan_contamination import check_file as gan_check_file
 
 
 SAMPLE_VALID_RUBRIC = {
@@ -42,8 +44,6 @@ SAMPLE_VALID_RUBRIC = {
     "evidence": [],
     "semantic_feedback": "",
 }
-
-FORBIDDEN_LEAK_PATTERN = re.compile(r"\b(producer_prompt|producer_system_context)\b")
 
 
 def _score_penalty(n_violations: int, n_warnings: int) -> int:
@@ -73,20 +73,15 @@ def run_audit(agents_root: pathlib.Path, exclude: set[str], schema_path: pathlib
     if errs:
         violations.append(f"rubric schema sanity failed on canonical sample: {errs}")
 
-    # Stage 3: RUB-06 GAN leak grep under inspectors/
+    # Stage 3: RUB-06 GAN leak check under inspectors/ — parses ## Inputs table only
+    # (negation references in MUST REMEMBER / docs are allowed — see grep_gan_contamination.py)
     inspectors_dir = agents_root / "inspectors"
     if inspectors_dir.exists():
         for md in inspectors_dir.rglob("AGENT.md"):
             try:
-                text = md.read_text(encoding="utf-8")
+                violations.extend(gan_check_file(md))
             except OSError as e:
                 warnings.append(f"{md}: read failed — {e}")
-                continue
-            if FORBIDDEN_LEAK_PATTERN.search(text):
-                violations.append(
-                    f"{md}: forbidden Producer context leak token "
-                    f"(producer_prompt|producer_system_context) — RUB-06"
-                )
 
     score = _score_penalty(len(violations), len(warnings))
     return score, violations, warnings
