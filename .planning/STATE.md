@@ -2,15 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
-status: executing
-last_updated: "2026-04-19T12:14:00.000Z"
+status: planning
+last_updated: "2026-04-18T21:15:40.627Z"
 progress:
   total_phases: 10
-  completed_phases: 4
-  total_plans: 34
-  completed_plans: 34
+  completed_phases: 3
+  total_plans: 25
+  completed_plans: 25
   percent: 100
-  phase_4_complete: true
 ---
 
 # STATE — naberal-shorts-studio
@@ -33,11 +32,11 @@ progress:
 ## Current Position
 
 Phase: 04 (agent-team-design) — ✅ COMPLETE (10/10 plans, 34/34 REQs, 32 agents shipped)
-Plan: 04-10 ✅ COMPLETE (Wave 5 Integration + SC1 reconciliation + VALIDATION flip)
+Plan: Not started
 
-- **Phase:** 4 → entering 5
+- **Phase:** 5
 - **Next Plan:** 05-PLAN (Phase 5 Orchestrator v2 Write — `scripts/orchestrator/shorts_pipeline.py` 500~800줄 state machine, 12 GATE DAG, CircuitBreaker, Checkpointer, 영상/음성 분리 합성, Low-Res First 렌더; ORCH-01~12 + VIDEO-01~05 = 17 REQs)
-- **Status:** Phase 4 COMPLETE — Phase 5 planning ready
+- **Status:** Ready to plan
 - **Progress:** [██████████] 100% (Phase 4); [████░░░░░░] 40% (overall 4/10 phases + Phase 1+2+3+4 = 47/96 REQs = 49%)
 
 ---
@@ -253,6 +252,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 3. Execute: /gsd:plan-phase 5 (Phase 5 Orchestrator v2 — 17 REQs: ORCH-01~12 + VIDEO-01~05 — 500~800줄 state machine)
 
 Phase 4 artifacts available:
+
 - .claude/agents/ (32 AGENT.md files, 6 Inspector categories + 14 Producer + 1 Supervisor)
 - .claude/agents/_shared/ (rubric-schema.json + agent-template.md + vqqa_corpus.md)
 - scripts/validate/ (5 stdlib validators + harness_audit.py)

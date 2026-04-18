@@ -97,7 +97,7 @@
   4. 테스트 입력으로 LogicQA Main-Q + 5 Sub-Qs 다수결이 실제로 작동하여 단일 inspector가 모순 시 FAIL을 반환한다 (maxTurns 표준 3, factcheck 예외 10)
   5. 한국어 화법 검사기(`ins-korean-naturalness`)가 존댓말/반말 혼용 샘플 10건 중 ≥ 9건을 교정 제안과 함께 FAIL 처리한다
   6. Compliance inspector 세트(`ins-license`, `ins-platform-policy`, `ins-safety`, `ins-mosaic`)가 AF-4(voice cloning real people), AF-5(real victim face), AF-13(K-pop 음원) 샘플을 100% 차단한다
-**Plans:** 10/10 plans executed ✅ PHASE 4 COMPLETE 2026-04-19
+**Plans:** 10/10 plans complete
 - [x] 04-01-PLAN.md — W0 Wave 0 shared foundation: rubric-schema.json + agent-template.md + af_bank + korean_samples + 4 stdlib validators + pytest conftest — ✅ shipped 2026-04-19, studio@0dcb007+cd1d074+daca457+5a70504 (6 shared files + 5 validators + 14/14 pytest PASS; RUB-04 + AGENT-07/08/09 + COMPLY-01..06 + AUDIO-04 + SUBT-02 = 12 REQs satisfied; harness_audit score 95 on Wave 0 state)
 - [x] 04-02-PLAN.md — W1 Inspector Structural 3 (ins-blueprint-compliance, ins-timing-consistency, ins-schema-integrity; maxTurns=1) — ✅ shipped 2026-04-19
 - [x] 04-03-PLAN.md — W1 Inspector Content 3 (ins-factcheck maxTurns=10, ins-narrative-quality, ins-korean-naturalness) + 10/9+ FAIL regression — ✅ shipped 2026-04-19, studio@852ddca
@@ -216,7 +216,7 @@
 | 1. Scaffold | N/A | ✅ Completed | 2026-04-18 (session #10) |
 | 2. Domain Definition | 6/6 | ✅ Complete | 2026-04-19 |
 | 3. Harvest | 9/9 | ✅ Complete | 2026-04-19 |
-| 4. Agent Team Design | 10/10 | ✅ Complete | 2026-04-19 |
+| 4. Agent Team Design | 10/10 | Complete    | 2026-04-18 |
 | 5. Orchestrator v2 | 0/TBD | Not started | - |
 | 6. Wiki + NotebookLM + FAILURES | 0/TBD | Not started | - |
 | 7. Integration Test | 0/TBD | Not started | - |
