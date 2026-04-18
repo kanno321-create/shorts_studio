@@ -14,7 +14,7 @@
 - [x] **Phase 1: Scaffold** — naberal_harness v1.0.1 상속 + Hook 3종 자동 설치 (세션 #10 완료)
 - [x] **Phase 2: Domain Definition** — 3-Tier 위키 물리 구조 생성 + 도메인 스코프 확정 (세션 #14 완료 2026-04-19, studio@f360e17)
 - [x] **Phase 3: Harvest** — shorts_naberal 작동 자산 이관 + CONFLICT_MAP 39 전수 판정 + Tier 3 attrib +R 잠금 (세션 #15 완료 2026-04-19, verify_harvest --full 15/15 PASS)
-- [ ] **Phase 4: Agent Team Design** — 17 inspector + Producer 팀 + rubric JSON Schema **동시 정의**
+- [x] **Phase 4: Agent Team Design** — 17 inspector + Producer 14 + Supervisor 1 = 32 에이전트 + rubric JSON Schema **동시 정의** (세션 #16 완료 2026-04-19, studio@62c0758)
 - [ ] **Phase 5: Orchestrator v2** — 500~800줄 state machine + 12 GATE + DAG + 영상/음성 분리 합성
 - [ ] **Phase 6: Wiki + NotebookLM + FAILURES Reservoir** — Tier 2 합성 + 2-노트북 세팅 + Continuity Bible Prefix + 저수지 패턴
 - [ ] **Phase 7: Integration Test** — E2E mock asset + verify_all_dispatched() + harness-audit ≥ 80
@@ -91,25 +91,25 @@
 **Depends on:** Phase 3 (Harvest 자산을 에이전트 prompt 참조용으로 사용)
 **Requirements:** AGENT-01, AGENT-02, AGENT-03, AGENT-04, AGENT-05, AGENT-07, AGENT-08, AGENT-09, RUB-01, RUB-02, RUB-03, RUB-04, RUB-05, RUB-06, CONTENT-01, CONTENT-02, CONTENT-03, CONTENT-04, CONTENT-05, CONTENT-06, CONTENT-07, AUDIO-01, AUDIO-02, AUDIO-03, AUDIO-04, SUBT-01, SUBT-02, SUBT-03, COMPLY-01, COMPLY-02, COMPLY-03, COMPLY-04, COMPLY-05, COMPLY-06
 **Success Criteria** (what must be TRUE):
-  1. `.claude/agents/` 하위에 Producer 11명(trend-collector, niche-classifier, researcher, director, scene-planner, shot-planner, scripter, script-polisher, voice-producer, asset-sourcer, assembler, thumbnail-designer, metadata-seo, publisher) + Inspector 17명 + Supervisor 1명이 전부 존재하며 총 에이전트 수가 12~20 사이다
+  1. `.claude/agents/` 하위에 Producer 14명(Core 6 + 3단 분리 3 + 지원 5: trend-collector, niche-classifier, researcher, director, scene-planner, shot-planner, scripter, script-polisher, metadata-seo, voice-producer, asset-sourcer, assembler, thumbnail-designer, publisher) + Inspector 17명(6 카테고리) + Supervisor 1명 = **총 32명** 존재한다. **SC1 reconciliation (Plan 10 Wave 5, 2026-04-19):** 원안 "12~20 사이"는 Phase 2 ROADMAP 초기 추정치였으며, REQUIREMENTS.md AGENT-01~05 및 Phase 4 RESEARCH.md Open Q1의 enumeration(Producer 14 + Inspector 17 + Supervisor 1 = 32)이 우선한다. Phase 2 대비 Producer re-enumeration(11→14) + SC1 범위 상향(20→32)은 Plan 10 reconciliation gate에서 공식 반영 완료. (D-9 PROJECT.md 경향: REQUIREMENTS.md 구체성 > ROADMAP SC 근사값.)
   2. 17 inspector 각각이 rubric JSON Schema에 맞는 `{verdict: PASS|FAIL, score, evidence[], semantic_feedback}` 구조를 반환한다 (VQQA 시맨틱 그래디언트 포함)
   3. 모든 SKILL.md가 500줄 이하이고 description 필드가 1024자 이하이며 MUST REMEMBER 지시가 프롬프트 **끝**에 배치되어 있다 (harness-audit 검증 통과)
   4. 테스트 입력으로 LogicQA Main-Q + 5 Sub-Qs 다수결이 실제로 작동하여 단일 inspector가 모순 시 FAIL을 반환한다 (maxTurns 표준 3, factcheck 예외 10)
   5. 한국어 화법 검사기(`ins-korean-naturalness`)가 존댓말/반말 혼용 샘플 10건 중 ≥ 9건을 교정 제안과 함께 FAIL 처리한다
   6. Compliance inspector 세트(`ins-license`, `ins-platform-policy`, `ins-safety`, `ins-mosaic`)가 AF-4(voice cloning real people), AF-5(real victim face), AF-13(K-pop 음원) 샘플을 100% 차단한다
-**Plans:** 4/10 plans executed
+**Plans:** 10/10 plans executed ✅ PHASE 4 COMPLETE 2026-04-19
 - [x] 04-01-PLAN.md — W0 Wave 0 shared foundation: rubric-schema.json + agent-template.md + af_bank + korean_samples + 4 stdlib validators + pytest conftest — ✅ shipped 2026-04-19, studio@0dcb007+cd1d074+daca457+5a70504 (6 shared files + 5 validators + 14/14 pytest PASS; RUB-04 + AGENT-07/08/09 + COMPLY-01..06 + AUDIO-04 + SUBT-02 = 12 REQs satisfied; harness_audit score 95 on Wave 0 state)
-- [x] 04-02-PLAN.md — W1 Inspector Structural 3 (ins-blueprint-compliance, ins-timing-consistency, ins-schema-integrity; maxTurns=1)
-- [ ] 04-03-PLAN.md — W1 Inspector Content 3 (ins-factcheck maxTurns=10, ins-narrative-quality, ins-korean-naturalness) + 10/9+ FAIL regression
-- [ ] 04-04-PLAN.md — W1 Inspector Style 3 (ins-tone-brand maxTurns=5, ins-readability, ins-thumbnail-hook)
-- [ ] 04-05-PLAN.md — W2 Inspector Compliance 3 (ins-license, ins-platform-policy, ins-safety) + AF-4/13 100% 차단
-- [x] 04-06-PLAN.md — W2 Inspector Technical 3 (ins-audio-quality, ins-render-integrity, ins-subtitle-alignment)
-- [x] 04-07-PLAN.md — W2 Inspector Media 2 (ins-mosaic, ins-gore) + AF-5 100% 차단
-- [ ] 04-08-PLAN.md — W3 Producer Core 6 + 3단 분리 3 (trend-collector, niche-classifier, researcher, director, scene-planner, shot-planner, scripter, script-polisher, metadata-seo)
-- [ ] 04-09-PLAN.md — W4 Producer 지원 5 + Supervisor 1 (voice-producer, asset-sourcer, assembler, thumbnail-designer, publisher, shorts-supervisor) + _delegation_depth guard
-- [ ] 04-10-PLAN.md — W5 Integration: harness-audit ≥ 80 + GAN contamination 0 + LogicQA schema 17/17 + SC1 reconciliation 32 canonical
+- [x] 04-02-PLAN.md — W1 Inspector Structural 3 (ins-blueprint-compliance, ins-timing-consistency, ins-schema-integrity; maxTurns=1) — ✅ shipped 2026-04-19
+- [x] 04-03-PLAN.md — W1 Inspector Content 3 (ins-factcheck maxTurns=10, ins-narrative-quality, ins-korean-naturalness) + 10/9+ FAIL regression — ✅ shipped 2026-04-19, studio@852ddca
+- [x] 04-04-PLAN.md — W1 Inspector Style 3 (ins-tone-brand maxTurns=5, ins-readability, ins-thumbnail-hook) — ✅ shipped 2026-04-19, studio@df5a1b3
+- [x] 04-05-PLAN.md — W2 Inspector Compliance 3 (ins-license, ins-platform-policy, ins-safety) + AF-4/13 100% 차단 — ✅ shipped 2026-04-19, studio@c53ccef
+- [x] 04-06-PLAN.md — W2 Inspector Technical 3 (ins-audio-quality, ins-render-integrity, ins-subtitle-alignment) — ✅ shipped 2026-04-19, studio@3d0b250
+- [x] 04-07-PLAN.md — W2 Inspector Media 2 (ins-mosaic, ins-gore) + AF-5 100% 차단 — ✅ shipped 2026-04-19, studio@6cea65f
+- [x] 04-08-PLAN.md — W3 Producer Core 6 + 3단 분리 3 (trend-collector, niche-classifier, researcher, director, scene-planner, shot-planner, scripter, script-polisher, metadata-seo) — ✅ shipped 2026-04-19, studio@9a82729
+- [x] 04-09-PLAN.md — W4 Producer 지원 5 + Supervisor 1 (voice-producer, asset-sourcer, assembler, thumbnail-designer, publisher, shorts-supervisor) + _delegation_depth guard — ✅ shipped 2026-04-19, studio@90223c3
+- [x] 04-10-PLAN.md — W5 Integration: harness-audit ≥ 80 + GAN contamination 0 + LogicQA schema 17/17 + SC1 reconciliation 32 canonical — ✅ shipped 2026-04-19, studio@778745a+62c0758 (harness_audit score 100, 244/244 pytest PASS, GAN_CLEAN 17/17, total=32 agents). **PHASE 4 COMPLETE.**
 
-**Note on SC1 reconciliation (RESEARCH Open Q1):** Original SC1 "12~20 사이"는 Phase 2 초안. Phase 4 RESEARCH.md의 REQUIREMENTS enumeration (Producer 14 + Inspector 17 + Supervisor 1 = 32)이 우선. Plan 10이 이 수치를 공식 반영하고 SC1 문구를 amend한다. D-9 PROJECT.md 경향: REQUIREMENTS.md 구체성 > ROADMAP SC 근사값.
+**Note on SC1 reconciliation (RESEARCH Open Q1) — RESOLVED 2026-04-19 by Plan 10:** Original SC1 "12~20 사이"는 Phase 2 초안이었다. Phase 4 RESEARCH.md의 REQUIREMENTS enumeration (Producer 14 + Inspector 17 + Supervisor 1 = 32)이 우선한다. Plan 10 Wave 5 (studio@62c0758)에서 SC1 문구를 32 canonical로 amend 완료. D-9 PROJECT.md 경향 적용: REQUIREMENTS.md 구체성 > ROADMAP SC 근사값. 이로써 Open Question 1은 공식 종결.
 
 **UI hint:** no
 
@@ -214,9 +214,9 @@
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Scaffold | N/A | ✅ Completed | 2026-04-18 (session #10) |
-| 2. Domain Definition | 5/6 | In Progress|  |
-| 3. Harvest | 8/9 | Complete    | 2026-04-18 |
-| 4. Agent Team Design | 4/10 | In Progress|  |
+| 2. Domain Definition | 6/6 | ✅ Complete | 2026-04-19 |
+| 3. Harvest | 9/9 | ✅ Complete | 2026-04-19 |
+| 4. Agent Team Design | 10/10 | ✅ Complete | 2026-04-19 |
 | 5. Orchestrator v2 | 0/TBD | Not started | - |
 | 6. Wiki + NotebookLM + FAILURES | 0/TBD | Not started | - |
 | 7. Integration Test | 0/TBD | Not started | - |
@@ -263,7 +263,7 @@
 ## Hard Constraints (불변)
 
 - `skip_gates=True` 및 `TODO(next-session)`은 pre_tool_use Hook으로 **물리 차단됨** — 회피 수단 존재하지 않음
-- 모든 SKILL.md ≤ 500줄, description ≤ 1024자, 에이전트 총합 12~20명
+- 모든 SKILL.md ≤ 500줄, description ≤ 1024자, 에이전트 총합 **32명** (Producer 14 + Inspector 17 + Supervisor 1, Phase 4 Plan 10 canonical per REQUIREMENTS AGENT-01~05; 원안 "12~20" amended 2026-04-19)
 - 오케스트레이터 500~800줄 (5166줄 드리프트 재발 금지)
 - 32 inspector 전수 이식 금지 (AF-10) — 17 inspector 6 카테고리 통합만
 - `shorts_naberal` 원본 수정 금지 — Harvest는 읽기만 허용
