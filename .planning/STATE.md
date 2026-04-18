@@ -32,7 +32,7 @@ progress:
 ## Current Position
 
 Phase: 03 (harvest) — EXECUTING
-Plan: 7 of 9 complete (Wave 1 almost done — 03-01/02/03/05/06 shipped; 03-04 remotion_src_raw remaining)
+Plan: 6 of 9 complete in Phase 3 — Wave 1 complete (03-03/04/05/06 all shipped) + W0 (03-01/02); W2 (03-07), W3 (03-08), W4 (03-09) pending
 
 - **Phase:** 3
 - **Next Phase:** 3 (Harvest) — Entry point: `/gsd:execute-phase 3`
@@ -121,7 +121,8 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 - [x] **Phase 3 Plan 03-05 execute** → hc_checks_raw cherry_pick (studio@51205ba, 2026-04-19) — hc_checks.py 1129 lines + test_hc_checks.py byte-identical, orchestrate.py blacklist enforced (HARVEST-03)
 - [x] **Phase 3 Plan 03-06 execute** → api_wrappers_raw cherry_pick (studio@aeac16b, 2026-04-19) — 5/5 wrappers byte-identical (elevenlabs_alignment, tts_generate, _kling_i2v_batch, runway_client, heygen_client), 0 selenium imports, orchestrate.py absent (HARVEST-05)
 - [x] **Phase 3 Plan 03-04 execute** → remotion_src_raw copy (studio@4bc7ece, 2026-04-19) — 40 files / 0.161 MB, node_modules 758 MB excluded via shutil.ignore_patterns, diff_verifier mismatches=[], __pycache__/secret 0 hits (HARVEST-02)
-- [ ] **Phase 3 Wave 1 parallel siblings** → theme_bible_raw (03-03) — in-flight concurrent execution
+- [x] **Phase 3 Wave 1 complete** → all 4 raw dirs shipped: theme_bible_raw (03-03) + remotion_src_raw (03-04) + hc_checks_raw (03-05) + api_wrappers_raw (03-06)
+- [ ] **Phase 3 Wave 2+** → diff_verifier --all + FAILURES merge (03-07) → decisions.md (03-08) → lockdown (03-09)
 
 ### Blockers
 
@@ -155,6 +156,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 03-harvest P05 | 1 | 1 | 2 committed (51205ba: hc_checks.py 1129 lines + test_hc_checks.py) + 1 meta (SUMMARY) |
 | Phase 03-harvest P06 | 4 | 1 | 6 committed (aeac16b: 5 wrappers + audit_log) + 1 meta (SUMMARY) |
 | Phase 03-harvest P04 | 1 | 1 | 40 committed (4bc7ece: Remotion src tree — Root.tsx + index.ts + components/15 + compositions/11 + lib/12) + 1 meta (SUMMARY) |
+| Phase 03-harvest P03 | 1 | 1 | 8 committed (fba21e4: 7 channel bibles + audit_log) + 1 meta (SUMMARY) |
 
 ---
 

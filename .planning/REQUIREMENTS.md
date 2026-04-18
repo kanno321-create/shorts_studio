@@ -20,7 +20,7 @@
 
 ### HARVEST — shorts_naberal 자산 이관 (Phase 3 전용)
 
-- [ ] **HARVEST-01**: `theme-bible` 전체를 `.preserved/harvested/theme_bible_raw/`로 복사 (읽기 전용)
+- [x] **HARVEST-01**: `theme-bible` 전체를 `.preserved/harvested/theme_bible_raw/`로 복사 (읽기 전용) — ✅ 2026-04-19 (studio@fba21e4, 7 channel bibles byte-identical; path remapped from prose `.claude/theme-bible/` to actual `.claude/channel_bibles/` per path_manifest.json; diff_verifier mismatches=[])
 - [x] **HARVEST-02**: Remotion `src/` 렌더 코드를 `.preserved/harvested/remotion_src_raw/`로 복사 — ✅ 2026-04-19 (studio@4bc7ece, 40 files / 0.161 MB, node_modules excluded)
 - [ ] **HARVEST-03**: `hc_checks` 작동 검증된 유틸을 `.preserved/harvested/hc_checks_raw/`로 복사
 - [ ] **HARVEST-04**: `FAILURES.md` 과거 학습 자산을 `.claude/failures/_imported_from_shorts_naberal.md`로 통합

@@ -202,7 +202,7 @@
 |-------|----------------|--------|-----------|
 | 1. Scaffold | N/A | ✅ Completed | 2026-04-18 (session #10) |
 | 2. Domain Definition | 5/6 | In Progress|  |
-| 3. Harvest | 4/9 | In Progress | - |
+| 3. Harvest | 6/9 | In Progress (Wave 1 complete; W2/W3/W4 pending) | - |
 | 4. Agent Team Design | 0/TBD | Not started | - |
 | 5. Orchestrator v2 | 0/TBD | Not started | - |
 | 6. Wiki + NotebookLM + FAILURES | 0/TBD | Not started | - |
