@@ -13,7 +13,7 @@
 
 - [x] **Phase 1: Scaffold** — naberal_harness v1.0.1 상속 + Hook 3종 자동 설치 (세션 #10 완료)
 - [x] **Phase 2: Domain Definition** — 3-Tier 위키 물리 구조 생성 + 도메인 스코프 확정 (세션 #14 완료 2026-04-19, studio@f360e17)
-- [ ] **Phase 3: Harvest** — shorts_naberal 작동 자산 이관 + CONFLICT_MAP 39 전수 판정 + Tier 3 chmod -w 잠금
+- [x] **Phase 3: Harvest** — shorts_naberal 작동 자산 이관 + CONFLICT_MAP 39 전수 판정 + Tier 3 attrib +R 잠금 (세션 #15 완료 2026-04-19, verify_harvest --full 15/15 PASS)
 - [ ] **Phase 4: Agent Team Design** — 17 inspector + Producer 팀 + rubric JSON Schema **동시 정의**
 - [ ] **Phase 5: Orchestrator v2** — 500~800줄 state machine + 12 GATE + DAG + 영상/음성 분리 합성
 - [ ] **Phase 6: Wiki + NotebookLM + FAILURES Reservoir** — Tier 2 합성 + 2-노트북 세팅 + Continuity Bible Prefix + 저수지 패턴
@@ -81,7 +81,7 @@
 - [x] 03-06-PLAN.md — api_wrappers_raw cherry_pick 4+ wrappers (W1, HARVEST-05) — ✅ shipped 2026-04-19, studio@aeac16b (5/5 wrappers byte-identical: elevenlabs_alignment.py + tts_generate.py + _kling_i2v_batch.py + runway_client.py + heygen_client.py; 0 selenium imports; orchestrate.py absent)
 - [x] 03-07-PLAN.md — diff_verifier --all + FAILURES merge (W2, HARVEST-04) — ✅ shipped 2026-04-19, studio@ad98b32 (Task 1 ALL_CLEAN across 4 raw dirs) + studio@1ff5768 (Task 2 _imported_from_shorts_naberal.md 500 lines, sha256=978bb9381fee..., idempotent SOURCES-locked merge)
 - [x] 03-08-PLAN.md — 03-HARVEST_DECISIONS.md 39 rows + blacklist grep audit (W3, HARVEST-07/08) — ✅ shipped 2026-04-19, studio@15b827f (Task 1: decisions.md 39 rows A:13/B:16/C:10) + studio@c14ab95 (Task 2: 7-check blacklist audit PASS, 0 matches)
-- [ ] 03-09-PLAN.md — attrib +R lockdown + verify_harvest --full (W4, HARVEST-06)
+- [x] 03-09-PLAN.md — attrib +R lockdown + verify_harvest --full (W4, HARVEST-06) — ✅ shipped 2026-04-19, studio@8ae370e (Task 1: Tier 3 lockdown 55 files R-flagged, PermissionError probe PASS) + studio@d4fc5e4 (Task 2: verify_harvest --full 15/15 PASS, 03-VALIDATION.md frontmatter flipped complete/true/true). **PHASE 3 COMPLETE.**
 
 ---
 
