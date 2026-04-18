@@ -89,7 +89,7 @@
 - [ ] **CONTENT-03**: High-Signal 마이크로 틈새 페르소나 (NotebookLM T9)
 - [ ] **CONTENT-04**: NotebookLM grounded research manifest per episode (DF-2)
 - [x] **CONTENT-05**: 9:16 / 1080×1920 / ≤59s 포맷 강제 (TS-1)
-- [ ] **CONTENT-06**: 한국어 자막 burn-in (24~32pt, 1~4 단어/라인, 중앙) — TS-3
+- [x] **CONTENT-06**: 한국어 자막 burn-in (24~32pt, 1~4 단어/라인, 중앙) — TS-3
 - [ ] **CONTENT-07**: 한국어 + 로마자 메타데이터 SEO — TS-6
 
 ### VIDEO — 영상 생성
@@ -109,9 +109,9 @@
 
 ### SUBT — 자막
 
-- [ ] **SUBT-01**: WhisperX + `kresnik/wav2vec2-large-xlsr-korean` 통합
+- [x] **SUBT-01**: WhisperX + `kresnik/wav2vec2-large-xlsr-korean` 통합
 - [ ] **SUBT-02**: 한국어 화법 검사기 — 존댓말/반말 혼용 감지 + 교정 (`ins-korean-naturalness`, T10)
-- [ ] **SUBT-03**: 타임스탬프 정렬 정확도 ±50ms
+- [x] **SUBT-03**: 타임스탬프 정렬 정확도 ±50ms
 
 ### PUB — 발행
 
