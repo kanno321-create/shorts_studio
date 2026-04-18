@@ -53,8 +53,8 @@
   4. Harvest 범위 결정서(`HARVEST_SCOPE.md` 또는 동등 문서)가 존재하여 Phase 3이 무엇을 가져올지/버릴지 명확하다
 **Plans:** 6 plans (4 waves)
 - [x] 02-01-PLAN.md — harness STRUCTURE.md schema bump v1.0.0 to v1.1.0 (W1) — ✅ shipped 2026-04-19, harness@8a8c32b
-- [x] 02-02-PLAN.md — Tier 1 harness/wiki/ + README.md (W2)
-- [ ] 02-03-PLAN.md — Tier 2 studios/shorts/wiki/ 5 MOC + README + Tier 3 .preserved/harvested/ (W2)
+- [x] 02-02-PLAN.md — Tier 1 harness/wiki/ + README.md (W2) — ✅ shipped 2026-04-19, harness@1ff2e34
+- [x] 02-03-PLAN.md — Tier 2 studios/shorts/wiki/ 5 MOC + README + Tier 3 .preserved/harvested/ (W2) — ✅ shipped 2026-04-19 (studio content staged for Plan 02-06 consolidated commit)
 - [ ] 02-04-PLAN.md — studios/shorts/CLAUDE.md 5 TODO 치환 + line 7 typo fix (W3)
 - [ ] 02-05-PLAN.md — 02-HARVEST_SCOPE.md (A급 13건 사전 판정 + Blacklist + B/C 위임) (W3)
 - [ ] 02-06-PLAN.md — 12 VALIDATION tests + studio Phase 2 consolidated commit (W4)
@@ -192,7 +192,7 @@
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Scaffold | N/A | ✅ Completed | 2026-04-18 (session #10) |
-| 2. Domain Definition | 0/6 | Planned (6 plans) | - |
+| 2. Domain Definition | 3/6 | In progress (Plans 01, 02, 03 shipped 2026-04-19) | - |
 | 3. Harvest | 0/TBD | Not started | - |
 | 4. Agent Team Design | 0/TBD | Not started | - |
 | 5. Orchestrator v2 | 0/TBD | Not started | - |

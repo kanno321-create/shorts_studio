@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-18T17:27:36.561Z"
+last_updated: "2026-04-18T17:28:10.000Z"
 progress:
   total_phases: 10
   completed_phases: 0
   total_plans: 6
-  completed_plans: 2
-  percent: 33
+  completed_plans: 3
+  percent: 50
 ---
 
 # STATE — naberal-shorts-studio
 
 **Last updated:** 2026-04-19
-**Session:** #13 (Phase 2 Plan 02 complete — harness/wiki/ Tier 1 scaffold shipped)
+**Session:** #13 (Phase 2 Plans 02 + 03 complete — harness/wiki Tier 1 scaffold + studios/shorts/wiki Tier 2 + Tier 3 scaffold shipped in parallel)
 
 ---
 
@@ -32,12 +32,12 @@ progress:
 ## Current Position
 
 Phase: 02 (domain-definition) — EXECUTING
-Plan: 3 of 6 (next)
+Plan: 4 of 6 (next)
 
-- **Phase:** 2 (Plan 01, 02 complete; Plan 03 next — CLAUDE.md 5 TODO 치환 / running in parallel with this run's executor)
-- **Plan:** 02-03 next (CLAUDE.md 5 TODO 치환) — note: spawned in parallel with 02-02 per orchestrator
-- **Status:** Executing Phase 02, Plan 02 shipped (commit harness@1ff2e34)
-- **Progress:** [███░░░░░░░] 33%
+- **Phase:** 2 (Plans 01, 02, 03 complete; Plan 04 next — CLAUDE.md 5 TODO 치환)
+- **Plan:** 02-04 next (CLAUDE.md 5 TODO 치환 — Wave 3)
+- **Status:** Executing Phase 02. Plan 02 shipped (harness@1ff2e34). Plan 03 shipped in studios/shorts repo — 7 content files staged for Plan 06 consolidated commit.
+- **Progress:** [█████░░░░░] 50% (3/6 plans)
 
 ---
 
@@ -46,10 +46,11 @@ Plan: 3 of 6 (next)
 - ✅ **Phase 1: Scaffold** — 2026-04-18 (session #10)
   - INFRA-01, INFRA-03, INFRA-04 완료
   - `studios/shorts/` 스캐폴드, Hook 3종 설치, 공용 5 스킬 상속
-- 🔄 **Phase 2: Domain Definition** — EXECUTING (Plan 02 of 6 shipped 2026-04-19)
+- 🔄 **Phase 2: Domain Definition** — EXECUTING (Plans 01, 02, 03 of 6 shipped 2026-04-19)
   - ✅ Plan 02-01: STRUCTURE.md v1.0.0 → v1.1.0 bump + wiki/ whitelisted (harness@8a8c32b)
   - ✅ Plan 02-02: harness/wiki/ Tier 1 scaffold (folder + README.md) created (harness@1ff2e34)
-  - ⏳ Plan 02-03 ~ 02-06: Pending (02-03 spawned in parallel with this executor)
+  - ✅ Plan 02-03: studios/shorts/wiki/ Tier 2 (5 categories + README + 5 MOC) + .preserved/harvested/ Tier 3 scaffold created (studio content files staged for Plan 06 consolidated commit; this plan's meta commit covers SUMMARY+STATE+ROADMAP only)
+  - ⏳ Plan 02-04 ~ 02-06: Pending
 - ⏳ **Phase 3~10**: Pending
 
 ---
@@ -86,16 +87,17 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 8. **D2-C Harvest scope = A급 13건 사전** — CONFLICT_MAP A급만 Phase 2에서 판정. B급/C급은 Phase 3 harvest-importer.
 9. **D2-D CLAUDE.md 치환 = 중간** — D-1~D-10 반영, Phase 4~5 결정 수치는 TBD(Phase X) 명시.
 
-### Active Todos (Phase 2 Plan 02 next)
+### Active Todos (Phase 2 Plan 04 next)
 
 - [x] Phase 2 gray areas 확정 (4건: Tier1 minimal / Tier2 MOC skeleton / A급 13 사전 판정 / CLAUDE.md 중간)
 - [x] 02-CONTEXT.md + 02-DISCUSSION-LOG.md 커밋 (9b9039f)
 - [x] `/gsd:plan-phase 2` 실행 → 02-01~06-PLAN.md 생성 (6 plans)
 - [x] **Phase 2 Plan 01 execute → STRUCTURE.md v1.0.0→v1.1.0 bump (harness@8a8c32b, 2026-04-19)**
 - [x] **Phase 2 Plan 02 execute → harness/wiki/ Tier 1 scaffold 생성 (harness@1ff2e34, 2026-04-19)**
-- [ ] Phase 2 Plan 03 execute → CLAUDE.md 5 TODO 치환 (parallel with 02-02)
-- [ ] Phase 2 Plan 04 execute → HARVEST_SCOPE.md 작성 (A급 13건 판정)
-- [ ] Phase 2 Plan 05~06 execute (TBD)
+- [x] **Phase 2 Plan 03 execute → studios/shorts/wiki/ Tier 2 + Tier 3 scaffold 생성 (staged for Plan 06 consolidated commit, 2026-04-19)**
+- [ ] Phase 2 Plan 04 execute → CLAUDE.md 5 TODO 치환
+- [ ] Phase 2 Plan 05 execute → HARVEST_SCOPE.md 작성 (A급 13건 판정)
+- [ ] Phase 2 Plan 06 execute → studio Phase 2 consolidated commit + 12 VALIDATION tests
 
 ### Blockers
 
@@ -120,6 +122,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Plan | Duration (min) | Tasks | Files |
 |------|----------------|-------|-------|
 | Phase 02-domain-definition P02 | 2 | 1 | 1 |
+| Phase 02-domain-definition P03 | 2 | 2 | 7 |
 
 ---
 
