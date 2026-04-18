@@ -52,3 +52,12 @@ legitimately harvested source trees. Audit 3d narrows to
 to match blacklist intent (no top-level harvested raw dir sourced from
 `shorts_naberal/longform/`).
 HARVEST-07 satisfied.
+
+## Wave 4 Task 1 — Tier 3 lockdown (2026-04-18T19:25:18Z)
+attrib command: cmd.exe /c attrib +R /S /D C:\Users\PC\Desktop\naberal_group\studios\shorts\.preserved\harvested\*
+return code: 0
+probe file: .preserved/harvested/theme_bible_raw/documentary.md (rglob first *.md)
+write probe result: PermissionError raised (expected - lockdown active)
+Files with R attribute: 55 (theme_bible_raw=7, remotion_src_raw=40, hc_checks_raw=2, api_wrappers_raw=5, + directory nodes)
+Independent verify: cmd.exe //c "attrib .preserved\harvested\*.* /s" shows 'A    R' on every file
+Result: PASS
