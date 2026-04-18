@@ -46,13 +46,13 @@ Plan: 6 of 6 (next)
 - ✅ **Phase 1: Scaffold** — 2026-04-18 (session #10)
   - INFRA-01, INFRA-03, INFRA-04 완료
   - `studios/shorts/` 스캐폴드, Hook 3종 설치, 공용 5 스킬 상속
-- 🔄 **Phase 2: Domain Definition** — EXECUTING (Plans 01, 02, 03, 04 of 6 shipped 2026-04-19)
+- 🔄 **Phase 2: Domain Definition** — EXECUTING (Plans 01, 02, 03, 04, 05 of 6 shipped 2026-04-19)
   - ✅ Plan 02-01: STRUCTURE.md v1.0.0 → v1.1.0 bump + wiki/ whitelisted (harness@8a8c32b)
   - ✅ Plan 02-02: harness/wiki/ Tier 1 scaffold (folder + README.md) created (harness@1ff2e34)
   - ✅ Plan 02-03: studios/shorts/wiki/ Tier 2 (5 categories + README + 5 MOC) + .preserved/harvested/ Tier 3 scaffold created (studio content files staged for Plan 06 consolidated commit; this plan's meta commit covers SUMMARY+STATE+ROADMAP only)
   - ✅ Plan 02-04: studios/shorts/CLAUDE.md 5 TODO replacement + line 7 typo fix (5 Edit ops covering 6 semantic sites — DOMAIN_GOAL, typo, 12 GATE pipeline, 8 absolute rules, hive goal+TBD+5 Korean triggers). CLAUDE.md staged for Plan 02-06 consolidated commit. Meta commit covers SUMMARY+STATE+ROADMAP only.
-  - 🔄 Plan 02-05: HARVEST_SCOPE.md (in parallel execution)
-  - ⏳ Plan 02-06: Pending
+  - ✅ Plan 02-05: 02-HARVEST_SCOPE.md (175 lines) — A급 13 사전 판정 테이블 (2 승계 / 3 폐기 / 8 통합-재작성) + HARVEST_BLACKLIST Python dict (11 entries) + 4 raw 디렉토리 매핑 (HARVEST-01/02/03/05) + FAILURES 이관 경로 + B/C급 26 Phase 3 위임 알고리즘 pseudocode + Harvest 성공 기준. Phase 3 harvest-importer 입력 완성. File staged for Plan 02-06 consolidated commit.
+  - ⏳ Plan 02-06: Pending (consolidated studio commit + 12 VALIDATION tests)
 - ⏳ **Phase 3~10**: Pending
 
 ---
@@ -89,7 +89,14 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 8. **D2-C Harvest scope = A급 13건 사전** — CONFLICT_MAP A급만 Phase 2에서 판정. B급/C급은 Phase 3 harvest-importer.
 9. **D2-D CLAUDE.md 치환 = 중간** — D-1~D-10 반영, Phase 4~5 결정 수치는 TBD(Phase X) 명시.
 
-### Active Todos (Phase 2 Plan 05 parallel / Plan 06 next)
+### Session #14 Decisions (Plan 05 — HARVEST_SCOPE.md)
+
+10. **A급 13 판정 분포 = 2/3/8** — 승계 2 (A-2 cuts[], A-9 탐정님 금지) / 폐기 3 (A-5 TODO, A-6 skip_gates, A-11 longform-scripter) / 통합-재작성 8 (A-1, A-3, A-4, A-7, A-8, A-10, A-12, A-13). RESEARCH.md Draft Judgments 와 100% 일치.
+11. **HARVEST_BLACKLIST Python dict 형식** — Phase 3 harvest-importer 가 eval 없이 로드 가능. 11 entries: orchestrate.py:1239-1291 (A-6) + TODO 4곳 (A-5) + longform/ (A-11) + create-video/ (A-12) + create-shorts/SKILL.md (A-3) + selenium (AF-8) + orchestrate.py 전체 (D-7).
+12. **4 raw 디렉토리 매핑 = HARVEST-01/02/03/05 와 1:1** — theme_bible_raw (HARVEST-01), remotion_src_raw (HARVEST-02), hc_checks_raw (HARVEST-03), api_wrappers_raw (HARVEST-05). HARVEST-04(FAILURES) 는 별도 이관 경로 (`_imported_from_shorts_naberal.md`).
+13. **B/C급 26 위임 알고리즘 = 5-rule pseudocode** — blacklist > scope-boundary > session-77-canonical > cosmetic-cleanup > default-rewrite. Phase 3 harvest-importer 가 parse 하여 사용.
+
+### Active Todos (Phase 2 Plan 06 next)
 
 - [x] Phase 2 gray areas 확정 (4건: Tier1 minimal / Tier2 MOC skeleton / A급 13 사전 판정 / CLAUDE.md 중간)
 - [x] 02-CONTEXT.md + 02-DISCUSSION-LOG.md 커밋 (9b9039f)
@@ -98,7 +105,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 - [x] **Phase 2 Plan 02 execute → harness/wiki/ Tier 1 scaffold 생성 (harness@1ff2e34, 2026-04-19)**
 - [x] **Phase 2 Plan 03 execute → studios/shorts/wiki/ Tier 2 + Tier 3 scaffold 생성 (staged for Plan 06 consolidated commit, 2026-04-19)**
 - [x] **Phase 2 Plan 04 execute → CLAUDE.md 5 TODO 치환 + line 7 typo fix (staged for Plan 06 consolidated commit, 2026-04-19)**
-- [ ] Phase 2 Plan 05 execute → HARVEST_SCOPE.md 작성 (A급 13건 판정) — in parallel
+- [x] **Phase 2 Plan 05 execute → 02-HARVEST_SCOPE.md A급 13 사전 판정 (175 lines, staged for Plan 06 consolidated commit, 2026-04-19)**
 - [ ] Phase 2 Plan 06 execute → studio Phase 2 consolidated commit + 12 VALIDATION tests
 
 ### Blockers
@@ -125,6 +132,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 |------|----------------|-------|-------|
 | Phase 02-domain-definition P02 | 2 | 1 | 1 |
 | Phase 02-domain-definition P03 | 2 | 2 | 7 |
+| Phase 02-domain-definition P05 | 12 | 1 | 1 |
 | Phase 02-domain-definition P04 | 3 | 1 | 1 (5 Edit ops / 6 sites) |
 
 ---
