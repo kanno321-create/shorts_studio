@@ -51,7 +51,13 @@
   2. `naberal_harness/STRUCTURE.md`가 Tier 1 wiki 추가를 반영하도록 schema bump 커밋되어 있다 (Whitelist 위반 없음)
   3. `CLAUDE.md`의 `{{TODO}}` 5종(ONE_LINE_DESCRIPTION, DOMAIN_GOAL, PIPELINE_FLOW, DOMAIN_ABSOLUTE_RULES, TRIGGER_PHRASES)이 모두 치환되어 "shorts_naberal 니치 승계 + 주 3~4편 + YPP 진입"이 문서로 선언되어 있다
   4. Harvest 범위 결정서(`HARVEST_SCOPE.md` 또는 동등 문서)가 존재하여 Phase 3이 무엇을 가져올지/버릴지 명확하다
-**Plans:** TBD
+**Plans:** 6 plans (4 waves)
+- [ ] 02-01-PLAN.md — harness STRUCTURE.md schema bump v1.0.0 to v1.1.0 (W1)
+- [ ] 02-02-PLAN.md — Tier 1 harness/wiki/ + README.md (W2)
+- [ ] 02-03-PLAN.md — Tier 2 studios/shorts/wiki/ 5 MOC + README + Tier 3 .preserved/harvested/ (W2)
+- [ ] 02-04-PLAN.md — studios/shorts/CLAUDE.md 5 TODO 치환 + line 7 typo fix (W3)
+- [ ] 02-05-PLAN.md — 02-HARVEST_SCOPE.md (A급 13건 사전 판정 + Blacklist + B/C 위임) (W3)
+- [ ] 02-06-PLAN.md — 12 VALIDATION tests + studio Phase 2 consolidated commit (W4)
 
 ---
 
@@ -186,7 +192,7 @@
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Scaffold | N/A | ✅ Completed | 2026-04-18 (session #10) |
-| 2. Domain Definition | 0/TBD | Not started | - |
+| 2. Domain Definition | 0/6 | Planned (6 plans) | - |
 | 3. Harvest | 0/TBD | Not started | - |
 | 4. Agent Team Design | 0/TBD | Not started | - |
 | 5. Orchestrator v2 | 0/TBD | Not started | - |

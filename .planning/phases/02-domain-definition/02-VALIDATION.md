@@ -52,7 +52,7 @@ Phase 2는 **코드 변경 0줄**의 doc/infra phase. Validation은 **file exist
 | 2-W3-02 | 04 | 3 | INFRA-02 (line 7 typo fix) | unit | `grep -c "vv1.0" studios/shorts/CLAUDE.md` (expected: 0) + `grep -c "v1.0.1" studios/shorts/CLAUDE.md` (expected: ≥1) | ✅ | ⬜ pending |
 | 2-W3-03 | 04 | 3 | INFRA-02 (8 absolute rules) | unit | `grep -c "skip_gates=True 금지" studios/shorts/CLAUDE.md` (expected: 1) + 동일 패턴 7개 더 | ✅ | ⬜ pending |
 | 2-W3-04 | 05 | 3 | INFRA-02 (HARVEST_SCOPE) | unit | `test -f studios/shorts/.planning/phases/02-domain-definition/02-HARVEST_SCOPE.md && for i in 1 2 3 4 5 6 7 8 9 10 11 12 13; do grep -c "A-$i" studios/shorts/.planning/phases/02-domain-definition/02-HARVEST_SCOPE.md; done` (each: ≥1) | ✅ | ⬜ pending |
-| 2-W4-01 | 05 | 4 | INFRA-02 (studio commit) | smoke | `cd studios/shorts && git log --oneline -5 | grep -Ei "phase 2|INFRA-02|domain definition"` (expected: ≥1 match) | ✅ | ⬜ pending |
+| 2-W4-01 | 06 | 4 | INFRA-02 (studio commit) | smoke | `cd studios/shorts && git log --oneline -5 | grep -Ei "phase 2|INFRA-02|domain definition"` (expected: ≥1 match) | ✅ | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
