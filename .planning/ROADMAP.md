@@ -53,7 +53,7 @@
   4. Harvest 범위 결정서(`HARVEST_SCOPE.md` 또는 동등 문서)가 존재하여 Phase 3이 무엇을 가져올지/버릴지 명확하다
 **Plans:** 6 plans (4 waves)
 - [x] 02-01-PLAN.md — harness STRUCTURE.md schema bump v1.0.0 to v1.1.0 (W1) — ✅ shipped 2026-04-19, harness@8a8c32b
-- [ ] 02-02-PLAN.md — Tier 1 harness/wiki/ + README.md (W2)
+- [x] 02-02-PLAN.md — Tier 1 harness/wiki/ + README.md (W2)
 - [ ] 02-03-PLAN.md — Tier 2 studios/shorts/wiki/ 5 MOC + README + Tier 3 .preserved/harvested/ (W2)
 - [ ] 02-04-PLAN.md — studios/shorts/CLAUDE.md 5 TODO 치환 + line 7 typo fix (W3)
 - [ ] 02-05-PLAN.md — 02-HARVEST_SCOPE.md (A급 13건 사전 판정 + Blacklist + B/C 위임) (W3)

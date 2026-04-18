@@ -11,7 +11,7 @@
 ### INFRA — 하네스 상속 + 디렉토리 구조
 
 - [ ] **INFRA-01**: `naberal_harness v1.0.1`을 `new_domain.py shorts`로 상속 완료 (Phase 1 완료 상태 확인)
-- [ ] **INFRA-02**: 3-Tier 위키 디렉토리 물리 생성
+- [x] **INFRA-02**: 3-Tier 위키 디렉토리 물리 생성
   - Tier 1: `naberal_harness/wiki/` (STRUCTURE.md schema bump 필요)
   - Tier 2: `studios/shorts/wiki/`
   - Tier 3: `studios/shorts/.preserved/harvested/`

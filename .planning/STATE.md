@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-19T17:21:45Z"
+last_updated: "2026-04-18T17:27:36.561Z"
 progress:
   total_phases: 10
   completed_phases: 0
   total_plans: 6
-  completed_plans: 1
-  percent: 12
+  completed_plans: 2
+  percent: 33
 ---
 
 # STATE — naberal-shorts-studio
 
 **Last updated:** 2026-04-19
-**Session:** #13 (Phase 2 Plan 01 complete — STRUCTURE.md v1.1.0 bumped)
+**Session:** #13 (Phase 2 Plan 02 complete — harness/wiki/ Tier 1 scaffold shipped)
 
 ---
 
@@ -32,12 +32,12 @@ progress:
 ## Current Position
 
 Phase: 02 (domain-definition) — EXECUTING
-Plan: 2 of 6 (next)
+Plan: 3 of 6 (next)
 
-- **Phase:** 2 (Plan 01 complete, Plan 02 next — harness/wiki/ folder creation)
-- **Plan:** 02-02 next (wiki/ folder + README.md physical creation)
-- **Status:** Executing Phase 02, Plan 01 shipped (commit harness@8a8c32b)
-- **Progress:** `[██░░░░░░░░] 1/6 plans in Phase 2` (STRUCTURE.md v1.1.0 bumped, wiki/ whitelisted)
+- **Phase:** 2 (Plan 01, 02 complete; Plan 03 next — CLAUDE.md 5 TODO 치환 / running in parallel with this run's executor)
+- **Plan:** 02-03 next (CLAUDE.md 5 TODO 치환) — note: spawned in parallel with 02-02 per orchestrator
+- **Status:** Executing Phase 02, Plan 02 shipped (commit harness@1ff2e34)
+- **Progress:** [███░░░░░░░] 33%
 
 ---
 
@@ -46,9 +46,10 @@ Plan: 2 of 6 (next)
 - ✅ **Phase 1: Scaffold** — 2026-04-18 (session #10)
   - INFRA-01, INFRA-03, INFRA-04 완료
   - `studios/shorts/` 스캐폴드, Hook 3종 설치, 공용 5 스킬 상속
-- 🔄 **Phase 2: Domain Definition** — EXECUTING (Plan 01 of 6 shipped 2026-04-19)
+- 🔄 **Phase 2: Domain Definition** — EXECUTING (Plan 02 of 6 shipped 2026-04-19)
   - ✅ Plan 02-01: STRUCTURE.md v1.0.0 → v1.1.0 bump + wiki/ whitelisted (harness@8a8c32b)
-  - ⏳ Plan 02-02 ~ 02-06: Pending
+  - ✅ Plan 02-02: harness/wiki/ Tier 1 scaffold (folder + README.md) created (harness@1ff2e34)
+  - ⏳ Plan 02-03 ~ 02-06: Pending (02-03 spawned in parallel with this executor)
 - ⏳ **Phase 3~10**: Pending
 
 ---
@@ -91,8 +92,8 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 - [x] 02-CONTEXT.md + 02-DISCUSSION-LOG.md 커밋 (9b9039f)
 - [x] `/gsd:plan-phase 2` 실행 → 02-01~06-PLAN.md 생성 (6 plans)
 - [x] **Phase 2 Plan 01 execute → STRUCTURE.md v1.0.0→v1.1.0 bump (harness@8a8c32b, 2026-04-19)**
-- [ ] Phase 2 Plan 02 execute → wiki/ 3-Tier 물리 생성
-- [ ] Phase 2 Plan 03 execute → CLAUDE.md 5 TODO 치환
+- [x] **Phase 2 Plan 02 execute → harness/wiki/ Tier 1 scaffold 생성 (harness@1ff2e34, 2026-04-19)**
+- [ ] Phase 2 Plan 03 execute → CLAUDE.md 5 TODO 치환 (parallel with 02-02)
 - [ ] Phase 2 Plan 04 execute → HARVEST_SCOPE.md 작성 (A급 13건 판정)
 - [ ] Phase 2 Plan 05~06 execute (TBD)
 
@@ -113,6 +114,12 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | 17 inspector 총 비용 (Fan-out calibration) | Phase 5 |
 | YouTube Analytics 일일 한도 + cron | Phase 10 |
 | Shotstack vs Remotion-only 색보정 | Phase 5 |
+
+### Plan Execution Log
+
+| Plan | Duration (min) | Tasks | Files |
+|------|----------------|-------|-------|
+| Phase 02-domain-definition P02 | 2 | 1 | 1 |
 
 ---
 
