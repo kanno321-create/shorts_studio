@@ -31,9 +31,9 @@
 
 ### AGENT — 12~20명 통합 설계
 
-- [ ] **AGENT-01**: Producer 에이전트 6개 배포 (trend-collector, niche-classifier, researcher, scripter, script-polisher, metadata-seo)
-- [ ] **AGENT-02**: Producer 3단 분리 — **director** / **scene-planner** / **shot-planner** (NotebookLM T6)
-- [ ] **AGENT-03**: Producer 지원 5개 (voice-producer, asset-sourcer, assembler, thumbnail-designer, publisher)
+- [x] **AGENT-01**: Producer 에이전트 6개 배포 (trend-collector, niche-classifier, researcher, scripter, script-polisher, metadata-seo) — ✅ 04-08 (studio@8bcf052 Producer Core 6 AGENT.md)
+- [x] **AGENT-02**: Producer 3단 분리 — **director** / **scene-planner** / **shot-planner** (NotebookLM T6) — ✅ 04-08 (studio@d1f4ade 3단 분리 3 AGENT.md)
+- [x] **AGENT-03**: Producer 지원 5개 (voice-producer, asset-sourcer, assembler, thumbnail-designer, publisher) — ✅ 04-09 (studio@7b089d8 5 Producer Support AGENT.md)
 - [x] **AGENT-04**: Inspector 17명 / 6 카테고리 배포
   - Structural (3): `ins-blueprint-compliance`, `ins-timing-consistency`, `ins-schema-integrity`
   - Content (3): `ins-factcheck`, `ins-narrative-quality`, `ins-korean-naturalness`
@@ -41,7 +41,7 @@
   - Compliance (3): `ins-license`, `ins-platform-policy`, `ins-safety`
   - Technical (3): `ins-audio-quality`, `ins-render-integrity`, `ins-subtitle-alignment`
   - Media (2): `ins-mosaic`, `ins-gore`
-- [ ] **AGENT-05**: Supervisor(`shorts-supervisor`) 1명 — 재귀 위임 금지(1 depth)
+- [x] **AGENT-05**: Supervisor(`shorts-supervisor`) 1명 — 재귀 위임 금지(1 depth) — ✅ 04-09 (studio@1497c94 shorts-supervisor AGENT.md + _delegation_depth guard)
 - [x] **AGENT-06**: Harvest-importer (Phase 3 only)
 - [x] **AGENT-07**: 모든 SKILL.md ≤ 500줄 검증 (harness-audit) — ✅ 04-01 (scripts/validate/validate_all_agents.py check_line_count)
 - [x] **AGENT-08**: 모든 에이전트 description에 트리거 키워드 명시 (≤1024자) — ✅ 04-01 (check_description_chars + check_description_triggers)
@@ -51,7 +51,7 @@
 
 - [x] **RUB-01**: LogicQA 패턴 — Main-Q + 5 Sub-Qs 다수결 (NotebookLM T15)
 - [x] **RUB-02**: Reviewer는 O/X 평가만, 창작 금지 (NotebookLM T6)
-- [ ] **RUB-03**: **시맨틱 그래디언트 피드백 (VQQA)** — "팔이 녹아내림" 같은 자연어 → Producer 프롬프트 주입 (T7)
+- [x] **RUB-03**: **시맨틱 그래디언트 피드백 (VQQA)** — "팔이 녹아내림" 같은 자연어 → Producer 프롬프트 주입 (T7) — ✅ 04-01 (vqqa_corpus.md 5 VQQA samples) + 04-08 (Producer prompts `<prior_vqqa>` input block for retry loop)
 - [x] **RUB-04**: rubric JSON Schema를 AGENT 설계와 **동시 정의** (나중 추가 = 커플링 깨짐) — ✅ 04-01 (.claude/agents/_shared/rubric-schema.json draft-07 + supervisor-rubric-schema.json)
 - [x] **RUB-05**: maxTurns 표준 3 (예외: factcheck 10 / tone-brand 5 / regex 1)
 - [x] **RUB-06**: 각 inspector는 별도 context (GAN 분리)
@@ -86,11 +86,11 @@
 
 - [x] **CONTENT-01**: **3초 한국어 hook** — 질문형 + 숫자/고유명사 패턴 하드코딩 (TS-2, NotebookLM 3-2) — ✅ 04-03 (ins-narrative-quality AGENT.md prompt body hardcodes `?` + `[0-9]{2,}|[가-힣]{2,}` regex in LogicQA q1/q2)
 - [x] **CONTENT-02**: Duo dialogue (탐정 하오체 + 조수 해요체) 채널 정체성 — TS-12 — ✅ 04-03 (ins-narrative-quality + ins-korean-naturalness combined; speaker-specific register rules encoded in LogicQA)
-- [ ] **CONTENT-03**: High-Signal 마이크로 틈새 페르소나 (NotebookLM T9)
+- [x] **CONTENT-03**: High-Signal 마이크로 틈새 페르소나 (NotebookLM T9) — ✅ 04-08 (niche-classifier prompts references `.preserved/harvested/theme_bible_raw/<niche>.md` for persona injection; read-only path reference preserves attrib +R lockdown)
 - [x] **CONTENT-04**: NotebookLM grounded research manifest per episode (DF-2) — ✅ 04-03 (ins-factcheck maxTurns=10 RUB-05 exception; LogicQA 5 sub_qs covering nlm_source presence, credibility tier, 2-source minimum, numeric accuracy, Fallback chain audit)
 - [x] **CONTENT-05**: 9:16 / 1080×1920 / ≤59s 포맷 강제 (TS-1)
 - [x] **CONTENT-06**: 한국어 자막 burn-in (24~32pt, 1~4 단어/라인, 중앙) — TS-3
-- [ ] **CONTENT-07**: 한국어 + 로마자 메타데이터 SEO — TS-6
+- [x] **CONTENT-07**: 한국어 + 로마자 메타데이터 SEO — TS-6 — ✅ 04-08 (metadata-seo AGENT.md prompt body: 한국어 + 로마자 병기 키워드 생성; studio@8bcf052)
 
 ### VIDEO — 영상 생성
 
@@ -102,9 +102,9 @@
 
 ### AUDIO — 음성/음악
 
-- [ ] **AUDIO-01**: Typecast primary (한국어), ElevenLabs fallback
-- [ ] **AUDIO-02**: **하이브리드 오디오** — 트렌딩 3~5초 → 무료(royalty-free) crossfade (T11)
-- [ ] **AUDIO-03**: 감정 스타일 파라미터 동적 설정 (T13) — 콘텐츠 톤앤매너에 맞게
+- [x] **AUDIO-01**: Typecast primary (한국어), ElevenLabs fallback — ✅ 04-09 (voice-producer AGENT.md Typecast primary + ElevenLabs fallback chain; studio@7b089d8)
+- [x] **AUDIO-02**: **하이브리드 오디오** — 트렌딩 3~5초 → 무료(royalty-free) crossfade (T11) — ✅ 04-09 (asset-sourcer AGENT.md royalty-free crossfade rule)
+- [x] **AUDIO-03**: 감정 스타일 파라미터 동적 설정 (T13) — 콘텐츠 톤앤매너에 맞게 — ✅ 04-09 (voice-producer AGENT.md emotion_style 파라미터 dynamic binding)
 - [x] **AUDIO-04**: K-pop 트렌드 음원 직접 사용 금지 (KOMCA + Content ID) — ✅ 04-05 (ins-license AGENT.md K-pop regex bank 19 artists + 19 titles + royalty-free whitelist + AF-13 100% block verified)
 
 ### SUBT — 자막
