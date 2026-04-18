@@ -34,7 +34,7 @@
 - [ ] **AGENT-01**: Producer 에이전트 6개 배포 (trend-collector, niche-classifier, researcher, scripter, script-polisher, metadata-seo)
 - [ ] **AGENT-02**: Producer 3단 분리 — **director** / **scene-planner** / **shot-planner** (NotebookLM T6)
 - [ ] **AGENT-03**: Producer 지원 5개 (voice-producer, asset-sourcer, assembler, thumbnail-designer, publisher)
-- [ ] **AGENT-04**: Inspector 17명 / 6 카테고리 배포
+- [x] **AGENT-04**: Inspector 17명 / 6 카테고리 배포
   - Structural (3): `ins-blueprint-compliance`, `ins-timing-consistency`, `ins-schema-integrity`
   - Content (3): `ins-factcheck`, `ins-narrative-quality`, `ins-korean-naturalness`
   - Style (3): `ins-tone-brand`, `ins-readability`, `ins-thumbnail-hook`
@@ -49,12 +49,12 @@
 
 ### RUB — Reviewer Rubric 설계
 
-- [ ] **RUB-01**: LogicQA 패턴 — Main-Q + 5 Sub-Qs 다수결 (NotebookLM T15)
-- [ ] **RUB-02**: Reviewer는 O/X 평가만, 창작 금지 (NotebookLM T6)
+- [x] **RUB-01**: LogicQA 패턴 — Main-Q + 5 Sub-Qs 다수결 (NotebookLM T15)
+- [x] **RUB-02**: Reviewer는 O/X 평가만, 창작 금지 (NotebookLM T6)
 - [ ] **RUB-03**: **시맨틱 그래디언트 피드백 (VQQA)** — "팔이 녹아내림" 같은 자연어 → Producer 프롬프트 주입 (T7)
 - [x] **RUB-04**: rubric JSON Schema를 AGENT 설계와 **동시 정의** (나중 추가 = 커플링 깨짐) — ✅ 04-01 (.claude/agents/_shared/rubric-schema.json draft-07 + supervisor-rubric-schema.json)
-- [ ] **RUB-05**: maxTurns 표준 3 (예외: factcheck 10 / tone-brand 5 / regex 1)
-- [ ] **RUB-06**: 각 inspector는 별도 context (GAN 분리)
+- [x] **RUB-05**: maxTurns 표준 3 (예외: factcheck 10 / tone-brand 5 / regex 1)
+- [x] **RUB-06**: 각 inspector는 별도 context (GAN 분리)
 
 ### ORCH — 오케스트레이터 v2
 
@@ -88,7 +88,7 @@
 - [ ] **CONTENT-02**: Duo dialogue (탐정 하오체 + 조수 해요체) 채널 정체성 — TS-12
 - [ ] **CONTENT-03**: High-Signal 마이크로 틈새 페르소나 (NotebookLM T9)
 - [ ] **CONTENT-04**: NotebookLM grounded research manifest per episode (DF-2)
-- [ ] **CONTENT-05**: 9:16 / 1080×1920 / ≤59s 포맷 강제 (TS-1)
+- [x] **CONTENT-05**: 9:16 / 1080×1920 / ≤59s 포맷 강제 (TS-1)
 - [ ] **CONTENT-06**: 한국어 자막 burn-in (24~32pt, 1~4 단어/라인, 중앙) — TS-3
 - [ ] **CONTENT-07**: 한국어 + 로마자 메타데이터 SEO — TS-6
 

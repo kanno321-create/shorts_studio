@@ -99,7 +99,7 @@
   6. Compliance inspector 세트(`ins-license`, `ins-platform-policy`, `ins-safety`, `ins-mosaic`)가 AF-4(voice cloning real people), AF-5(real victim face), AF-13(K-pop 음원) 샘플을 100% 차단한다
 **Plans:** 10 plans
 - [x] 04-01-PLAN.md — W0 Wave 0 shared foundation: rubric-schema.json + agent-template.md + af_bank + korean_samples + 4 stdlib validators + pytest conftest — ✅ shipped 2026-04-19, studio@0dcb007+cd1d074+daca457+5a70504 (6 shared files + 5 validators + 14/14 pytest PASS; RUB-04 + AGENT-07/08/09 + COMPLY-01..06 + AUDIO-04 + SUBT-02 = 12 REQs satisfied; harness_audit score 95 on Wave 0 state)
-- [ ] 04-02-PLAN.md — W1 Inspector Structural 3 (ins-blueprint-compliance, ins-timing-consistency, ins-schema-integrity; maxTurns=1)
+- [x] 04-02-PLAN.md — W1 Inspector Structural 3 (ins-blueprint-compliance, ins-timing-consistency, ins-schema-integrity; maxTurns=1)
 - [ ] 04-03-PLAN.md — W1 Inspector Content 3 (ins-factcheck maxTurns=10, ins-narrative-quality, ins-korean-naturalness) + 10/9+ FAIL regression
 - [ ] 04-04-PLAN.md — W1 Inspector Style 3 (ins-tone-brand maxTurns=5, ins-readability, ins-thumbnail-hook)
 - [ ] 04-05-PLAN.md — W2 Inspector Compliance 3 (ins-license, ins-platform-policy, ins-safety) + AF-4/13 100% 차단
