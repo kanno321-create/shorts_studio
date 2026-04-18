@@ -1,10 +1,10 @@
 # shorts — AI 영상 제작
 
-TODO: 도메인 목표 1문장 작성
+AI 에이전트 팀이 자율 제작하는 주 3~4편 YouTube Shorts로 대표님의 기존 채널을 YPP 궤도에 올리는 스튜디오. **Core Value = 외부 수익 발생** (기술 성공 ≠ 비즈니스 성공).
 
 ## 하네스 상속
 
-**Layer 1**: `naberal_harness` vv1.0
+**Layer 1**: `naberal_harness` v1.0.1
 - 인프라 경로: `C:\Users\PC\Desktop\naberal_group\harness\`
 - 원칙 참조: `harness/docs/ARCHITECTURE.md`
 - 업데이트 명령: `python ../../harness/scripts/new_domain.py update shorts --only <skill_name>`
@@ -38,11 +38,26 @@ TODO: 도메인 목표 1문장 작성
 ## Pipeline → 도메인 오케스트레이터 참조
 
 ```
-TODO: 파이프라인 다이어그램 작성
+IDLE
+  → TREND → NICHE → RESEARCH_NLM → BLUEPRINT
+  → SCRIPT → POLISH → VOICE → ASSETS
+  → ASSEMBLY → THUMBNAIL → METADATA
+  → UPLOAD → MONITOR → COMPLETE
 ```
 
+> 위 GATE 이름·개수는 **대표 후보, Phase 5 Orchestrator v2 작성 시 최종 확정** (D-7 state machine, 500~800줄 구현).
+> 실 오케스트레이터 구현: `scripts/orchestrator/shorts_pipeline.py` (Phase 5)
+
 ### 도메인 절대 규칙
-- TODO: 도메인 절대 규칙 작성
+
+1. **`skip_gates=True` 금지** — `pre_tool_use.py` regex 차단 (CONFLICT_MAP A-6 재발 방지)
+2. **`TODO(next-session)` 금지** — `pre_tool_use.py` regex 차단 (A-5 재발 방지)
+3. **try-except 침묵 폴백 금지** — 명시적 `raise` + GATE 기록 필수
+4. **T2V 금지 — I2V only** — Anchor Frame 강제 (NotebookLM T1)
+5. **Selenium 업로드 영구 금지** — YouTube Data API v3 공식만 (AF-8)
+6. **`shorts_naberal` 원본 수정 금지** — Harvest는 `.preserved/harvested/`에 읽기 전용 복사만 (Phase 3, chmod -w)
+7. **K-pop 트렌드 음원 직접 사용 금지** — KOMCA + Content ID strike 위험 (AF-13). 하이브리드 오디오: 트렌딩 3~5초 → royalty-free crossfade (T11)
+8. **주 3~4편 페이스 준수** — 일일 업로드 = 봇 패턴 + Inauthentic Content 직격 (AF-1, AF-11). 48시간+ 랜덤 간격 + 한국 피크 시간 (평일 20-23 / 주말 12-15 KST)
 
 ---
 
@@ -61,11 +76,13 @@ TODO: 파이프라인 다이어그램 작성
 
 ---
 
-## 하네스: shorts-hive (e.g., shorts-hive)
+## 하네스: shorts-hive
 
-**목표**: TODO: 하네스 목표 작성
+**목표**: 주 3~4편 자동 영상 제작 + YPP 진입 궤도(1000구독 + 10M views/년) 확보. Core Value = 외부 YouTube 광고 수익 발생.
 
-**트리거**: "shorts 돌려", "shorts 시작"
+> **TBD (Phase 4 Agent Team Design)**: 에이전트 개수·이름 최종 확정 (현재 추정: Producer 11명 + Inspector 17명 + Supervisor 1명 = 29명, 범위 12~20 재조정 예정)
+
+**트리거**: "쇼츠 돌려" / "영상 뽑아" / "shorts 파이프라인" / "YouTube 업로드" / "쇼츠 시작"
 
 **팀 (`.claude/agents/shorts/`)**: TBD
 
