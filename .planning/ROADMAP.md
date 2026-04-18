@@ -73,7 +73,7 @@
   4. `.claude/failures/_imported_from_shorts_naberal.md`가 생성되어 과거 학습 자산이 사용 가능한 상태로 통합되어 있다
   5. Harvest Blacklist 문서가 `orchestrate.py:1239-1291 skip_gates 블록`을 포함한 금지 import 목록을 명시하고 있으며, harvest-importer 에이전트가 이를 참조한다
 **Plans:** 9 plans (W0:2, W1:4, W2:1, W3:1, W4:1)
-- [ ] 03-01-PLAN.md — harvest-importer AGENT.md + 7 Python stdlib modules (W0, AGENT-06)
+- [x] 03-01-PLAN.md — harvest-importer AGENT.md + 7 Python stdlib modules (W0, AGENT-06)
 - [x] 03-02-PLAN.md — path_manifest.json (filesystem-verified source mapping, W0, HARVEST-01/02/03/05/07) — ✅ shipped 2026-04-19, studio@609c3f8
 - [ ] 03-03-PLAN.md — theme_bible_raw copy (W1, HARVEST-01)
 - [ ] 03-04-PLAN.md — remotion_src_raw copy, node_modules 제외 (W1, HARVEST-02)

@@ -42,7 +42,7 @@
   - Technical (3): `ins-audio-quality`, `ins-render-integrity`, `ins-subtitle-alignment`
   - Media (2): `ins-mosaic`, `ins-gore`
 - [ ] **AGENT-05**: Supervisor(`shorts-supervisor`) 1명 — 재귀 위임 금지(1 depth)
-- [ ] **AGENT-06**: Harvest-importer (Phase 3 only)
+- [x] **AGENT-06**: Harvest-importer (Phase 3 only)
 - [ ] **AGENT-07**: 모든 SKILL.md ≤ 500줄 검증 (harness-audit)
 - [ ] **AGENT-08**: 모든 에이전트 description에 트리거 키워드 명시 (≤1024자)
 - [ ] **AGENT-09**: MUST REMEMBER 지시를 프롬프트 끝에 재배치 (RoPE 모델 Lost in the Middle 대응)

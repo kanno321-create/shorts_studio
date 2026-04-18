@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-18T18:48:50.419Z"
+last_updated: "2026-04-18T19:02:40.819Z"
 progress:
   total_phases: 10
   completed_phases: 1
   total_plans: 15
-  completed_plans: 6
-  percent: 100
+  completed_plans: 8
+  percent: 53
 ---
 
 # STATE — naberal-shorts-studio
@@ -32,12 +32,12 @@ progress:
 ## Current Position
 
 Phase: 03 (harvest) — EXECUTING
-Plan: 2 of 9 (Plan 03-02 complete; Plan 03-01 parallel track)
+Plan: 3 of 9 (Plan 03-02 complete; Plan 03-01 parallel track)
 
 - **Phase:** 3
 - **Next Phase:** 3 (Harvest) — Entry point: `/gsd:execute-phase 3`
-- **Status:** Executing Phase 03
-- **Progress:** [██████████] 100% (6/6 plans Phase 2)
+- **Status:** Ready to execute
+- **Progress:** [█████░░░░░] 53%
 
 ---
 
@@ -136,6 +136,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | 17 inspector 총 비용 (Fan-out calibration) | Phase 5 |
 | YouTube Analytics 일일 한도 + cron | Phase 10 |
 | Shotstack vs Remotion-only 색보정 | Phase 5 |
+| Phase 03-harvest P01 | 7 | 2 tasks | 10 files |
 
 ### Plan Execution Log
 
