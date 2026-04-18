@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-18T19:02:40.819Z"
+last_updated: "2026-04-19T04:05:00.000Z"
 progress:
   total_phases: 10
   completed_phases: 1
   total_plans: 15
-  completed_plans: 8
-  percent: 53
+  completed_plans: 9
+  percent: 60
 ---
 
 # STATE — naberal-shorts-studio
 
 **Last updated:** 2026-04-19
-**Session:** #15 (Phase 3 W0 EXECUTING — Plan 03-02 PATH-MANIFEST shipped. path_manifest.json verified 4 raw_dir + global_ignore + blacklist_exclusions. 5 of 5 api_wrapper cherry_picks present. Wave 1 input deterministic.)
+**Session:** #15 (Phase 3 Wave 1 EXECUTING — Plan 03-05 HC-CHECKS-COPY shipped parallel. hc_checks.py 1129 lines + test_hc_checks.py copied byte-identical into hc_checks_raw/. Blacklist enforced — orchestrate.py absent. studio@51205ba. Plans 03-03/04/06 running parallel on same wave.)
 
 ---
 
@@ -32,12 +32,12 @@ progress:
 ## Current Position
 
 Phase: 03 (harvest) — EXECUTING
-Plan: 3 of 9 (Plan 03-02 complete; Plan 03-01 parallel track)
+Plan: 5 of 9 complete (Wave 1 parallel batch in flight — 03-05 HC-CHECKS-COPY shipped; 03-03/04/06 concurrent)
 
 - **Phase:** 3
 - **Next Phase:** 3 (Harvest) — Entry point: `/gsd:execute-phase 3`
-- **Status:** Ready to execute
-- **Progress:** [█████░░░░░] 53%
+- **Status:** Wave 1 executing (parallel)
+- **Progress:** [██████░░░░] 60%
 
 ---
 
@@ -117,7 +117,8 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 - [x] **Phase 3 Harvest 진입**: `/gsd:execute-phase 3` — harvest-importer 에이전트 입력 = 02-HARVEST_SCOPE.md
 - [x] **Phase 3 Plan 03-02 execute** → path_manifest.json ground-truth registry (studio@609c3f8, 2026-04-19) — 4 raw_dir sources verified, global_ignore blocks 5 secret patterns, 5/5 api_wrapper cherry_picks confirmed present
 - [ ] **Phase 3 Plan 03-01 execute** (parallel) → harvest-importer AGENT.md + 7 Python stdlib modules (AGENT-06)
-- [ ] **Phase 3 Wave 1** → 4 raw copy tasks (theme_bible_raw, remotion_src_raw, hc_checks_raw, api_wrappers_raw) — unblocked by path_manifest.json
+- [x] **Phase 3 Plan 03-05 execute** → hc_checks_raw cherry_pick (studio@51205ba, 2026-04-19) — hc_checks.py 1129 lines + test_hc_checks.py byte-identical, orchestrate.py blacklist enforced (HARVEST-03)
+- [ ] **Phase 3 Wave 1 parallel siblings** → theme_bible_raw (03-03), remotion_src_raw (03-04), api_wrappers_raw (03-06) — in-flight concurrent execution
 
 ### Blockers
 
@@ -148,6 +149,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 02-domain-definition P04 | 3 | 1 | 1 (5 Edit ops / 6 sites) |
 | Phase 02-domain-definition P06 | 18 | 3 | 9 committed (f360e17) + 2 meta (VALIDATION, SUMMARY) |
 | Phase 03-harvest P02 | 3 | 2 | 1 committed (609c3f8) + 1 meta (SUMMARY) |
+| Phase 03-harvest P05 | 1 | 1 | 2 committed (51205ba: hc_checks.py 1129 lines + test_hc_checks.py) + 1 meta (SUMMARY) |
 
 ---
 

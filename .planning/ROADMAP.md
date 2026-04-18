@@ -75,10 +75,10 @@
 **Plans:** 9 plans (W0:2, W1:4, W2:1, W3:1, W4:1)
 - [x] 03-01-PLAN.md — harvest-importer AGENT.md + 7 Python stdlib modules (W0, AGENT-06)
 - [x] 03-02-PLAN.md — path_manifest.json (filesystem-verified source mapping, W0, HARVEST-01/02/03/05/07) — ✅ shipped 2026-04-19, studio@609c3f8
-- [ ] 03-03-PLAN.md — theme_bible_raw copy (W1, HARVEST-01)
+- [x] 03-03-PLAN.md — theme_bible_raw copy (W1, HARVEST-01) — ✅ shipped 2026-04-19, studio@fba21e4 (7 md files byte-identical, diff_verifier mismatches=[], manifest-driven shutil.copytree)
 - [ ] 03-04-PLAN.md — remotion_src_raw copy, node_modules 제외 (W1, HARVEST-02)
-- [ ] 03-05-PLAN.md — hc_checks_raw cherry_pick (W1, HARVEST-03)
-- [ ] 03-06-PLAN.md — api_wrappers_raw cherry_pick 4+ wrappers (W1, HARVEST-05)
+- [x] 03-05-PLAN.md — hc_checks_raw cherry_pick (W1, HARVEST-03) — ✅ shipped 2026-04-19, studio@51205ba (hc_checks.py 1129 lines + test_hc_checks.py byte-identical, orchestrate.py blacklist enforced)
+- [x] 03-06-PLAN.md — api_wrappers_raw cherry_pick 4+ wrappers (W1, HARVEST-05) — ✅ shipped 2026-04-19, studio@aeac16b (5/5 wrappers byte-identical: elevenlabs_alignment.py + tts_generate.py + _kling_i2v_batch.py + runway_client.py + heygen_client.py; 0 selenium imports; orchestrate.py absent)
 - [ ] 03-07-PLAN.md — diff_verifier --all + FAILURES merge (W2, HARVEST-04)
 - [ ] 03-08-PLAN.md — 03-HARVEST_DECISIONS.md 39 rows + blacklist grep audit (W3, HARVEST-07/08)
 - [ ] 03-09-PLAN.md — attrib +R lockdown + verify_harvest --full (W4, HARVEST-06)
@@ -202,7 +202,7 @@
 |-------|----------------|--------|-----------|
 | 1. Scaffold | N/A | ✅ Completed | 2026-04-18 (session #10) |
 | 2. Domain Definition | 5/6 | In Progress|  |
-| 3. Harvest | 0/TBD | Not started | - |
+| 3. Harvest | 4/9 | In Progress | - |
 | 4. Agent Team Design | 0/TBD | Not started | - |
 | 5. Orchestrator v2 | 0/TBD | Not started | - |
 | 6. Wiki + NotebookLM + FAILURES | 0/TBD | Not started | - |
