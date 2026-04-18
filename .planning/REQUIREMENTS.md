@@ -1,7 +1,7 @@
 # Requirements — naberal-shorts-studio
 
 **Version:** v1 (창업)
-**Last updated:** 2026-04-19
+**Last updated:** 2026-04-19 (Phase Traceability finalized by gsd-roadmapper)
 **Derived from:** PROJECT.md (10 Active), research/SUMMARY.md (14 sections), NotebookLM (17 novel techniques)
 
 ---
@@ -236,24 +236,78 @@ v1 검증 완료 후 또는 수익 발생 후 활성화.
 
 ## Phase Traceability
 
-<!-- 이 섹션은 gsd-roadmapper가 ROADMAP.md 생성 시 채움 -->
+**Finalized by gsd-roadmapper on 2026-04-19. 96/96 v1 REQ mapped (100% coverage, no orphans).**
 
-각 REQ-ID가 어느 Phase에 속하는지는 ROADMAP.md 생성 후 이 섹션에 역매핑됨.
+### Phase → REQ-IDs (Forward mapping)
 
-| Phase | REQ-IDs (to be filled by roadmapper) |
-|-------|--------------------------------------|
-| Phase 1 | INFRA-01, INFRA-03, INFRA-04 (스캐폴드) |
-| Phase 2 | INFRA-02 scope (위키 구조 결정) |
-| Phase 3 | HARVEST-01 ~ HARVEST-08 |
-| Phase 4 | AGENT-01 ~ AGENT-09, RUB-01 ~ RUB-06, CONTENT-01 ~ CONTENT-07, AUDIO-01 ~ AUDIO-04, SUBT-01 ~ SUBT-03, COMPLY-01 ~ COMPLY-06 |
-| Phase 5 | ORCH-01 ~ ORCH-12, VIDEO-01 ~ VIDEO-05 |
-| Phase 6 | WIKI-01 ~ WIKI-06, FAIL-01 ~ FAIL-03 |
-| Phase 7 | TEST-01 ~ TEST-04 |
-| Phase 8 | PUB-01 ~ PUB-05, REMOTE-01 ~ REMOTE-03 |
-| Phase 9 | KPI-05, KPI-06 (Taste gate 정의) |
-| Phase 10 | FAIL-04, KPI-01 ~ KPI-04, AUDIT-01 ~ AUDIT-04 |
+| Phase | REQ-IDs | Count |
+|-------|---------|------:|
+| **Phase 1: Scaffold** ✅ | INFRA-01, INFRA-03, INFRA-04 | 3 |
+| **Phase 2: Domain Definition** | INFRA-02 | 1 |
+| **Phase 3: Harvest** | HARVEST-01, HARVEST-02, HARVEST-03, HARVEST-04, HARVEST-05, HARVEST-06, HARVEST-07, HARVEST-08, AGENT-06 | 9 |
+| **Phase 4: Agent Team Design** | AGENT-01, AGENT-02, AGENT-03, AGENT-04, AGENT-05, AGENT-07, AGENT-08, AGENT-09, RUB-01, RUB-02, RUB-03, RUB-04, RUB-05, RUB-06, CONTENT-01, CONTENT-02, CONTENT-03, CONTENT-04, CONTENT-05, CONTENT-06, CONTENT-07, AUDIO-01, AUDIO-02, AUDIO-03, AUDIO-04, SUBT-01, SUBT-02, SUBT-03, COMPLY-01, COMPLY-02, COMPLY-03, COMPLY-04, COMPLY-05, COMPLY-06 | 34 |
+| **Phase 5: Orchestrator v2** | ORCH-01, ORCH-02, ORCH-03, ORCH-04, ORCH-05, ORCH-06, ORCH-07, ORCH-08, ORCH-09, ORCH-10, ORCH-11, ORCH-12, VIDEO-01, VIDEO-02, VIDEO-03, VIDEO-04, VIDEO-05 | 17 |
+| **Phase 6: Wiki + NotebookLM + FAILURES** | WIKI-01, WIKI-02, WIKI-03, WIKI-04, WIKI-05, WIKI-06, FAIL-01, FAIL-02, FAIL-03 | 9 |
+| **Phase 7: Integration Test** | TEST-01, TEST-02, TEST-03, TEST-04 | 4 |
+| **Phase 8: Remote + Publishing** | PUB-01, PUB-02, PUB-03, PUB-04, PUB-05, REMOTE-01, REMOTE-02, REMOTE-03 | 8 |
+| **Phase 9: Docs + KPI + Taste Gate** | KPI-05, KPI-06 | 2 |
+| **Phase 10: Sustained Operations** | FAIL-04, KPI-01, KPI-02, KPI-03, KPI-04, AUDIT-01, AUDIT-02, AUDIT-03, AUDIT-04 | 9 |
+| **Total** | | **96** |
 
-**주의**: 위는 SUMMARY Build Order 추정치. roadmapper가 실제 매핑 확정.
+### REQ → Phase (Reverse mapping for quick lookup)
+
+| REQ-ID | Phase | REQ-ID | Phase |
+|--------|-------|--------|-------|
+| INFRA-01 | 1 | RUB-01 | 4 |
+| INFRA-02 | 2 | RUB-02 | 4 |
+| INFRA-03 | 1 | RUB-03 | 4 |
+| INFRA-04 | 1 | RUB-04 | 4 |
+| HARVEST-01 | 3 | RUB-05 | 4 |
+| HARVEST-02 | 3 | RUB-06 | 4 |
+| HARVEST-03 | 3 | ORCH-01 | 5 |
+| HARVEST-04 | 3 | ORCH-02 | 5 |
+| HARVEST-05 | 3 | ORCH-03 | 5 |
+| HARVEST-06 | 3 | ORCH-04 | 5 |
+| HARVEST-07 | 3 | ORCH-05 | 5 |
+| HARVEST-08 | 3 | ORCH-06 | 5 |
+| AGENT-01 | 4 | ORCH-07 | 5 |
+| AGENT-02 | 4 | ORCH-08 | 5 |
+| AGENT-03 | 4 | ORCH-09 | 5 |
+| AGENT-04 | 4 | ORCH-10 | 5 |
+| AGENT-05 | 4 | ORCH-11 | 5 |
+| AGENT-06 | 3 | ORCH-12 | 5 |
+| AGENT-07 | 4 | WIKI-01 | 6 |
+| AGENT-08 | 4 | WIKI-02 | 6 |
+| AGENT-09 | 4 | WIKI-03 | 6 |
+| CONTENT-01 | 4 | WIKI-04 | 6 |
+| CONTENT-02 | 4 | WIKI-05 | 6 |
+| CONTENT-03 | 4 | WIKI-06 | 6 |
+| CONTENT-04 | 4 | VIDEO-01 | 5 |
+| CONTENT-05 | 4 | VIDEO-02 | 5 |
+| CONTENT-06 | 4 | VIDEO-03 | 5 |
+| CONTENT-07 | 4 | VIDEO-04 | 5 |
+| AUDIO-01 | 4 | VIDEO-05 | 5 |
+| AUDIO-02 | 4 | SUBT-01 | 4 |
+| AUDIO-03 | 4 | SUBT-02 | 4 |
+| AUDIO-04 | 4 | SUBT-03 | 4 |
+| COMPLY-01 | 4 | PUB-01 | 8 |
+| COMPLY-02 | 4 | PUB-02 | 8 |
+| COMPLY-03 | 4 | PUB-03 | 8 |
+| COMPLY-04 | 4 | PUB-04 | 8 |
+| COMPLY-05 | 4 | PUB-05 | 8 |
+| COMPLY-06 | 4 | REMOTE-01 | 8 |
+| FAIL-01 | 6 | REMOTE-02 | 8 |
+| FAIL-02 | 6 | REMOTE-03 | 8 |
+| FAIL-03 | 6 | TEST-01 | 7 |
+| FAIL-04 | 10 | TEST-02 | 7 |
+| KPI-01 | 10 | TEST-03 | 7 |
+| KPI-02 | 10 | TEST-04 | 7 |
+| KPI-03 | 10 | AUDIT-01 | 10 |
+| KPI-04 | 10 | AUDIT-02 | 10 |
+| KPI-05 | 9 | AUDIT-03 | 10 |
+| KPI-06 | 9 | AUDIT-04 | 10 |
+
+**Coverage check:** 96 REQ-IDs → 96 phase assignments (1:1 correspondence, no orphans, no duplicates). ✅
 
 ---
 
@@ -261,12 +315,12 @@ v1 검증 완료 후 또는 수익 발생 후 활성화.
 
 이 96개 v1 REQ는 **Core Value = "YouTube 광고 수익 발생 (YPP 진입 궤도)"**와 직접 연결되는지?
 
-- **직접 연결 (수익 가능성 창출)**: CONTENT, VIDEO, AUDIO, SUBT, PUB, COMPLY (62 REQ) — 이게 없으면 영상 자체가 발행 불가
-- **간접 연결 (품질/안정성)**: AGENT, RUB, ORCH, WIKI, FAIL, TEST, AUDIT (44 REQ) — 이게 없으면 재시도 비용·drift로 회사 조기 실패
+- **직접 연결 (수익 가능성 창출)**: CONTENT, VIDEO, AUDIO, SUBT, PUB, COMPLY (36 REQ) — 이게 없으면 영상 자체가 발행 불가
+- **간접 연결 (품질/안정성)**: AGENT, RUB, ORCH, WIKI, FAIL, TEST, AUDIT (48 REQ) — 이게 없으면 재시도 비용·drift로 회사 조기 실패
 - **기반 연결 (운영 전제)**: INFRA, HARVEST, REMOTE, KPI (21 REQ) — 이게 없으면 시작 불가 or 학습 불가
 
 **확인**: 모든 v1 REQ는 Core Value에 기여. 순수 "nice to have" 없음. Out of Scope 15개가 그 경계선.
 
 ---
 
-*Last updated: 2026-04-19 after Research 합성 완료 (commit 7a9b16d)*
+*Last updated: 2026-04-19 — Phase Traceability finalized by gsd-roadmapper (96/96 REQ mapped, 0 orphans). Previous update: Research 합성 완료 (commit 7a9b16d).*

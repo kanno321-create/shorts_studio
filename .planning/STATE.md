@@ -1,0 +1,127 @@
+# STATE — naberal-shorts-studio
+
+**Last updated:** 2026-04-19
+**Session:** #10 (roadmap 확정)
+
+---
+
+## Project Reference
+
+- **Core Value:** 외부 수익(YouTube 광고) 실제 발생 — YPP 진입 궤도(1000구독 + 10M views/년) 확보. 기술 성공 ≠ 비즈니스 성공.
+- **Project Type:** Layer 2 도메인 스튜디오 (첫 번째) — naberal_harness v1.0.1 상속
+- **Granularity:** fine (10 phases)
+- **Mode:** yolo (자율 실행, GATE로 인간 감독)
+- **Through-line:** shorts_naberal 39 drift conflict (A:13/B:16/C:10) 재발 차단
+
+---
+
+## Current Position
+
+- **Phase:** 1 → 2 (Phase 1 완료, Phase 2 진입 대기)
+- **Plan:** N/A (Phase 2 plan은 `/gsd:plan-phase 2`로 생성 예정)
+- **Status:** Roadmap 확정 직후
+- **Progress:** `[██░░░░░░░░] 1/10 phases` (10%)
+
+---
+
+## Phase Completion
+
+- ✅ **Phase 1: Scaffold** — 2026-04-18 (session #10)
+  - INFRA-01, INFRA-03, INFRA-04 완료
+  - `studios/shorts/` 스캐폴드, Hook 3종 설치, 공용 5 스킬 상속
+- ⏳ **Phase 2~10**: Pending
+
+---
+
+## Performance Metrics
+
+- **Requirements Mapped:** 96 / 96 (100%)
+- **Orphaned REQ:** 0
+- **Phases:** 10 (granularity=fine 목표 구간 내)
+- **Harness Audit Baseline:** TBD (Phase 7 Integration Test에서 ≥ 80 확정)
+- **YouTube 채널 구독자:** TBD (Phase 3 Harvest 시 현황 파악 — SUMMARY §12 open question)
+- **월 운영비 예산:** ~$128/월 표준 (Sonnet $12 + Opus $9 + Kling $86.4 + Typecast $20 + Nano Banana $0.64)
+
+---
+
+## Accumulated Context
+
+### Key Decisions (D-1 ~ D-10)
+
+PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 Phase 완료 시점에 해당 D# 검증 + 상태 업데이트.
+
+### Decisions Made This Session
+
+1. **Phase 구조 10개 확정** — SUMMARY §10 Build Order 기반, DOMAIN_CHECKLIST 10단계와 1:1 대응
+2. **Phase 4에 Content/Audio/Subt/Compliance REQ 통합** — rubric 동시 정의 원칙 적용 (분산 시 커플링 깨짐)
+3. **Phase 5에 Video REQ 통합** — 오케스트레이터가 영상 생성 API wrapping 담당
+4. **Phase 6에 FAIL-01~03 배치, FAIL-04는 Phase 10** — 저수지 인프라는 초기 구축, "첫 1~2개월 patch 금지"는 운영 단계 규율
+5. **KPI-05/06(Taste Gate + 목표 지표)는 Phase 9, KPI-01~04(자동 수집 + Auto Research Loop)는 Phase 10** — taste 프로토콜 설치 후 실 운영에서 데이터 수집
+
+### Active Todos (Phase 2 진입 전)
+
+- [ ] 사용자 roadmap 승인 → `/gsd:plan-phase 2` 실행
+- [ ] Phase 2 plan에서 3-Tier 위키 디렉토리 물리 생성 순서 확정
+- [ ] `CLAUDE.md {{TODO}}` 5종 치환 초안 준비
+
+### Blockers
+
+- **현재 없음** (Roadmap 확정 완료)
+
+### Open Questions (Phase별 deferred — SUMMARY §12)
+
+| Question | Phase |
+|----------|-------|
+| 기존 YouTube 채널 현황 (구독/히스토리/니치) | Phase 3 |
+| WhisperX + kresnik 실측 정확도 | Phase 4 |
+| NotebookLM 프로그래매틱 API + rate limits | Phase 6 |
+| KOMCA whitelist + AI 음악 정책 | Phase 5 |
+| Runway vs Kling 한국 사용자 실측 | Phase 4 |
+| transitions 라이브러리 vs 수동 | Phase 5 |
+| 17 inspector 총 비용 (Fan-out calibration) | Phase 5 |
+| YouTube Analytics 일일 한도 + cron | Phase 10 |
+| Shotstack vs Remotion-only 색보정 | Phase 5 |
+
+---
+
+## Session Continuity
+
+### Files of Record
+
+- `.planning/PROJECT.md` — 10 Key Decisions + Active 10 REQ (창업 비전)
+- `.planning/REQUIREMENTS.md` — 96 v1 REQ / 17 카테고리 + Phase Traceability
+- `.planning/ROADMAP.md` — 10 Phase 구조 (본 세션 생성)
+- `.planning/STATE.md` — 본 파일 (세션 연속성)
+- `.planning/research/SUMMARY.md` — Research 합성 (Build Order 기준점)
+- `.planning/research/{STACK, FEATURES, ARCHITECTURE, PITFALLS, NOTEBOOKLM_RAW}.md` — 상세 리서치
+- `.planning/config.json` — granularity=fine, mode=yolo
+
+### Next Session Entry Point
+
+```
+1. Read .planning/STATE.md (← 본 파일)
+2. Read .planning/ROADMAP.md Phase 2 detail
+3. Execute: /gsd:plan-phase 2
+```
+
+### Hard Constraints (세션마다 재확인)
+
+- `skip_gates=True`, `TODO(next-session)` 물리 차단 (pre_tool_use Hook)
+- SKILL.md ≤ 500줄, description ≤ 1024자
+- 에이전트 총합 12~20명
+- 오케스트레이터 500~800줄
+- `shorts_naberal` 원본 수정 금지 (Harvest는 읽기만)
+- Phase 10 첫 1~2개월 SKILL patch 전면 금지 (D-2 저수지)
+
+---
+
+## Identity Reference
+
+- **AI 정체성:** 나베랄 감마
+- **호칭:** 대표님
+- **작업 원칙:** 품질 최우선, 구조적 통제, 반복 drift 거부
+- **세션 프로토콜:** WORK_HANDOFF.md → DESIGN_BIBLE.md → failures/orchestrator.md 순으로 로드 (secondjob_naberal CLAUDE.md 기준)
+
+---
+
+*Generated 2026-04-19 at roadmap creation. This file is the living memory of the project — update at every phase transition.*
