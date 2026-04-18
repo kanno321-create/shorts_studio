@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-19T04:05:00.000Z"
+last_updated: "2026-04-19T04:06:08.000Z"
 progress:
   total_phases: 10
   completed_phases: 1
   total_plans: 15
-  completed_plans: 9
-  percent: 60
+  completed_plans: 11
+  percent: 73
 ---
 
 # STATE — naberal-shorts-studio
 
 **Last updated:** 2026-04-19
-**Session:** #15 (Phase 3 Wave 1 EXECUTING — Plan 03-05 HC-CHECKS-COPY shipped parallel. hc_checks.py 1129 lines + test_hc_checks.py copied byte-identical into hc_checks_raw/. Blacklist enforced — orchestrate.py absent. studio@51205ba. Plans 03-03/04/06 running parallel on same wave.)
+**Session:** #15 (Phase 3 Wave 1 EXECUTING — Plan 03-06 API-WRAPPERS-COPY shipped studio@aeac16b (5/5 wrappers byte-identical, HARVEST-05 satisfied, 0 selenium imports). Plan 03-05 HC-CHECKS-COPY shipped studio@51205ba earlier. Plans 03-03/04 concurrent on same wave.)
 
 ---
 
@@ -32,12 +32,12 @@ progress:
 ## Current Position
 
 Phase: 03 (harvest) — EXECUTING
-Plan: 5 of 9 complete (Wave 1 parallel batch in flight — 03-05 HC-CHECKS-COPY shipped; 03-03/04/06 concurrent)
+Plan: 6 of 9 complete (Wave 1 parallel batch in flight — 03-05 HC-CHECKS-COPY + 03-06 API-WRAPPERS-COPY shipped; 03-03/04 concurrent)
 
 - **Phase:** 3
 - **Next Phase:** 3 (Harvest) — Entry point: `/gsd:execute-phase 3`
 - **Status:** Wave 1 executing (parallel)
-- **Progress:** [██████░░░░] 60%
+- **Progress:** [███████░░░] 67%
 
 ---
 
@@ -118,7 +118,9 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 - [x] **Phase 3 Plan 03-02 execute** → path_manifest.json ground-truth registry (studio@609c3f8, 2026-04-19) — 4 raw_dir sources verified, global_ignore blocks 5 secret patterns, 5/5 api_wrapper cherry_picks confirmed present
 - [ ] **Phase 3 Plan 03-01 execute** (parallel) → harvest-importer AGENT.md + 7 Python stdlib modules (AGENT-06)
 - [x] **Phase 3 Plan 03-05 execute** → hc_checks_raw cherry_pick (studio@51205ba, 2026-04-19) — hc_checks.py 1129 lines + test_hc_checks.py byte-identical, orchestrate.py blacklist enforced (HARVEST-03)
-- [ ] **Phase 3 Wave 1 parallel siblings** → theme_bible_raw (03-03), remotion_src_raw (03-04), api_wrappers_raw (03-06) — in-flight concurrent execution
+- [x] **Phase 3 Plan 03-06 execute** → api_wrappers_raw cherry_pick (studio@aeac16b, 2026-04-19) — 5/5 wrappers byte-identical (elevenlabs_alignment, tts_generate, _kling_i2v_batch, runway_client, heygen_client), 0 selenium imports, orchestrate.py absent (HARVEST-05)
+- [x] **Phase 3 Plan 03-04 execute** → remotion_src_raw copy (studio@4bc7ece, 2026-04-19) — 40 files / 0.161 MB, node_modules 758 MB excluded via shutil.ignore_patterns, diff_verifier mismatches=[], __pycache__/secret 0 hits (HARVEST-02)
+- [ ] **Phase 3 Wave 1 parallel siblings** → theme_bible_raw (03-03) — in-flight concurrent execution
 
 ### Blockers
 
@@ -150,6 +152,8 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 02-domain-definition P06 | 18 | 3 | 9 committed (f360e17) + 2 meta (VALIDATION, SUMMARY) |
 | Phase 03-harvest P02 | 3 | 2 | 1 committed (609c3f8) + 1 meta (SUMMARY) |
 | Phase 03-harvest P05 | 1 | 1 | 2 committed (51205ba: hc_checks.py 1129 lines + test_hc_checks.py) + 1 meta (SUMMARY) |
+| Phase 03-harvest P06 | 4 | 1 | 6 committed (aeac16b: 5 wrappers + audit_log) + 1 meta (SUMMARY) |
+| Phase 03-harvest P04 | 1 | 1 | 40 committed (4bc7ece: Remotion src tree — Root.tsx + index.ts + components/15 + compositions/11 + lib/12) + 1 meta (SUMMARY) |
 
 ---
 

@@ -76,7 +76,7 @@
 - [x] 03-01-PLAN.md — harvest-importer AGENT.md + 7 Python stdlib modules (W0, AGENT-06)
 - [x] 03-02-PLAN.md — path_manifest.json (filesystem-verified source mapping, W0, HARVEST-01/02/03/05/07) — ✅ shipped 2026-04-19, studio@609c3f8
 - [x] 03-03-PLAN.md — theme_bible_raw copy (W1, HARVEST-01) — ✅ shipped 2026-04-19, studio@fba21e4 (7 md files byte-identical, diff_verifier mismatches=[], manifest-driven shutil.copytree)
-- [ ] 03-04-PLAN.md — remotion_src_raw copy, node_modules 제외 (W1, HARVEST-02)
+- [x] 03-04-PLAN.md — remotion_src_raw copy, node_modules 제외 (W1, HARVEST-02) — ✅ shipped 2026-04-19, studio@4bc7ece (40 files / 0.161 MB, node_modules 758 MB excluded, diff_verifier mismatches=[], __pycache__/secret 0 hits)
 - [x] 03-05-PLAN.md — hc_checks_raw cherry_pick (W1, HARVEST-03) — ✅ shipped 2026-04-19, studio@51205ba (hc_checks.py 1129 lines + test_hc_checks.py byte-identical, orchestrate.py blacklist enforced)
 - [x] 03-06-PLAN.md — api_wrappers_raw cherry_pick 4+ wrappers (W1, HARVEST-05) — ✅ shipped 2026-04-19, studio@aeac16b (5/5 wrappers byte-identical: elevenlabs_alignment.py + tts_generate.py + _kling_i2v_batch.py + runway_client.py + heygen_client.py; 0 selenium imports; orchestrate.py absent)
 - [ ] 03-07-PLAN.md — diff_verifier --all + FAILURES merge (W2, HARVEST-04)

@@ -21,10 +21,10 @@
 ### HARVEST — shorts_naberal 자산 이관 (Phase 3 전용)
 
 - [ ] **HARVEST-01**: `theme-bible` 전체를 `.preserved/harvested/theme_bible_raw/`로 복사 (읽기 전용)
-- [ ] **HARVEST-02**: Remotion `src/` 렌더 코드를 `.preserved/harvested/remotion_src_raw/`로 복사
+- [x] **HARVEST-02**: Remotion `src/` 렌더 코드를 `.preserved/harvested/remotion_src_raw/`로 복사 — ✅ 2026-04-19 (studio@4bc7ece, 40 files / 0.161 MB, node_modules excluded)
 - [ ] **HARVEST-03**: `hc_checks` 작동 검증된 유틸을 `.preserved/harvested/hc_checks_raw/`로 복사
 - [ ] **HARVEST-04**: `FAILURES.md` 과거 학습 자산을 `.claude/failures/_imported_from_shorts_naberal.md`로 통합
-- [ ] **HARVEST-05**: Runway / Kling / ElevenLabs / Typecast API wrapper를 `.preserved/harvested/api_wrappers_raw/`로 복사
+- [x] **HARVEST-05**: Runway / Kling / ElevenLabs / Typecast API wrapper를 `.preserved/harvested/api_wrappers_raw/`로 복사 ✅ 2026-04-19 studio@aeac16b (5/5 byte-identical: elevenlabs_alignment.py + tts_generate.py + _kling_i2v_batch.py + runway_client.py + heygen_client.py)
 - [ ] **HARVEST-06**: `.preserved/harvested/` 전체를 `chmod -w` 잠금 (물리 immutable)
 - [ ] **HARVEST-07**: **Harvest Blacklist** — `orchestrate.py:1239-1291 skip_gates 블록` import 절대 금지
 - [ ] **HARVEST-08**: CONFLICT_MAP 39건 전수 확인 후 `HARVEST_DECISIONS.md` 기록 (A/B/C 등급별 승계·폐기 판단)
