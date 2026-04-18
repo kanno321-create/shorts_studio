@@ -1,0 +1,69 @@
+# Environment
+.env
+*.env.local
+token.json
+client_secret.json
+
+# Auth / Secrets / Cookies (보안 필수 — 절대 커밋 금지)
+config/*secret*.json
+**/auth_info.json
+**/.*_token.json
+**/.*_cookies.json
+**/browser_state/
+data/.*_token.json
+data/.*_cookies.json
+
+# 이미지 원본 + URL 매핑 (재생성 가능)
+data/images/
+data/imgbb_urls.json
+data/new_post_images.json
+data/debug_*.png
+
+# Curation / 중간 산출물
+data/curation/
+data/published/
+_workspace/
+_workspace_*/
+_workspace_prev/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Obsidian — 로컬 UI 상태 제외
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.obsidian/.trash/
+
+# Claude internals
+.claude/agent-memory/
+.claude/worktrees/
+.claude/hooks/post_tool_log.jsonl
+
+# NotebookLM skill — 인증/브라우저 세션 (절대 커밋 금지)
+.claude/skills/notebooklm/data/auth_info.json
+.claude/skills/notebooklm/data/browser_state/
+.claude/skills/notebooklm/.venv/
+
+# 스튜디오 고유 생성물 (아카이브 이동된 구형)
+*.archive-*/
+*.legacy-*/
+*.backup-*/

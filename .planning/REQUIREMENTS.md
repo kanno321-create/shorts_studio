@@ -22,10 +22,10 @@
 
 - [x] **HARVEST-01**: `theme-bible` 전체를 `.preserved/harvested/theme_bible_raw/`로 복사 (읽기 전용) — ✅ 2026-04-19 (studio@fba21e4, 7 channel bibles byte-identical; path remapped from prose `.claude/theme-bible/` to actual `.claude/channel_bibles/` per path_manifest.json; diff_verifier mismatches=[])
 - [x] **HARVEST-02**: Remotion `src/` 렌더 코드를 `.preserved/harvested/remotion_src_raw/`로 복사 — ✅ 2026-04-19 (studio@4bc7ece, 40 files / 0.161 MB, node_modules excluded)
-- [ ] **HARVEST-03**: `hc_checks` 작동 검증된 유틸을 `.preserved/harvested/hc_checks_raw/`로 복사
-- [ ] **HARVEST-04**: `FAILURES.md` 과거 학습 자산을 `.claude/failures/_imported_from_shorts_naberal.md`로 통합
+- [x] **HARVEST-03**: `hc_checks` 작동 검증된 유틸을 `.preserved/harvested/hc_checks_raw/`로 복사
+- [x] **HARVEST-04**: `FAILURES.md` 과거 학습 자산을 `.claude/failures/_imported_from_shorts_naberal.md`로 통합
 - [x] **HARVEST-05**: Runway / Kling / ElevenLabs / Typecast API wrapper를 `.preserved/harvested/api_wrappers_raw/`로 복사 ✅ 2026-04-19 studio@aeac16b (5/5 byte-identical: elevenlabs_alignment.py + tts_generate.py + _kling_i2v_batch.py + runway_client.py + heygen_client.py)
-- [ ] **HARVEST-06**: `.preserved/harvested/` 전체를 `chmod -w` 잠금 (물리 immutable)
+- [x] **HARVEST-06**: `.preserved/harvested/` 전체를 `chmod -w` 잠금 (물리 immutable)
 - [x] **HARVEST-07**: **Harvest Blacklist** — `orchestrate.py:1239-1291 skip_gates 블록` import 절대 금지 — ✅ 2026-04-19 (studio@c14ab95, 7-check blacklist grep audit across `.preserved/harvested/**` all 0 matches: skip_gates=0, TODO(next-session)=0, orchestrate.py=0, create-shorts SKILL.md=0, create-video=0, longform top-dir=0, selenium imports=0)
 - [x] **HARVEST-08**: CONFLICT_MAP 39건 전수 확인 후 `HARVEST_DECISIONS.md` 기록 (A/B/C 등급별 승계·폐기 판단) — ✅ 2026-04-19 (studio@15b827f, 03-HARVEST_DECISIONS.md 39 rows: A:13 verbatim + B:16 + C:10 via 5-rule algorithm; verdict dist 승계=2/폐기=15/통합-재작성=20/cleanup=2; rule dist for B/C rule1=10/rule2=2/rule3=0/rule4=2/rule5=12)
 
