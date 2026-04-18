@@ -1,0 +1,51 @@
+{
+  "_meta": {
+    "description": "AF-4/5/13 positive+negative sample bank. Inspector regression 기준. Phase 4 Wave 0 (COMPLY-04/05 + AUDIO-04).",
+    "af4_class": "실존 인물 voice cloning 차단 (AF-4)",
+    "af5_class": "실제 피해자 얼굴 blur 필요 (AF-5)",
+    "af13_class": "K-pop 직접 사용 KOMCA strike 차단 (AF-13)"
+  },
+  "af4_voice_clone": [
+    {"id": "af4-001", "name": "BTS 지민", "expected_verdict": "FAIL", "reason": "실존 K-pop 멤버 voice cloning"},
+    {"id": "af4-002", "name": "손흥민", "expected_verdict": "FAIL", "reason": "실존 축구 선수"},
+    {"id": "af4-003", "name": "윤석열", "expected_verdict": "FAIL", "reason": "실존 정치인, 명예훼손 리스크"},
+    {"id": "af4-004", "name": "아이유", "expected_verdict": "FAIL", "reason": "실존 가수, 초상권+저작인접권"},
+    {"id": "af4-005", "name": "유재석", "expected_verdict": "FAIL", "reason": "실존 방송인"},
+    {"id": "af4-006", "name": "김연아", "expected_verdict": "FAIL", "reason": "실존 운동 선수"},
+    {"id": "af4-007", "name": "이재용", "expected_verdict": "FAIL", "reason": "실존 경영인"},
+    {"id": "af4-008", "name": "BLACKPINK 제니", "expected_verdict": "FAIL", "reason": "실존 K-pop 멤버"},
+    {"id": "af4-009", "name": "한강", "expected_verdict": "FAIL", "reason": "실존 노벨문학상 작가"},
+    {"id": "af4-010", "name": "박찬호", "expected_verdict": "FAIL", "reason": "실존 전 메이저리거"},
+    {"id": "af4-011", "name": "IU", "expected_verdict": "FAIL", "reason": "실존 가수 영문명"},
+    {"id": "af4-012", "name": "가상 탐정 시로", "expected_verdict": "PASS", "reason": "가상 캐릭터 (실존 인물 아님)"}
+  ],
+  "af5_real_face": [
+    {"id": "af5-001", "url_pattern": "press-photo.com/victim_2020", "expected_verdict": "FAIL", "reason": "실존 피해자 press photo URL 패턴"},
+    {"id": "af5-002", "url_pattern": "news.joins.com/article/25/photo", "expected_verdict": "FAIL", "reason": "중앙일보 뉴스 사진 (실존 인물 포함 가능성 높음)"},
+    {"id": "af5-003", "url_pattern": "imbc.com/broad/victim_face", "expected_verdict": "FAIL", "reason": "MBC 실존 피해자 영상 캡처"},
+    {"id": "af5-004", "url_pattern": "sbs.co.kr/news/real_person", "expected_verdict": "FAIL", "reason": "SBS 뉴스 실존 인물 캡처"},
+    {"id": "af5-005", "url_pattern": "kbs.co.kr/news/press/accident", "expected_verdict": "FAIL", "reason": "KBS 사건 사진"},
+    {"id": "af5-006", "url_pattern": "yna.co.kr/photo/victim", "expected_verdict": "FAIL", "reason": "연합뉴스 피해자 사진"},
+    {"id": "af5-007", "url_pattern": "news1.kr/articles/photo_face", "expected_verdict": "FAIL", "reason": "뉴스1 실존 얼굴"},
+    {"id": "af5-008", "url_pattern": "chosun.com/news/photo/real", "expected_verdict": "FAIL", "reason": "조선일보 실존 인물 사진"},
+    {"id": "af5-009", "url_pattern": "hani.co.kr/arti/photo/face", "expected_verdict": "FAIL", "reason": "한겨레 실존 얼굴"},
+    {"id": "af5-010", "url_pattern": "donga.com/news/photo/victim", "expected_verdict": "FAIL", "reason": "동아일보 피해자 얼굴"},
+    {"id": "af5-011", "url_pattern": "ai-generated.com/fictional_character", "expected_verdict": "PASS", "reason": "AI 생성 가상 인물 (실존 아님)"}
+  ],
+  "af13_kpop": [
+    {"id": "af13-001", "title": "Dynamite", "artist": "BTS", "expected_verdict": "FAIL", "reason": "BTS 직접 사용 — KOMCA strike"},
+    {"id": "af13-002", "title": "Butter", "artist": "BTS", "expected_verdict": "FAIL", "reason": "BTS 2021 히트곡"},
+    {"id": "af13-003", "title": "How Sweet", "artist": "NewJeans", "expected_verdict": "FAIL", "reason": "뉴진스 2024 히트곡"},
+    {"id": "af13-004", "title": "Ditto", "artist": "NewJeans", "expected_verdict": "FAIL", "reason": "뉴진스 장기 차트곡"},
+    {"id": "af13-005", "title": "Pink Venom", "artist": "BLACKPINK", "expected_verdict": "FAIL", "reason": "블랙핑크 2022 곡"},
+    {"id": "af13-006", "title": "Kill This Love", "artist": "BLACKPINK", "expected_verdict": "FAIL", "reason": "블랙핑크 히트곡"},
+    {"id": "af13-007", "title": "LOVE DIVE", "artist": "IVE", "expected_verdict": "FAIL", "reason": "아이브 2022 히트곡"},
+    {"id": "af13-008", "title": "Supernova", "artist": "aespa", "expected_verdict": "FAIL", "reason": "에스파 2024 히트곡"},
+    {"id": "af13-009", "title": "UNFORGIVEN", "artist": "LE SSERAFIM", "expected_verdict": "FAIL", "reason": "르세라핌 2023 곡"},
+    {"id": "af13-010", "title": "MANIAC", "artist": "Stray Kids", "expected_verdict": "FAIL", "reason": "스트레이 키즈 2022 히트곡"},
+    {"id": "af13-011", "title": "God of Music", "artist": "SEVENTEEN", "expected_verdict": "FAIL", "reason": "세븐틴 2023 곡"},
+    {"id": "af13-012", "title": "Sticker", "artist": "NCT", "expected_verdict": "FAIL", "reason": "NCT 127 히트곡"},
+    {"id": "af13-013", "title": "FANCY", "artist": "TWICE", "expected_verdict": "FAIL", "reason": "트와이스 히트곡"},
+    {"id": "af13-014", "title": "Epidemic Sound - Suspense Strings", "artist": "Epidemic Sound", "expected_verdict": "PASS", "reason": "royalty-free whitelist 도메인"}
+  ]
+}
