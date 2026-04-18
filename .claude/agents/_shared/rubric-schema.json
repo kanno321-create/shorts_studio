@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://naberal-shorts-studio/agents/_shared/rubric-schema.json",
+  "title": "Shorts Inspector Rubric Output",
+  "description": "17 Inspector 공통 출력 스키마. Producer-Reviewer GAN 파이프라인의 평가 단일 인터페이스. Phase 4 RUB-04.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["verdict", "score", "evidence", "semantic_feedback"],
+  "properties": {
+    "verdict": {
+      "type": "string",
+      "enum": ["PASS", "FAIL"],
+      "description": "PASS if score >= 60 AND no critical_violation in evidence; FAIL otherwise. Supervisor overall_verdict는 모든 inspector PASS일 때만 PASS."
+    },
+    "score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "품질 점수. 0=치명적 위반, 100=완벽. 60 threshold와 verdict 일치 의무 (score>=60 ↔ verdict=PASS)."
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 0,
+      "description": "판정 근거. 빈 배열 허용 (PASS이며 자동 통과 시). FAIL 시 최소 1개 필수.",
+      "items": {
+        "type": "object",
+        "required": ["type", "detail"],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["regex", "citation", "heuristic"],
+            "description": "regex=패턴 매칭, citation=외부 문서(위키/harvested) 인용, heuristic=LLM 자체 판단"
+          },
+          "detail": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "근거 한 줄. 위치/시간 스탬프 포함 권장. 예: 'scene_idx=4 text=... pattern=/...$/'"
+          },
+          "location": {
+            "type": "string",
+            "description": "선택. 'scene:4', 'line:12', 't:3.2s', 'frame:45' 등",
+            "maxLength": 100
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["info", "warning", "critical"],
+            "description": "선택. critical 1+ 시 verdict=FAIL 강제"
+          }
+        }
+      }
+    },
+    "semantic_feedback": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 5000,
+      "description": "VQQA 시맨틱 그래디언트 (RUB-03). 자연어 피드백, Producer 프롬프트 주입용. 형식: '[문제 설명](위치) — [교정 힌트 1 문장]'. 대안 창작 금지. PASS verdict 시 빈 문자열 허용."
+    },
+    "inspector_name": {
+      "type": "string",
+      "description": "선택. 자기 identification (예: 'ins-korean-naturalness'). Supervisor 로깅용.",
+      "pattern": "^ins-[a-z0-9-]+$"
+    },
+    "logicqa_sub_verdicts": {
+      "type": "array",
+      "description": "선택. LogicQA 5 sub-q 개별 판정 (RUB-01). Supervisor 감사용.",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["q_id", "result"],
+        "properties": {
+          "q_id": {"type": "string", "pattern": "^q[1-5]$"},
+          "result": {"type": "string", "enum": ["Y", "N"]},
+          "reason": {"type": "string", "maxLength": 500}
+        }
+      }
+    },
+    "maxTurns_used": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "선택. 본 inspector가 사용한 실제 turn 수. Supervisor maxTurns enforcement 감사용."
+    }
+  }
+}

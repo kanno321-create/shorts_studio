@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://naberal-shorts-studio/agents/_shared/supervisor-rubric-schema.json",
+  "title": "Shorts Supervisor Aggregated Rubric",
+  "description": "Supervisor(shorts-supervisor)의 17 Inspector fan-out 결과 합산 스키마. Phase 4 AGENT-05.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["overall_verdict", "individual_verdicts", "aggregated_vqqa", "routing"],
+  "properties": {
+    "overall_verdict": {
+      "type": "string",
+      "enum": ["PASS", "FAIL"],
+      "description": "모든 17 inspector PASS일 때만 PASS. 1개라도 FAIL이면 FAIL."
+    },
+    "individual_verdicts": {
+      "type": "array",
+      "description": "17 Inspector 개별 rubric. 순서 무관, inspector_name 필드로 식별.",
+      "minItems": 17,
+      "maxItems": 17,
+      "items": {"$ref": "./rubric-schema.json"}
+    },
+    "aggregated_vqqa": {
+      "type": "string",
+      "maxLength": 20000,
+      "description": "17 inspector semantic_feedback 합산 자연어. Producer 재시도 시 프롬프트 주입."
+    },
+    "routing": {
+      "type": "string",
+      "enum": ["next_gate", "retry", "circuit_breaker"],
+      "description": "next_gate=다음 Gate 진행 (overall PASS). retry=Producer 재호출 (overall FAIL + retry_count<3). circuit_breaker=포기 (retry_count=3 or maxTurns_exceeded 감지)."
+    },
+    "delegation_depth": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "AGENT-05 재귀 방지. 0=최상위 호출, 1=Supervisor가 sub-supervisor 호출(금지 — 1을 초과하면 위반)."
+    },
+    "retry_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3,
+      "description": "현재 Producer 재시도 횟수. 3 도달 시 routing=circuit_breaker 강제."
+    }
+  }
+}
