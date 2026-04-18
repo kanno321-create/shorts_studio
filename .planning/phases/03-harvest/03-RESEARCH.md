@@ -16,7 +16,7 @@ confidence: HIGH
 
 ## Executive Summary
 
-Phase 3 is **pure infrastructure** — no design decisions remain open. The 02-HARVEST_SCOPE.md already fixes (a) A-class 13 verdicts (2 승계 / 3 폐기 / 8 통합-재작성), (b) Python-dict-literal blacklist of 11 entries, (c) 4 raw directory mappings, (d) 5-rule algorithm for B/C 26 items, and (e) FAILURES merge protocol. Research here focuses on three orthogonal risks: **(1)** the path mappings in HARVEST_SCOPE.md do NOT match the actual shorts_naberal layout (verified by `ls`), so the planner must re-map or the importer will fail at stage 1; **(2)** `attrib +R /S /D` does not work under Git Bash glob expansion and must be invoked through `cmd.exe //c` with Windows-style path; **(3)** Python's `filecmp.dircmp` needs a recursive traversal wrapper because the default only reports immediate children. Validation architecture uses 9 file-existence/grep/exit-code commands plus one Python write-denial probe — all framework-free.
+Phase 3 is **pure infrastructure** — no design decisions remain open. The 02-HARVEST_SCOPE.md already fixes (a) A-class 13 verdicts (2 승계 / 3 폐기 / 8 통합-재작성), (b) Python-dict-literal blacklist of 10 entries, (c) 4 raw directory mappings, (d) 5-rule algorithm for B/C 26 items, and (e) FAILURES merge protocol. Research here focuses on three orthogonal risks: **(1)** the path mappings in HARVEST_SCOPE.md do NOT match the actual shorts_naberal layout (verified by `ls`), so the planner must re-map or the importer will fail at stage 1; **(2)** `attrib +R /S /D` does not work under Git Bash glob expansion and must be invoked through `cmd.exe //c` with Windows-style path; **(3)** Python's `filecmp.dircmp` needs a recursive traversal wrapper because the default only reports immediate children. Validation architecture uses 9 file-existence/grep/exit-code commands plus one Python write-denial probe — all framework-free.
 
 ---
 
@@ -36,7 +36,7 @@ Phase 3 is **pure infrastructure** — no design decisions remain open. The 02-H
 4. Pure cosmetic cleanup (gitignore / worktree copy / .tmp) → cleanup
 5. Default → 통합-재작성
 
-**HARVEST_BLACKLIST (Python dict literal, 11 entries):**
+**HARVEST_BLACKLIST (Python dict literal, 10 entries):**
 - `orchestrate.py:1239-1291` (A-6 skip_gates block)
 - `orchestrate.py:520 / 781 / 1051 / 1129` (A-5 TODO 4곳)
 - `longform/` prefix (A-11, scope-out)
@@ -85,7 +85,7 @@ None for Phase 3. CONTEXT.md explicitly states "Phase 3 is execution-only; new d
 | **HARVEST-04** | FAILURES concat → `_imported_from_shorts_naberal.md` | § Implementation — only 1 source file exists (`.claude/failures/orchestrator.md`, 487 lines), no root FAILURES.md |
 | **HARVEST-05** | API wrappers → `api_wrappers_raw/` | § Implementation — `scripts/api/` does NOT exist; wrappers live in `scripts/audio-pipeline/`, `scripts/video-pipeline/`, `scripts/avatar/` |
 | **HARVEST-06** | `attrib +R /S /D` recursive | § Implementation — must use `cmd.exe //c`, NOT Git Bash glob |
-| **HARVEST-07** | Honor 11-entry blacklist | § Implementation — `ast.literal_eval` parses dict safely |
+| **HARVEST-07** | Honor 10-entry blacklist | § Implementation — `ast.literal_eval` parses dict safely |
 | **HARVEST-08** | HARVEST_DECISIONS.md with 39 entries | § DAG — T5 parses CONFLICT_MAP.md via `### A-N / B-N / C-N` regex (confirmed: exactly 13+16+10=39 entries in source) |
 | **AGENT-06** | harvest-importer agent | § Implementation — single Python script design |
 

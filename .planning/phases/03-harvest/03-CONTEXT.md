@@ -14,7 +14,7 @@ shorts_naberal의 작동 검증된 자산(theme-bible, Remotion src, hc_checks, 
 - FAILURES 통합본 이관 (`_imported_from_shorts_naberal.md`)
 - chmod -w / attrib +R Tier 3 immutable lockdown
 - HARVEST_DECISIONS.md 39건 (A급 13 승격 + B/C급 26 5-rule 알고리즘 판정)
-- Harvest Blacklist 준수 (11 entries) + grep 감사
+- Harvest Blacklist 준수 (10 entries) + grep 감사
 
 **Scope out:**
 - shorts_naberal 원본 수정 (읽기만)
@@ -40,7 +40,7 @@ shorts_naberal의 작동 검증된 자산(theme-bible, Remotion src, hc_checks, 
 
 Harvest-importer 에이전트(AGENT-06)가 이 알고리즘을 코드로 파싱하여 실행.
 
-### Harvest Blacklist 11 entries (02-HARVEST_SCOPE.md §2)
+### Harvest Blacklist 10 entries (02-HARVEST_SCOPE.md §2)
 Python dict 형식으로 제공. A-6 skip_gates 블록 (orchestrate.py:1239-1291), A-5 TODO 4곳, longform/, create-video/, create-shorts/SKILL.md, selenium 패턴, orchestrate.py 전체 — 이관 시 skip.
 
 ### 4 raw 디렉토리 매핑 (REQUIREMENTS.md HARVEST-01~05)
