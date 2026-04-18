@@ -97,7 +97,20 @@
   4. 테스트 입력으로 LogicQA Main-Q + 5 Sub-Qs 다수결이 실제로 작동하여 단일 inspector가 모순 시 FAIL을 반환한다 (maxTurns 표준 3, factcheck 예외 10)
   5. 한국어 화법 검사기(`ins-korean-naturalness`)가 존댓말/반말 혼용 샘플 10건 중 ≥ 9건을 교정 제안과 함께 FAIL 처리한다
   6. Compliance inspector 세트(`ins-license`, `ins-platform-policy`, `ins-safety`, `ins-mosaic`)가 AF-4(voice cloning real people), AF-5(real victim face), AF-13(K-pop 음원) 샘플을 100% 차단한다
-**Plans:** TBD
+**Plans:** 10 plans
+- [ ] 04-01-PLAN.md — W0 Wave 0 shared foundation: rubric-schema.json + agent-template.md + af_bank + korean_samples + 4 stdlib validators + pytest conftest
+- [ ] 04-02-PLAN.md — W1 Inspector Structural 3 (ins-blueprint-compliance, ins-timing-consistency, ins-schema-integrity; maxTurns=1)
+- [ ] 04-03-PLAN.md — W1 Inspector Content 3 (ins-factcheck maxTurns=10, ins-narrative-quality, ins-korean-naturalness) + 10/9+ FAIL regression
+- [ ] 04-04-PLAN.md — W1 Inspector Style 3 (ins-tone-brand maxTurns=5, ins-readability, ins-thumbnail-hook)
+- [ ] 04-05-PLAN.md — W2 Inspector Compliance 3 (ins-license, ins-platform-policy, ins-safety) + AF-4/13 100% 차단
+- [ ] 04-06-PLAN.md — W2 Inspector Technical 3 (ins-audio-quality, ins-render-integrity, ins-subtitle-alignment)
+- [ ] 04-07-PLAN.md — W2 Inspector Media 2 (ins-mosaic, ins-gore) + AF-5 100% 차단
+- [ ] 04-08-PLAN.md — W3 Producer Core 6 + 3단 분리 3 (trend-collector, niche-classifier, researcher, director, scene-planner, shot-planner, scripter, script-polisher, metadata-seo)
+- [ ] 04-09-PLAN.md — W4 Producer 지원 5 + Supervisor 1 (voice-producer, asset-sourcer, assembler, thumbnail-designer, publisher, shorts-supervisor) + _delegation_depth guard
+- [ ] 04-10-PLAN.md — W5 Integration: harness-audit ≥ 80 + GAN contamination 0 + LogicQA schema 17/17 + SC1 reconciliation 32 canonical
+
+**Note on SC1 reconciliation (RESEARCH Open Q1):** Original SC1 "12~20 사이"는 Phase 2 초안. Phase 4 RESEARCH.md의 REQUIREMENTS enumeration (Producer 14 + Inspector 17 + Supervisor 1 = 32)이 우선. Plan 10이 이 수치를 공식 반영하고 SC1 문구를 amend한다. D-9 PROJECT.md 경향: REQUIREMENTS.md 구체성 > ROADMAP SC 근사값.
+
 **UI hint:** no
 
 ---
