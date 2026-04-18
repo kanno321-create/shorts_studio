@@ -1,0 +1,494 @@
+[
+  {
+    "startMs": 0,
+    "endMs": 720,
+    "words": [
+      "여자친구가",
+      "남자친구"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 720,
+    "endMs": 1940,
+    "words": [
+      "여자친구가",
+      "남자친구"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 1940,
+    "endMs": 2290,
+    "words": [
+      "차를",
+      "밀",
+      "수",
+      "있다고",
+      "내기를"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 2290,
+    "endMs": 2480,
+    "words": [
+      "차를",
+      "밀",
+      "수",
+      "있다고",
+      "내기를"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 2480,
+    "endMs": 2720,
+    "words": [
+      "차를",
+      "밀",
+      "수",
+      "있다고",
+      "내기를"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 2720,
+    "endMs": 3060,
+    "words": [
+      "차를",
+      "밀",
+      "수",
+      "있다고",
+      "내기를"
+    ],
+    "highlightIndex": 3
+  },
+  {
+    "startMs": 3060,
+    "endMs": 3940,
+    "words": [
+      "차를",
+      "밀",
+      "수",
+      "있다고",
+      "내기를"
+    ],
+    "highlightIndex": 4
+  },
+  {
+    "startMs": 3940,
+    "endMs": 4440,
+    "words": [
+      "걸었습니다."
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 5040,
+    "endMs": 5960,
+    "words": [
+      "남자친구는",
+      "당연히",
+      "못",
+      "밀"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 5960,
+    "endMs": 6410,
+    "words": [
+      "남자친구는",
+      "당연히",
+      "못",
+      "밀"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 6410,
+    "endMs": 6590,
+    "words": [
+      "남자친구는",
+      "당연히",
+      "못",
+      "밀"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 6590,
+    "endMs": 6820,
+    "words": [
+      "남자친구는",
+      "당연히",
+      "못",
+      "밀"
+    ],
+    "highlightIndex": 3
+  },
+  {
+    "startMs": 6820,
+    "endMs": 7040,
+    "words": [
+      "거라고",
+      "생각했겠죠."
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 7040,
+    "endMs": 7740,
+    "words": [
+      "거라고",
+      "생각했겠죠."
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 9540,
+    "endMs": 9800,
+    "words": [
+      "그런데",
+      "여자친구가",
+      "차"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 9800,
+    "endMs": 10480,
+    "words": [
+      "그런데",
+      "여자친구가",
+      "차"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 10480,
+    "endMs": 10660,
+    "words": [
+      "그런데",
+      "여자친구가",
+      "차"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 10660,
+    "endMs": 11380,
+    "words": [
+      "뒤에서더니",
+      "진짜로",
+      "밀기"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 11380,
+    "endMs": 12830,
+    "words": [
+      "뒤에서더니",
+      "진짜로",
+      "밀기"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 12830,
+    "endMs": 13160,
+    "words": [
+      "뒤에서더니",
+      "진짜로",
+      "밀기"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 13160,
+    "endMs": 13610,
+    "words": [
+      "시작합니다.",
+      "처음엔"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 14170,
+    "endMs": 14740,
+    "words": [
+      "시작합니다.",
+      "처음엔"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 14740,
+    "endMs": 15500,
+    "words": [
+      "꿈쩍도",
+      "안",
+      "하던",
+      "차가"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 15500,
+    "endMs": 15690,
+    "words": [
+      "꿈쩍도",
+      "안",
+      "하던",
+      "차가"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 15690,
+    "endMs": 15920,
+    "words": [
+      "꿈쩍도",
+      "안",
+      "하던",
+      "차가"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 15920,
+    "endMs": 16460,
+    "words": [
+      "꿈쩍도",
+      "안",
+      "하던",
+      "차가"
+    ],
+    "highlightIndex": 3
+  },
+  {
+    "startMs": 16460,
+    "endMs": 17050,
+    "words": [
+      "서서히",
+      "움직이기"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 17050,
+    "endMs": 17530,
+    "words": [
+      "서서히",
+      "움직이기"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 17530,
+    "endMs": 18190,
+    "words": [
+      "시작하더니",
+      "결국",
+      "앞으로"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 19530,
+    "endMs": 19920,
+    "words": [
+      "시작하더니",
+      "결국",
+      "앞으로"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 19920,
+    "endMs": 20800,
+    "words": [
+      "시작하더니",
+      "결국",
+      "앞으로"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 20800,
+    "endMs": 21710,
+    "words": [
+      "굴러갑니다.",
+      "남자친구"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 22330,
+    "endMs": 22920,
+    "words": [
+      "굴러갑니다.",
+      "남자친구"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 22920,
+    "endMs": 23300,
+    "words": [
+      "표정이",
+      "실시간으로"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 23300,
+    "endMs": 24010,
+    "words": [
+      "표정이",
+      "실시간으로"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 24010,
+    "endMs": 24530,
+    "words": [
+      "변합니다.",
+      "자신감에서"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 25510,
+    "endMs": 26300,
+    "words": [
+      "변합니다.",
+      "자신감에서"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 26300,
+    "endMs": 26940,
+    "words": [
+      "당황으로",
+      "당황에서"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 26940,
+    "endMs": 28350,
+    "words": [
+      "당황으로",
+      "당황에서"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 28350,
+    "endMs": 29010,
+    "words": [
+      "충격으로",
+      "여러분은"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 29660,
+    "endMs": 30440,
+    "words": [
+      "충격으로",
+      "여러분은"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 30440,
+    "endMs": 31010,
+    "words": [
+      "내기에서",
+      "진",
+      "남자친구"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 31010,
+    "endMs": 31190,
+    "words": [
+      "내기에서",
+      "진",
+      "남자친구"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 31190,
+    "endMs": 31800,
+    "words": [
+      "내기에서",
+      "진",
+      "남자친구"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 31800,
+    "endMs": 32340,
+    "words": [
+      "편인가요?",
+      "이긴"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 33030,
+    "endMs": 33750,
+    "words": [
+      "편인가요?",
+      "이긴"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 33750,
+    "endMs": 34250,
+    "words": [
+      "여자친구",
+      "편인가요?"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 34250,
+    "endMs": 34750,
+    "words": [
+      "여자친구",
+      "편인가요?"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 35390,
+    "endMs": 36240,
+    "words": [
+      "댓글로",
+      "알려주세요."
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 36240,
+    "endMs": 36890,
+    "words": [
+      "댓글로",
+      "알려주세요."
+    ],
+    "highlightIndex": 1
+  }
+]
