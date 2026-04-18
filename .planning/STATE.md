@@ -3,19 +3,20 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-19T09:13:00.000Z"
+last_updated: "2026-04-19T12:14:00.000Z"
 progress:
   total_phases: 10
-  completed_phases: 2
-  total_plans: 25
-  completed_plans: 21
-  percent: 84
+  completed_phases: 4
+  total_plans: 34
+  completed_plans: 34
+  percent: 100
+  phase_4_complete: true
 ---
 
 # STATE — naberal-shorts-studio
 
-**Last updated:** 2026-04-19
-**Session:** #16 (Phase 4 Plan 01 Wave 0 FOUNDATION shipped — studio@0dcb007 (Task 1: 2 rubric JSON schemas draft-07 + universal agent-template.md 179 lines with MUST REMEMBER at line 169 / ratio_from_top 0.94 + vqqa_corpus.md 5 reference examples) + studio@cd1d074 (Task 2: af_bank.json 12+11+14 entries covering all 10 core K-pop artists + korean_speech_samples.json 10 pos + 10 neg with 4 mixed_register + 2 self_title_leak + 2 informal + 2 foreign_word_overuse) + studio@daca457 (Task 3 RED: 14 failing Wave 0 tests) + studio@5a70504 (Task 3 GREEN: 5 stdlib validator modules, rubric_stdlib_validator extended beyond RESEARCH.md §8.2 with additionalProperties=false + recursive items[] walk, harness_audit --threshold 80 with linear scoring). 14/14 pytest PASS in 0.07s. validate_all_agents --exclude harvest-importer → OK 0 agent(s). harness_audit → HARNESS_AUDIT_SCORE: 95. RUB-04 + AGENT-07/08/09 + COMPLY-01..06 + AUDIO-04 + SUBT-02 = 12 REQs satisfied. Wave 1 Inspector Structural 3 (04-02) 진입 허가.)
+**Last updated:** 2026-04-19T12:14:00Z
+**Session:** #16 (✅ PHASE 4 COMPLETE — Plan 10 Wave 5 Integration shipped. 32 agents (Producer 14 + Inspector 17 + Supervisor 1), harness_audit score 100, 244/244 pytest PASS, GAN_CLEAN 17/17, LogicQA 17/17, 34/34 Phase 4 REQs complete. SC1 reconciliation '12~20 → 32 canonical' resolves RESEARCH.md Open Question 1. Commits: 778745a (Task 1 integration checks) + 62c0758 (Task 2 VALIDATION.md flip) + b35c64b (Task 3 ROADMAP SC1) + 8452876 (REQUIREMENTS 34/34). Cumulative project 47/96 REQs = 49%. Ready to enter Phase 5 Orchestrator v2 Write.)
 
 ---
 
@@ -31,13 +32,13 @@ progress:
 
 ## Current Position
 
-Phase: 04 (agent-team-design) — 🔄 IN PROGRESS (1/10 plans)
-Plan: 04-01 ✅ COMPLETE (Wave 0 FOUNDATION)
+Phase: 04 (agent-team-design) — ✅ COMPLETE (10/10 plans, 34/34 REQs, 32 agents shipped)
+Plan: 04-10 ✅ COMPLETE (Wave 5 Integration + SC1 reconciliation + VALIDATION flip)
 
-- **Phase:** 4
-- **Next Plan:** 04-02 (Wave 1 Inspector Structural 3: ins-blueprint-compliance / ins-timing-consistency / ins-schema-integrity; maxTurns=1)
-- **Status:** In progress — Wave 0 shipped, Wave 1 entry ready
-- **Progress:** [████████░░] 80%
+- **Phase:** 4 → entering 5
+- **Next Plan:** 05-PLAN (Phase 5 Orchestrator v2 Write — `scripts/orchestrator/shorts_pipeline.py` 500~800줄 state machine, 12 GATE DAG, CircuitBreaker, Checkpointer, 영상/음성 분리 합성, Low-Res First 렌더; ORCH-01~12 + VIDEO-01~05 = 17 REQs)
+- **Status:** Phase 4 COMPLETE — Phase 5 planning ready
+- **Progress:** [██████████] 100% (Phase 4); [████░░░░░░] 40% (overall 4/10 phases + Phase 1+2+3+4 = 47/96 REQs = 49%)
 
 ---
 
@@ -63,24 +64,28 @@ Plan: 04-01 ✅ COMPLETE (Wave 0 FOUNDATION)
   - ✅ Plan 02-04: studios/shorts/CLAUDE.md 5 TODO replacement + line 7 typo fix (6 semantic sites via 5 Edit ops; committed in consolidated f360e17)
   - ✅ Plan 02-05: 02-HARVEST_SCOPE.md (175 lines) — A급 13 사전 판정 + HARVEST_BLACKLIST dict + 4 raw 매핑 + B/C 위임 알고리즘 (committed in consolidated f360e17)
   - ✅ Plan 02-06: 12/12 VALIDATION PASS + consolidated studio commit f360e17 (9 files, +449/-7) + SC 4/4 achieved + 02-VALIDATION.md frontmatter flipped (nyquist_compliant=true, wave_0_complete=true, status=complete)
-- 🔄 **Phase 4: Agent Team Design** — plans in parallel execution (2026-04-19, session #16)
+- ✅ **Phase 4: Agent Team Design** — 2026-04-19 (session #16) — 34/34 REQs complete, 32 agents shipped
   - ✅ Plan 04-01: Wave 0 FOUNDATION — 6 shared files + 5 stdlib validators + 14/14 pytest PASS (studio@0dcb007 + cd1d074 + daca457 + 5a70504)
-  - 🔄 Plan 04-02/04-07 (parallel): see respective SUMMARY.md
-  - ✅ Plan 04-06: Wave 2b Inspector Technical 3 — ins-audio-quality + ins-render-integrity + ins-subtitle-alignment (studio@f468523 + ef64ac3). 3 AGENT.md(118/114/120 lines) + 31/31 pytest PASS. SUBT-01 + SUBT-03 + CONTENT-06 + AGENT-04 newly satisfied; RUB-01/02/04/05/06 + AGENT-07/08/09 re-confirmed. Technical vs Style split + Technical vs Compliance split + Phase 5 deferral invariant (each MUST REMEMBER item 6). Durat 6min.
-  - ✅ Plan 04-05: Wave 2a Inspector Compliance 3 — ins-license + ins-platform-policy + ins-safety (studio@b6cfedc + af4635e). 3 AGENT.md (158/161/168 lines) + 35/35 pytest PASS (16 structural + 19 block-rate) + 131/131 full phase04 regression PASS. AUDIO-04 + COMPLY-01/02/03/04/06 + AGENT-04 newly satisfied; AGENT-07/08/09 + RUB-01/02/04/05/06 re-confirmed. AF-4 (11 FAIL) + AF-13 (13 FAIL) 100% block-rate verified; 10 core K-pop groups coverage; royalty-free whitelist supersedes K-pop regex (PASS no false-positive); LogicQA critical-override rule codified (majority-vote exception for 100% block bar). ins-safety ↔ ins-gore role boundary (text vs pixel) documented in both MUST REMEMBER. Durat ~18min.
-  - ✅ Plan 04-03: Wave 1b Inspector Content 3 — ins-factcheck (maxTurns=10 RUB-05 예외) + ins-narrative-quality (CONTENT-01 3초 hook 질문형+숫자/고유명사) + ins-korean-naturalness (§5.3 하오체/해요체/반말/호칭/외래어 regex bank 하이브리드) (studio@c29f82a + 153c95b). 3 AGENT.md (123/125/154 lines) + 16/16 pytest PASS in 0.08s. rule_simulator: negative 10/10 FAIL + positive 10/10 PASS (VALIDATION 4-03-02 ≥9/≥8 gate 초과). CONTENT-01/02/04 + SUBT-02 newly satisfied via prompt specs; RUB-01/02/04/05/06 + AGENT-04/07/08/09 re-confirmed. ins-factcheck = 17 중 유일 maxTurns=10 예외 (다중 source cross-verification 필요). ins-korean-naturalness simulator는 §5.3 morpheme base 위에 verb-conjugation (아요/어요/았어/었어/맞지/알지) 확장 — AGENT.md regex bank은 plan-literal 고정, 확장은 test-only 스코프. 1 cross-plan deferred item (test_inspector_compliance.py 스코프 mismatch — 다른 parallel plan 소유) → deferred-items.md. Durat ~18min.
-  - ⏳ Plan 04-04/08/09/10: Pending
-- ⏳ **Phase 5~10**: Pending (Phase 4 in progress)
+  - ✅ Plan 04-02: Wave 1a Inspector Structural 3 (ins-blueprint-compliance + ins-timing-consistency + ins-schema-integrity; maxTurns=1)
+  - ✅ Plan 04-03: Wave 1b Inspector Content 3 — ins-factcheck (maxTurns=10 RUB-05 exception) + ins-narrative-quality + ins-korean-naturalness (studio@c29f82a + 153c95b)
+  - ✅ Plan 04-04: Wave 1c Inspector Style 3 — ins-tone-brand (maxTurns=5) + ins-readability + ins-thumbnail-hook (studio@df5a1b3)
+  - ✅ Plan 04-05: Wave 2a Inspector Compliance 3 — ins-license + ins-platform-policy + ins-safety (studio@b6cfedc + af4635e + c53ccef). AF-4/13 100% block.
+  - ✅ Plan 04-06: Wave 2b Inspector Technical 3 — ins-audio-quality + ins-render-integrity + ins-subtitle-alignment (studio@f468523 + ef64ac3 + 3d0b250).
+  - ✅ Plan 04-07: Wave 2c Inspector Media 2 — ins-mosaic + ins-gore (studio@6cea65f). AF-5 100% block.
+  - ✅ Plan 04-08: Wave 3 Producer Core 6 + 3단 분리 3 (studio@8bcf052 Core + d1f4ade 3split + 19fb39e tests + 9a82729 docs). AGENT-01 + AGENT-02 + RUB-03 + CONTENT-03 + CONTENT-07 satisfied.
+  - ✅ Plan 04-09: Wave 4 Producer Support 5 + Supervisor 1 (studio@7b089d8 Support + 1497c94 supervisor + 9047278 tests + 90223c3 docs). AGENT-03 + AGENT-05 + AUDIO-01/02/03 satisfied; _delegation_depth guard in shorts-supervisor.
+  - ✅ Plan 04-10: Wave 5 Integration + SC1 reconciliation (studio@778745a Task1 + 62c0758 VALIDATION flip + b35c64b ROADMAP SC1 + 8452876 REQUIREMENTS 34/34). harness_audit score 100. 244/244 pytest PASS. GAN_CLEAN 17/17. LogicQA 17/17. **PHASE 4 COMPLETE.**
+- ⏳ **Phase 5~10**: Pending (Phase 4 complete, Phase 5 Orchestrator v2 ready to start)
 
 ---
 
 ## Performance Metrics
 
 - **Requirements Mapped:** 96 / 96 (100%)
-- **Requirements Completed:** 13 / 96 (14%) — Phase 1 (INFRA-01/03/04) + Phase 2 (INFRA-02) + Phase 3 (HARVEST-01..08 + AGENT-06) + Phase 4 P01 (RUB-04 + AGENT-07/08/09 = 4 REQs truly satisfied; COMPLY-01..06 + AUDIO-04 + SUBT-02 = 8 REQs infrastructure-enabled via sample banks but awaiting Wave 2-3 Inspector prompts)
+- **Requirements Completed:** 47 / 96 (49%) — Phase 1 (INFRA-01/03/04 = 3) + Phase 2 (INFRA-02 = 1) + Phase 3 (HARVEST-01..08 + AGENT-06 = 9) + Phase 4 (34/34 complete 2026-04-19 via Plans 04-01..10)
 - **Orphaned REQ:** 0
 - **Phases:** 10 (granularity=fine 목표 구간 내)
-- **Harness Audit Baseline:** TBD (Phase 7 Integration Test에서 ≥ 80 확정)
+- **Harness Audit Baseline:** ✅ 100 (Phase 4 Plan 10 Wave 5, threshold 80, 20-point margin) — AUDIT-02 Phase 10 baseline prep satisfied. Phase 7 Integration Test 재검증 예정.
 - **YouTube 채널 구독자:** TBD (Phase 3 Harvest 시 현황 파악 — SUMMARY §12 open question)
 - **월 운영비 예산:** ~$128/월 표준 (Sonnet $12 + Opus $9 + Kling $86.4 + Typecast $20 + Nano Banana $0.64)
 
@@ -244,9 +249,14 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 ```
 
 1. Read .planning/STATE.md (← 본 파일)
-2. Read .planning/phases/04-agent-team-design/04-CONTEXT.md (Phase 4 agent 구조 29 + rubric schema 동시 정의)
-3. Read .planning/phases/04-agent-team-design/04-01-SUMMARY.md (Wave 0 FOUNDATION 산출물 레퍼런스)
-4. Execute: /gsd:execute-plan 04-02 (Wave 1 Inspector Structural 3)
+2. Read .planning/phases/04-agent-team-design/04-10-SUMMARY.md (Phase 4 capstone: 32 agents + SC1 reconciliation + harness_audit 100)
+3. Execute: /gsd:plan-phase 5 (Phase 5 Orchestrator v2 — 17 REQs: ORCH-01~12 + VIDEO-01~05 — 500~800줄 state machine)
+
+Phase 4 artifacts available:
+- .claude/agents/ (32 AGENT.md files, 6 Inspector categories + 14 Producer + 1 Supervisor)
+- .claude/agents/_shared/ (rubric-schema.json + agent-template.md + vqqa_corpus.md)
+- scripts/validate/ (5 stdlib validators + harness_audit.py)
+- tests/phase04/ (244 tests, all PASS)
 
 ```
 
@@ -254,7 +264,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 
 - `skip_gates=True`, `TODO(next-session)` 물리 차단 (pre_tool_use Hook)
 - SKILL.md ≤ 500줄, description ≤ 1024자
-- 에이전트 총합 12~20명
+- 에이전트 총합 **32명** (Producer 14 + Inspector 17 + Supervisor 1, Phase 4 Plan 10 canonical per REQUIREMENTS AGENT-01~05; 원안 "12~20" amended 2026-04-19)
 - 오케스트레이터 500~800줄
 - `shorts_naberal` 원본 수정 금지 (Harvest는 읽기만)
 - Phase 10 첫 1~2개월 SKILL patch 전면 금지 (D-2 저수지)
