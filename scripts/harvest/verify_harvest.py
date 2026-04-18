@@ -252,7 +252,17 @@ def _deep_diff_all() -> tuple[bool, str]:
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     total = 0
     for name, entry in manifest.items():
+        # Skip top-level metadata keys (manifest_version, generated_at,
+        # source_root, global_ignore, blacklist_exclusions) which are not
+        # raw_dir entries. A raw_dir entry must be a dict containing a
+        # 'dest' key and either a 'source' (tree copy) or 'cherry_pick' (file list).
+        if not isinstance(entry, dict):
+            continue
+        if "dest" not in entry:
+            continue
         if not entry.get("source"):
+            # Cherry-pick entries have source=None; deep_diff only applies
+            # to tree copies. Skip cherry-pick entries here.
             continue
         src = SOURCE_ROOT / entry["source"]
         dst = DEST_ROOT / name
@@ -273,6 +283,15 @@ def _sha256_spot_sample(rate: float = 0.1) -> tuple[bool, str]:
     total_checked = 0
     total_failed = 0
     for name, entry in manifest.items():
+        # Skip top-level metadata keys — only raw_dir entries (dict with 'dest')
+        # are sampled. Tree copies (source set) AND cherry-picks (cherry_pick
+        # set) are both eligible; sha256 samples from dst tree regardless.
+        if not isinstance(entry, dict):
+            continue
+        if "dest" not in entry:
+            continue
+        # For sha256 check, we need a source directory. Cherry-pick entries
+        # have source=None; skip them here (files are scattered across src tree).
         if not entry.get("source"):
             continue
         src = SOURCE_ROOT / entry["source"]

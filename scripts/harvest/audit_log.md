@@ -61,3 +61,12 @@ write probe result: PermissionError raised (expected - lockdown active)
 Files with R attribute: 55 (theme_bible_raw=7, remotion_src_raw=40, hc_checks_raw=2, api_wrappers_raw=5, + directory nodes)
 Independent verify: cmd.exe //c "attrib .preserved\harvested\*.* /s" shows 'A    R' on every file
 Result: PASS
+
+## Wave 4 Task 2 — verify_harvest --full (2026-04-18T19:27:17Z)
+exit code: 0
+13 task-level checks: 13 OK, 0 FAIL
+--full extras: 2 OK (deep_diff 2 tree-copy dirs clean, sha256 5 files hash-matched)
+Total: 15/15 OK
+Rule 3 deviation: fixed verify_harvest.py _deep_diff_all + _sha256_spot_sample manifest iteration (was crashing on non-dict top-level keys manifest_version/generated_at/source_root/global_ignore/blacklist_exclusions). Added isinstance(entry, dict) and "dest" in entry guard. See Plan 03-09 SUMMARY Deviations.
+03-VALIDATION.md frontmatter: status=complete, nyquist_compliant=true, wave_0_complete=true, completed=2026-04-19
+Result: PASS (Phase 3 complete)
