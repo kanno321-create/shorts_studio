@@ -2,11 +2,11 @@
 gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
-status: phase-complete
-last_updated: "2026-04-19T03:00:00.000Z"
+status: planning
+last_updated: "2026-04-18T17:53:44.458Z"
 progress:
   total_phases: 10
-  completed_phases: 2
+  completed_phases: 1
   total_plans: 6
   completed_plans: 6
   percent: 100
@@ -32,11 +32,11 @@ progress:
 ## Current Position
 
 Phase: 03 (harvest) — READY TO START
-Plan: N/A (Phase 3 planning pending)
+Plan: Not started
 
-- **Phase:** 2 ✅ COMPLETE 2026-04-19 (session #14) — 12/12 VALIDATION PASS, studio@f360e17, SC 4/4 achieved
+- **Phase:** 3
 - **Next Phase:** 3 (Harvest) — Entry point: `/gsd:execute-phase 3`
-- **Status:** Phase 2 Domain Definition 종결. studios/shorts 레포에 consolidated commit f360e17 (9 files, +449/-7) 로 3-Tier wiki + CLAUDE.md 도메인 스코프 + 02-HARVEST_SCOPE.md 일괄 기록. harness 레포는 8a8c32b (schema v1.1.0 bump) + 1ff2e34 (Tier 1 scaffold) 별도 기록. Phase 3 harvest-importer 에이전트의 입력 02-HARVEST_SCOPE.md 준비 완료.
+- **Status:** Ready to plan
 - **Progress:** [██████████] 100% (6/6 plans Phase 2)
 
 ---
