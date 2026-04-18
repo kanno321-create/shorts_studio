@@ -72,7 +72,16 @@
   3. `HARVEST_DECISIONS.md`가 존재하고 CONFLICT_MAP 39건(A:13/B:16/C:10) 각각에 대해 "승계"/"폐기"/"통합 후 재작성" 판단이 명시되어 있다
   4. `.claude/failures/_imported_from_shorts_naberal.md`가 생성되어 과거 학습 자산이 사용 가능한 상태로 통합되어 있다
   5. Harvest Blacklist 문서가 `orchestrate.py:1239-1291 skip_gates 블록`을 포함한 금지 import 목록을 명시하고 있으며, harvest-importer 에이전트가 이를 참조한다
-**Plans:** TBD
+**Plans:** 9 plans (W0:2, W1:4, W2:1, W3:1, W4:1)
+- [ ] 03-01-PLAN.md — harvest-importer AGENT.md + 7 Python stdlib modules (W0, AGENT-06)
+- [x] 03-02-PLAN.md — path_manifest.json (filesystem-verified source mapping, W0, HARVEST-01/02/03/05/07) — ✅ shipped 2026-04-19, studio@609c3f8
+- [ ] 03-03-PLAN.md — theme_bible_raw copy (W1, HARVEST-01)
+- [ ] 03-04-PLAN.md — remotion_src_raw copy, node_modules 제외 (W1, HARVEST-02)
+- [ ] 03-05-PLAN.md — hc_checks_raw cherry_pick (W1, HARVEST-03)
+- [ ] 03-06-PLAN.md — api_wrappers_raw cherry_pick 4+ wrappers (W1, HARVEST-05)
+- [ ] 03-07-PLAN.md — diff_verifier --all + FAILURES merge (W2, HARVEST-04)
+- [ ] 03-08-PLAN.md — 03-HARVEST_DECISIONS.md 39 rows + blacklist grep audit (W3, HARVEST-07/08)
+- [ ] 03-09-PLAN.md — attrib +R lockdown + verify_harvest --full (W4, HARVEST-06)
 
 ---
 
