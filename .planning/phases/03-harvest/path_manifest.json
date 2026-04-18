@@ -1,0 +1,69 @@
+{
+  "manifest_version": "1.0",
+  "generated_at": "2026-04-19",
+  "source_root": "C:/Users/PC/Desktop/shorts_naberal",
+  "global_ignore": [
+    "client_secret*.json",
+    "token_*.json",
+    ".env*",
+    "*.key",
+    "*.pem",
+    "__pycache__",
+    "*.pyc"
+  ],
+  "theme_bible_raw": {
+    "source": ".claude/channel_bibles",
+    "cherry_pick": null,
+    "dest": ".preserved/harvested/theme_bible_raw",
+    "ignore": [],
+    "req_id": "HARVEST-01",
+    "note": "RESEARCH.md §2 remap — HARVEST_SCOPE.md prose table said '.claude/theme-bible/' which does NOT exist. Verified 2026-04-19: 7 md files at this path (documentary, humor, incidents, politics, trend, wildlife, README)."
+  },
+  "remotion_src_raw": {
+    "source": "remotion/src",
+    "cherry_pick": null,
+    "dest": ".preserved/harvested/remotion_src_raw",
+    "ignore": ["node_modules", "__pycache__", "*.pyc", ".venv", ".git"],
+    "req_id": "HARVEST-02",
+    "note": "RESEARCH.md §2 remap — HARVEST_SCOPE.md said 'src/' but Remotion lives at 'remotion/src/'. Parent's node_modules (758 MB, verified present 2026-04-19) excluded defensively via ignore pattern."
+  },
+  "hc_checks_raw": {
+    "source": null,
+    "cherry_pick": [
+      "scripts/orchestrator/hc_checks.py",
+      "scripts/orchestrator/tests/test_hc_checks.py"
+    ],
+    "dest": ".preserved/harvested/hc_checks_raw",
+    "ignore": [],
+    "req_id": "HARVEST-03",
+    "note": "Single-file + companion tests per RESEARCH.md open question #3. Verified 2026-04-19: hc_checks.py = 1129 lines; test_hc_checks.py exists. Test file inclusion preserves Phase 5 orchestrator v2 regression baseline."
+  },
+  "api_wrappers_raw": {
+    "source": null,
+    "cherry_pick": [
+      "scripts/audio-pipeline/elevenlabs_alignment.py",
+      "scripts/audio-pipeline/tts_generate.py",
+      "scripts/video-pipeline/runway_client.py",
+      "scripts/video-pipeline/_kling_i2v_batch.py",
+      "scripts/avatar/heygen_client.py"
+    ],
+    "dest": ".preserved/harvested/api_wrappers_raw",
+    "ignore": [],
+    "req_id": "HARVEST-05",
+    "note": "RESEARCH.md §2 remap — scripts/api/ DOES NOT EXIST (verified 2026-04-19). Wrappers scattered across audio-pipeline/, video-pipeline/, avatar/. All 5 candidates verified present including runway_client.py (Kling primary per D-3, Runway fallback). If additional wrappers discovered in execution, update manifest and re-run diff_verifier."
+  },
+  "blacklist_exclusions": {
+    "full_file": [
+      "scripts/orchestrator/orchestrate.py",
+      ".claude/skills/create-shorts/SKILL.md"
+    ],
+    "path_prefix": [
+      "longform/",
+      ".claude/skills/create-video/"
+    ],
+    "pattern": [
+      "selenium"
+    ],
+    "source": "02-HARVEST_SCOPE.md § Harvest Blacklist (10 entries, Python dict literal)"
+  }
+}
