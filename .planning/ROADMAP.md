@@ -104,7 +104,7 @@
 - [ ] 04-04-PLAN.md — W1 Inspector Style 3 (ins-tone-brand maxTurns=5, ins-readability, ins-thumbnail-hook)
 - [ ] 04-05-PLAN.md — W2 Inspector Compliance 3 (ins-license, ins-platform-policy, ins-safety) + AF-4/13 100% 차단
 - [ ] 04-06-PLAN.md — W2 Inspector Technical 3 (ins-audio-quality, ins-render-integrity, ins-subtitle-alignment)
-- [ ] 04-07-PLAN.md — W2 Inspector Media 2 (ins-mosaic, ins-gore) + AF-5 100% 차단
+- [x] 04-07-PLAN.md — W2 Inspector Media 2 (ins-mosaic, ins-gore) + AF-5 100% 차단
 - [ ] 04-08-PLAN.md — W3 Producer Core 6 + 3단 분리 3 (trend-collector, niche-classifier, researcher, director, scene-planner, shot-planner, scripter, script-polisher, metadata-seo)
 - [ ] 04-09-PLAN.md — W4 Producer 지원 5 + Supervisor 1 (voice-producer, asset-sourcer, assembler, thumbnail-designer, publisher, shorts-supervisor) + _delegation_depth guard
 - [ ] 04-10-PLAN.md — W5 Integration: harness-audit ≥ 80 + GAN contamination 0 + LogicQA schema 17/17 + SC1 reconciliation 32 canonical

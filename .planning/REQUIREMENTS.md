@@ -124,10 +124,10 @@
 ### COMPLY — 컴플라이언스 + 방어
 
 - [ ] **COMPLY-01**: 한국 법 위반 검사 (명예훼손 / 아동복지법 / 공소제기 전 보도규제) — `ins-platform-policy`
-- [ ] **COMPLY-02**: KOMCA + 방송사 저작권 필터 — 실사 뉴스 금지, 인물 mosaic 강제 (`ins-mosaic`)
+- [x] **COMPLY-02**: KOMCA + 방송사 저작권 필터 — 실사 뉴스 금지, 인물 mosaic 강제 (`ins-mosaic`)
 - [ ] **COMPLY-03**: **Inauthentic Content 방어** — 3 템플릿 변주 + Human signal 필수 (A-P1 차단, TS-10)
 - [ ] **COMPLY-04**: 실존 인물 voice cloning 금지 (AF-4)
-- [ ] **COMPLY-05**: 실존 피해자 AI 얼굴 금지 (AF-5)
+- [x] **COMPLY-05**: 실존 피해자 AI 얼굴 금지 (AF-5)
 - [ ] **COMPLY-06**: 문화 sensitivity 검사 (지역/세대/정치/젠더)
 
 ### FAIL — FAILURES 저수지 + 학습
