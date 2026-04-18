@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-19T04:06:08.000Z"
+last_updated: "2026-04-19T04:06:20.000Z"
 progress:
   total_phases: 10
   completed_phases: 1
   total_plans: 15
-  completed_plans: 11
-  percent: 73
+  completed_plans: 12
+  percent: 80
 ---
 
 # STATE — naberal-shorts-studio
 
 **Last updated:** 2026-04-19
-**Session:** #15 (Phase 3 Wave 1 EXECUTING — Plan 03-06 API-WRAPPERS-COPY shipped studio@aeac16b (5/5 wrappers byte-identical, HARVEST-05 satisfied, 0 selenium imports). Plan 03-05 HC-CHECKS-COPY shipped studio@51205ba earlier. Plans 03-03/04 concurrent on same wave.)
+**Session:** #15 (Phase 3 Wave 1 EXECUTING — Plan 03-03 THEME-BIBLE-COPY shipped studio@fba21e4 (7 channel bibles byte-identical, diff_verifier mismatches=[], HARVEST-01 satisfied). 03-06 API-WRAPPERS studio@aeac16b + 03-05 HC-CHECKS studio@51205ba shipped earlier. Plan 03-04 remotion_src_raw remains in-flight.)
 
 ---
 
@@ -32,7 +32,7 @@ progress:
 ## Current Position
 
 Phase: 03 (harvest) — EXECUTING
-Plan: 6 of 9 complete (Wave 1 parallel batch in flight — 03-05 HC-CHECKS-COPY + 03-06 API-WRAPPERS-COPY shipped; 03-03/04 concurrent)
+Plan: 7 of 9 complete (Wave 1 almost done — 03-01/02/03/05/06 shipped; 03-04 remotion_src_raw remaining)
 
 - **Phase:** 3
 - **Next Phase:** 3 (Harvest) — Entry point: `/gsd:execute-phase 3`
@@ -116,7 +116,8 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 - [x] **Phase 2 Plan 06 execute → studio Phase 2 consolidated commit f360e17 + 12/12 VALIDATION PASS + SC 4/4 achieved (2026-04-19)**
 - [x] **Phase 3 Harvest 진입**: `/gsd:execute-phase 3` — harvest-importer 에이전트 입력 = 02-HARVEST_SCOPE.md
 - [x] **Phase 3 Plan 03-02 execute** → path_manifest.json ground-truth registry (studio@609c3f8, 2026-04-19) — 4 raw_dir sources verified, global_ignore blocks 5 secret patterns, 5/5 api_wrapper cherry_picks confirmed present
-- [ ] **Phase 3 Plan 03-01 execute** (parallel) → harvest-importer AGENT.md + 7 Python stdlib modules (AGENT-06)
+- [x] **Phase 3 Plan 03-01 execute** → harvest-importer AGENT.md + 7 Python stdlib modules (AGENT-06) — shipped prior to Wave 1
+- [x] **Phase 3 Plan 03-03 execute** → theme_bible_raw copy (studio@fba21e4, 2026-04-19) — 7 channel bibles byte-identical, diff_verifier mismatches=[] (HARVEST-01)
 - [x] **Phase 3 Plan 03-05 execute** → hc_checks_raw cherry_pick (studio@51205ba, 2026-04-19) — hc_checks.py 1129 lines + test_hc_checks.py byte-identical, orchestrate.py blacklist enforced (HARVEST-03)
 - [x] **Phase 3 Plan 03-06 execute** → api_wrappers_raw cherry_pick (studio@aeac16b, 2026-04-19) — 5/5 wrappers byte-identical (elevenlabs_alignment, tts_generate, _kling_i2v_batch, runway_client, heygen_client), 0 selenium imports, orchestrate.py absent (HARVEST-05)
 - [x] **Phase 3 Plan 03-04 execute** → remotion_src_raw copy (studio@4bc7ece, 2026-04-19) — 40 files / 0.161 MB, node_modules 758 MB excluded via shutil.ignore_patterns, diff_verifier mismatches=[], __pycache__/secret 0 hits (HARVEST-02)
