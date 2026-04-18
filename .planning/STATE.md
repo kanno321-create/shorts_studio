@@ -1,7 +1,7 @@
 # STATE — naberal-shorts-studio
 
 **Last updated:** 2026-04-19
-**Session:** #10 (roadmap 확정)
+**Session:** #12 (Phase 2 context gathered)
 
 ---
 
@@ -17,10 +17,10 @@
 
 ## Current Position
 
-- **Phase:** 1 → 2 (Phase 1 완료, Phase 2 진입 대기)
-- **Plan:** N/A (Phase 2 plan은 `/gsd:plan-phase 2`로 생성 예정)
-- **Status:** Roadmap 확정 직후
-- **Progress:** `[██░░░░░░░░] 1/10 phases` (10%)
+- **Phase:** 2 (Context gathered, plan 대기)
+- **Plan:** N/A (`/gsd:plan-phase 2`로 생성 예정)
+- **Status:** Phase 2 CONTEXT.md 작성 완료 (commit 9b9039f)
+- **Progress:** `[██░░░░░░░░] 1/10 phases` (10%, Phase 2 context-ready)
 
 ---
 
@@ -58,11 +58,22 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 4. **Phase 6에 FAIL-01~03 배치, FAIL-04는 Phase 10** — 저수지 인프라는 초기 구축, "첫 1~2개월 patch 금지"는 운영 단계 규율
 5. **KPI-05/06(Taste Gate + 목표 지표)는 Phase 9, KPI-01~04(자동 수집 + Auto Research Loop)는 Phase 10** — taste 프로토콜 설치 후 실 운영에서 데이터 수집
 
-### Active Todos (Phase 2 진입 전)
+### Session #12 Decisions (Phase 2 context)
 
-- [ ] 사용자 roadmap 승인 → `/gsd:plan-phase 2` 실행
-- [ ] Phase 2 plan에서 3-Tier 위키 디렉토리 물리 생성 순서 확정
-- [ ] `CLAUDE.md {{TODO}}` 5종 치환 초안 준비
+6. **D2-A Tier 1 wiki = minimal** — 빈 폴더 + README.md만. 실 노드는 Phase 6. 이유: 선제 시드 = 나중 갈아엎기 리스크.
+7. **D2-B Tier 2 wiki = MOC skeleton** — 5 카테고리(algorithm/ypp/render/kpi/continuity_bible) + 각 MOC.md. Phase 4 에이전트 prompt 참조 경로 고정 목적.
+8. **D2-C Harvest scope = A급 13건 사전** — CONFLICT_MAP A급만 Phase 2에서 판정. B급/C급은 Phase 3 harvest-importer.
+9. **D2-D CLAUDE.md 치환 = 중간** — D-1~D-10 반영, Phase 4~5 결정 수치는 TBD(Phase X) 명시.
+
+### Active Todos (Phase 2 plan 대기)
+
+- [x] Phase 2 gray areas 확정 (4건: Tier1 minimal / Tier2 MOC skeleton / A급 13 사전 판정 / CLAUDE.md 중간)
+- [x] 02-CONTEXT.md + 02-DISCUSSION-LOG.md 커밋 (9b9039f)
+- [ ] `/gsd:plan-phase 2` 실행 → 02-PLAN.md 생성
+- [ ] Phase 2 execute → STRUCTURE.md v1.0.0→v1.1.0 bump
+- [ ] Phase 2 execute → wiki/ 3-Tier 물리 생성
+- [ ] Phase 2 execute → CLAUDE.md 5 TODO 치환
+- [ ] Phase 2 execute → HARVEST_SCOPE.md 작성 (A급 13건 판정)
 
 ### Blockers
 
@@ -100,7 +111,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 
 ```
 1. Read .planning/STATE.md (← 본 파일)
-2. Read .planning/ROADMAP.md Phase 2 detail
+2. Read .planning/phases/02-domain-definition/02-CONTEXT.md (Phase 2 결정 4건)
 3. Execute: /gsd:plan-phase 2
 ```
 
