@@ -43,16 +43,16 @@
   - Media (2): `ins-mosaic`, `ins-gore`
 - [ ] **AGENT-05**: Supervisor(`shorts-supervisor`) 1명 — 재귀 위임 금지(1 depth)
 - [x] **AGENT-06**: Harvest-importer (Phase 3 only)
-- [ ] **AGENT-07**: 모든 SKILL.md ≤ 500줄 검증 (harness-audit)
-- [ ] **AGENT-08**: 모든 에이전트 description에 트리거 키워드 명시 (≤1024자)
-- [ ] **AGENT-09**: MUST REMEMBER 지시를 프롬프트 끝에 재배치 (RoPE 모델 Lost in the Middle 대응)
+- [x] **AGENT-07**: 모든 SKILL.md ≤ 500줄 검증 (harness-audit) — ✅ 04-01 (scripts/validate/validate_all_agents.py check_line_count)
+- [x] **AGENT-08**: 모든 에이전트 description에 트리거 키워드 명시 (≤1024자) — ✅ 04-01 (check_description_chars + check_description_triggers)
+- [x] **AGENT-09**: MUST REMEMBER 지시를 프롬프트 끝에 재배치 (RoPE 모델 Lost in the Middle 대응) — ✅ 04-01 (check_must_remember_position ratio_from_end ≤ 0.4)
 
 ### RUB — Reviewer Rubric 설계
 
 - [ ] **RUB-01**: LogicQA 패턴 — Main-Q + 5 Sub-Qs 다수결 (NotebookLM T15)
 - [ ] **RUB-02**: Reviewer는 O/X 평가만, 창작 금지 (NotebookLM T6)
 - [ ] **RUB-03**: **시맨틱 그래디언트 피드백 (VQQA)** — "팔이 녹아내림" 같은 자연어 → Producer 프롬프트 주입 (T7)
-- [ ] **RUB-04**: rubric JSON Schema를 AGENT 설계와 **동시 정의** (나중 추가 = 커플링 깨짐)
+- [x] **RUB-04**: rubric JSON Schema를 AGENT 설계와 **동시 정의** (나중 추가 = 커플링 깨짐) — ✅ 04-01 (.claude/agents/_shared/rubric-schema.json draft-07 + supervisor-rubric-schema.json)
 - [ ] **RUB-05**: maxTurns 표준 3 (예외: factcheck 10 / tone-brand 5 / regex 1)
 - [ ] **RUB-06**: 각 inspector는 별도 context (GAN 분리)
 

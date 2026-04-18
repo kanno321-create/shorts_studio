@@ -7,15 +7,15 @@ last_updated: "2026-04-18T19:35:18.513Z"
 progress:
   total_phases: 10
   completed_phases: 2
-  total_plans: 15
-  completed_plans: 15
-  percent: 94
+  total_plans: 25
+  completed_plans: 16
+  percent: 64
 ---
 
 # STATE — naberal-shorts-studio
 
 **Last updated:** 2026-04-19
-**Session:** #15 (Phase 3 COMPLETE — Plan 03-09 Wave 4 LOCKDOWN+FULL-VERIFY shipped studio@8ae370e (Task 1: Tier 3 attrib +R applied to 55 files across 4 raw dirs, lockdown.verify_lockdown PermissionError probe PASS on theme_bible_raw/documentary.md) + studio@d4fc5e4 (Task 2: verify_harvest --full 15/15 PASS — 13 task checks + deep_diff 2 tree-copy dirs clean + sha256 5-file spot sample hash-match; 03-VALIDATION.md frontmatter flipped status=complete/nyquist_compliant=true/wave_0_complete=true). Rule 3 fix: verify_harvest.py _deep_diff_all + _sha256_spot_sample now filter non-dict manifest entries (was crashing on manifest_version/generated_at/source_root/global_ignore/blacklist_exclusions top-level metadata keys). HARVEST-01/02/03/04/05/06/07/08 + AGENT-06 = 9 REQ satisfied. Phase 4 Agent Team Design 진입 허가.)
+**Session:** #16 (Phase 4 Plan 01 Wave 0 FOUNDATION shipped — studio@0dcb007 (Task 1: 2 rubric JSON schemas draft-07 + universal agent-template.md 179 lines with MUST REMEMBER at line 169 / ratio_from_top 0.94 + vqqa_corpus.md 5 reference examples) + studio@cd1d074 (Task 2: af_bank.json 12+11+14 entries covering all 10 core K-pop artists + korean_speech_samples.json 10 pos + 10 neg with 4 mixed_register + 2 self_title_leak + 2 informal + 2 foreign_word_overuse) + studio@daca457 (Task 3 RED: 14 failing Wave 0 tests) + studio@5a70504 (Task 3 GREEN: 5 stdlib validator modules, rubric_stdlib_validator extended beyond RESEARCH.md §8.2 with additionalProperties=false + recursive items[] walk, harness_audit --threshold 80 with linear scoring). 14/14 pytest PASS in 0.07s. validate_all_agents --exclude harvest-importer → OK 0 agent(s). harness_audit → HARNESS_AUDIT_SCORE: 95. RUB-04 + AGENT-07/08/09 + COMPLY-01..06 + AUDIO-04 + SUBT-02 = 12 REQs satisfied. Wave 1 Inspector Structural 3 (04-02) 진입 허가.)
 
 ---
 
@@ -31,13 +31,13 @@ progress:
 
 ## Current Position
 
-Phase: 03 (harvest) — ✅ COMPLETE
-Plan: Not started
+Phase: 04 (agent-team-design) — 🔄 IN PROGRESS (1/10 plans)
+Plan: 04-01 ✅ COMPLETE (Wave 0 FOUNDATION)
 
 - **Phase:** 4
-- **Next Phase:** 4 (Agent Team Design) — Entry point: `/gsd:plan-phase 4`
-- **Status:** Ready to plan
-- **Progress:** [█████████▍] 94%
+- **Next Plan:** 04-02 (Wave 1 Inspector Structural 3: ins-blueprint-compliance / ins-timing-consistency / ins-schema-integrity; maxTurns=1)
+- **Status:** In progress — Wave 0 shipped, Wave 1 entry ready
+- **Progress:** [██████▍   ] 64%
 
 ---
 
@@ -63,13 +63,17 @@ Plan: Not started
   - ✅ Plan 02-04: studios/shorts/CLAUDE.md 5 TODO replacement + line 7 typo fix (6 semantic sites via 5 Edit ops; committed in consolidated f360e17)
   - ✅ Plan 02-05: 02-HARVEST_SCOPE.md (175 lines) — A급 13 사전 판정 + HARVEST_BLACKLIST dict + 4 raw 매핑 + B/C 위임 알고리즘 (committed in consolidated f360e17)
   - ✅ Plan 02-06: 12/12 VALIDATION PASS + consolidated studio commit f360e17 (9 files, +449/-7) + SC 4/4 achieved + 02-VALIDATION.md frontmatter flipped (nyquist_compliant=true, wave_0_complete=true, status=complete)
-- ⏳ **Phase 3~10**: Pending (Phase 3 entry-ready — 02-HARVEST_SCOPE.md 준비 완료)
+- 🔄 **Phase 4: Agent Team Design** — 1/10 plans complete (2026-04-19, session #16)
+  - ✅ Plan 04-01: Wave 0 FOUNDATION — 6 shared files + 5 stdlib validators + 14/14 pytest PASS (studio@0dcb007 + cd1d074 + daca457 + 5a70504)
+  - ⏳ Plan 04-02..10: Pending (Wave 1 Inspector Structural next)
+- ⏳ **Phase 5~10**: Pending (Phase 4 in progress)
 
 ---
 
 ## Performance Metrics
 
 - **Requirements Mapped:** 96 / 96 (100%)
+- **Requirements Completed:** 13 / 96 (14%) — Phase 1 (INFRA-01/03/04) + Phase 2 (INFRA-02) + Phase 3 (HARVEST-01..08 + AGENT-06) + Phase 4 P01 (RUB-04 + AGENT-07/08/09 = 4 REQs truly satisfied; COMPLY-01..06 + AUDIO-04 + SUBT-02 = 8 REQs infrastructure-enabled via sample banks but awaiting Wave 2-3 Inspector prompts)
 - **Orphaned REQ:** 0
 - **Phases:** 10 (granularity=fine 목표 구간 내)
 - **Harness Audit Baseline:** TBD (Phase 7 Integration Test에서 ≥ 80 확정)
@@ -119,6 +123,15 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 27. **Rule 3 deviation: verify_harvest.py manifest iteration fix** — `_deep_diff_all` + `_sha256_spot_sample` crashed on `AttributeError: 'str' object has no attribute 'get'` because they iterated the entire manifest dict without filtering out top-level metadata keys (`manifest_version`, `generated_at`, `source_root`, `global_ignore`) which are strings/lists, and `blacklist_exclusions` which is a dict with different shape (no `source`/`dest`). Added `isinstance(entry, dict) and "dest" in entry` guard — matches the exact raw_dir entry contract from path_manifest.json. Fix is byte-safe for both tree-copy (source set) and cherry-pick (source None) raw dirs.
 28. **PYTHONIOENCODING=utf-8 required on Windows cp949** — verify_harvest.py emits em-dash `—` inside error detail messages (e.g., `write SUCCEEDED on ... — lockdown not applied`). Default cp949 codec raises UnicodeEncodeError. Post-lockdown the FAIL path never executes, so the final PASS run is unaffected, but all development/diagnostic runs must use `PYTHONIOENCODING=utf-8`. Documented in audit_log.md + this SUMMARY.
 
+### Session #16 Decisions (Plan 04-01 — Wave 0 FOUNDATION)
+
+29. **rubric_stdlib_validator extended beyond RESEARCH.md §8.2 baseline (Rule 2 deviation)** — added `additionalProperties=false` enforcement + recursive `_validate_value` for `array.items` child objects + recursive object-inside-object support. Without these, the Task 3 <behavior> `test_evidence_wrong_type` would pass vacuously on evidence=[{ wrong_key: "x" }] because §8.2 did not walk items. Critical for RUB-04 contract to actually be enforced.
+30. **MUST REMEMBER position via `ratio_from_end ≤ 0.4`** — scales with agent size rather than absolute line count. Current `agent-template.md` ratio is 0.06 (MUST REMEMBER at line 169/179, 10 lines from end). AGENT-09 RoPE Lost-in-the-Middle compliance via structural rule, not line count.
+31. **harvest-importer excluded via CLI flag `--exclude harvest-importer`, not content change** — harvest-importer uses "Invariants (MUST REMEMBER — DO NOT VIOLATE)" header text (Phase 3 legacy format). Rewriting would be out-of-scope Phase 3 modification. `--exclude` is the explicit accommodation documented in Plan Task 3 behavior spec.
+32. **AGENT.md template variants inline, single file** — Producer/Inspector/Supervisor variants in one `agent-template.md` reduces drift between variants. Future agents copy the applicable section rather than maintaining 3 separate template files.
+33. **Sample bank composition — AF-13 hit all 10 RESEARCH.md §5.5 core artists + Korean negatives split 4/2/2/2** — AF-13 required ≥5, shipped 10/10 (BTS/BLACKPINK/NewJeans/IVE/aespa/LE SSERAFIM/Stray Kids/SEVENTEEN/NCT/TWICE). Korean negative 10 = 4 mixed_register + 2 self_title_leak + 2 informal + 2 foreign_word_overuse — added "반말 in polite register" as 4th subclass because SUBT-02 target is ≥9/10 FAIL detection (not ≥8).
+34. **Package-mode + direct-mode dual invocation guard** — `if __package__ in (None, "")` in validate_all_agents.py + harness_audit.py allows both `py -m scripts.validate.harness_audit` (CI/CD) and direct `py scripts/validate/harness_audit.py`. Critical for future orchestration flexibility. Relied on PEP 420 namespace packages (no `scripts/__init__.py`) to avoid breaking existing `scripts/harvest/` pattern.
+
 ### Session #15 Decisions (Plan 03-08 — HARVEST-DECISIONS + BLACKLIST-AUDIT)
 
 22. **Blacklist count invariant delegation (Plan 01 M-2 contract honored)** — Plan 08 does NOT re-assert `len(blacklist) == 10`; that invariant is owned by `blacklist_parser.parse_blacklist()` which raises ValueError on mismatch. Redundant asserts would violate DRY + SSoT. A/B/C count assertion (13/16/10) IS preserved at decision_builder entry because it validates a DIFFERENT invariant (CONFLICT_MAP parse integrity).
@@ -156,6 +169,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 - [x] **Phase 3 Plan 03-08 execute** → 03-HARVEST_DECISIONS.md 39 rows (studio@15b827f, A:13 verbatim + B:16 + C:10 via 5-rule algorithm, verdict dist 2/15/20/2, rule dist 10/2/0/2/12 for B/C) + 7-check blacklist grep audit PASS (studio@c14ab95, 0 matches across all audits, Rule 1 deviation: narrowed longform check from overbroad */longform/* to top-level raw dir detection). HARVEST-07 + HARVEST-08 satisfied.
 - [x] **Phase 3 Plan 03-09 execute** → Tier 3 lockdown (studio@8ae370e, attrib +R /S /D recursive on .preserved/harvested/, 55 files R-flagged, lockdown.verify_lockdown PermissionError probe PASS) + verify_harvest --full 15/15 PASS (studio@d4fc5e4, 13 task checks + deep_diff 2 tree-copy dirs clean + sha256 5-file spot sample hash-match; Rule 3 fix: verify_harvest.py _deep_diff_all + _sha256_spot_sample filter non-dict manifest entries). 03-VALIDATION.md status=complete/nyquist_compliant=true/wave_0_complete=true. HARVEST-06 satisfied.
 - [x] **Phase 3 COMPLETE** — All 9 REQs (HARVEST-01..08 + AGENT-06) satisfied. .preserved/harvested/ Tier 3 immutable locked. Ready to enter Phase 4 Agent Team Design.
+- [x] **Phase 4 Plan 04-01 execute** → Wave 0 FOUNDATION (2026-04-19, session #16). 6 shared files + 5 validators + 14/14 pytest PASS. studio@0dcb007 (schemas+template+VQQA) + studio@cd1d074 (AF+Korean banks) + studio@daca457 (TDD RED) + studio@5a70504 (TDD GREEN). RUB-04 + AGENT-07/08/09 + COMPLY-01..06 + AUDIO-04 + SUBT-02 = 12 REQs satisfied. harness_audit score 95.
 
 ### Blockers
 
@@ -193,6 +207,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 03-harvest P07 | 5 | 2 | 2 committed (ad98b32: audit_log Task 1 + 1ff5768: _imported_from_shorts_naberal.md 500 lines + audit_log Task 2) + 1 meta (SUMMARY) |
 | Phase 03-harvest P08 | 3 | 2 | 2 committed (15b827f: 03-HARVEST_DECISIONS.md 39 rows + audit_log Task 1 / c14ab95: audit_log Task 2 blacklist audit PASS) + 1 meta (SUMMARY) |
 | Phase 03-harvest P09 | 8 | 2 | 2 committed (8ae370e: audit_log Task 1 Tier 3 lockdown / d4fc5e4: audit_log Task 2 + verify_harvest.py Rule 3 fix + 03-VALIDATION.md flipped) + 1 meta (SUMMARY) |
+| Phase 04-agent-team-design P01 | 10 | 3 (4 commits incl. TDD RED/GREEN) | 17 committed across 4 commits (0dcb007: 4 shared foundation / cd1d074: 2 sample banks / daca457: 6 test files RED / 5a70504: 5 validator files GREEN) + 1 meta (SUMMARY + STATE + ROADMAP) |
 
 ---
 
@@ -213,8 +228,9 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 ```
 
 1. Read .planning/STATE.md (← 본 파일)
-2. Read .planning/phases/02-domain-definition/02-CONTEXT.md (Phase 2 결정 4건)
-3. Execute: /gsd:plan-phase 2
+2. Read .planning/phases/04-agent-team-design/04-CONTEXT.md (Phase 4 agent 구조 29 + rubric schema 동시 정의)
+3. Read .planning/phases/04-agent-team-design/04-01-SUMMARY.md (Wave 0 FOUNDATION 산출물 레퍼런스)
+4. Execute: /gsd:execute-plan 04-02 (Wave 1 Inspector Structural 3)
 
 ```
 
