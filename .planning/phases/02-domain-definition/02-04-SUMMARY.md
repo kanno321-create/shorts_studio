@@ -45,7 +45,7 @@ metrics:
   commits: 1
   completed_date: "2026-04-19"
 commit_hashes:
-  - "studios/shorts@TBD — docs(02-04): complete CLAUDE.md 5 TODO replacement plan (meta: SUMMARY+STATE+ROADMAP only; CLAUDE.md staged for Plan 02-06 consolidated commit)"
+  - "studios/shorts@ffefe03 — docs(02-04): complete CLAUDE.md 5 TODO replacement plan (meta: SUMMARY+STATE+ROADMAP only; CLAUDE.md staged for Plan 02-06 consolidated commit)"
 ---
 
 # Phase 02 Plan 04: CLAUDE.md Domain Scope Declaration Summary
