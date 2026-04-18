@@ -21,3 +21,10 @@ Idempotency: verified — second dry-run correctly SKIPs (marker check before ap
 Markers: exactly 1 `<!-- source: ... orchestrator.md -->` + 1 matching `<!-- END source: ... -->`
 Header: contains "D-2 저수지 연동" + "Read-only archive" directive
 HARVEST-04 satisfied.
+
+## Wave 3 Task 1 — build_decisions (2026-04-18T19:18:04Z)
+Output: .planning/phases/03-harvest/03-HARVEST_DECISIONS.md (39 rows: A=13 verbatim + B=16 + C=10)
+Rule distribution (B/C 26): rule1=10, rule2=2, rule3=0, rule4=2, rule5=12 (sum=26 OK)
+Verdict distribution: 승계=2, 폐기=15, 통합-재작성=20, cleanup=2 (sum=39 OK)
+Method: inline Python fallback (.tmp_build_decisions.py — harvest_importer stage 6 requires prior stages in current CLI).
+HARVEST-08 satisfied.
