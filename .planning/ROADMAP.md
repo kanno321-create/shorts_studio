@@ -79,7 +79,7 @@
 - [x] 03-04-PLAN.md — remotion_src_raw copy, node_modules 제외 (W1, HARVEST-02) — ✅ shipped 2026-04-19, studio@4bc7ece (40 files / 0.161 MB, node_modules 758 MB excluded, diff_verifier mismatches=[], __pycache__/secret 0 hits)
 - [x] 03-05-PLAN.md — hc_checks_raw cherry_pick (W1, HARVEST-03) — ✅ shipped 2026-04-19, studio@51205ba (hc_checks.py 1129 lines + test_hc_checks.py byte-identical, orchestrate.py blacklist enforced)
 - [x] 03-06-PLAN.md — api_wrappers_raw cherry_pick 4+ wrappers (W1, HARVEST-05) — ✅ shipped 2026-04-19, studio@aeac16b (5/5 wrappers byte-identical: elevenlabs_alignment.py + tts_generate.py + _kling_i2v_batch.py + runway_client.py + heygen_client.py; 0 selenium imports; orchestrate.py absent)
-- [ ] 03-07-PLAN.md — diff_verifier --all + FAILURES merge (W2, HARVEST-04)
+- [x] 03-07-PLAN.md — diff_verifier --all + FAILURES merge (W2, HARVEST-04) — ✅ shipped 2026-04-19, studio@ad98b32 (Task 1 ALL_CLEAN across 4 raw dirs) + studio@1ff5768 (Task 2 _imported_from_shorts_naberal.md 500 lines, sha256=978bb9381fee..., idempotent SOURCES-locked merge)
 - [ ] 03-08-PLAN.md — 03-HARVEST_DECISIONS.md 39 rows + blacklist grep audit (W3, HARVEST-07/08)
 - [ ] 03-09-PLAN.md — attrib +R lockdown + verify_harvest --full (W4, HARVEST-06)
 

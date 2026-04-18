@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-19T04:06:20.000Z"
+last_updated: "2026-04-19T04:15:00.000Z"
 progress:
   total_phases: 10
   completed_phases: 1
-  total_plans: 15
-  completed_plans: 12
-  percent: 80
+  total_plans: 16
+  completed_plans: 13
+  percent: 81
 ---
 
 # STATE — naberal-shorts-studio
 
 **Last updated:** 2026-04-19
-**Session:** #15 (Phase 3 Wave 1 EXECUTING — Plan 03-03 THEME-BIBLE-COPY shipped studio@fba21e4 (7 channel bibles byte-identical, diff_verifier mismatches=[], HARVEST-01 satisfied). 03-06 API-WRAPPERS studio@aeac16b + 03-05 HC-CHECKS studio@51205ba shipped earlier. Plan 03-04 remotion_src_raw remains in-flight.)
+**Session:** #15 (Phase 3 Wave 2 COMPLETE — Plan 03-07 DIFF-VERIFY + FAILURES-MERGE shipped studio@ad98b32 (Task 1: aggregate diff ALL_CLEAN, 0 mismatches across 4 raw dirs) + studio@1ff5768 (Task 2: HARVEST-04 _imported_from_shorts_naberal.md 500 lines, sha256=978bb9381fee..., idempotent SOURCES-locked merge, D-2 저수지 ready). Wave 1 all 4 raw dirs previously shipped: 03-03/fba21e4, 03-04/4bc7ece, 03-05/51205ba, 03-06/aeac16b. Next: 03-08 decisions.md (W3) → 03-09 lockdown (W4).)
 
 ---
 
@@ -32,12 +32,12 @@ progress:
 ## Current Position
 
 Phase: 03 (harvest) — EXECUTING
-Plan: 6 of 9 complete in Phase 3 — Wave 1 complete (03-03/04/05/06 all shipped) + W0 (03-01/02); W2 (03-07), W3 (03-08), W4 (03-09) pending
+Plan: 7 of 9 complete in Phase 3 — Wave 0 (03-01/02) + Wave 1 (03-03/04/05/06) + Wave 2 (03-07) all shipped; W3 (03-08), W4 (03-09) pending
 
 - **Phase:** 3
-- **Next Phase:** 3 (Harvest) — Entry point: `/gsd:execute-phase 3`
-- **Status:** Wave 1 executing (parallel)
-- **Progress:** [███████░░░] 67%
+- **Next Phase:** 3 (Harvest) — Entry point: `/gsd:execute-phase 3` (continue at 03-08)
+- **Status:** Wave 2 complete — HARVEST-04 satisfied, aggregate diff ALL_CLEAN
+- **Progress:** [████████░░] 78%
 
 ---
 
@@ -96,6 +96,13 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 12. **4 raw 디렉토리 매핑 = HARVEST-01/02/03/05 와 1:1** — theme_bible_raw (HARVEST-01), remotion_src_raw (HARVEST-02), hc_checks_raw (HARVEST-03), api_wrappers_raw (HARVEST-05). HARVEST-04(FAILURES) 는 별도 이관 경로 (`_imported_from_shorts_naberal.md`).
 13. **B/C급 26 위임 알고리즘 = 5-rule pseudocode** — blacklist > scope-boundary > session-77-canonical > cosmetic-cleanup > default-rewrite. Phase 3 harvest-importer 가 parse 하여 사용.
 
+### Session #15 Decisions (Plan 03-07 — DIFF-VERIFY + FAILURES-MERGE)
+
+18. **Aggregate diff = inline Python fallback** — diff_verifier.py --all flag not yet wired (Plan 01 scope limited to per-dir CLI). Inline implementation reuses identical deep_diff + filecmp.cmp(shallow=False) semantics; wiring --all is candidate improvement for future plan but not required for Phase 3 correctness.
+19. **SOURCES locked list pattern (B-2 FIX)** — explicit `[Path('.../orchestrator.md')]` constant NOT glob expansion. RESEARCH.md §6 verified 1 source exists at 2026-04-19. Future FAILURES additions MUST extend list explicitly — code comment documents invariant. Prevents silent drift when shorts_naberal adds new FAILURES files.
+20. **Ignore match via fnmatch.fnmatchcase** — matches shutil.ignore_patterns glob semantics used at Wave 1 copy time. Substring `in` containment would produce false positives on patterns like `*.pyc` vs `file.pyc.bak`. Critical for diff_verifier correctness.
+21. **HARVEST-04 satisfied via idempotent marker-guarded append** — `<!-- source: ... -->` + `<!-- END source: ... -->` pair enables deterministic idempotency check; sha256 per source block provides downstream integrity audit path. Archive is read-only (D-2 저수지 regime reference for Phase 10 첫 1~2개월 SKILL patch 금지).
+
 ### Session #14 Decisions (Plan 06 — Phase 2 Gate)
 
 14. **Phase 2 게이트 = 12/12 VALIDATION PASS + consolidated commit** — Phase 3 진입 허가. 모든 pre-commit check 통과 시에만 commit, 하나라도 FAIL 시 commit 보류 원칙 (다행히 전부 통과).
@@ -122,7 +129,8 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 - [x] **Phase 3 Plan 03-06 execute** → api_wrappers_raw cherry_pick (studio@aeac16b, 2026-04-19) — 5/5 wrappers byte-identical (elevenlabs_alignment, tts_generate, _kling_i2v_batch, runway_client, heygen_client), 0 selenium imports, orchestrate.py absent (HARVEST-05)
 - [x] **Phase 3 Plan 03-04 execute** → remotion_src_raw copy (studio@4bc7ece, 2026-04-19) — 40 files / 0.161 MB, node_modules 758 MB excluded via shutil.ignore_patterns, diff_verifier mismatches=[], __pycache__/secret 0 hits (HARVEST-02)
 - [x] **Phase 3 Wave 1 complete** → all 4 raw dirs shipped: theme_bible_raw (03-03) + remotion_src_raw (03-04) + hc_checks_raw (03-05) + api_wrappers_raw (03-06)
-- [ ] **Phase 3 Wave 2+** → diff_verifier --all + FAILURES merge (03-07) → decisions.md (03-08) → lockdown (03-09)
+- [x] **Phase 3 Plan 03-07 execute** → aggregate diff ALL_CLEAN (studio@ad98b32) + FAILURES merge _imported_from_shorts_naberal.md (studio@1ff5768, 500 lines, sha256=978bb9381fee..., idempotent SOURCES-locked, HARVEST-04 satisfied, D-2 저수지 regime ready)
+- [ ] **Phase 3 Wave 3+** → decisions.md (03-08, CONFLICT_MAP 39 전수 판정) → lockdown (03-09, chmod -w)
 
 ### Blockers
 
@@ -157,6 +165,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 03-harvest P06 | 4 | 1 | 6 committed (aeac16b: 5 wrappers + audit_log) + 1 meta (SUMMARY) |
 | Phase 03-harvest P04 | 1 | 1 | 40 committed (4bc7ece: Remotion src tree — Root.tsx + index.ts + components/15 + compositions/11 + lib/12) + 1 meta (SUMMARY) |
 | Phase 03-harvest P03 | 1 | 1 | 8 committed (fba21e4: 7 channel bibles + audit_log) + 1 meta (SUMMARY) |
+| Phase 03-harvest P07 | 5 | 2 | 2 committed (ad98b32: audit_log Task 1 + 1ff5768: _imported_from_shorts_naberal.md 500 lines + audit_log Task 2) + 1 meta (SUMMARY) |
 
 ---
 
