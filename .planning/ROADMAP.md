@@ -52,7 +52,7 @@
   3. `CLAUDE.md`의 `{{TODO}}` 5종(ONE_LINE_DESCRIPTION, DOMAIN_GOAL, PIPELINE_FLOW, DOMAIN_ABSOLUTE_RULES, TRIGGER_PHRASES)이 모두 치환되어 "shorts_naberal 니치 승계 + 주 3~4편 + YPP 진입"이 문서로 선언되어 있다
   4. Harvest 범위 결정서(`HARVEST_SCOPE.md` 또는 동등 문서)가 존재하여 Phase 3이 무엇을 가져올지/버릴지 명확하다
 **Plans:** 6 plans (4 waves)
-- [ ] 02-01-PLAN.md — harness STRUCTURE.md schema bump v1.0.0 to v1.1.0 (W1)
+- [x] 02-01-PLAN.md — harness STRUCTURE.md schema bump v1.0.0 to v1.1.0 (W1) — ✅ shipped 2026-04-19, harness@8a8c32b
 - [ ] 02-02-PLAN.md — Tier 1 harness/wiki/ + README.md (W2)
 - [ ] 02-03-PLAN.md — Tier 2 studios/shorts/wiki/ 5 MOC + README + Tier 3 .preserved/harvested/ (W2)
 - [ ] 02-04-PLAN.md — studios/shorts/CLAUDE.md 5 TODO 치환 + line 7 typo fix (W3)
