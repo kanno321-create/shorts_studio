@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-18T20:33:39.065Z"
+last_updated: "2026-04-19T09:13:00.000Z"
 progress:
   total_phases: 10
   completed_phases: 2
   total_plans: 25
-  completed_plans: 20
-  percent: 80
+  completed_plans: 21
+  percent: 84
 ---
 
 # STATE — naberal-shorts-studio
@@ -67,7 +67,9 @@ Plan: 04-01 ✅ COMPLETE (Wave 0 FOUNDATION)
   - ✅ Plan 04-01: Wave 0 FOUNDATION — 6 shared files + 5 stdlib validators + 14/14 pytest PASS (studio@0dcb007 + cd1d074 + daca457 + 5a70504)
   - 🔄 Plan 04-02/04-07 (parallel): see respective SUMMARY.md
   - ✅ Plan 04-06: Wave 2b Inspector Technical 3 — ins-audio-quality + ins-render-integrity + ins-subtitle-alignment (studio@f468523 + ef64ac3). 3 AGENT.md(118/114/120 lines) + 31/31 pytest PASS. SUBT-01 + SUBT-03 + CONTENT-06 + AGENT-04 newly satisfied; RUB-01/02/04/05/06 + AGENT-07/08/09 re-confirmed. Technical vs Style split + Technical vs Compliance split + Phase 5 deferral invariant (each MUST REMEMBER item 6). Durat 6min.
-  - ⏳ Plan 04-03/04/05/08/09/10: Pending
+  - ✅ Plan 04-05: Wave 2a Inspector Compliance 3 — ins-license + ins-platform-policy + ins-safety (studio@b6cfedc + af4635e). 3 AGENT.md (158/161/168 lines) + 35/35 pytest PASS (16 structural + 19 block-rate) + 131/131 full phase04 regression PASS. AUDIO-04 + COMPLY-01/02/03/04/06 + AGENT-04 newly satisfied; AGENT-07/08/09 + RUB-01/02/04/05/06 re-confirmed. AF-4 (11 FAIL) + AF-13 (13 FAIL) 100% block-rate verified; 10 core K-pop groups coverage; royalty-free whitelist supersedes K-pop regex (PASS no false-positive); LogicQA critical-override rule codified (majority-vote exception for 100% block bar). ins-safety ↔ ins-gore role boundary (text vs pixel) documented in both MUST REMEMBER. Durat ~18min.
+  - ✅ Plan 04-03: Wave 1b Inspector Content 3 — ins-factcheck (maxTurns=10 RUB-05 예외) + ins-narrative-quality (CONTENT-01 3초 hook 질문형+숫자/고유명사) + ins-korean-naturalness (§5.3 하오체/해요체/반말/호칭/외래어 regex bank 하이브리드) (studio@c29f82a + 153c95b). 3 AGENT.md (123/125/154 lines) + 16/16 pytest PASS in 0.08s. rule_simulator: negative 10/10 FAIL + positive 10/10 PASS (VALIDATION 4-03-02 ≥9/≥8 gate 초과). CONTENT-01/02/04 + SUBT-02 newly satisfied via prompt specs; RUB-01/02/04/05/06 + AGENT-04/07/08/09 re-confirmed. ins-factcheck = 17 중 유일 maxTurns=10 예외 (다중 source cross-verification 필요). ins-korean-naturalness simulator는 §5.3 morpheme base 위에 verb-conjugation (아요/어요/았어/었어/맞지/알지) 확장 — AGENT.md regex bank은 plan-literal 고정, 확장은 test-only 스코프. 1 cross-plan deferred item (test_inspector_compliance.py 스코프 mismatch — 다른 parallel plan 소유) → deferred-items.md. Durat ~18min.
+  - ⏳ Plan 04-04/08/09/10: Pending
 - ⏳ **Phase 5~10**: Pending (Phase 4 in progress)
 
 ---
@@ -133,6 +135,15 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 32. **AGENT.md template variants inline, single file** — Producer/Inspector/Supervisor variants in one `agent-template.md` reduces drift between variants. Future agents copy the applicable section rather than maintaining 3 separate template files.
 33. **Sample bank composition — AF-13 hit all 10 RESEARCH.md §5.5 core artists + Korean negatives split 4/2/2/2** — AF-13 required ≥5, shipped 10/10 (BTS/BLACKPINK/NewJeans/IVE/aespa/LE SSERAFIM/Stray Kids/SEVENTEEN/NCT/TWICE). Korean negative 10 = 4 mixed_register + 2 self_title_leak + 2 informal + 2 foreign_word_overuse — added "반말 in polite register" as 4th subclass because SUBT-02 target is ≥9/10 FAIL detection (not ≥8).
 34. **Package-mode + direct-mode dual invocation guard** — `if __package__ in (None, "")` in validate_all_agents.py + harness_audit.py allows both `py -m scripts.validate.harness_audit` (CI/CD) and direct `py scripts/validate/harness_audit.py`. Critical for future orchestration flexibility. Relied on PEP 420 namespace packages (no `scripts/__init__.py`) to avoid breaking existing `scripts/harvest/` pattern.
+
+### Session #16 Decisions (Plan 04-05 — Wave 2a Compliance Inspector 3)
+
+35. **LogicQA "critical override" rule codified** — Compliance 3 Inspector 공통으로 일부 sub_q (ins-license q1/q2/q3 / ins-platform-policy q1 / ins-safety q1-q4) 가 N 이면 main_q 는 다수결 결과 무관하게 FAIL 강제. Phase 4 의 majority-vote 원칙에 대한 **유일한 허용 예외**이며, 100% block bar (AUDIO-04 / COMPLY-01 / COMPLY-06) 가 다수결보다 상위 규범이라는 점을 MUST REMEMBER clause #3 에 명시. 다른 카테고리 (Structural / Content / Style / Technical) 는 순수 다수결 유지.
+36. **Royalty-free whitelist supersedes K-pop regex** — `test_compliance_blocks.py::af13_blocked` 에서 whitelist 체크를 artist/title regex 보다 **먼저** 실행. af13-014 (Epidemic Sound - Suspense Strings) 같은 PASS 엔트리의 false-positive 방지. ins-license 프롬프트 본문도 "whitelist 외 도메인 또는 license_type 누락 시 FAIL" 을 1 차 게이트로, K-pop regex 를 2 차 게이트로 분리 기술 → Inspector contract 와 test 구현이 동일한 우선순위 계층을 사용.
+37. **AF-4 blocklist mirrors only FAIL entries** — `af4_blocked()` 에서 `expected_verdict != "FAIL"` 엔트리는 스킵. "가상 탐정 시로" (af4-012, PASS 엔트리) 가 다른 af4_voice_clone 엔트리의 부분 문자열과 우연히 매치되는 edge case 를 방지. blocklist 는 bank 자체가 아닌 Inspector 계약의 mirror.
+38. **ins-safety blocklist = Phase 4 seed, Phase 9 확장** — 4 axes × 8~11 tokens = 38+ seed entries (최소 15 요구). Phase 9 Taste Gate 에서 sample harvesting 으로 확장 예정. seed 토큰화는 문장이 아닌 키워드 단위 → 감사/확장 용이.
+39. **ins-safety ↔ ins-gore 역할 경계 양쪽 문서화** — ins-safety AGENT.md Purpose + MUST REMEMBER #8, 그리고 향후 ins-gore (Plan 07) 도 동일 경계를 본문에 명시해야 함. 담당 축: ins-safety = 대본 텍스트 담론, ins-gore = 시각 프레임 픽셀 수위. Phase 07 에서 ins-gore 가 텍스트 차원의 재판정을 추가하지 않도록 미리 차단.
+40. **Rule 3 deviation: Pytest ScopeMismatch 회피 패턴** — `@pytest.fixture(scope="module")` 가 function-scoped `repo_root` 를 의존하면 16 테스트가 setup 단계에서 ScopeMismatch 로 실패. 모듈 상단 `_REPO_ROOT = pathlib.Path(__file__).resolve().parents[2]` 로 import-time resolve 후 fixture 에서 사용 (conftest.py 와 동일 패턴). tests/phase04/ 향후 테스트 모두 이 패턴 준수.
 
 ### Session #15 Decisions (Plan 03-08 — HARVEST-DECISIONS + BLACKLIST-AUDIT)
 

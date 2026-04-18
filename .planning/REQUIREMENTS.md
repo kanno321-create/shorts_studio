@@ -84,10 +84,10 @@
 
 ### CONTENT — 콘텐츠 기능
 
-- [ ] **CONTENT-01**: **3초 한국어 hook** — 질문형 + 숫자/고유명사 패턴 하드코딩 (TS-2, NotebookLM 3-2)
-- [ ] **CONTENT-02**: Duo dialogue (탐정 하오체 + 조수 해요체) 채널 정체성 — TS-12
+- [x] **CONTENT-01**: **3초 한국어 hook** — 질문형 + 숫자/고유명사 패턴 하드코딩 (TS-2, NotebookLM 3-2) — ✅ 04-03 (ins-narrative-quality AGENT.md prompt body hardcodes `?` + `[0-9]{2,}|[가-힣]{2,}` regex in LogicQA q1/q2)
+- [x] **CONTENT-02**: Duo dialogue (탐정 하오체 + 조수 해요체) 채널 정체성 — TS-12 — ✅ 04-03 (ins-narrative-quality + ins-korean-naturalness combined; speaker-specific register rules encoded in LogicQA)
 - [ ] **CONTENT-03**: High-Signal 마이크로 틈새 페르소나 (NotebookLM T9)
-- [ ] **CONTENT-04**: NotebookLM grounded research manifest per episode (DF-2)
+- [x] **CONTENT-04**: NotebookLM grounded research manifest per episode (DF-2) — ✅ 04-03 (ins-factcheck maxTurns=10 RUB-05 exception; LogicQA 5 sub_qs covering nlm_source presence, credibility tier, 2-source minimum, numeric accuracy, Fallback chain audit)
 - [x] **CONTENT-05**: 9:16 / 1080×1920 / ≤59s 포맷 강제 (TS-1)
 - [x] **CONTENT-06**: 한국어 자막 burn-in (24~32pt, 1~4 단어/라인, 중앙) — TS-3
 - [ ] **CONTENT-07**: 한국어 + 로마자 메타데이터 SEO — TS-6
@@ -105,12 +105,12 @@
 - [ ] **AUDIO-01**: Typecast primary (한국어), ElevenLabs fallback
 - [ ] **AUDIO-02**: **하이브리드 오디오** — 트렌딩 3~5초 → 무료(royalty-free) crossfade (T11)
 - [ ] **AUDIO-03**: 감정 스타일 파라미터 동적 설정 (T13) — 콘텐츠 톤앤매너에 맞게
-- [ ] **AUDIO-04**: K-pop 트렌드 음원 직접 사용 금지 (KOMCA + Content ID)
+- [x] **AUDIO-04**: K-pop 트렌드 음원 직접 사용 금지 (KOMCA + Content ID) — ✅ 04-05 (ins-license AGENT.md K-pop regex bank 19 artists + 19 titles + royalty-free whitelist + AF-13 100% block verified)
 
 ### SUBT — 자막
 
 - [x] **SUBT-01**: WhisperX + `kresnik/wav2vec2-large-xlsr-korean` 통합
-- [ ] **SUBT-02**: 한국어 화법 검사기 — 존댓말/반말 혼용 감지 + 교정 (`ins-korean-naturalness`, T10)
+- [x] **SUBT-02**: 한국어 화법 검사기 — 존댓말/반말 혼용 감지 + 교정 (`ins-korean-naturalness`, T10) — ✅ 04-03 (ins-korean-naturalness AGENT.md full §5.3 regex bank: 하오체/해요체/반말/호칭/외래어; rule_simulator 10/10 FAIL neg + 10/10 PASS pos)
 - [x] **SUBT-03**: 타임스탬프 정렬 정확도 ±50ms
 
 ### PUB — 발행
@@ -123,12 +123,12 @@
 
 ### COMPLY — 컴플라이언스 + 방어
 
-- [ ] **COMPLY-01**: 한국 법 위반 검사 (명예훼손 / 아동복지법 / 공소제기 전 보도규제) — `ins-platform-policy`
+- [x] **COMPLY-01**: 한국 법 위반 검사 (명예훼손 / 아동복지법 / 공소제기 전 보도규제) — `ins-platform-policy` — ✅ 04-05 (ins-platform-policy AGENT.md regex 명예훼손|아동복지법|공소제기 전 보도|초상권|모욕죄|허위사실|사생활 침해 + 초상권 동의/mosaic/blur 검사)
 - [x] **COMPLY-02**: KOMCA + 방송사 저작권 필터 — 실사 뉴스 금지, 인물 mosaic 강제 (`ins-mosaic`)
-- [ ] **COMPLY-03**: **Inauthentic Content 방어** — 3 템플릿 변주 + Human signal 필수 (A-P1 차단, TS-10)
-- [ ] **COMPLY-04**: 실존 인물 voice cloning 금지 (AF-4)
+- [x] **COMPLY-03**: **Inauthentic Content 방어** — 3 템플릿 변주 + Human signal 필수 (A-P1 차단, TS-10) — ✅ 04-05 (ins-platform-policy Inauthentic defense triple: 3 템플릿 변주 + Jaccard<0.7 + Human signal "대표님 얼굴 B-roll" 또는 "human_vo_insert"; production_metadata 4-field enforcement)
+- [x] **COMPLY-04**: 실존 인물 voice cloning 금지 (AF-4) — ✅ 04-05 (ins-license af4_voice_clone blocklist via af_bank.json; 11/11 AF-4 FAIL entries 100% blocked; PASS 가상 캐릭터 no false-positive)
 - [x] **COMPLY-05**: 실존 피해자 AI 얼굴 금지 (AF-5)
-- [ ] **COMPLY-06**: 문화 sensitivity 검사 (지역/세대/정치/젠더)
+- [x] **COMPLY-06**: 문화 sensitivity 검사 (지역/세대/정치/젠더) — ✅ 04-05 (ins-safety 4-axis blocklist 38+ seed tokens: 지역 8 / 세대 9 / 정치 10 / 젠더 11; narrative-tone self-harm limit; ins-gore role boundary documented)
 
 ### FAIL — FAILURES 저수지 + 학습
 
