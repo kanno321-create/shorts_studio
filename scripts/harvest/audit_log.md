@@ -12,3 +12,12 @@ Result: ALL_CLEAN
 - hc_checks_raw: 0 mismatches
 - api_wrappers_raw: 0 mismatches
 Method: inline Python fallback (fnmatch.fnmatchcase applied with per-entry ignore + global_ignore). --all flag NOT yet wired in diff_verifier.py — plan fallback used per RESEARCH.md §4.
+
+## Wave 2 Task 2 — FAILURES merge (2026-04-19T00:00:00Z)
+Target: .claude/failures/_imported_from_shorts_naberal.md (500 lines)
+Sources imported (SOURCES locked list, NOT glob):
+  - shorts_naberal/.claude/failures/orchestrator.md (487 lines, sha256=978bb9381fee...)
+Idempotency: verified — second dry-run correctly SKIPs (marker check before append)
+Markers: exactly 1 `<!-- source: ... orchestrator.md -->` + 1 matching `<!-- END source: ... -->`
+Header: contains "D-2 저수지 연동" + "Read-only archive" directive
+HARVEST-04 satisfied.
