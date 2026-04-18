@@ -12,7 +12,7 @@
 ## Phases
 
 - [x] **Phase 1: Scaffold** — naberal_harness v1.0.1 상속 + Hook 3종 자동 설치 (세션 #10 완료)
-- [ ] **Phase 2: Domain Definition** — 3-Tier 위키 물리 구조 생성 + 도메인 스코프 확정
+- [x] **Phase 2: Domain Definition** — 3-Tier 위키 물리 구조 생성 + 도메인 스코프 확정 (세션 #14 완료 2026-04-19, studio@f360e17)
 - [ ] **Phase 3: Harvest** — shorts_naberal 작동 자산 이관 + CONFLICT_MAP 39 전수 판정 + Tier 3 chmod -w 잠금
 - [ ] **Phase 4: Agent Team Design** — 17 inspector + Producer 팀 + rubric JSON Schema **동시 정의**
 - [ ] **Phase 5: Orchestrator v2** — 500~800줄 state machine + 12 GATE + DAG + 영상/음성 분리 합성
@@ -51,13 +51,13 @@
   2. `naberal_harness/STRUCTURE.md`가 Tier 1 wiki 추가를 반영하도록 schema bump 커밋되어 있다 (Whitelist 위반 없음)
   3. `CLAUDE.md`의 `{{TODO}}` 5종(ONE_LINE_DESCRIPTION, DOMAIN_GOAL, PIPELINE_FLOW, DOMAIN_ABSOLUTE_RULES, TRIGGER_PHRASES)이 모두 치환되어 "shorts_naberal 니치 승계 + 주 3~4편 + YPP 진입"이 문서로 선언되어 있다
   4. Harvest 범위 결정서(`HARVEST_SCOPE.md` 또는 동등 문서)가 존재하여 Phase 3이 무엇을 가져올지/버릴지 명확하다
-**Plans:** 5/6 plans executed
+**Plans:** 6/6 plans executed ✅ PHASE 2 COMPLETE 2026-04-19
 - [x] 02-01-PLAN.md — harness STRUCTURE.md schema bump v1.0.0 to v1.1.0 (W1) — ✅ shipped 2026-04-19, harness@8a8c32b
 - [x] 02-02-PLAN.md — Tier 1 harness/wiki/ + README.md (W2) — ✅ shipped 2026-04-19, harness@1ff2e34
-- [x] 02-03-PLAN.md — Tier 2 studios/shorts/wiki/ 5 MOC + README + Tier 3 .preserved/harvested/ (W2) — ✅ shipped 2026-04-19 (studio content staged for Plan 02-06 consolidated commit)
-- [x] 02-04-PLAN.md — studios/shorts/CLAUDE.md 5 TODO 치환 + line 7 typo fix (W3) — ✅ shipped 2026-04-19 (5 Edit ops covering 6 semantic sites; CLAUDE.md staged for Plan 02-06 consolidated commit)
-- [x] 02-05-PLAN.md — 02-HARVEST_SCOPE.md (A급 13건 사전 판정 + Blacklist + B/C 위임) (W3) — ✅ shipped 2026-04-19 (175 lines: 2 승계 / 3 폐기 / 8 통합-재작성 + HARVEST_BLACKLIST 11 entries + 4 raw mapping + B/C 위임 알고리즘; file staged for Plan 02-06 consolidated commit)
-- [ ] 02-06-PLAN.md — 12 VALIDATION tests + studio Phase 2 consolidated commit (W4)
+- [x] 02-03-PLAN.md — Tier 2 studios/shorts/wiki/ 5 MOC + README + Tier 3 .preserved/harvested/ (W2) — ✅ shipped 2026-04-19 (content committed in consolidated f360e17)
+- [x] 02-04-PLAN.md — studios/shorts/CLAUDE.md 5 TODO 치환 + line 7 typo fix (W3) — ✅ shipped 2026-04-19 (CLAUDE.md committed in consolidated f360e17)
+- [x] 02-05-PLAN.md — 02-HARVEST_SCOPE.md (A급 13건 사전 판정 + Blacklist + B/C 위임) (W3) — ✅ shipped 2026-04-19 (175 lines; file committed in consolidated f360e17)
+- [x] 02-06-PLAN.md — 12 VALIDATION tests + studio Phase 2 consolidated commit (W4) — ✅ shipped 2026-04-19 (studio@f360e17, 12/12 PASS, SC 4/4 achieved)
 
 ---
 

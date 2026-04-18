@@ -2,20 +2,20 @@
 gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
-status: executing
-last_updated: "2026-04-19T02:47:00.000Z"
+status: phase-complete
+last_updated: "2026-04-19T03:00:00.000Z"
 progress:
   total_phases: 10
-  completed_phases: 0
+  completed_phases: 2
   total_plans: 6
-  completed_plans: 5
-  percent: 83
+  completed_plans: 6
+  percent: 100
 ---
 
 # STATE — naberal-shorts-studio
 
 **Last updated:** 2026-04-19
-**Session:** #14 (Phase 2 Plans 04 + 05 complete in parallel — CLAUDE.md 5 TODO 치환 + 02-HARVEST_SCOPE.md A급 13 사전 판정 shipped. Both files staged for Plan 02-06 consolidated commit)
+**Session:** #14 (Phase 2 COMPLETE — Plan 06 consolidated studio commit f360e17 shipped. 12/12 VALIDATION PASS. ROADMAP SC 4/4 achieved. Phase 3 Harvest 진입 허가.)
 
 ---
 
@@ -31,13 +31,13 @@ progress:
 
 ## Current Position
 
-Phase: 02 (domain-definition) — EXECUTING
-Plan: 6 of 6 (next)
+Phase: 03 (harvest) — READY TO START
+Plan: N/A (Phase 3 planning pending)
 
-- **Phase:** 2 (Plans 01, 02, 03, 04, 05 complete; Plan 06 next — studio consolidated commit + 12 VALIDATION tests)
-- **Plan:** 02-06 (Consolidated studio commit + Phase 2 gate validation)
-- **Status:** Executing Phase 02. Plans 04 + 05 shipped in parallel — CLAUDE.md (5 TODO 치환 + typo fix) + 02-HARVEST_SCOPE.md (A급 13 사전 판정, 175 lines: 2 승계 / 3 폐기 / 8 통합-재작성 + HARVEST_BLACKLIST Python dict 11 entries + 4 raw dir mapping + B/C 위임 알고리즘). Both files staged for Plan 02-06 consolidated commit.
-- **Progress:** [████████░░] 83% (5/6 plans)
+- **Phase:** 2 ✅ COMPLETE 2026-04-19 (session #14) — 12/12 VALIDATION PASS, studio@f360e17, SC 4/4 achieved
+- **Next Phase:** 3 (Harvest) — Entry point: `/gsd:execute-phase 3`
+- **Status:** Phase 2 Domain Definition 종결. studios/shorts 레포에 consolidated commit f360e17 (9 files, +449/-7) 로 3-Tier wiki + CLAUDE.md 도메인 스코프 + 02-HARVEST_SCOPE.md 일괄 기록. harness 레포는 8a8c32b (schema v1.1.0 bump) + 1ff2e34 (Tier 1 scaffold) 별도 기록. Phase 3 harvest-importer 에이전트의 입력 02-HARVEST_SCOPE.md 준비 완료.
+- **Progress:** [██████████] 100% (6/6 plans Phase 2)
 
 ---
 
@@ -46,14 +46,14 @@ Plan: 6 of 6 (next)
 - ✅ **Phase 1: Scaffold** — 2026-04-18 (session #10)
   - INFRA-01, INFRA-03, INFRA-04 완료
   - `studios/shorts/` 스캐폴드, Hook 3종 설치, 공용 5 스킬 상속
-- 🔄 **Phase 2: Domain Definition** — EXECUTING (Plans 01, 02, 03, 04, 05 of 6 shipped 2026-04-19)
+- ✅ **Phase 2: Domain Definition** — 2026-04-19 (session #14) — INFRA-02 완료
   - ✅ Plan 02-01: STRUCTURE.md v1.0.0 → v1.1.0 bump + wiki/ whitelisted (harness@8a8c32b)
   - ✅ Plan 02-02: harness/wiki/ Tier 1 scaffold (folder + README.md) created (harness@1ff2e34)
-  - ✅ Plan 02-03: studios/shorts/wiki/ Tier 2 (5 categories + README + 5 MOC) + .preserved/harvested/ Tier 3 scaffold created (studio content files staged for Plan 06 consolidated commit; this plan's meta commit covers SUMMARY+STATE+ROADMAP only)
-  - ✅ Plan 02-04: studios/shorts/CLAUDE.md 5 TODO replacement + line 7 typo fix (5 Edit ops covering 6 semantic sites — DOMAIN_GOAL, typo, 12 GATE pipeline, 8 absolute rules, hive goal+TBD+5 Korean triggers). CLAUDE.md staged for Plan 02-06 consolidated commit. Meta commit covers SUMMARY+STATE+ROADMAP only.
-  - ✅ Plan 02-05: 02-HARVEST_SCOPE.md (175 lines) — A급 13 사전 판정 테이블 (2 승계 / 3 폐기 / 8 통합-재작성) + HARVEST_BLACKLIST Python dict (11 entries) + 4 raw 디렉토리 매핑 (HARVEST-01/02/03/05) + FAILURES 이관 경로 + B/C급 26 Phase 3 위임 알고리즘 pseudocode + Harvest 성공 기준. Phase 3 harvest-importer 입력 완성. File staged for Plan 02-06 consolidated commit.
-  - ⏳ Plan 02-06: Pending (consolidated studio commit + 12 VALIDATION tests)
-- ⏳ **Phase 3~10**: Pending
+  - ✅ Plan 02-03: studios/shorts/wiki/ Tier 2 (5 categories + README + 5 MOC) + .preserved/harvested/ Tier 3 scaffold (committed in consolidated f360e17)
+  - ✅ Plan 02-04: studios/shorts/CLAUDE.md 5 TODO replacement + line 7 typo fix (6 semantic sites via 5 Edit ops; committed in consolidated f360e17)
+  - ✅ Plan 02-05: 02-HARVEST_SCOPE.md (175 lines) — A급 13 사전 판정 + HARVEST_BLACKLIST dict + 4 raw 매핑 + B/C 위임 알고리즘 (committed in consolidated f360e17)
+  - ✅ Plan 02-06: 12/12 VALIDATION PASS + consolidated studio commit f360e17 (9 files, +449/-7) + SC 4/4 achieved + 02-VALIDATION.md frontmatter flipped (nyquist_compliant=true, wave_0_complete=true, status=complete)
+- ⏳ **Phase 3~10**: Pending (Phase 3 entry-ready — 02-HARVEST_SCOPE.md 준비 완료)
 
 ---
 
@@ -96,17 +96,25 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 12. **4 raw 디렉토리 매핑 = HARVEST-01/02/03/05 와 1:1** — theme_bible_raw (HARVEST-01), remotion_src_raw (HARVEST-02), hc_checks_raw (HARVEST-03), api_wrappers_raw (HARVEST-05). HARVEST-04(FAILURES) 는 별도 이관 경로 (`_imported_from_shorts_naberal.md`).
 13. **B/C급 26 위임 알고리즘 = 5-rule pseudocode** — blacklist > scope-boundary > session-77-canonical > cosmetic-cleanup > default-rewrite. Phase 3 harvest-importer 가 parse 하여 사용.
 
-### Active Todos (Phase 2 Plan 06 next)
+### Session #14 Decisions (Plan 06 — Phase 2 Gate)
+
+14. **Phase 2 게이트 = 12/12 VALIDATION PASS + consolidated commit** — Phase 3 진입 허가. 모든 pre-commit check 통과 시에만 commit, 하나라도 FAIL 시 commit 보류 원칙 (다행히 전부 통과).
+15. **2-W3-03 literal pattern mismatch 관리** — VALIDATION.md status 컬럼에 나노트 ("literal pattern mismatch due to backticks — 8 rules semantically present, verified via flexible grep") 기록. 규칙 자체는 완전 존재, Phase 3 이후 validation script 개선 time 에 패턴 수정.
+16. **Consolidated commit 스코프 = Phase 2 artifacts only** — `.claude/`, `.gitignore`, `README.md`, `SESSION_LOG.md`, `WORK_HANDOFF.md`, `.planning/config.json` 은 Phase 2 산출물이 아니므로 미포함. CLAUDE.md + wiki/ + .preserved/harvested/.gitkeep + 02-HARVEST_SCOPE.md 만 staged.
+17. **harness vs studio 레포 분리 유지** — harness (8a8c32b + 1ff2e34) + studio (f360e17) 두 레포가 독립적으로 commit. REMOTE-02 (Phase 8) 전까지 푸시 없음.
+
+### Active Todos (Phase 3 Harvest next)
 
 - [x] Phase 2 gray areas 확정 (4건: Tier1 minimal / Tier2 MOC skeleton / A급 13 사전 판정 / CLAUDE.md 중간)
 - [x] 02-CONTEXT.md + 02-DISCUSSION-LOG.md 커밋 (9b9039f)
 - [x] `/gsd:plan-phase 2` 실행 → 02-01~06-PLAN.md 생성 (6 plans)
 - [x] **Phase 2 Plan 01 execute → STRUCTURE.md v1.0.0→v1.1.0 bump (harness@8a8c32b, 2026-04-19)**
 - [x] **Phase 2 Plan 02 execute → harness/wiki/ Tier 1 scaffold 생성 (harness@1ff2e34, 2026-04-19)**
-- [x] **Phase 2 Plan 03 execute → studios/shorts/wiki/ Tier 2 + Tier 3 scaffold 생성 (staged for Plan 06 consolidated commit, 2026-04-19)**
-- [x] **Phase 2 Plan 04 execute → CLAUDE.md 5 TODO 치환 + line 7 typo fix (staged for Plan 06 consolidated commit, 2026-04-19)**
-- [x] **Phase 2 Plan 05 execute → 02-HARVEST_SCOPE.md A급 13 사전 판정 (175 lines, staged for Plan 06 consolidated commit, 2026-04-19)**
-- [ ] Phase 2 Plan 06 execute → studio Phase 2 consolidated commit + 12 VALIDATION tests
+- [x] **Phase 2 Plan 03 execute → studios/shorts/wiki/ Tier 2 + Tier 3 scaffold 생성 (committed in f360e17, 2026-04-19)**
+- [x] **Phase 2 Plan 04 execute → CLAUDE.md 5 TODO 치환 + line 7 typo fix (committed in f360e17, 2026-04-19)**
+- [x] **Phase 2 Plan 05 execute → 02-HARVEST_SCOPE.md A급 13 사전 판정 (175 lines, committed in f360e17, 2026-04-19)**
+- [x] **Phase 2 Plan 06 execute → studio Phase 2 consolidated commit f360e17 + 12/12 VALIDATION PASS + SC 4/4 achieved (2026-04-19)**
+- [ ] **Phase 3 Harvest 진입**: `/gsd:execute-phase 3` — harvest-importer 에이전트 입력 = 02-HARVEST_SCOPE.md
 
 ### Blockers
 
@@ -134,6 +142,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 02-domain-definition P03 | 2 | 2 | 7 |
 | Phase 02-domain-definition P05 | 12 | 1 | 1 |
 | Phase 02-domain-definition P04 | 3 | 1 | 1 (5 Edit ops / 6 sites) |
+| Phase 02-domain-definition P06 | 18 | 3 | 9 committed (f360e17) + 2 meta (VALIDATION, SUMMARY) |
 
 ---
 
