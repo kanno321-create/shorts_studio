@@ -47,7 +47,7 @@ metrics:
   commits: 1
   completed_date: "2026-04-19"
 commit_hashes:
-  - "TBD — meta commit at end of execution for SUMMARY + STATE + ROADMAP"
+  - "studios/shorts@c7292eb — docs(02-03): complete Tier 2 wiki scaffold + Tier 3 empty dir plan (meta: SUMMARY+STATE+ROADMAP only; wiki/ + .preserved/ staged for Plan 02-06 consolidated commit)"
 ---
 
 # Phase 02 Plan 03: Tier 2 Wiki Scaffold + Tier 3 Empty Directory Summary
@@ -152,7 +152,7 @@ None — plan executed exactly as written. Both tasks' acceptance criteria verif
 
 | Repo | Hash | Message | Files |
 |------|------|---------|-------|
-| studios/shorts | (pending meta commit below) | `docs(02-03): complete Tier 2 wiki scaffold + Tier 3 empty dir plan` | SUMMARY + STATE + ROADMAP + REQUIREMENTS |
+| studios/shorts | `c7292eb` | `docs(02-03): complete Tier 2 wiki scaffold + Tier 3 empty dir plan` | SUMMARY + STATE + ROADMAP (meta only) |
 | studios/shorts | (Plan 02-06 future) | Consolidated studio Phase 2 commit | wiki/ + .preserved/ content (7 files) |
 
 ## Unblocks
