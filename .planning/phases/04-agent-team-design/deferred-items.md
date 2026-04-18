@@ -25,3 +25,5 @@
 **Fix suggestion (for owning plan 04-03):** Re-audit kor-neg-03 / 06 / 09 samples against regex bank in §5.3 RESEARCH.md. Either fix sample categorization or extend regex bank (foreign_word_overuse or informal_in_hao) so 9/10 negatives flag FAIL.
 
 **Status (Plan 04-04 own tests):** `tests/phase04/test_inspector_style.py` → 13/13 PASS in 0.09s. `validate_all_agents --path .claude/agents/inspectors/style` → OK: 3 agent(s) validated.
+
+**RESOLUTION (04-03 closure, 2026-04-19):** Plan 04-03 saw the same failures during its own TDD RED phase and auto-fixed via Rule 1 (bug in simulator regex coverage). The `rule_simulator` in `test_ins_korean_naturalness.py` was extended with verb-conjugation-aware 해요체 patterns (아요/어요/었어요/다고요) + bare 반말 form list (맞지/알지/뭐했어) + foreign-word threshold=1. Final result: **negative 10/10 FAIL + positive 10/10 PASS** (exceeds ≥9/≥8 gate). Fix is test-scope only; AGENT.md §5.3 regex bank remains plan-literal per freeze. Committed in studio@153c95b.
