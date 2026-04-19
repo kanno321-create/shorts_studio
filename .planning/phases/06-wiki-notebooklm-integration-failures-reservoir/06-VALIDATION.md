@@ -57,8 +57,8 @@ created: 2026-04-19
 | 6-08-03 | 08 | 4 | FAIL-03 | unit | `pytest tests/phase06/test_skill_history_backup.py` | ✅ on disk | ✅ green |
 | 6-09-01 | 09 | 4 | FAIL-02 | unit | `pytest tests/phase06/test_aggregate_patterns.py` | ❌ W0 | ⬜ pending |
 | 6-09-02 | 09 | 4 | FAIL-02 | integration | `pytest tests/phase06/test_aggregate_dry_run.py` | ❌ W0 | ⬜ pending |
-| 6-10-01 | 10 | 4 | WIKI-05 | unit | `pytest tests/phase06/test_agent_prompt_wiki_refs.py` | ❌ W0 | ⬜ pending |
-| 6-10-02 | 10 | 4 | WIKI-05 | integration | `pytest tests/phase06/test_agent_prompt_byte_diff.py` | ❌ W0 | ⬜ pending |
+| 6-10-01 | 10 | 4 | WIKI-05 | unit | `pytest tests/phase06/test_agent_prompt_wiki_refs.py` | ✅ on disk | ✅ green |
+| 6-10-02 | 10 | 4 | WIKI-05 | integration | `pytest tests/phase06/test_agent_prompt_byte_diff.py` | ✅ on disk | ✅ green |
 | 6-11-01 | 11 | 5 | D-14 | unit | `pytest tests/phase06/test_imported_failures_sha256.py` | ❌ W0 | ⬜ pending |
 | 6-11-02 | 11 | 5 | ALL | E2E | `python scripts/validate/phase06_acceptance.py` | ❌ W0 | ⬜ pending |
 | 6-11-03 | 11 | 5 | ALL | regression | `pytest tests/phase05/ tests/phase04/ -q` | ✅ | ⬜ pending |

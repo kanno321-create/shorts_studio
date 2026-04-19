@@ -163,7 +163,7 @@
 - [x] 06-07-PLAN.md — Wave 3 SHOTSTACK INJECTION: filter[0] continuity_prefix + D-17 tail preservation (D-9/D-19) — ✅ shipped 2026-04-19, studio@20cdeed (scripts/orchestrator/api/shotstack.py 369→397 lines: DEFAULT_CONTINUITY_PRESET_PATH + _load_continuity_preset lazy loader returning None on missing prefix.json + _build_timeline_payload prepends 'continuity_prefix' at filters_order[0] with idempotency guard + emits timeline.continuity_preset=preset.model_dump() | None; 17 tests green [11 unit test_shotstack_prefix_injection.py + 6 integration test_filter_order_preservation.py asserting D-19 `['continuity_prefix','color_grade','saturation','film_grain']` by EXACT list equality per Pitfall 4 defence]; Phase 5 test_render_payload_carries_d17_filter_order isolated via monkeypatch to preserve D-17 tail contract; Phase 5 329/329 preserved; Phase 6 140/140; WIKI-02 runtime-wiring complete — every Shotstack render now auto-carries channel visual DNA)
 - [x] 06-08-PLAN.md — Wave 4 HOOK EXTENSION: FAILURES append-only + SKILL_HISTORY backup (D-11/D-12/D-14) + 2 deprecated_patterns — ✅ shipped 2026-04-19, studio@88a3ae5 (.claude/hooks/pre_tool_use.py 152→272 lines: check_failures_append_only [D-11 basename-exact match + Windows-path-safe + _imported exempt] + backup_skill_before_write [D-12 v<YYYYMMDD_HHMMSS>.md.bak via shutil.copy2]; .claude/deprecated_patterns.json 6→8 entries as audit trail; .claude/failures/FAILURES.md + FAILURES_INDEX.md seeded [10-field schema + category index by fail-ID, never modifies _imported_from_shorts_naberal.md]; SKILL_HISTORY/README.md convention; 30 new tests green [14 in-process unit + 7 subprocess + 9 backup]; Phase 5 hook regression 31 tests + verify_hook_blocks.py 5/5 preserved; FAIL-01 + FAIL-03 satisfied)
 - [ ] 06-09-PLAN.md — Wave 4 AGGREGATION CLI: 30-day dry-run (D-13)
-- [ ] 06-10-PLAN.md — Wave 4 AGENT MASS UPDATE: 15 AGENT.md files + sha256 manifests (D-3/D-18)
+- [x] 06-10-PLAN.md — Wave 4 AGENT MASS UPDATE: 15 AGENT.md files + sha256 manifests (D-3/D-18) — ✅ shipped 2026-04-19, studio@948c4d9 (15 of 33 AGENT.md files edited with 52 @wiki/shorts refs across 5 Plan 02 ready nodes [continuity_bible/channel_identity 14 refs / algorithm/ranking_factors 11 / render/remotion_kling_stack 11 / kpi/retention_3second_hook 4 / ypp/entry_conditions 3]; 18 non-target agents byte-identical per sha256 manifest diff; 16 tests green [8 ref validation + 8 byte-diff regression guard]; validate_all_agent_refs returns 0 problems; Phase 6 186/186 PASS; D-3 + D-18 surgical scope proven; WIKI-05 satisfied)
 - [ ] 06-11-PLAN.md — Wave 5 PHASE GATE: D-14 sha256 + acceptance E2E + 9-REQ traceability + VALIDATION flip
 
 ---
@@ -239,7 +239,7 @@
 | 3. Harvest | 9/9 | ✅ Complete | 2026-04-19 |
 | 4. Agent Team Design | 10/10 | Complete    | 2026-04-18 |
 | 5. Orchestrator v2 | 10/10 | ✅ Complete | 2026-04-19 |
-| 6. Wiki + NotebookLM + FAILURES | 8/11 | Executing | - |
+| 6. Wiki + NotebookLM + FAILURES | 9/11 | Executing | - |
 | 7. Integration Test | 0/TBD | Not started | - |
 | 8. Remote + Publishing | 0/TBD | Not started | - |
 | 9. Docs + KPI + Taste Gate | 0/TBD | Not started | - |
