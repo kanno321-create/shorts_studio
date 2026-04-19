@@ -23,6 +23,14 @@
     {
       "regex": "try\\s*:[^\\n]*\\n\\s+pass\\s*$",
       "reason": "Project Rule 3: try-except 침묵 폴백 금지 — 명시적 raise 필수"
+    },
+    {
+      "regex": "(?i)\\[REMOVED\\]|\\[DELETED\\]|delete this entry",
+      "reason": "FAIL-01 / D-11: FAILURES.md 삭제 마커 — append-only 위반 (실제 파일 보호는 check_failures_append_only Python 체크)"
+    },
+    {
+      "regex": "SKILL\\.md",
+      "reason": "FAIL-03 / D-12: SKILL.md 직접 수정 감지 — SKILL_HISTORY backup 강제 (실제 백업은 backup_skill_before_write Python 체크)"
     }
   ]
 }

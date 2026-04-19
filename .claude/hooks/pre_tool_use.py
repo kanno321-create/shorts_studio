@@ -12,8 +12,10 @@ Claude Code PreToolUse hook spec:
 """
 from __future__ import annotations
 import json
+import shutil
 import sys
 import re
+from datetime import datetime
 from pathlib import Path
 
 # ============================================================================
@@ -150,6 +152,93 @@ def check_structure_allowed(file_path: Path, studio_root: Path) -> tuple[bool, s
     return False, reason
 
 
+# ============================================================================
+# Phase 6 Plan 08: FAILURES 저수지 규율 (D-11, D-12, D-14)
+# ============================================================================
+
+
+def check_failures_append_only(tool_name: str, tool_input: dict) -> str | None:
+    """D-11: FAILURES.md append-only enforcement.
+
+    Applies only to files whose basename is exactly 'FAILURES.md'. EXPLICITLY
+    excludes '_imported_from_shorts_naberal.md' (D-14 immutable, sha256-locked,
+    handled by separate immutability check).
+
+    Returns:
+        Deny reason string if the operation would modify existing FAILURES.md
+        content, or None to allow.
+
+    Contract:
+        - Edit with non-empty old_string -> deny (modifies existing line)
+        - Write with new content that does NOT preserve existing content as
+          strict prefix -> deny (not an append)
+        - Write when file does not yet exist -> allow (first-time create)
+        - MultiEdit with any non-empty old_string -> deny
+        - Any tool on files whose basename is not exactly 'FAILURES.md' -> allow
+    """
+    fp = tool_input.get("file_path", "")
+    if not fp:
+        return None
+    # Path separator agnostic: only match literal filename 'FAILURES.md' at end
+    name = fp.replace("\\", "/").rsplit("/", 1)[-1]
+    if name != "FAILURES.md":
+        return None
+
+    if tool_name == "Edit":
+        old = tool_input.get("old_string", "")
+        if old.strip():
+            return (
+                "FAILURES.md is append-only (D-11). "
+                "Use Write to append new content, or add a new entry at EOF."
+            )
+    if tool_name == "Write":
+        p = Path(fp)
+        existing = p.read_text(encoding="utf-8") if p.exists() else ""
+        new = tool_input.get("content", "")
+        if existing and not new.startswith(existing):
+            return (
+                "FAILURES.md Write must preserve entire existing content "
+                "as prefix (append-only per D-11)."
+            )
+    if tool_name == "MultiEdit":
+        for e in tool_input.get("edits", []):
+            if e.get("old_string", "").strip():
+                return (
+                    "FAILURES.md is append-only (D-11). "
+                    "MultiEdit with non-empty old_string is denied."
+                )
+    return None
+
+
+def backup_skill_before_write(tool_input: dict) -> None:
+    """D-12: pre-tool backup of SKILL.md to SKILL_HISTORY/<skill>/v<stamp>.md.bak.
+
+    Skips silently when:
+        - file_path is missing / empty
+        - target basename is not exactly 'SKILL.md'
+        - target SKILL.md does not yet exist (first-time create)
+
+    Raises OSError on disk-full / permission — caller (main) should treat as deny.
+
+    Side effect: creates `SKILL_HISTORY/<skill_name>/v<YYYYMMDD_HHMMSS>.md.bak`
+    relative to current working directory (to keep the hook studio-agnostic; the
+    backup lives beside the studio root where cwd is set by Claude Code).
+    """
+    fp_str = tool_input.get("file_path", "")
+    if not fp_str:
+        return
+    fp = Path(fp_str)
+    if fp.name != "SKILL.md":
+        return
+    if not fp.exists():
+        return
+    skill_name = fp.parent.name
+    history_dir = Path("SKILL_HISTORY") / skill_name
+    history_dir.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    shutil.copy2(fp, history_dir / f"v{stamp}.md.bak")
+
+
 def main() -> int:
     # Hook input 읽기
     try:
@@ -176,6 +265,29 @@ def main() -> int:
     elif tool_name == "MultiEdit":
         edits = tool_input.get("edits", [])
         content_to_check = "\n".join(e.get("new_string", "") for e in edits)
+
+    # ── Phase 6 Plan 08: D-11 FAILURES.md append-only 검사 (studio-agnostic) ──
+    # 이 검사는 studio_root 탐색 전에 수행. FAILURES.md 수정은 경로가 어디든 차단.
+    failures_reason = check_failures_append_only(tool_name, tool_input)
+    if failures_reason is not None:
+        print(json.dumps({"decision": "deny", "reason": failures_reason}))
+        return 0
+
+    # ── Phase 6 Plan 08: D-12 SKILL_HISTORY 백업 (pre-write side effect) ──
+    # SKILL.md 수정 직전 기존 버전을 SKILL_HISTORY/<skill>/v<stamp>.md.bak로 복사.
+    # 디스크 에러 발생 시 deny로 변환 (백업 실패 = 수정 차단).
+    try:
+        backup_skill_before_write(tool_input)
+    except OSError as e:
+        print(
+            json.dumps(
+                {
+                    "decision": "deny",
+                    "reason": f"SKILL_HISTORY backup failed (D-12): {e}",
+                }
+            )
+        )
+        return 0
 
     # 스튜디오 루트 탐색 + 패턴 로드
     file_path = tool_input.get("file_path", "")
