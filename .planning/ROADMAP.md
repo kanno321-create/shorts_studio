@@ -226,7 +226,7 @@
   2. KPI 목표(3초 retention > 60%, 완주율 > 40%, 평균 시청 > 25초)가 `wiki/shorts/kpi_log.md` 템플릿에 선언되고 측정 방식이 명시되어 있다
   3. Taste Gate 프로토콜이 문서화되어 있으며 월 1회 대표님이 상위 3 / 하위 3 영상을 평가하는 실제 피드백 폼이 존재한다 (첫 회 dry-run 완료)
   4. Taste Gate 평가 결과가 `FAILURES.md`로 흘러드는 경로가 연결되어 있으며, 다음 월 Producer 입력에 반영될 수 있음이 샘플로 검증된다
-**Plans:** TBD
+**Plans:** 1/6 plans executed
 
 ---
 
@@ -258,7 +258,7 @@
 | 6. Wiki + NotebookLM + FAILURES | 11/11 | ✅ Complete | 2026-04-19 |
 | 7. Integration Test | 8/8 | ✅ Complete | 2026-04-19 |
 | 8. Remote + Publishing | 8/8 | Complete    | 2026-04-19 |
-| 9. Docs + KPI + Taste Gate | 0/TBD | Not started | - |
+| 9. Docs + KPI + Taste Gate | 1/6 | In Progress|  |
 | 10. Sustained Operations | 0/TBD | Not started (영구 지속) | - |
 
 ---

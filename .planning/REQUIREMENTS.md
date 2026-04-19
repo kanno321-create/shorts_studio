@@ -143,8 +143,8 @@
 - [ ] **KPI-02**: 월 1회 `wiki/shorts/kpi_log.md` 자동 생성
 - [ ] **KPI-03**: Auto Research Loop — 성공 패턴 → NotebookLM RAG 업데이트 (T17)
 - [ ] **KPI-04**: 다음 달 Producer 입력에 KPI 반영 (DF-4 기본 틀)
-- [ ] **KPI-05**: 월 1회 Taste gate — 대표님이 직접 상위 3 / 하위 3 영상 평가 (B-P4 차단)
-- [ ] **KPI-06**: 목표 지표 — 3초 retention > 60%, 완주율 > 40%, 평균 시청 > 25초
+- [x] **KPI-05**: 월 1회 Taste gate — 대표님이 직접 상위 3 / 하위 3 영상 평가 (B-P4 차단)
+- [x] **KPI-06**: 목표 지표 — 3초 retention > 60%, 완주율 > 40%, 평균 시청 > 25초
 
 ### TEST — 통합 테스트
 
