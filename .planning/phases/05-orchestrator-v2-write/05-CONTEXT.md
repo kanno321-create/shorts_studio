@@ -228,7 +228,7 @@ IDLE → TREND → NICHE → RESEARCH_NLM → BLUEPRINT → SCRIPT → POLISH
 - `scripts/orchestrator/gate_guard.py` — GateGuard + 예외
 - `scripts/orchestrator/checkpointer.py` — Checkpointer
 - `scripts/orchestrator/circuit_breaker.py` — CircuitBreaker
-- `scripts/orchestrator/video_first_timeline.py` — VoiceFirstTimeline (오디오→영상 순서)
+- `scripts/orchestrator/voice_first_timeline.py` — VoiceFirstTimeline (오디오→영상 순서)
 - `scripts/orchestrator/api/kling_i2v.py`, `runway_i2v.py`, `shotstack.py`, `typecast.py`, `elevenlabs.py` — API adapters
 - `scripts/hc_checks/hc_checks.py` — 재작성 (1129줄 baseline, public 시그니처 보존)
 - `tests/phase05/` — 단위/통합/regression 테스트
