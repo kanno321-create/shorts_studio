@@ -203,10 +203,10 @@
   4. publish lock이 48시간+ 랜덤 간격을 enforcement 하며 한국 피크 시간(평일 20-23 KST / 주말 12-15 KST) 윈도우 안에서만 업로드가 발동한다
   5. 업로드된 영상 metadata에 production_metadata(script_hash, assets_origin, pipeline_version)가 첨부되어 Reused Content 이의제기 시 증명 자료로 활용 가능하다
   6. 업로드 직후 publisher가 핀 댓글 + end-screen subscribe funnel을 자동 설정한다 (샘플 업로드 1회 실측)
-**Plans:** 1/8 shipped
+**Plans:** 2/8 shipped
 - [x] 08-01-PLAN.md — Wave 0 FOUNDATION (tests/phase08 scaffold + MockYouTube/MockGitHub + scripts/publisher namespace + CD-02 5-class exceptions) — ✅ shipped 2026-04-19, studio@5fb2d38+501777d+b53d218 (3 atomic commits, 39/39 new tests + 986/986 regression preserved)
 - [ ] 08-02-PLAN.md — Wave 1 REMOTE (GitHub Private repo create + push main + submodule add)
-- [ ] 08-03-PLAN.md — Wave 2 OAUTH (InstalledAppFlow + refresh token)
+- [x] 08-03-PLAN.md — Wave 2 OAUTH (InstalledAppFlow + refresh token) — ✅ shipped 2026-04-19, studio@95022d4+9d04c18+a6db395 (3 atomic commits, 11/11 new tests + 59/59 phase08 preserved)
 - [ ] 08-04-PLAN.md — Wave 3 LOCK+WINDOW+DISCLOSURE (publish_lock + kst_window + ai_disclosure)
 - [ ] 08-05-PLAN.md — Wave 4 METADATA+FUNNEL (production_metadata + pinned comment)
 - [ ] 08-06-PLAN.md — Wave 5 SMOKE-GATE (대표님 승인 + unlisted upload + delete cleanup)
@@ -257,7 +257,7 @@
 | 5. Orchestrator v2 | 10/10 | ✅ Complete | 2026-04-19 |
 | 6. Wiki + NotebookLM + FAILURES | 11/11 | ✅ Complete | 2026-04-19 |
 | 7. Integration Test | 8/8 | ✅ Complete | 2026-04-19 |
-| 8. Remote + Publishing | 1/8 | Executing | - |
+| 8. Remote + Publishing | 2/8 | Executing | - |
 | 9. Docs + KPI + Taste Gate | 0/TBD | Not started | - |
 | 10. Sustained Operations | 0/TBD | Not started (영구 지속) | - |
 

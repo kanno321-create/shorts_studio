@@ -43,11 +43,11 @@ created: 2026-04-19
 | 8-01-01 | 01 | 0 | REQ-TEST-infra | unit (scaffold) | `pytest tests/phase08/test_scaffold.py -q` | ✅ | ✅ green |
 | 8-01-02 | 01 | 0 | REQ-TEST-infra | unit (MockYouTube) | `pytest tests/phase08/mocks/test_youtube_mock.py -q` | ✅ | ✅ green |
 | 8-01-03 | 01 | 0 | REQ-TEST-infra | unit (MockGitHub) | `pytest tests/phase08/mocks/test_github_mock.py -q` | ✅ | ✅ green |
-| 8-02-01 | 02 | 1 | REMOTE-01 | subprocess (repo create idempotent) | `pytest tests/phase08/test_github_remote_create.py -q` | ❌ W0 | ⬜ pending |
-| 8-02-02 | 02 | 1 | REMOTE-02 | subprocess (main rename + push) | `pytest tests/phase08/test_github_push_main.py -q` | ❌ W0 | ⬜ pending |
-| 8-02-03 | 02 | 1 | REMOTE-03 | subprocess (submodule add + .gitmodules schema) | `pytest tests/phase08/test_submodule_add.py -q` | ❌ W0 | ⬜ pending |
-| 8-03-01 | 03 | 2 | PUB-02 | unit (OAuth flow mock) | `pytest tests/phase08/test_oauth_installed_flow.py -q` | ❌ W0 | ⬜ pending |
-| 8-03-02 | 03 | 2 | PUB-02 | unit (refresh token round-trip) | `pytest tests/phase08/test_token_refresh.py -q` | ❌ W0 | ⬜ pending |
+| 8-02-01 | 02 | 1 | REMOTE-01 | subprocess (repo create idempotent) | `pytest tests/phase08/test_github_remote_create.py -q` | ✅ | ✅ green |
+| 8-02-02 | 02 | 1 | REMOTE-02 | subprocess (main rename + push) | `pytest tests/phase08/test_github_push_main.py -q` | ✅ | ✅ green |
+| 8-02-03 | 02 | 1 | REMOTE-03 | subprocess (submodule add + .gitmodules schema) | `pytest tests/phase08/test_submodule_add.py -q` | ✅ | ✅ green |
+| 8-03-01 | 03 | 2 | PUB-02 | unit (OAuth flow mock) | `pytest tests/phase08/test_oauth_installed_flow.py -q` | ✅ | ✅ green |
+| 8-03-02 | 03 | 2 | PUB-02 | unit (refresh token round-trip) | `pytest tests/phase08/test_token_refresh.py -q` | ✅ | ✅ green |
 | 8-04-01 | 04 | 3 | PUB-03 | unit (48h lock violation) | `pytest tests/phase08/test_publish_lock_48h.py -q` | ❌ W0 | ⬜ pending |
 | 8-04-02 | 04 | 3 | PUB-03 | unit (KST window weekday 20-23) | `pytest tests/phase08/test_kst_window_weekday.py -q` | ❌ W0 | ⬜ pending |
 | 8-04-03 | 04 | 3 | PUB-03 | unit (KST window weekend 12-15) | `pytest tests/phase08/test_kst_window_weekend.py -q` | ❌ W0 | ⬜ pending |
