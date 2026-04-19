@@ -44,17 +44,17 @@
 - **D-2: Mock asset은 결정론적 + 최소 크기** — `.mp4` placeholder 1KB (실제 유효한 MP4 atom 4 bytes `ftyp` + 최소 moov), `.wav` placeholder 1KB (44 byte RIFF header + 3초 silence PCM), JSON response는 Shotstack API schema 준수 dict literal. Fixed seed + fixed timestamps로 재실행 시 동일 결과.
 - **D-3: Fault injection은 테스트 경로 전용** — `inject_fault` 파라미터는 Phase 6 `NotebookLMFallbackChain` 선행 패턴 승계. 프로덕션 경로(`CI=production` 또는 `NABERAL_ENV=prod`)에서는 fault injection 파라미터 무시. Phase 7 mock adapter도 동일 규율 — `allow_fault_injection=False` 기본값.
 
-### E2E Pipeline 흐름 (D-4~D-6)
+### E2E Pipeline 흐름 (D-4~D-6) — CORRECTED 2026-04-19 per research §Critical CONTEXT.md Corrections
 
-- **D-4: TREND → COMPLETE 12 GATE sequence 준수** — Phase 5 `GateName IntEnum` 순서 그대로: TREND → NICHE → RESEARCH → SCRIPT → POLISH → DIRECT → SCENE → SHOT → ASSET → VOICE → ASSEMBLE → RENDER → PUBLISH. Phase 7 테스트는 이 IntEnum 역주행/건너뛰기 시도 시 `GateOrderViolation` raise 증명.
-- **D-5: 17 GATE = 12 GATE + 5 sub-gate 호출 기록** — Phase 5 `GATE_DEPS` dict의 sub-gate 5개(예: ASSET→{asset_sourcer,mosaic_inspector,license_inspector} 등 planner가 Phase 5 GATE_DEPS 실구조 재확인 후 정확 수치 확정). `verify_all_dispatched()`가 17개 모두 dispatch 기록 확인 후에만 COMPLETE 전이 허용. 16개 이하에서 COMPLETE 시도 시 `GateDispatchMissing` raise.
-- **D-6: Checkpointer atomic write 검증** — `os.replace` 기반 atomic write이 E2E 1회 완주 중 12회 발생(각 GATE 완료 시점). `state/{session_id}/gate_NN.json` 파일 존재 + round-trip deserialize + highest gate_index resume 3-point 검증. Windows-safe `os.replace` 정상 동작 실측.
+- **D-4: TREND → MONITOR 13 operational gates sequence 준수** — Phase 5 `GateName IntEnum` 실제 순서 (gate_guard.py:94-96): TREND → NICHE → SCRIPT → POLISH → DIRECT → SCENE → SHOT → ASSETS → VOICE → ASSEMBLY → REVIEW → PUBLISH → MONITOR. 13 operational gates. Phase 7 테스트는 이 IntEnum 역주행/건너뛰기 시도 시 `GateOrderError` raise 증명 (실제 예외명은 `gate_guard.py` 정의 기준).
+- **D-5: `verify_all_dispatched()` == 13 operational dispatches** — **Research correction**: 최초 CONTEXT가 "17 = 12 + 5 sub-gate"로 기술했으나 `gate_guard.py:169-176` 실구현은 13 operational gates (TREND..MONITOR) 전수 dispatch 기록 검증. "17"의 근거 코드 없음. "5 sub-gate"는 inspector/producer 내부 rubric이며 GateGuard dispatch table에 포함되지 않음. **TEST-02는 `dispatched_count == 13`으로 lock**. 13개 이하에서 COMPLETE 시도 시 `GateDispatchMissing` (또는 실제 예외명) raise.
+- **D-6: Checkpointer atomic write 검증** — `os.replace` 기반 atomic write이 E2E 1회 완주 중 13회 발생(각 operational gate 완료 시점). `state/{session_id}/gate_NN.json` 파일 존재 + round-trip deserialize + highest gate_index resume 3-point 검증. Windows-safe `os.replace` 정상 동작 실측.
 
-### Fault injection 시나리오 (D-7~D-9)
+### Fault injection 시나리오 (D-7~D-9) — CORRECTED 2026-04-19
 
-- **D-7: CircuitBreaker 3×300s 발동** — Kling mock을 `inject_fault="circuit_3x"` 옵션으로 3회 연속 `CircuitBreakerTriggerError` raise. 3회 실패 후 breaker OPEN 상태 전이 + 다음 재시도가 `CircuitBreakerOpenError`로 거부되고, `cooldown_remaining_seconds >= 299` 확인 (5분 cooldown의 최소 299초 이상). Runway 자동 failover 경로는 별도 plan에서 다룸.
-- **D-8: Fallback ken-burns template 실렌더** — Shotstack adapter `_build_ken_burns_fallback_timeline` (Phase 5 존재 또는 Phase 7에서 명시적 추가) 호출 시 `{asset: "still_image.jpg", effect: "zoom_in", duration_seconds: 3.0}` 포함 timeline JSON 생성 + filter chain에 `continuity_prefix` 여전히 prepend. D-19 filter order 위반 0건.
-- **D-9: 재생성 루프 3회 초과 → FAILURES.md append + ken-burns 자동 삽입** — Producer/Inspector 재시도 3회 후에도 inspector FAIL 지속 시, shorts_pipeline.py가 `FAILURES.md` append + Shotstack render payload에 ken-burns fallback template 삽입하여 CIRCUIT_OPEN 없이 COMPLETE 도달. Phase 6 `check_failures_append_only` Hook과 충돌 없음 증명 (append-only 규율 준수).
+- **D-7: CircuitBreaker 3× failure → OPEN → cooldown** — **Research correction**: Kling mock이 `MagicMock.side_effect = [RuntimeError, RuntimeError, RuntimeError, ...]` 3회 연속 raise하여 breaker OPEN 전이 유도. 4번째 호출에서 `CircuitBreakerOpenError` (circuit_breaker.py:57-72 실제 클래스명; 최초 CONTEXT의 `CircuitBreakerTriggerError`는 오류) raise + `cooldown_remaining_seconds > 0` (Phase 5 precedent: strict `>`) 확인. 300s cooldown math는 `unittest.mock.patch("scripts.orchestrator.circuit_breaker.time.monotonic")` stdlib 패턴으로 결정론 확보 (pytest-socket / freezegun 도입 금지 — 미설치 dep). Runway 자동 failover 경로는 별도 plan.
+- **D-8: Fallback ken-burns는 standalone Shotstack POST** — **Research correction**: `_build_ken_burns_fallback_timeline` 같은 메서드는 존재하지 않음. 실제 체인 (`shotstack.py:155-216` + `shorts_pipeline.py:576-627` + `fallback.py:30-67`): `shorts_pipeline._producer_loop → append_failures(FAILURES.md append) → _insert_fallback → fallback.insert_fallback_shot → shotstack.create_ken_burns_clip`. Ken-burns는 **main render filter chain에 embedded 아님** — 독립 Shotstack POST로 `{asset: still_image, effect: zoom_in, duration: 3.0}` 타임라인 생성. D-19 filter order 계약은 main render에만 적용, ken-burns는 standalone이므로 위반 대상 아님.
+- **D-9: 재생성 루프 3회 초과 → FAILURES.md append + ken-burns 삽입 (THUMBNAIL 대상)** — **Research correction**: `_producer_loop`는 10 gates에서 invoke되나 Fallback-eligible gate 교집합(`shorts_pipeline.py:621` 필터)은 **THUMBNAIL only** (ASSETS는 CircuitBreaker + Runway failover 경로 — Fallback 레인 아님). Producer/Inspector 재시도 3회 후에도 inspector FAIL 지속 시 THUMBNAIL gate에서 `FAILURES.md` append + ken-burns 독립 Shotstack POST 호출되어 CIRCUIT_OPEN 없이 COMPLETE 도달. Phase 6 `check_failures_append_only` Hook과 충돌 없음 증명 (append-only 규율 준수). 보조 테스트 (선택): `test_assets_both_providers_fail.py` — ASSETS gate가 ken-burns Fallback 경로에 도달 불가함을 설계적으로 기록.
 
 ### Harness-audit 기준 (D-10~D-12)
 
@@ -87,8 +87,9 @@
 - tests/phase07/ 내 테스트 파일 개수 및 네이밍 (Phase 5/6 패턴 참고하되 planner가 Phase 7 Wave 구조에 맞게 분할)
 - mock adapter 구현 위치: `tests/phase07/mocks/` vs `tests/phase07/fixtures/adapters/` — planner 판단
 - harness-audit 스킬 호출 방식: Skill tool 직접 호출 vs wrapper CLI (`scripts/audit/run_harness_audit.py`) — 스킬 상속 확인 후 planner 판단
-- ken-burns fallback template JSON 세부 구조: 3초 줌인 + 정지 이미지 경로는 고정, 나머지 detail planner 판단
-- Phase 7 verify_all_dispatched() 실제 17 sub-gate 수치 확정: planner가 Phase 5 `scripts/orchestrator/gate_guard.py` + `GATE_DEPS` 실구조 read-first 후 정확 수치 lock-in
+- ken-burns fallback Shotstack POST 세부 구조: 3초 줌인 + 정지 이미지 경로는 고정, 나머지 detail planner 판단 (`shotstack.create_ken_burns_clip:155-216` 실 시그니처 기반)
+- harness-audit JSON 확장 방식: `scripts/validate/harness_audit.py` 기존 90점 출력기에 `--json-out` 플래그 추가 (backward-compatible — 기존 text 출력 보존)
+- 보조 테스트 필요성 판단: (a) `test_operational_gate_count_equals_13.py` (CONTEXT "17→13" 오류 재발 차단 앵커), (b) `test_assets_both_providers_fail.py` (ASSETS ken-burns 경로 불가 설계 기록) — planner 재량
 
 </decisions>
 
@@ -187,21 +188,21 @@ class MockKlingI2V:
         }
 ```
 
-### 17 GATE 검증 패턴 예시 (D-5 기반)
+### 13 operational gate dispatch 검증 패턴 예시 (D-5 corrected 기반)
 
 ```python
 # tests/phase07/test_verify_all_dispatched.py
-def test_complete_transition_requires_17_dispatches(pipeline_with_mocks):
+def test_complete_transition_requires_13_operational_dispatches(pipeline_with_mocks):
     pipeline = pipeline_with_mocks
-    # 16 dispatches — COMPLETE 시도 시 GateDispatchMissing
-    for gate_name in FIRST_16_GATE_NAMES:
+    # 12 dispatches — COMPLETE 시도 시 GateDispatchMissing
+    for gate_name in FIRST_12_GATE_NAMES:  # TREND..PUBLISH (or actual 12 names from GateName IntEnum)
         pipeline.gate_guard.dispatch(gate_name)
-    with pytest.raises(GateDispatchMissing) as exc:
+    with pytest.raises(GateDispatchMissing) as exc:  # actual class name TBD by planner read-first
         pipeline.transition_to_complete()
     assert exc.value.missing_count == 1
 
-    # 17th dispatch → transition allowed
-    pipeline.gate_guard.dispatch(LAST_GATE_NAME)
+    # 13th dispatch (MONITOR) → transition allowed
+    pipeline.gate_guard.dispatch(GateName.MONITOR)
     pipeline.transition_to_complete()  # no raise
 ```
 
