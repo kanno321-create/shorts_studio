@@ -70,3 +70,10 @@ Thumbs.db
 
 # Phase 5 orchestrator runtime state (Checkpointer output per Plan 03)
 state/
+
+# Phase 8 — secrets (OAuth + PAT)
+config/client_secret.json
+config/youtube_token.json
+
+# Phase 8 — runtime state (upload history + 48h lock)
+.planning/publish_lock.json
