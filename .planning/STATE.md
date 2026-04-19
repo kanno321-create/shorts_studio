@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-19T03:09:27.751Z"
+last_updated: "2026-04-19T03:11:34.833Z"
 progress:
   total_phases: 10
   completed_phases: 3
   total_plans: 35
-  completed_plans: 28
-  percent: 80
+  completed_plans: 29
+  percent: 83
 ---
 
 # STATE — naberal-shorts-studio
@@ -37,7 +37,7 @@ Plan: 3 of 10
 - **Phase:** 5
 - **Next Plan:** 05-PLAN (Phase 5 Orchestrator v2 Write — `scripts/orchestrator/shorts_pipeline.py` 500~800줄 state machine, 12 GATE DAG, CircuitBreaker, Checkpointer, 영상/음성 분리 합성, Low-Res First 렌더; ORCH-01~12 + VIDEO-01~05 = 17 REQs)
 - **Status:** Ready to execute
-- **Progress:** [████████░░] 80%
+- **Progress:** [████████░░] 83%
 
 ---
 
@@ -222,6 +222,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 05 P01 | 14m | 4 tasks | 17 files |
 | Phase 05 P02 | 18m | 2 tasks | 3 files |
 | Phase 05-orchestrator-v2-write P03 | 4m | 2 tasks | 3 files |
+| Phase 05-orchestrator-v2-write P05-04 | 14m | 2 tasks | 3 files |
 
 ### Plan Execution Log
 

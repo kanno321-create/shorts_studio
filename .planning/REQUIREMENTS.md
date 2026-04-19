@@ -61,7 +61,7 @@
 - [ ] **ORCH-01**: `scripts/orchestrator/shorts_pipeline.py` 작성 — **500~800줄 state machine**
 - [x] **ORCH-02**: 12 GATE 구현: `IDLE → TREND → NICHE → RESEARCH_NLM → BLUEPRINT → SCRIPT → POLISH → VOICE → ASSETS → ASSEMBLY → THUMBNAIL → METADATA → UPLOAD → MONITOR → COMPLETE`
 - [x] **ORCH-03**: `GateGuard.dispatch(gate, verdict)` 강제 — Reviewer FAIL 시 raise
-- [ ] **ORCH-04**: `verify_all_dispatched()` = COMPLETE 진입 조건
+- [x] **ORCH-04**: `verify_all_dispatched()` = COMPLETE 진입 조건
 - [x] **ORCH-05**: Checkpointer — `state/{session_id}/gate_{n}.json`
 - [x] **ORCH-06**: CircuitBreaker — 3회 실패 → 5분 cooldown
 - [x] **ORCH-07**: **DAG 의존성 그래프** — 선행 GATE 미통과 시 후속 실행 차단 (NotebookLM T16)
