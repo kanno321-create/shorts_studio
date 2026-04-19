@@ -240,8 +240,10 @@ def test_no_real_network_via_fake_env(
     assert result["final_gate"] == "COMPLETE"
 
     # Mocks are pure-Python objects with no HTTP client attributes.
-    assert not hasattr(pipeline.kling_adapter, "_session")
-    assert not hasattr(pipeline.shotstack_adapter, "_session")
+    # ShortsPipeline stores adapters as ``self.kling`` / ``self.shotstack``
+    # (shorts_pipeline.py:204, 216) — not ``_adapter`` suffix.
+    assert not hasattr(pipeline.kling, "_session")
+    assert not hasattr(pipeline.shotstack, "_session")
 
 
 def test_korean_session_id_cp949_roundtrip(
