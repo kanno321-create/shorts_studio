@@ -212,6 +212,14 @@ def append_to_failures(block: str) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
+    # Pitfall 7: Windows cp949 guard so Korean survives print() calls even when
+    # main() is imported (not just when __name__ == "__main__"). Re-configures
+    # stdout/stderr to UTF-8 if possible; silent no-op on non-reconfigurable
+    # streams (e.g., pytest capture buffers).
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8")
+
     parser = argparse.ArgumentParser(
         description="Taste Gate → FAILURES.md appender (D-12, Phase 9 KPI-05).",
     )
