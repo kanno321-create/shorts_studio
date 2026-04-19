@@ -52,9 +52,9 @@ created: 2026-04-19
 | 6-06-02 | 06 | 3 | WIKI-02 | unit | `pytest tests/phase06/test_prefix_json_serialization.py` | ✅ on disk | ✅ green |
 | 6-07-01 | 07 | 3 | WIKI-02 | unit | `pytest tests/phase06/test_shotstack_prefix_injection.py` | ✅ on disk | ✅ green |
 | 6-07-02 | 07 | 3 | WIKI-02 | integration | `pytest tests/phase06/test_filter_order_preservation.py` | ✅ on disk | ✅ green |
-| 6-08-01 | 08 | 4 | FAIL-01 | unit | `pytest tests/phase06/test_failures_append_only.py` | ❌ W0 | ⬜ pending |
-| 6-08-02 | 08 | 4 | FAIL-01 | subprocess | `pytest tests/phase06/test_hook_failures_block.py` | ❌ W0 | ⬜ pending |
-| 6-08-03 | 08 | 4 | FAIL-03 | unit | `pytest tests/phase06/test_skill_history_backup.py` | ❌ W0 | ⬜ pending |
+| 6-08-01 | 08 | 4 | FAIL-01 | unit | `pytest tests/phase06/test_failures_append_only.py` | ✅ on disk | ✅ green |
+| 6-08-02 | 08 | 4 | FAIL-01 | subprocess | `pytest tests/phase06/test_hook_failures_block.py` | ✅ on disk | ✅ green |
+| 6-08-03 | 08 | 4 | FAIL-03 | unit | `pytest tests/phase06/test_skill_history_backup.py` | ✅ on disk | ✅ green |
 | 6-09-01 | 09 | 4 | FAIL-02 | unit | `pytest tests/phase06/test_aggregate_patterns.py` | ❌ W0 | ⬜ pending |
 | 6-09-02 | 09 | 4 | FAIL-02 | integration | `pytest tests/phase06/test_aggregate_dry_run.py` | ❌ W0 | ⬜ pending |
 | 6-10-01 | 10 | 4 | WIKI-05 | unit | `pytest tests/phase06/test_agent_prompt_wiki_refs.py` | ❌ W0 | ⬜ pending |
