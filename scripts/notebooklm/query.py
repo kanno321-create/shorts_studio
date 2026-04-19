@@ -7,9 +7,13 @@ Contract
   The question flows through argv as a single list item — the Phase 6 CONTEXT
   D-6 anchor for the ``feedback_notebooklm_query.md`` memory rule.
 - **D-7 (external skill reference, not copy)**: Call the external
-  ``shorts_naberal/.claude/skills/notebooklm`` skill via ``subprocess.run``.
+  ``secondjob_naberal/.claude/skills/notebooklm`` skill via ``subprocess.run``.
   Never import its modules, never duplicate its Playwright venv, never copy
   browser_state. Path is resolved via (kwarg → env var → hardcoded fallback).
+  Path anchor updated 2026-04-20 (session #24): migrated from the legacy
+  ``shorts_naberal`` install to the active ``secondjob_naberal`` registry
+  which holds the ``script-production-deep-research`` (대본제작용) notebook
+  — the Phase 10 SCRIPT-gate RAG primary.
 
 Encoding
 --------
@@ -32,9 +36,12 @@ import subprocess
 import sys
 from pathlib import Path
 
-# D-7 hardcoded fallback path — matches the 2026-04-19 install location.
+# D-7 hardcoded fallback path — updated 2026-04-20 session #24.
+# Legacy path was ``shorts_naberal`` (3 notebooks, no 대본제작용). Active
+# registry lives at ``secondjob_naberal`` (5 notebooks, includes the
+# 대본제작용 / ``script-production-deep-research`` required for SCRIPT gate).
 # Env var ``NOTEBOOKLM_SKILL_PATH`` overrides for CI/portability/tests.
-DEFAULT_SKILL_PATH = Path(r"C:/Users/PC/Desktop/shorts_naberal/.claude/skills/notebooklm")
+DEFAULT_SKILL_PATH = Path(r"C:/Users/PC/Desktop/secondjob_naberal/.claude/skills/notebooklm")
 
 # FOLLOW_UP_REMINDER marker emitted at the tail of every ``ask_question.py``
 # answer. Wrapper strips it so downstream consumers see clean answer text.

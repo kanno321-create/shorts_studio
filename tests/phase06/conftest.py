@@ -77,7 +77,7 @@ def mock_notebooklm_skill_env(
 ) -> pathlib.Path:
     """Point NOTEBOOKLM_SKILL_PATH at a fake skill dir.
 
-    Prevents tests from hitting the real external shorts_naberal Playwright
+    Prevents tests from hitting the real external secondjob_naberal Playwright
     skill. Returns the fake path so tests can assert subprocess call-shape.
     """
     fake = tmp_path / "fake_skill"
