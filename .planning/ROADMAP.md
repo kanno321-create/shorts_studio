@@ -127,7 +127,7 @@
   4. CircuitBreaker가 3회 연속 실패 시 5분 cooldown으로 재시도 거부를 반환하고, 재생성 루프 3회 초과 시 FAILURES 기록 + "정지 이미지 + 줌인" Fallback 샷이 실행된다
   5. Kling 2.6 Pro primary → Runway Gen-3 Alpha Turbo backup 체인이 API 실패 시 자동 전환되며, T2V 호출은 코드 경로 자체에 존재하지 않는다 (I2V + Anchor Frame only)
   6. 영상/음성이 완전 분리 생성 후 타임스탬프 매핑으로 합성되며, 초안 렌더는 720p Low-Res First로 강제된 뒤 AI 업스케일이 적용된다
-**Plans:** TBD
+**Plans:** 6/10 plans executed
 
 ---
 
@@ -217,7 +217,7 @@
 | 2. Domain Definition | 6/6 | ✅ Complete | 2026-04-19 |
 | 3. Harvest | 9/9 | ✅ Complete | 2026-04-19 |
 | 4. Agent Team Design | 10/10 | Complete    | 2026-04-18 |
-| 5. Orchestrator v2 | 0/TBD | Not started | - |
+| 5. Orchestrator v2 | 6/10 | In Progress|  |
 | 6. Wiki + NotebookLM + FAILURES | 0/TBD | Not started | - |
 | 7. Integration Test | 0/TBD | Not started | - |
 | 8. Remote + Publishing | 0/TBD | Not started | - |

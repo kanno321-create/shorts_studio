@@ -68,7 +68,7 @@
 - [x] **ORCH-08**: **`skip_gates` 파라미터 물리 제거** (존재 자체 금지) + regex 차단 (`pre_tool_use`)
 - [x] **ORCH-09**: **TODO(next-session) 물리 차단** (`pre_tool_use` regex)
 - [x] **ORCH-10**: 영상/음성 완전 분리 합성 (NotebookLM T3) — Typecast 먼저 → 타임스탬프 매핑 → Shotstack 합성
-- [ ] **ORCH-11**: Low-Res First 렌더 (720p) → AI 업스케일 (T4)
+- [x] **ORCH-11**: Low-Res First 렌더 (720p) → AI 업스케일 (T4)
 - [ ] **ORCH-12**: 재생성 루프 3회 hardcoded → FAILURES 저수지 → "정지 이미지 + 줌인" Fallback (T8)
 
 ### WIKI — 지식 시스템 + NotebookLM RAG
@@ -94,11 +94,11 @@
 
 ### VIDEO — 영상 생성
 
-- [ ] **VIDEO-01**: **T2V 금지 / I2V only** — Anchor Frame 강제 (NotebookLM T1)
+- [x] **VIDEO-01**: **T2V 금지 / I2V only** — Anchor Frame 강제 (NotebookLM T1)
 - [x] **VIDEO-02**: **1 Move Rule** (1 카메라 워킹 + 1 피사체 액션) + 4~8초 클립 (T2)
 - [x] **VIDEO-03**: Transition Shots 삽입 (소품 클로즈업 / 실루엣 / 배경) — T5
-- [ ] **VIDEO-04**: Kling 2.6 Pro primary, Runway Gen-3 Alpha Turbo backup
-- [ ] **VIDEO-05**: Shotstack 일괄 색보정 + 필터 — T14
+- [x] **VIDEO-04**: Kling 2.6 Pro primary, Runway Gen-3 Alpha Turbo backup
+- [x] **VIDEO-05**: Shotstack 일괄 색보정 + 필터 — T14
 
 ### AUDIO — 음성/음악
 
