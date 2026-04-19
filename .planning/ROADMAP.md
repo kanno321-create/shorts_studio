@@ -203,14 +203,14 @@
   4. publish lock이 48시간+ 랜덤 간격을 enforcement 하며 한국 피크 시간(평일 20-23 KST / 주말 12-15 KST) 윈도우 안에서만 업로드가 발동한다
   5. 업로드된 영상 metadata에 production_metadata(script_hash, assets_origin, pipeline_version)가 첨부되어 Reused Content 이의제기 시 증명 자료로 활용 가능하다
   6. 업로드 직후 publisher가 핀 댓글 + end-screen subscribe funnel을 자동 설정한다 (샘플 업로드 1회 실측)
-**Plans:** 6/8 shipped
+**Plans:** 7/8 plans executed
 - [x] 08-01-PLAN.md — Wave 0 FOUNDATION (tests/phase08 scaffold + MockYouTube/MockGitHub + scripts/publisher namespace + CD-02 5-class exceptions) — ✅ shipped 2026-04-19, studio@5fb2d38+501777d+b53d218 (3 atomic commits, 39/39 new tests + 986/986 regression preserved)
 - [x] 08-02-PLAN.md — Wave 1 REMOTE (GitHub Private repo create + push main + submodule add) — ✅ shipped 2026-04-19, studio@763cbc1+97a27b3+ad29325 (3 atomic commits, 15/15 new tests — 4 REMOTE-01 + 5 REMOTE-02 + 6 REMOTE-03 + Pitfall 2/10 anchors + 986/986 phase04-07 regression preserved, parallel with 08-03)
 - [x] 08-03-PLAN.md — Wave 2 OAUTH (InstalledAppFlow + refresh token) — ✅ shipped 2026-04-19, studio@95022d4+9d04c18+a6db395 (3 atomic commits, 11/11 new tests + 59/59 phase08 preserved)
 - [x] 08-04-PLAN.md — Wave 3 LOCK+WINDOW+DISCLOSURE (publish_lock + kst_window + ai_disclosure) — ✅ shipped 2026-04-19, studio@8c2d9bf+dbe0f61+f48ade1+6d06bee+b601e86+a3809ab (6 atomic TDD commits, 41 new tests — 11 publish_lock + 13 kst_weekday + 9 kst_weekend + 9 ANCHOR A + 986/986 phase04-07 regression preserved + 106/106 phase08 isolated + ANCHOR A containsSyntheticMedia=True AST-anchor permanent; parallel boundary with 08-05 preserved)
 - [x] 08-05-PLAN.md — Wave 4 METADATA+FUNNEL+UPLOADER (production_metadata + youtube_uploader + pinned comment) — ✅ shipped 2026-04-19, studio@98b4e46+79e38c5+51e5332+8531475+73c5eb3+7cb1caa (6 atomic TDD commits, 42 new tests — 10 schema + 6 HTML comment + 4 pin + 5 ANCHOR B + 11 ANCHOR C + 12 E2E + 986/986 phase04-07 regression preserved + 148/148 phase08 isolated + ANCHOR B captions.insert/endScreen/end_screen_subscribe_cta 0 hits + ANCHOR C selenium/webdriver/playwright 0 imports AST-anchor permanent; Pitfall 5/6/7 corrections applied at body-build boundary)
 - [x] 08-06-PLAN.md — Wave 5 SMOKE-GATE (code shipping only — smoke_test.py CLI + test_smoke_cleanup.py MockYouTube coverage) — ✅ shipped 2026-04-19, studio@63464ca+d9509f8 (2 atomic commits, 15 new tests — happy + public/private ValueError + cleanup=False + delete-fail + wait fast-path + wait timeout + plan invariants + --dry-run + --no-cleanup + real-path precondition + 986/986 phase04-07 regression preserved + 163/163 phase08 isolated; real YouTube API execution deferred to orchestrator per user-approved D-11 Option A gate, 대표님 confirmed config/client_secret.json + youtube_token.json in place)
-- [ ] 08-07-PLAN.md — Wave 6 E2E+REGRESSION (full phase08_acceptance.py + regression sweep)
+- [x] 08-07-PLAN.md — Wave 6 E2E+REGRESSION (full phase08_acceptance.py + regression sweep)
 - [ ] 08-08-PLAN.md — Wave 7 PHASE GATE (TRACEABILITY + VALIDATION flip)
 **UI hint:** no
 
@@ -257,7 +257,7 @@
 | 5. Orchestrator v2 | 10/10 | ✅ Complete | 2026-04-19 |
 | 6. Wiki + NotebookLM + FAILURES | 11/11 | ✅ Complete | 2026-04-19 |
 | 7. Integration Test | 8/8 | ✅ Complete | 2026-04-19 |
-| 8. Remote + Publishing | 6/8 | Executing | - |
+| 8. Remote + Publishing | 7/8 | In Progress|  |
 | 9. Docs + KPI + Taste Gate | 0/TBD | Not started | - |
 | 10. Sustained Operations | 0/TBD | Not started (영구 지속) | - |
 
