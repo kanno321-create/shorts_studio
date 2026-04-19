@@ -115,11 +115,11 @@
 
 ### PUB — 발행
 
-- [ ] **PUB-01**: **AI disclosure 토글 자동 ON** — 업로드 시 publisher가 강제 (A-P3 차단)
-- [ ] **PUB-02**: YouTube Data API v3 공식 사용 (Selenium 영구 금지 — AF-8)
-- [ ] **PUB-03**: 주 3~4편, **48시간+ 랜덤 간격**, 한국 피크 시간 (평일 20-23 / 주말 12-15 KST)
-- [ ] **PUB-04**: Production metadata 첨부 (Reused content 증명 — E-P2 차단)
-- [ ] **PUB-05**: 핀 댓글 + end-screen subscribe funnel (DF-9)
+- [x] **PUB-01**: **AI disclosure 토글 자동 ON** — 업로드 시 publisher가 강제 (A-P3 차단)
+- [x] **PUB-02**: YouTube Data API v3 공식 사용 (Selenium 영구 금지 — AF-8)
+- [x] **PUB-03**: 주 3~4편, **48시간+ 랜덤 간격**, 한국 피크 시간 (평일 20-23 / 주말 12-15 KST)
+- [x] **PUB-04**: Production metadata 첨부 (Reused content 증명 — E-P2 차단)
+- [x] **PUB-05**: 핀 댓글 + end-screen subscribe funnel (DF-9)
 
 ### COMPLY — 컴플라이언스 + 방어
 
@@ -162,9 +162,9 @@
 
 ### REMOTE — GitHub 원격 (Phase 8)
 
-- [ ] **REMOTE-01**: GitHub Private 저장소 생성 — `kanno321-create/shorts_studio`
-- [ ] **REMOTE-02**: `git remote add origin` + `git push -u origin main`
-- [ ] **REMOTE-03**: naberal_harness v1.0.1을 submodule or 참조로 연결 (경로: `../../harness/`)
+- [x] **REMOTE-01**: GitHub Private 저장소 생성 — `kanno321-create/shorts_studio`
+- [x] **REMOTE-02**: `git remote add origin` + `git push -u origin main`
+- [x] **REMOTE-03**: naberal_harness v1.0.1을 submodule or 참조로 연결 (경로: `../../harness/`)
 
 ---
 

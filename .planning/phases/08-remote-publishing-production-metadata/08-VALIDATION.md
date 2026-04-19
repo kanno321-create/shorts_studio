@@ -1,9 +1,9 @@
 ---
 phase: 8
 slug: remote-publishing-production-metadata
-status: draft
+status: executing
 nyquist_compliant: false
-wave_0_complete: false
+wave_0_complete: true
 created: 2026-04-19
 ---
 
@@ -40,9 +40,9 @@ created: 2026-04-19
 
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 8-01-01 | 01 | 0 | REQ-TEST-infra | unit (scaffold) | `pytest tests/phase08/test_scaffold.py -q` | ❌ W0 | ⬜ pending |
-| 8-01-02 | 01 | 0 | REQ-TEST-infra | unit (MockYouTube) | `pytest tests/phase08/mocks/test_youtube_mock.py -q` | ❌ W0 | ⬜ pending |
-| 8-01-03 | 01 | 0 | REQ-TEST-infra | unit (MockGitHub) | `pytest tests/phase08/mocks/test_github_mock.py -q` | ❌ W0 | ⬜ pending |
+| 8-01-01 | 01 | 0 | REQ-TEST-infra | unit (scaffold) | `pytest tests/phase08/test_scaffold.py -q` | ✅ | ✅ green |
+| 8-01-02 | 01 | 0 | REQ-TEST-infra | unit (MockYouTube) | `pytest tests/phase08/mocks/test_youtube_mock.py -q` | ✅ | ✅ green |
+| 8-01-03 | 01 | 0 | REQ-TEST-infra | unit (MockGitHub) | `pytest tests/phase08/mocks/test_github_mock.py -q` | ✅ | ✅ green |
 | 8-02-01 | 02 | 1 | REMOTE-01 | subprocess (repo create idempotent) | `pytest tests/phase08/test_github_remote_create.py -q` | ❌ W0 | ⬜ pending |
 | 8-02-02 | 02 | 1 | REMOTE-02 | subprocess (main rename + push) | `pytest tests/phase08/test_github_push_main.py -q` | ❌ W0 | ⬜ pending |
 | 8-02-03 | 02 | 1 | REMOTE-03 | subprocess (submodule add + .gitmodules schema) | `pytest tests/phase08/test_submodule_add.py -q` | ❌ W0 | ⬜ pending |
@@ -71,13 +71,13 @@ created: 2026-04-19
 
 ## Wave 0 Requirements
 
-- [ ] `tests/phase08/__init__.py` — package init (parallel to phase07)
-- [ ] `tests/phase08/conftest.py` — 6+ fixtures (tmp_publish_lock, mock_client_secret, mock_youtube_credentials, sample_mp4_path, fake_env_github_token, kst_clock_freeze)
-- [ ] `tests/phase08/mocks/__init__.py` + `tests/phase08/mocks/youtube_mock.py` + `tests/phase08/mocks/github_mock.py` — Phase 7 MockShotstack D-3 pattern (default `allow_fault_injection=False`)
-- [ ] `tests/phase08/fixtures/sample_production_metadata.json` — 4-field canonical reference
-- [ ] `tests/phase08/fixtures/sample_shorts.mp4` — 1-byte placeholder (upload path tests only need path string)
-- [ ] `scripts/publisher/__init__.py` — namespace (empty placeholder)
-- [ ] `scripts/publisher/_placeholder.py` — W0 smoke import surface (removed at Wave 3)
+- [x] `tests/phase08/__init__.py` — package init (parallel to phase07)
+- [x] `tests/phase08/conftest.py` — 6+ fixtures (tmp_publish_lock, mock_client_secret, mock_youtube_credentials, sample_mp4_path, fake_env_github_token, kst_clock_freeze)
+- [x] `tests/phase08/mocks/__init__.py` + `tests/phase08/mocks/youtube_mock.py` + `tests/phase08/mocks/github_mock.py` — Phase 7 MockShotstack D-3 pattern (default `allow_fault_injection=False`)
+- [x] `tests/phase08/fixtures/sample_production_metadata.json` — 4-field canonical reference
+- [x] `tests/phase08/fixtures/sample_shorts.mp4` — 1-byte placeholder (upload path tests only need path string)
+- [x] `scripts/publisher/__init__.py` — namespace (empty placeholder)
+- [x] `scripts/publisher/_placeholder.py` — W0 smoke import surface (removed at Wave 3)
 
 ---
 
