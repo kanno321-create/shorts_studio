@@ -1,9 +1,22 @@
-"""Contract tests for .claude/deprecated_patterns.json (Phase 5 Plan 01 Task 3).
+"""Contract tests for .claude/deprecated_patterns.json.
 
-Without this file the pre_tool_use Hook silently allows everything
-(RESEARCH §10). These tests assert the file exists, is valid JSON, and
-contains the 6 required regex entries that enforce ORCH-08, ORCH-09,
-VIDEO-01, AF-8 policies at the tool-call level.
+Phase 5 Plan 01 Task 3 seeded this file with 6 required regex entries
+that enforce ORCH-08, ORCH-09, VIDEO-01, and AF-8 policies at the
+tool-call level. Without the file the pre_tool_use Hook silently allows
+everything (RESEARCH §10).
+
+Phase 6 Plan 08 (FAIL-01 / FAIL-03, D-11 / D-12 / D-14) extended the
+baseline from 6 to 8 patterns — adding:
+  - FAIL-01 [REMOVED]/[DELETED] marker regex (audit trail for the
+    Python-level check_failures_append_only check).
+  - FAIL-03 SKILL.md direct-write marker regex (audit trail for the
+    Python-level backup_skill_before_write check).
+
+These additions are legitimate contract evolution, not regressions:
+production Hook behaviour is unchanged for the original 6 patterns and
+the two new entries are additive guardrails. The count assertion below
+therefore pins to 8 with an explicit comment pointing at the Phase 6
+plan that evolved the baseline.
 """
 from __future__ import annotations
 
@@ -19,10 +32,20 @@ def test_file_exists(repo_root):
     )
 
 
-def test_six_patterns(repo_root):
+def test_pattern_count_baseline(repo_root):
+    """Phase 5 baseline = 6 patterns; Phase 6 Plan 08 added FAIL-01 / FAIL-03 => 8.
+
+    Further additions MUST update this baseline in the same commit that
+    introduces them, preserving the contract-evolution audit trail.
+    """
     path = repo_root / ".claude" / "deprecated_patterns.json"
     data = json.loads(path.read_text(encoding="utf-8"))
-    assert len(data["patterns"]) == 6
+    assert len(data["patterns"]) == 8, (
+        "Phase 6 Plan 08 pinned deprecated_patterns.json at 8 entries "
+        "(6 Phase 5 core + 2 Phase 6 FAIL-01/FAIL-03 audit-trail markers). "
+        "If you intentionally added a new pattern, update this baseline "
+        "in the same commit."
+    )
 
 
 def test_required_regexes_present(repo_root):
@@ -38,7 +61,9 @@ def test_required_regexes_present(repo_root):
 
 
 def test_every_regex_compiles(repo_root):
-    """All 6 patterns must be valid Python regex (re.compile succeeds)."""
+    """Every pattern (Phase 5 core + Phase 6 audit-trail additions) must
+    be a valid Python regex (re.compile succeeds).
+    """
     path = repo_root / ".claude" / "deprecated_patterns.json"
     patterns = json.loads(path.read_text(encoding="utf-8"))["patterns"]
     for p in patterns:
