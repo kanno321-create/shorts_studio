@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-19T03:59:38.128Z"
+last_updated: "2026-04-19T04:03:26.522Z"
 progress:
   total_phases: 10
   completed_phases: 3
   total_plans: 35
-  completed_plans: 33
-  percent: 94
+  completed_plans: 34
+  percent: 97
 ---
 
 # STATE — naberal-shorts-studio
 
-**Last updated:** 2026-04-19T04:00:00Z
-**Session:** #18 (✅ Phase 5 Plan 07 Wave 5 KEYSTONE shipped. `scripts/orchestrator/shorts_pipeline.py` 787-line single-file state machine (ORCH-01 D-1 budget: 500-800, margin 13 lines). Integrates every Wave 0-4 primitive: GateName + GATE_DEPS + 5 CircuitBreakers (D-6 defaults) + Checkpointer + GateGuard + VoiceFirstTimeline + 5 API adapters (Kling/Runway/Typecast/ElevenLabs/Shotstack). 13 `_run_<gate>` methods cover TREND→MONITOR with Producer/Supervisor injection. `_producer_loop` 3-retry regeneration → ASSETS/THUMBNAIL get ken-burns Fallback (ORCH-12) via `fallback.py` (141 lines) helper; other gates raise RegenerationExhausted. ORCH-11 Low-Res First: Shotstack.render(resolution='hd') BEFORE upscale (NOOP stub). ORCH-04 verify_all_dispatched at COMPLETE. ORCH-05 Checkpointer resume rebuilds dispatched set from disk. 24 new tests green (test_shorts_pipeline 11 + test_pipeline_e2e_mock 3 + test_fallback_shot 6 + test_low_res_first 4). Full phase05 suite 224/224 PASS (200 baseline + 24 new). 0 forbidden tokens (skip_gates / t2v / TODO-next-session / segments[] / selenium). Commits: 5849ee1 (Task 1 fallback.py) + 031c4ba (Task 2 shorts_pipeline.py + __init__.py re-exports) + 7653492 (Task 3 4 test files). 4 REQs marked done this plan: ORCH-01/02/07/12 (ORCH-11 already marked in prior plans). Ready for Plan 05-08 hc_checks rewrite.)
+**Last updated:** 2026-04-19T04:05:00Z
+**Session:** #18 (✅ Phase 5 Plan 08 Wave 6 hc_checks REGRESSION PORT shipped. `scripts/hc_checks/hc_checks.py` 1176 lines — port of 1129-line harvested baseline at `.preserved/harvested/hc_checks_raw/hc_checks.py` preserving all 13 public signatures byte-identical (HCResult + check_hc_1..7 + check_hc_6_5_cross_slug + check_hc_12..14 + run_all_hc_checks) plus 3 semi-public helpers (check_hc_8_diagnostic_five SKIP stub + check_hc_9_pipeline_order + check_hc_10_inspector_coverage). Three modifications vs baseline: (a) HC-10 lazy `from scripts.orchestrator import GATE_INSPECTORS` inside function body avoiding circular dep with shorts_pipeline.py, (b) `_ffprobe_duration(timeout_s=10)` hang protection per RESEARCH line 971, (c) HC-10 dual-case GATE_INSPECTORS key lookup (uppercase SCRIPT first, fallback lowercase script) forward-compat with Plan 07 + baseline. __init__.py re-exports 13 public names per baseline __all__. 41 new tests green: tests/phase05/test_hc_checks_regression.py (487 lines, 33 tests ported verbatim) + test_hc_checks_gate_integration.py (137 lines, 8 tests proving lazy import SKIP/FAIL/PASS + 13 gate coverage + no-circular-import meta-tests). Full phase05 suite 296/296 PASS (224 Wave 5 baseline + 41 this plan + 31 sibling Plan 09). Commits: 92b2b33 (Task 1 hc_checks.py + __init__.py) + d4ad6f8 (Task 2 2 test files). ORCH-01 already marked complete by prior plans (regression coverage reinforced). Ready for Plan 05-10 SC acceptance.)
 
 ---
 
@@ -32,12 +32,12 @@ progress:
 ## Current Position
 
 Phase: 05 (orchestrator-v2-write) — EXECUTING
-Plan: 7 of 10
+Plan: 8 of 10 completed (Wave 6 hc_checks + Hook extensions parallel Wave complete)
 
 - **Phase:** 5
-- **Next Plan:** 05-08 (hc_checks rewrite — preserve 13 public function signatures from `.preserved/harvested/hc_checks_raw/hc_checks.py` 1129 lines, wire `check_hc_10_inspector_coverage` to the new `scripts.orchestrator.GATE_INSPECTORS` re-export)
+- **Next Plan:** 05-10 (SC acceptance — reinforces ORCH-01 with 41 new regression + integration tests; SC grep acceptance + line-count validator + full phase05 sweep)
 - **Status:** Ready to execute
-- **Progress:** [█████████░] 94%
+- **Progress:** [██████████] 97%
 
 ---
 
@@ -167,6 +167,13 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 51. **Rule 1 deviation: module docstring cannot contain forbidden tokens** — initial `shorts_pipeline.py` module docstring explicitly mentioned the D-8/D-9/D-13 forbidden tokens (`skip_gates`, `TODO(next-session)`, `t2v`, `text_to_video`) while explaining the invariants. PLAN acceptance criteria at line 797-799 require 0 occurrences ANYWHERE in the file — including docstrings. Fix: rewrote module docstring to reference the CONTEXT file for the forbidden-token list instead of spelling them out inline. Meta-test `test_pipeline_source_has_no_forbidden_tokens` catches this pattern via file reading + substring assert so any future regression trips the test suite.
 52. **Lambda default-arg trick for loop-variable capture in `_run_assets`** — `self.kling_breaker.call(lambda p=prompt, a=anchor, d=duration: ...)` ensures each iteration's breaker.call receives the correct scene values. Without `p=prompt` etc., all lambdas would close over the final loop iteration's values (classic Python gotcha). The default-arg binds at function-definition time, not call time. Subtle but critical — missed the first draft, caught during test_pipeline_e2e_mock write-out review.
 
+### Session #18 Decisions (Plan 05-08 — Wave 6 hc_checks Regression Port)
+
+53. **hc_checks.py ported 1176 lines preserving 13 public signatures byte-identical** — harvested 1129-line baseline copied into `scripts/hc_checks/hc_checks.py` with only three modifications: (a) HC-10 lazy imports `GATE_INSPECTORS` from `scripts.orchestrator` (not `scripts.orchestrator.harness` as the baseline did — Phase 5 Plan 07 re-exports via `__init__.py`), (b) `_ffprobe_duration` gains `timeout_s=10` kwarg per Wave 5 Plan 3 hang protection, (c) HC-10 dual-case key lookup (uppercase `"SCRIPT"` first, fallback `"script"`) for forward-compat with Phase 5's uppercase naming vs baseline's lowercase. Zero business logic rewritten — every `check_hc_N` body is byte-identical to harvested.
+54. **HC-8 SKIP stub preserved verbatim** — `check_hc_8_diagnostic_five` returns `HCResult("HC-8", "SKIP", "HC-8 diagnostic-five LLM judge not yet wired (Plan 50-03 Wave 3e)", {"plan": "50-03", "wave": "3e", "mirrors": "ins-fun GATE 2"})`. Phase 50-03 Wave 3e wiring is out of scope Phase 5 per RESEARCH line 964. New `test_hc_8_returns_skip` integration test creates an empty `script.json` so HC-8 reaches the deferred-stub branch (not the "script.json missing" branch) and confirms `evidence["plan"] == "50-03"`.
+55. **33 regression tests ported verbatim** — `tests/phase05/test_hc_checks_regression.py` (487 lines) duplicates every test case from `.preserved/harvested/hc_checks_raw/test_hc_checks.py` (475 lines) with only import paths changed (`scripts.orchestrator.hc_checks` → `scripts.hc_checks.hc_checks`). `test_run_all_hc_checks_returns_13_results` confirms the 13 HC entries (HC-1..7 + HC-6.5 + HC-8/9/10 + HC-13/14) surface in the exact baseline order. Zero logic rewrites — regression safety net intact.
+56. **8 new GATE-integration tests added** — `tests/phase05/test_hc_checks_gate_integration.py` (137 lines) proves: HC-10 lazy-import SKIP/FAIL/PASS paths work, `GATE_INSPECTORS` covers all 13 operational gates with ≥1 inspector each, HC-8 SKIP stub contract (detail + evidence), no circular import between `shorts_pipeline.py` and `hc_checks.py` (meta-tests read source from disk and assert the first 80 lines contain neither `from scripts.hc_checks` in shorts_pipeline.py nor `from scripts.orchestrator` in hc_checks.py), `scripts.hc_checks.__all__` set-equals baseline 13. All 41 new tests green (33 + 8). Full phase05 suite 296/296 PASS (224 Wave 5 baseline + 41 this plan + 31 sibling Plan 09).
+
 ### Session #15 Decisions (Plan 03-08 — HARVEST-DECISIONS + BLACKLIST-AUDIT)
 
 22. **Blacklist count invariant delegation (Plan 01 M-2 contract honored)** — Plan 08 does NOT re-assert `len(blacklist) == 10`; that invariant is owned by `blacklist_parser.parse_blacklist()` which raises ValueError on mismatch. Redundant asserts would violate DRY + SSoT. A/B/C count assertion (13/16/10) IS preserved at decision_builder entry because it validates a DIFFERENT invariant (CONFLICT_MAP parse integrity).
@@ -236,6 +243,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 05-orchestrator-v2-write P05-06 | 10m | 4 tasks | 12 files |
 | Phase 05-orchestrator-v2-write P07 | 45 | 3 tasks | 6 files |
 | Phase 05-orchestrator-v2-write P09 | 3m09s | 1 tasks | 6 files |
+| Phase 05-orchestrator-v2-write P05-08 | 7 | 2 tasks | 3 files |
 
 ### Plan Execution Log
 
