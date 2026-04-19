@@ -15,7 +15,7 @@
 - [x] **Phase 2: Domain Definition** — 3-Tier 위키 물리 구조 생성 + 도메인 스코프 확정 (세션 #14 완료 2026-04-19, studio@f360e17)
 - [x] **Phase 3: Harvest** — shorts_naberal 작동 자산 이관 + CONFLICT_MAP 39 전수 판정 + Tier 3 attrib +R 잠금 (세션 #15 완료 2026-04-19, verify_harvest --full 15/15 PASS)
 - [x] **Phase 4: Agent Team Design** — 17 inspector + Producer 14 + Supervisor 1 = 32 에이전트 + rubric JSON Schema **동시 정의** (세션 #16 완료 2026-04-19, studio@62c0758)
-- [ ] **Phase 5: Orchestrator v2** — 500~800줄 state machine + 12 GATE + DAG + 영상/음성 분리 합성
+- [x] **Phase 5: Orchestrator v2** — 500~800줄 state machine + 12 GATE + DAG + 영상/음성 분리 합성 (세션 #18 완료 2026-04-19, 329 pytest green + SC 1-6 PASS + 17/17 REQs complete)
 - [ ] **Phase 6: Wiki + NotebookLM + FAILURES Reservoir** — Tier 2 합성 + 2-노트북 세팅 + Continuity Bible Prefix + 저수지 패턴
 - [ ] **Phase 7: Integration Test** — E2E mock asset + verify_all_dispatched() + harness-audit ≥ 80
 - [ ] **Phase 8: Remote + Publishing + Production Metadata** — GitHub push + YouTube API v3 + AI disclosure 자동 ON + Reused content 증명
@@ -127,7 +127,17 @@
   4. CircuitBreaker가 3회 연속 실패 시 5분 cooldown으로 재시도 거부를 반환하고, 재생성 루프 3회 초과 시 FAILURES 기록 + "정지 이미지 + 줌인" Fallback 샷이 실행된다
   5. Kling 2.6 Pro primary → Runway Gen-3 Alpha Turbo backup 체인이 API 실패 시 자동 전환되며, T2V 호출은 코드 경로 자체에 존재하지 않는다 (I2V + Anchor Frame only)
   6. 영상/음성이 완전 분리 생성 후 타임스탬프 매핑으로 합성되며, 초안 렌더는 720p Low-Res First로 강제된 뒤 AI 업스케일이 적용된다
-**Plans:** 6/10 plans executed
+**Plans:** 10/10 plans executed ✅ PHASE 5 COMPLETE 2026-04-19
+- [x] 05-01-PLAN.md — W1 FOUNDATION: scripts/orchestrator/ + scripts/hc_checks/ scaffolding + GateName IntEnum 15 members + GATE_DEPS DAG + 10-class exception hierarchy + deprecated_patterns.json + 3 validation CLIs — ✅ shipped 2026-04-19, studio@eebfe32 (ORCH-02/03/07/08/09)
+- [x] 05-02-PLAN.md — W2 CircuitBreaker 3/300s state machine + 21 tests — ✅ shipped 2026-04-19, studio@c13c219+5ee9c19 (ORCH-06)
+- [x] 05-03-PLAN.md — W2 Checkpointer atomic JSON + 19 tests — ✅ shipped 2026-04-19, studio@2135745 (ORCH-05)
+- [x] 05-04-PLAN.md — W2 GateGuard dispatch/verify + 23 tests — ✅ shipped 2026-04-19, studio@8380421 (ORCH-03/04/07)
+- [x] 05-05-PLAN.md — W3 VoiceFirstTimeline audio-first assembly — ✅ shipped 2026-04-19, studio@2a4cd49 (ORCH-10 + VIDEO-02/03)
+- [x] 05-06-PLAN.md — W4 API adapters: models + kling_i2v + runway_i2v + typecast + elevenlabs + shotstack — ✅ shipped 2026-04-19, studio@ce8f4fe (VIDEO-01/02/04/05 + ORCH-10/11)
+- [x] 05-07-PLAN.md — W5 shorts_pipeline.py 787-line ShortsPipeline keystone + fallback.py + 24 tests — ✅ shipped 2026-04-19, studio@16303f4 (ORCH-01/02/11/12)
+- [x] 05-08-PLAN.md — W6 hc_checks regression port: 1176-line rewrite preserving 13 public signatures + 41 tests — ✅ shipped 2026-04-19, studio@6b3f744 (ORCH-01 reinforced)
+- [x] 05-09-PLAN.md — W6 Hook enforcement regression: 5 subprocess test files / 31 tests proving Hook denies blacklist + allows canonical I2V — ✅ shipped 2026-04-19, studio@9c7d266 (ORCH-08/09 + VIDEO-01 Hook layer)
+- [x] 05-10-PLAN.md — W7 FINAL VERIFICATION: 4 test files (33 tests) + 17-REQ TRACEABILITY.md + 05-VALIDATION.md flip to nyquist_compliant=true — ✅ shipped 2026-04-19, studio@a17f58f (329/329 pytest green, SC 1-6 PASS, 17/17 REQs covered). **PHASE 5 COMPLETE.**
 
 ---
 
@@ -217,7 +227,7 @@
 | 2. Domain Definition | 6/6 | ✅ Complete | 2026-04-19 |
 | 3. Harvest | 9/9 | ✅ Complete | 2026-04-19 |
 | 4. Agent Team Design | 10/10 | Complete    | 2026-04-18 |
-| 5. Orchestrator v2 | 6/10 | In Progress|  |
+| 5. Orchestrator v2 | 10/10 | ✅ Complete | 2026-04-19 |
 | 6. Wiki + NotebookLM + FAILURES | 0/TBD | Not started | - |
 | 7. Integration Test | 0/TBD | Not started | - |
 | 8. Remote + Publishing | 0/TBD | Not started | - |

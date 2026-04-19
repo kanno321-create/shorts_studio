@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-19T04:03:26.522Z"
+last_updated: "2026-04-19T04:16:34.207Z"
 progress:
   total_phases: 10
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 35
-  completed_plans: 34
-  percent: 97
+  completed_plans: 35
+  percent: 100
 ---
 
 # STATE — naberal-shorts-studio
 
 **Last updated:** 2026-04-19T04:05:00Z
-**Session:** #18 (✅ Phase 5 Plan 08 Wave 6 hc_checks REGRESSION PORT shipped. `scripts/hc_checks/hc_checks.py` 1176 lines — port of 1129-line harvested baseline at `.preserved/harvested/hc_checks_raw/hc_checks.py` preserving all 13 public signatures byte-identical (HCResult + check_hc_1..7 + check_hc_6_5_cross_slug + check_hc_12..14 + run_all_hc_checks) plus 3 semi-public helpers (check_hc_8_diagnostic_five SKIP stub + check_hc_9_pipeline_order + check_hc_10_inspector_coverage). Three modifications vs baseline: (a) HC-10 lazy `from scripts.orchestrator import GATE_INSPECTORS` inside function body avoiding circular dep with shorts_pipeline.py, (b) `_ffprobe_duration(timeout_s=10)` hang protection per RESEARCH line 971, (c) HC-10 dual-case GATE_INSPECTORS key lookup (uppercase SCRIPT first, fallback lowercase script) forward-compat with Plan 07 + baseline. __init__.py re-exports 13 public names per baseline __all__. 41 new tests green: tests/phase05/test_hc_checks_regression.py (487 lines, 33 tests ported verbatim) + test_hc_checks_gate_integration.py (137 lines, 8 tests proving lazy import SKIP/FAIL/PASS + 13 gate coverage + no-circular-import meta-tests). Full phase05 suite 296/296 PASS (224 Wave 5 baseline + 41 this plan + 31 sibling Plan 09). Commits: 92b2b33 (Task 1 hc_checks.py + __init__.py) + d4ad6f8 (Task 2 2 test files). ORCH-01 already marked complete by prior plans (regression coverage reinforced). Ready for Plan 05-10 SC acceptance.)
+**Session:** #18 (✅ Phase 5 Plan 10 Wave 7 FINAL VERIFICATION shipped — Phase 5 COMPLETE. 4 verification artifacts: tests/phase05/test_blacklist_grep.py (132 lines, 11 tests — SC 2/5 grep contracts matching phase05_acceptance.py case-sensitive word-boundary T2V regex) + tests/phase05/test_line_count.py (116 lines, 6 tests — SC 1 [500,800] + soft caps calibrated to Wave 1-4 actuals) + tests/phase05/test_phase05_acceptance.py (111 lines, 8 tests — E2E subprocess wrapper asserting phase05_acceptance.py exit 0 + 6 SC labels + zero FAIL rows + full sweep green) + tests/phase05/test_traceability_matrix.py (145 lines, 8 tests — 17-REQ automation guard with bogus-marker protection). Plus .planning/phases/05-orchestrator-v2-write/05-TRACEABILITY.md (92 lines — 17-REQ matrix + SC aggregation + Plan→REQ→Commit audit trail for 10 plans). 05-VALIDATION.md frontmatter flipped status=complete + nyquist_compliant=true + wave_0_complete=true + completed=2026-04-19; 29 task rows flipped from ⬜ pending to ✅ green; Validation Sign-Off 6 checkboxes all [x]; ~75-line Completion Summary appended with SC status table + plan commit hashes. Full phase05 suite 329/329 PASS (296 baseline + 33 Plan 10). phase05_acceptance.py exits 0 with all 6 SC reporting PASS. verify_hook_blocks.py exits 0 (5 hook enforcement checks green). 17/17 Phase 5 REQs [x] in REQUIREMENTS.md. Commits: 64ae113 (Task 1 blacklist+line_count) + 4bbd534 (Task 2 acceptance wrapper) + 695dc89 (Task 3 traceability matrix) + a17f58f (Task 4 VALIDATION flip). Duration 6m40s. Phase 5 officially nyquist-compliant and shippable. Ready for /gsd:verify-work 05 then /gsd:plan-phase 6.)
 
 ---
 
@@ -31,13 +31,13 @@ progress:
 
 ## Current Position
 
-Phase: 05 (orchestrator-v2-write) — EXECUTING
-Plan: 8 of 10 completed (Wave 6 hc_checks + Hook extensions parallel Wave complete)
+Phase: 05 (orchestrator-v2-write) — ✅ COMPLETE (2026-04-19, session #18)
+Plan: 10 of 10 completed (Wave 7 FINAL VERIFICATION shipped; nyquist_compliant=true)
 
-- **Phase:** 5
-- **Next Plan:** 05-10 (SC acceptance — reinforces ORCH-01 with 41 new regression + integration tests; SC grep acceptance + line-count validator + full phase05 sweep)
-- **Status:** Ready to execute
-- **Progress:** [██████████] 97%
+- **Phase:** 5 → Ready to transition to Phase 6 (Wiki + NotebookLM + FAILURES Reservoir)
+- **Next Action:** `/gsd:verify-work 05` (independent verifier) then `/gsd:plan-phase 6`
+- **Status:** Shippable
+- **Progress:** [██████████] 100%
 
 ---
 
@@ -74,14 +74,25 @@ Plan: 8 of 10 completed (Wave 6 hc_checks + Hook extensions parallel Wave comple
   - ✅ Plan 04-08: Wave 3 Producer Core 6 + 3단 분리 3 (studio@8bcf052 Core + d1f4ade 3split + 19fb39e tests + 9a82729 docs). AGENT-01 + AGENT-02 + RUB-03 + CONTENT-03 + CONTENT-07 satisfied.
   - ✅ Plan 04-09: Wave 4 Producer Support 5 + Supervisor 1 (studio@7b089d8 Support + 1497c94 supervisor + 9047278 tests + 90223c3 docs). AGENT-03 + AGENT-05 + AUDIO-01/02/03 satisfied; _delegation_depth guard in shorts-supervisor.
   - ✅ Plan 04-10: Wave 5 Integration + SC1 reconciliation (studio@778745a Task1 + 62c0758 VALIDATION flip + b35c64b ROADMAP SC1 + 8452876 REQUIREMENTS 34/34). harness_audit score 100. 244/244 pytest PASS. GAN_CLEAN 17/17. LogicQA 17/17. **PHASE 4 COMPLETE.**
-- ⏳ **Phase 5~10**: Pending (Phase 4 complete, Phase 5 Orchestrator v2 ready to start)
+- ✅ **Phase 5: Orchestrator v2 Write** — 2026-04-19 (session #18) — 17/17 REQs complete, 329 pytest green, SC 1-6 PASS
+  - ✅ Plan 05-01: Wave 1 FOUNDATION — scripts/orchestrator/ + scripts/hc_checks/ + GateName IntEnum + GATE_DEPS + 10 exceptions + .claude/deprecated_patterns.json + 3 validation CLIs (studio@a3e9476+8c19c23+cf9874d+2fea858+eebfe32). ORCH-02/03/07/08/09.
+  - ✅ Plan 05-02: Wave 2 CircuitBreaker — 3/300s state machine + 21 tests (studio@8fd0dce+3c73cdc+f2b42b1+c13c219+5ee9c19). ORCH-06.
+  - ✅ Plan 05-03: Wave 2 Checkpointer — atomic JSON round-trip + resume + 19 tests (studio@1ea14f9+cd9e861+2135745). ORCH-05.
+  - ✅ Plan 05-04: Wave 2 GateGuard — dispatch/verify_all_dispatched/DAG + 23 tests (studio@3c74d40+b3454e7+8380421). ORCH-03/04/07.
+  - ✅ Plan 05-05: Wave 3 VoiceFirstTimeline — audio-first assembly + transition shots (studio@5d9ab61+7375d8c+2a4cd49). ORCH-10 + VIDEO-02/03.
+  - ✅ Plan 05-06: Wave 4 API adapters — models + kling_i2v + runway_i2v + typecast + elevenlabs + shotstack (studio@2169c4c+d1deecc+51eb449+bf9f728+ce8f4fe). VIDEO-01/02/04/05 + ORCH-10/11.
+  - ✅ Plan 05-07: Wave 5 shorts_pipeline keystone — 787-line ShortsPipeline + fallback.py + 24 tests (studio@5849ee1+031c4ba+7653492+16303f4). ORCH-01/02/11/12.
+  - ✅ Plan 05-08: Wave 6 hc_checks regression port — 1176-line rewrite preserving 13 signatures + 41 tests (studio@92b2b33+d4ad6f8+6b3f744). ORCH-01 reinforced.
+  - ✅ Plan 05-09: Wave 6 Hook enforcement regression — 5 subprocess test files / 31 tests proving Hook denies blacklist + allows canonical I2V (studio@df4dac3+a9b313d+0636120+690a58a+259c5d1+9c7d266). ORCH-08/09 + VIDEO-01 Hook-layer.
+  - ✅ Plan 05-10: Wave 7 FINAL VERIFICATION — 4 test files (33 tests) + 17-REQ TRACEABILITY.md + 05-VALIDATION.md frontmatter flip (studio@64ae113+4bbd534+695dc89+a17f58f). 329/329 pytest PASS, SC 1-6 all PASS, 17/17 REQs covered. **PHASE 5 COMPLETE.**
+- ⏳ **Phase 6~10**: Pending (Phase 5 complete, Phase 6 Wiki + NotebookLM + FAILURES Reservoir ready to start)
 
 ---
 
 ## Performance Metrics
 
 - **Requirements Mapped:** 96 / 96 (100%)
-- **Requirements Completed:** 66 / 96 (69%) — Phase 1 (3) + Phase 2 (1) + Phase 3 (9) + Phase 4 (34) + Phase 5 partial (19 via Plans 05-01..07: ORCH-01/02/03/04/05/06/07/08/09/10/11/12 + VIDEO-01/02/03/04/05 = 17 + 2 overlap adjustments)
+- **Requirements Completed:** 64 / 96 (67%) — Phase 1 (3) + Phase 2 (1) + Phase 3 (9) + Phase 4 (34) + Phase 5 (17: ORCH-01/02/03/04/05/06/07/08/09/10/11/12 + VIDEO-01/02/03/04/05). Phase 5 complete 2026-04-19.
 - **Orphaned REQ:** 0
 - **Phases:** 10 (granularity=fine 목표 구간 내)
 - **Harness Audit Baseline:** ✅ 100 (Phase 4 Plan 10 Wave 5, threshold 80, 20-point margin) — AUDIT-02 Phase 10 baseline prep satisfied. Phase 7 Integration Test 재검증 예정.
@@ -244,6 +255,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 05-orchestrator-v2-write P07 | 45 | 3 tasks | 6 files |
 | Phase 05-orchestrator-v2-write P09 | 3m09s | 1 tasks | 6 files |
 | Phase 05-orchestrator-v2-write P05-08 | 7 | 2 tasks | 3 files |
+| Phase 05 P10 | 7m | 4 tasks | 6 files |
 
 ### Plan Execution Log
 
