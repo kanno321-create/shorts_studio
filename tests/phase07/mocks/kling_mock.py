@@ -3,9 +3,9 @@
 Per CONTEXT D-16 + D-3: returns fixed Path on success, optional fault injection
 controlled by ``allow_fault_injection`` (production-safe default False).
 
-Per RESEARCH Correction 2: raises plain ``RuntimeError`` (NOT the non-existent
-``CircuitBreakerTriggerError``) on injected failures. The breaker itself emits
-``CircuitBreakerOpenError`` after 3 raises in Plan 07-05.
+Per RESEARCH Correction 2: raises plain ``RuntimeError`` (never a
+breaker-trigger subclass, which does not exist) on injected failures. The
+breaker itself emits ``CircuitBreakerOpenError`` after 3 raises in Plan 07-05.
 """
 from __future__ import annotations
 

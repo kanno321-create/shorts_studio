@@ -41,11 +41,11 @@ created: 2026-04-19
 |-----|---------|------|------|-------------|-----------|-------------------|-------------|--------|
 | 1   | 7-01-01 | 01 | 0 | TEST-01 | scaffold | `pytest tests/phase07/test_infra_smoke.py -q` | ✅ | ✅ green |
 | 2   | 7-01-02 | 01 | 0 | TEST-01 | unit | `pytest tests/phase07/test_mock_fixtures_bytes.py -q` | ✅ | ✅ green |
-| 3   | 7-02-01 | 02 | 1 | TEST-01 | unit | `pytest tests/phase07/test_mock_kling_adapter.py -q` | ❌ W0 | ⬜ pending |
-| 4   | 7-02-02 | 02 | 1 | TEST-01 | unit | `pytest tests/phase07/test_mock_runway_adapter.py -q` | ❌ W0 | ⬜ pending |
-| 5   | 7-02-03 | 02 | 1 | TEST-01 | unit | `pytest tests/phase07/test_mock_typecast_adapter.py -q` | ❌ W0 | ⬜ pending |
-| 6   | 7-02-04 | 02 | 1 | TEST-01 | unit | `pytest tests/phase07/test_mock_elevenlabs_adapter.py -q` | ❌ W0 | ⬜ pending |
-| 7   | 7-02-05 | 02 | 1 | TEST-01 | unit | `pytest tests/phase07/test_mock_shotstack_adapter.py -q` | ❌ W0 | ⬜ pending |
+| 3   | 7-02-01 | 02 | 1 | TEST-01 | unit | `pytest tests/phase07/test_mock_kling_adapter.py -q` | ✅ | ✅ green |
+| 4   | 7-02-02 | 02 | 1 | TEST-01 | unit | `pytest tests/phase07/test_mock_runway_adapter.py -q` | ✅ | ✅ green |
+| 5   | 7-02-03 | 02 | 1 | TEST-01 | unit | `pytest tests/phase07/test_mock_typecast_adapter.py -q` | ✅ | ✅ green |
+| 6   | 7-02-04 | 02 | 1 | TEST-01 | unit | `pytest tests/phase07/test_mock_elevenlabs_adapter.py -q` | ✅ | ✅ green |
+| 7   | 7-02-05 | 02 | 1 | TEST-01 | unit | `pytest tests/phase07/test_mock_shotstack_adapter.py -q` | ✅ | ✅ green |
 | 8   | 7-03-01 | 03 | 2 | TEST-01 | E2E | `pytest tests/phase07/test_e2e_happy_path.py -q` | ❌ W0 | ⬜ pending |
 | 9   | 7-03-02 | 03 | 2 | TEST-01 | integration | `pytest tests/phase07/test_notebooklm_tier2_only.py -q` | ❌ W0 | ⬜ pending |
 | 10  | 7-04-01 | 04 | 2 | TEST-02 | unit | `pytest tests/phase07/test_operational_gate_count_equals_13.py -q` | ❌ W0 | ⬜ pending |
@@ -78,7 +78,7 @@ Wave 0은 Phase 7 실행의 최초 wave (Plan 01 — scaffold + mock fixtures ba
 - [x] `tests/phase07/__init__.py` — package marker (Plan 07-01 ✅ shipped 2026-04-19)
 - [x] `tests/phase07/conftest.py` — 공유 fixture (_fake_env + tmp_session_id + mock_pass_verdict + mock_fail_verdict + repo_root + phase07_fixtures, 93 lines, D-13 independent) (Plan 07-01 ✅)
 - [x] `tests/phase07/fixtures/` — `mock_kling.mp4` + `mock_runway.mp4` + `mock_typecast.wav` + `mock_elevenlabs.wav` + `mock_shotstack.mp4` + `still_image.jpg` (모두 0-byte placeholder per Don't Hand-Roll) (Plan 07-01 ✅)
-- [ ] `tests/phase07/mocks/` — MockKlingI2V + MockRunwayI2V + MockTypecast + MockElevenLabs + MockShotstack (fault-injection capable) [Plan 07-02 Wave 1]
+- [x] `tests/phase07/mocks/` — MockKlingI2V + MockRunwayI2V + MockTypecast + MockElevenLabs + MockShotstack (fault-injection capable) [Plan 07-02 Wave 1] (Plan 07-02 ✅ shipped 2026-04-19)
 - [ ] `scripts/validate/phase07_acceptance.py` — SC 1-5 E2E wrapper (Phase 5/6 acceptance.py 패턴 승계) [Plan 07-08 Wave 5]
 - [x] `scripts/validate/harness_audit.py --json-out` 플래그 추가 (기존 text 출력 backward-compatible) (Plan 07-01 ✅ — D-11 6-key schema emission)
 

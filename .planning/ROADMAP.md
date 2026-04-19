@@ -179,9 +179,9 @@
   3. CircuitBreaker 3회 연속 실패 시나리오(의도적 mock fail 주입)에서 실제로 5분 cooldown이 발동되고 재시도가 거부된다
   4. 재생성 루프 3회 초과 시나리오에서 "정지 이미지 + 줌인" Fallback 샷이 렌더되어 파이프라인이 CIRCUIT_OPEN 없이 COMPLETE에 도달한다
   5. `harness-audit` 스킬 실행 결과 점수가 80 이상이며 A급 drift 0건 + SKILL 500줄 초과 0건이 보고서로 출력된다
-**Plans:** 1/8 plans executed (in progress)
+**Plans:** 2/8 plans executed
 - [x] 07-01-PLAN.md — Wave 0 FOUNDATION: tests/phase07/ scaffold + 6 zero-byte fixtures + harness_audit --json-out D-11 extension — ✅ shipped 2026-04-19, studio@3f1fd4f (eca0bfe RED smoke + c6044d3 GREEN scaffold + 8a88cbc RED harness + 3f1fd4f GREEN harness; 27/27 phase07 tests PASS; 809/809 regression preserved; 836/836 combined sweep; harness_audit score 90; conftest.py 93 lines with 6 D-13 independent fixtures; scripts/validate/harness_audit.py 122→284 lines additive; 6 new stdlib helpers; UTF-8 reconfigure for D-22 Windows cp949)
-- [ ] 07-02-PLAN.md — Wave 1 MOCK ADAPTERS (Kling / Runway / Typecast / ElevenLabs / Shotstack)
+- [x] 07-02-PLAN.md — Wave 1 MOCK ADAPTERS (Kling / Runway / Typecast / ElevenLabs / Shotstack) — ✅ shipped 2026-04-19, studio@9959e69 (10 TDD commits: b99c89d→5de71ad kling + eda1fa9→4aaf359 runway + f32a66e→6a820b0 typecast + 8edc604→e6c9473 elevenlabs + c053d6a→9959e69 shotstack; 32 new W1 unit tests; 868/868 full sweep; D-3 production-safe default + Correction 2 RuntimeError-only enforcement)
 - [ ] 07-03-PLAN.md — Wave 2 E2E HAPPY PATH + NotebookLM tier 2 offline
 - [ ] 07-04-PLAN.md — Wave 2 13 operational gates + verify_all_dispatched + checkpointer atomic
 - [ ] 07-05-PLAN.md — Wave 3 CircuitBreaker 3× fault + 300s cooldown
@@ -248,7 +248,7 @@
 | 4. Agent Team Design | 10/10 | Complete    | 2026-04-18 |
 | 5. Orchestrator v2 | 10/10 | ✅ Complete | 2026-04-19 |
 | 6. Wiki + NotebookLM + FAILURES | 11/11 | ✅ Complete | 2026-04-19 |
-| 7. Integration Test | 1/8 | 🔄 In progress | - |
+| 7. Integration Test | 2/8 | In Progress|  |
 | 8. Remote + Publishing | 0/TBD | Not started | - |
 | 9. Docs + KPI + Taste Gate | 0/TBD | Not started | - |
 | 10. Sustained Operations | 0/TBD | Not started (영구 지속) | - |
