@@ -18,7 +18,7 @@ YouTube Shorts 추천 알고리즘 + ranking 요소 (완주율, retention, CTR, 
 
 > Phase 6에서 채워질 노드 placeholder. 현재는 scaffold.
 
-- [ ] `ranking_factors.md` — YouTube Shorts 추천 신호 (완주율, 리텐션, CTR, 재시청)
+- [x] `ranking_factors.md` — YouTube Shorts 추천 신호 (완주율, 리텐션, CTR, 재시청)
 - [ ] `viewer_retention_curve.md` — 3초 hook 이후 retention 곡선 분석
 - [ ] `cross_platform_penalties.md` — TikTok/IG 비-적응 cross-post 알고리즘 패널티 (AF-3 근거)
 - [ ] `shorts_shelf_selection.md` — Shorts 추천 shelf 진입 조건

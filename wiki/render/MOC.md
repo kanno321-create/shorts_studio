@@ -23,6 +23,7 @@ Remotion v4 + Kling 2.6 Pro primary / Runway Gen-3 Alpha Turbo backup 렌더 스
 - [ ] `remotion_composition_schema.md` — Remotion v4 composition 표준 구조
 - [ ] `shotstack_color_grading.md` — 일괄 색보정 API (T14)
 - [ ] `low_res_first_pipeline.md` — 720p → AI 업스케일 2단계 (T4)
+- [x] `remotion_kling_stack.md` — Remotion v4 + Kling primary + Runway backup + Shotstack composite (Phase 6 ready)
 
 ## Related
 

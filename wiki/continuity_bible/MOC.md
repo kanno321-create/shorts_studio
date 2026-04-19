@@ -23,6 +23,7 @@ updated: 2026-04-19
 - [ ] `visual_style_prefix.md` — 모든 이미지/영상 API 호출 prefix 템플릿 (T12)
 - [ ] `duo_persona_bible.md` — 탐정(하오체) + 조수(해요체) 대화 양식
 - [ ] `thumbnail_signature.md` — 1-2 한글 글자 / 하단 30% 회피 / Nano Banana Pro 프롬프트
+- [x] `channel_identity.md` — D-10 5 구성요소 (색상 + 렌즈 + 스타일 + 오디언스 + BGM) (Phase 6 ready)
 
 ## Related
 

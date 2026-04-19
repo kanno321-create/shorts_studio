@@ -22,6 +22,7 @@ Shorts 성과 지표 목표값 + 측정 방식. 3초 hook retention / 완주율 
 - [ ] `completion_rate_target.md` — 완주율 > 40%
 - [ ] `avg_watch_duration_target.md` — > 25초
 - [ ] `kpi_log_template.md` — 월 1회 `kpi_log.md` 자동 생성 포맷 (KPI-02)
+- [x] `retention_3second_hook.md` — 3초 retention >60% 목표 + YouTube Analytics 측정 (Phase 6 ready)
 
 ## Related
 
