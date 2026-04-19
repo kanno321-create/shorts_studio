@@ -58,7 +58,7 @@
 
 ### ORCH — 오케스트레이터 v2
 
-- [ ] **ORCH-01**: `scripts/orchestrator/shorts_pipeline.py` 작성 — **500~800줄 state machine**
+- [x] **ORCH-01**: `scripts/orchestrator/shorts_pipeline.py` 작성 — **500~800줄 state machine**
 - [x] **ORCH-02**: 12 GATE 구현: `IDLE → TREND → NICHE → RESEARCH_NLM → BLUEPRINT → SCRIPT → POLISH → VOICE → ASSETS → ASSEMBLY → THUMBNAIL → METADATA → UPLOAD → MONITOR → COMPLETE`
 - [x] **ORCH-03**: `GateGuard.dispatch(gate, verdict)` 강제 — Reviewer FAIL 시 raise
 - [x] **ORCH-04**: `verify_all_dispatched()` = COMPLETE 진입 조건
@@ -69,7 +69,7 @@
 - [x] **ORCH-09**: **TODO(next-session) 물리 차단** (`pre_tool_use` regex)
 - [x] **ORCH-10**: 영상/음성 완전 분리 합성 (NotebookLM T3) — Typecast 먼저 → 타임스탬프 매핑 → Shotstack 합성
 - [x] **ORCH-11**: Low-Res First 렌더 (720p) → AI 업스케일 (T4)
-- [ ] **ORCH-12**: 재생성 루프 3회 hardcoded → FAILURES 저수지 → "정지 이미지 + 줌인" Fallback (T8)
+- [x] **ORCH-12**: 재생성 루프 3회 hardcoded → FAILURES 저수지 → "정지 이미지 + 줌인" Fallback (T8)
 
 ### WIKI — 지식 시스템 + NotebookLM RAG
 

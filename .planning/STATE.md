@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-19T03:33:40.977Z"
+last_updated: "2026-04-19T03:49:02.805Z"
 progress:
   total_phases: 10
   completed_phases: 3
   total_plans: 35
-  completed_plans: 31
-  percent: 89
+  completed_plans: 32
+  percent: 91
 ---
 
 # STATE — naberal-shorts-studio
 
-**Last updated:** 2026-04-19T03:00:00Z
-**Session:** #17 (✅ Phase 5 Plan 01 Wave 1 FOUNDATION shipped. Python module skeleton (scripts/orchestrator/ + scripts/hc_checks/), GateName IntEnum 15 members, GATE_DEPS DAG with import-time graphlib validation, 10-class exception hierarchy (OrchestratorError + 9 subclasses), .claude/deprecated_patterns.json 6 regex entries activates pre_tool_use Hook (RESEARCH §10 gap closed), tests/phase05/ scaffold 18/18 PASS, 3 validation CLIs (verify_line_count / verify_hook_blocks / phase05_acceptance). Commits: a3e9476 (Task 1 module skeleton) + 8c19c23 (Task 2 deprecated_patterns + gitignore state/) + cf9874d (Task 3 tests scaffold) + 2fea858 (Task 4 validation CLIs). 5 REQs done: ORCH-02/03/07/08/09. Cumulative project 52/96 REQs = 54%. Ready for Plan 05-02 CircuitBreaker.)
+**Last updated:** 2026-04-19T04:00:00Z
+**Session:** #18 (✅ Phase 5 Plan 07 Wave 5 KEYSTONE shipped. `scripts/orchestrator/shorts_pipeline.py` 787-line single-file state machine (ORCH-01 D-1 budget: 500-800, margin 13 lines). Integrates every Wave 0-4 primitive: GateName + GATE_DEPS + 5 CircuitBreakers (D-6 defaults) + Checkpointer + GateGuard + VoiceFirstTimeline + 5 API adapters (Kling/Runway/Typecast/ElevenLabs/Shotstack). 13 `_run_<gate>` methods cover TREND→MONITOR with Producer/Supervisor injection. `_producer_loop` 3-retry regeneration → ASSETS/THUMBNAIL get ken-burns Fallback (ORCH-12) via `fallback.py` (141 lines) helper; other gates raise RegenerationExhausted. ORCH-11 Low-Res First: Shotstack.render(resolution='hd') BEFORE upscale (NOOP stub). ORCH-04 verify_all_dispatched at COMPLETE. ORCH-05 Checkpointer resume rebuilds dispatched set from disk. 24 new tests green (test_shorts_pipeline 11 + test_pipeline_e2e_mock 3 + test_fallback_shot 6 + test_low_res_first 4). Full phase05 suite 224/224 PASS (200 baseline + 24 new). 0 forbidden tokens (skip_gates / t2v / TODO-next-session / segments[] / selenium). Commits: 5849ee1 (Task 1 fallback.py) + 031c4ba (Task 2 shorts_pipeline.py + __init__.py re-exports) + 7653492 (Task 3 4 test files). 4 REQs marked done this plan: ORCH-01/02/07/12 (ORCH-11 already marked in prior plans). Ready for Plan 05-08 hc_checks rewrite.)
 
 ---
 
@@ -32,12 +32,12 @@ progress:
 ## Current Position
 
 Phase: 05 (orchestrator-v2-write) — EXECUTING
-Plan: 5 of 10
+Plan: 7 of 10
 
 - **Phase:** 5
-- **Next Plan:** 05-PLAN (Phase 5 Orchestrator v2 Write — `scripts/orchestrator/shorts_pipeline.py` 500~800줄 state machine, 12 GATE DAG, CircuitBreaker, Checkpointer, 영상/음성 분리 합성, Low-Res First 렌더; ORCH-01~12 + VIDEO-01~05 = 17 REQs)
+- **Next Plan:** 05-08 (hc_checks rewrite — preserve 13 public function signatures from `.preserved/harvested/hc_checks_raw/hc_checks.py` 1129 lines, wire `check_hc_10_inspector_coverage` to the new `scripts.orchestrator.GATE_INSPECTORS` re-export)
 - **Status:** Ready to execute
-- **Progress:** [█████████░] 89%
+- **Progress:** [█████████░] 91%
 
 ---
 
@@ -81,7 +81,7 @@ Plan: 5 of 10
 ## Performance Metrics
 
 - **Requirements Mapped:** 96 / 96 (100%)
-- **Requirements Completed:** 47 / 96 (49%) — Phase 1 (INFRA-01/03/04 = 3) + Phase 2 (INFRA-02 = 1) + Phase 3 (HARVEST-01..08 + AGENT-06 = 9) + Phase 4 (34/34 complete 2026-04-19 via Plans 04-01..10)
+- **Requirements Completed:** 66 / 96 (69%) — Phase 1 (3) + Phase 2 (1) + Phase 3 (9) + Phase 4 (34) + Phase 5 partial (19 via Plans 05-01..07: ORCH-01/02/03/04/05/06/07/08/09/10/11/12 + VIDEO-01/02/03/04/05 = 17 + 2 overlap adjustments)
 - **Orphaned REQ:** 0
 - **Phases:** 10 (granularity=fine 목표 구간 내)
 - **Harness Audit Baseline:** ✅ 100 (Phase 4 Plan 10 Wave 5, threshold 80, 20-point margin) — AUDIT-02 Phase 10 baseline prep satisfied. Phase 7 Integration Test 재검증 예정.
@@ -158,6 +158,15 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 45. **UTF-8 subprocess encoding reaffirmed (STATE #28 pattern)** — `phase05_acceptance.py` and `verify_hook_blocks.py` both set `encoding="utf-8"` on `subprocess.run(...)` calls. Windows default cp949 cannot decode em-dash (`—`) or Korean reason text that `pre_tool_use.py` emits in deny messages or that pytest warnings emit from Korean-content test fixtures. Without this, acceptance CLI raises `UnicodeDecodeError` mid-script — violating the plan's "MUST not raise Python exceptions" rule.
 46. **Namespace-marker `__init__.py` pattern** — `scripts/orchestrator/api/__init__.py` and `scripts/hc_checks/__init__.py` are docstring-only files with zero imports. Docstring explains which future plan (06 / 08) fills the package. Creates the Python package without committing to any implementation detail prematurely; avoids `from __future__ import annotations` being the first non-comment line on disk.
 
+### Session #18 Decisions (Plan 05-07 — Wave 5 KEYSTONE shorts_pipeline.py)
+
+47. **shorts_pipeline.py landed at 787 lines (13-line headroom under 800 ceiling)** — ORCH-01 D-1 budget achieved with margin. Kept lean by offloading regeneration to `_producer_loop` helper, Fallback to `scripts/orchestrator/fallback.py` (141 lines), and GATE_INSPECTORS to a module-level dict constant. Per-gate `_run_<name>` methods average 8-20 lines each (not 30+ that the RESEARCH §Size Budget targeted) because Producer/Supervisor invocation is pushed to injected callables.
+48. **`CircuitBreakerOpenError` caught at adapter seam (not `CircuitOpen`)** — `circuit_breaker.py` raises `CircuitBreakerOpenError(RuntimeError)` on OPEN breaker; `gates.py` defines `CircuitOpen(OrchestratorError)` which is exported for caller taxonomy but never actually raised by the breaker. `_run_voice` and `_run_assets` catch the concrete `CircuitBreakerOpenError` before falling through to the backup adapter (ElevenLabs / Runway). Two-name coexistence is intentional — `CircuitOpen` stays in the public namespace for future caller extensions that want to raise domain-level circuit errors outside the breaker itself.
+49. **_producer_loop fallback eligibility hard-coded to (ASSETS, THUMBNAIL)** — these are the only two gates whose artifact can be visually substituted by a ken-burns over a stock still without poisoning downstream gates. SCRIPT, VOICE, METADATA, UPLOAD, MONITOR produce semantic artifacts that would corrupt later gates if silently replaced — exhaustion there MUST raise RegenerationExhausted. Encoded as `if gate in (GateName.ASSETS, GateName.THUMBNAIL)` check at the end of `_producer_loop`.
+50. **Rule 3 deviation: `_fake_env` fixture pattern for adapter env-var requirement** — default adapter constructors raise `ValueError` when their API key env vars are absent. 3 unit tests in `test_shorts_pipeline.py` that exercise the default-invoker path construct `ShortsPipeline` WITHOUT injecting adapters, hitting the env-var check before reaching the test's subject-under-test. Fix: module-level `_fake_env` pytest fixture uses `monkeypatch.setenv` for KLING/RUNWAY/TYPECAST/ELEVENLABS/SHOTSTACK = "fake". Tests that DO inject MagicMock adapters do not need the fixture. Cleaner than env-var manipulation in each test.
+51. **Rule 1 deviation: module docstring cannot contain forbidden tokens** — initial `shorts_pipeline.py` module docstring explicitly mentioned the D-8/D-9/D-13 forbidden tokens (`skip_gates`, `TODO(next-session)`, `t2v`, `text_to_video`) while explaining the invariants. PLAN acceptance criteria at line 797-799 require 0 occurrences ANYWHERE in the file — including docstrings. Fix: rewrote module docstring to reference the CONTEXT file for the forbidden-token list instead of spelling them out inline. Meta-test `test_pipeline_source_has_no_forbidden_tokens` catches this pattern via file reading + substring assert so any future regression trips the test suite.
+52. **Lambda default-arg trick for loop-variable capture in `_run_assets`** — `self.kling_breaker.call(lambda p=prompt, a=anchor, d=duration: ...)` ensures each iteration's breaker.call receives the correct scene values. Without `p=prompt` etc., all lambdas would close over the final loop iteration's values (classic Python gotcha). The default-arg binds at function-definition time, not call time. Subtle but critical — missed the first draft, caught during test_pipeline_e2e_mock write-out review.
+
 ### Session #15 Decisions (Plan 03-08 — HARVEST-DECISIONS + BLACKLIST-AUDIT)
 
 22. **Blacklist count invariant delegation (Plan 01 M-2 contract honored)** — Plan 08 does NOT re-assert `len(blacklist) == 10`; that invariant is owned by `blacklist_parser.parse_blacklist()` which raises ValueError on mismatch. Redundant asserts would violate DRY + SSoT. A/B/C count assertion (13/16/10) IS preserved at decision_builder entry because it validates a DIFFERENT invariant (CONFLICT_MAP parse integrity).
@@ -225,6 +234,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 05-orchestrator-v2-write P05-04 | 14m | 2 tasks | 3 files |
 | Phase 05 P05 | 10m | 2 tasks | 3 files |
 | Phase 05-orchestrator-v2-write P05-06 | 10m | 4 tasks | 12 files |
+| Phase 05-orchestrator-v2-write P07 | 45 | 3 tasks | 6 files |
 
 ### Plan Execution Log
 
