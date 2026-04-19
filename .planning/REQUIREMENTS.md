@@ -133,7 +133,7 @@
 ### FAIL — FAILURES 저수지 + 학습
 
 - [x] **FAIL-01**: `FAILURES.md` append-only (즉시 SKILL 수정 금지) — D-2 저수지 원칙 (Phase 6 Plan 08 — studio@88a3ae5: check_failures_append_only Hook helper + 14 unit + 7 subprocess tests + FAILURES.md/FAILURES_INDEX.md seed; basename-exact match; _imported_from_shorts_naberal.md exempt per D-14)
-- [ ] **FAIL-02**: 30일 집계 → 패턴 ≥ 3회 → `SKILL.md.candidate` → 7일 staged rollout → 승격
+- [x] **FAIL-02**: 30일 집계 → 패턴 ≥ 3회 → `SKILL.md.candidate` → 7일 staged rollout → 승격
 - [x] **FAIL-03**: `SKILL_HISTORY/` 디렉토리 — SKILL 수정 시 기존 버전 `v{n}.md.bak` 백업 (Phase 6 Plan 08 — studio@88a3ae5: backup_skill_before_write Hook helper + 9 unit tests + SKILL_HISTORY/README.md convention; v<YYYYMMDD_HHMMSS>.md.bak format; first-time create silent skip; OSError→deny via main)
 - [ ] **FAIL-04**: **Phase 10 첫 1~2개월 SKILL patch 전면 금지** — 데이터 수집만
 
