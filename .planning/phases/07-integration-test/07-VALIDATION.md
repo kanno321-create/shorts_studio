@@ -46,12 +46,12 @@ created: 2026-04-19
 | 5   | 7-02-03 | 02 | 1 | TEST-01 | unit | `pytest tests/phase07/test_mock_typecast_adapter.py -q` | ✅ | ✅ green |
 | 6   | 7-02-04 | 02 | 1 | TEST-01 | unit | `pytest tests/phase07/test_mock_elevenlabs_adapter.py -q` | ✅ | ✅ green |
 | 7   | 7-02-05 | 02 | 1 | TEST-01 | unit | `pytest tests/phase07/test_mock_shotstack_adapter.py -q` | ✅ | ✅ green |
-| 8   | 7-03-01 | 03 | 2 | TEST-01 | E2E | `pytest tests/phase07/test_e2e_happy_path.py -q` | ❌ W0 | ⬜ pending |
-| 9   | 7-03-02 | 03 | 2 | TEST-01 | integration | `pytest tests/phase07/test_notebooklm_tier2_only.py -q` | ❌ W0 | ⬜ pending |
-| 10  | 7-04-01 | 04 | 2 | TEST-02 | unit | `pytest tests/phase07/test_operational_gate_count_equals_13.py -q` | ❌ W0 | ⬜ pending |
-| 11  | 7-04-02 | 04 | 2 | TEST-02 | integration | `pytest tests/phase07/test_verify_all_dispatched_13.py -q` | ❌ W0 | ⬜ pending |
-| 12  | 7-04-03 | 04 | 2 | TEST-02 | unit | `pytest tests/phase07/test_gate_order_violation.py -q` | ❌ W0 | ⬜ pending |
-| 13  | 7-04-04 | 04 | 2 | TEST-02 | integration | `pytest tests/phase07/test_checkpointer_atomic_writes_13.py -q` | ❌ W0 | ⬜ pending |
+| 8   | 7-03-01 | 03 | 2 | TEST-01 | E2E | `pytest tests/phase07/test_e2e_happy_path.py -q` | ✅ | ✅ green |
+| 9   | 7-03-02 | 03 | 2 | TEST-01 | integration | `pytest tests/phase07/test_notebooklm_tier2_only.py -q` | ✅ | ✅ green |
+| 10  | 7-04-01 | 04 | 2 | TEST-02 | unit | `pytest tests/phase07/test_operational_gate_count_equals_13.py -q` | ✅ | ✅ green |
+| 11  | 7-04-02 | 04 | 2 | TEST-02 | integration | `pytest tests/phase07/test_verify_all_dispatched_13.py -q` | ✅ | ✅ green |
+| 12  | 7-04-03 | 04 | 2 | TEST-02 | unit | `pytest tests/phase07/test_gate_order_violation.py -q` | ✅ | ✅ green |
+| 13  | 7-04-04 | 04 | 2 | TEST-02 | integration | `pytest tests/phase07/test_checkpointer_atomic_writes_13.py -q` | ✅ | ✅ green |
 | 14  | 7-05-01 | 05 | 3 | TEST-03 | unit | `pytest tests/phase07/test_circuit_breaker_3x_open.py -q` | ❌ W0 | ⬜ pending |
 | 15  | 7-05-02 | 05 | 3 | TEST-03 | integration | `pytest tests/phase07/test_cooldown_300s_enforced.py -q` | ❌ W0 | ⬜ pending |
 | 16  | 7-06-01 | 06 | 3 | TEST-04 | integration | `pytest tests/phase07/test_fallback_ken_burns_thumbnail.py -q` | ❌ W0 | ⬜ pending |
