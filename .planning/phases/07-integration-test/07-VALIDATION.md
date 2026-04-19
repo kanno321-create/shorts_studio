@@ -3,7 +3,7 @@ phase: 7
 slug: integration-test
 status: draft
 nyquist_compliant: false
-wave_0_complete: false
+wave_0_complete: true
 created: 2026-04-19
 ---
 
@@ -39,8 +39,8 @@ created: 2026-04-19
 
 | Row | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |-----|---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 1   | 7-01-01 | 01 | 0 | TEST-01 | scaffold | `pytest tests/phase07/test_infra_smoke.py -q` | ❌ W0 | ⬜ pending |
-| 2   | 7-01-02 | 01 | 0 | TEST-01 | unit | `pytest tests/phase07/test_mock_fixtures_bytes.py -q` | ❌ W0 | ⬜ pending |
+| 1   | 7-01-01 | 01 | 0 | TEST-01 | scaffold | `pytest tests/phase07/test_infra_smoke.py -q` | ✅ | ✅ green |
+| 2   | 7-01-02 | 01 | 0 | TEST-01 | unit | `pytest tests/phase07/test_mock_fixtures_bytes.py -q` | ✅ | ✅ green |
 | 3   | 7-02-01 | 02 | 1 | TEST-01 | unit | `pytest tests/phase07/test_mock_kling_adapter.py -q` | ❌ W0 | ⬜ pending |
 | 4   | 7-02-02 | 02 | 1 | TEST-01 | unit | `pytest tests/phase07/test_mock_runway_adapter.py -q` | ❌ W0 | ⬜ pending |
 | 5   | 7-02-03 | 02 | 1 | TEST-01 | unit | `pytest tests/phase07/test_mock_typecast_adapter.py -q` | ❌ W0 | ⬜ pending |
@@ -63,7 +63,7 @@ created: 2026-04-19
 | 22  | 7-08-01 | 08 | 5 | ALL | E2E | `python scripts/validate/phase07_acceptance.py` | ❌ W0 | ⬜ pending |
 | 23  | 7-08-02 | 08 | 5 | ALL | unit | `pytest tests/phase07/test_traceability_matrix.py -q` | ❌ W0 | ⬜ pending |
 | 24  | 7-08-03 | 08 | 5 | ALL | regression | `pytest tests/phase04 tests/phase05 tests/phase06 -q` | ✅ | ⬜ pending |
-| 25  | 7-01-03 | 01 | 0 | TEST-01 | regression | `pytest tests/phase04 tests/phase05 tests/phase06 -q` (Wave 0 baseline sweep) | ✅ | ⬜ pending |
+| 25  | 7-01-03 | 01 | 0 | TEST-01 | regression | `pytest tests/phase04 tests/phase05 tests/phase06 -q` (Wave 0 baseline sweep) | ✅ | ✅ green |
 | 26  | 7-07-05 | 07 | 4 | AUDIT-02 | unit | `pytest tests/phase07/test_agent_count_invariant.py -q` | ❌ W0 | ⬜ pending |
 | 27  | 7-07-06 | 07 | 4 | AUDIT-02 | unit | `pytest tests/phase07/test_description_1024_scan.py -q` | ❌ W0 | ⬜ pending |
 
@@ -75,12 +75,12 @@ created: 2026-04-19
 
 Wave 0은 Phase 7 실행의 최초 wave (Plan 01 — scaffold + mock fixtures base). 필요 인프라:
 
-- [ ] `tests/phase07/__init__.py` — package marker
-- [ ] `tests/phase07/conftest.py` — 공유 fixture (mock pipeline factory + mock adapter ensemble + deterministic time patch)
-- [ ] `tests/phase07/fixtures/` — `mock_kling.mp4` + `mock_runway.mp4` + `mock_typecast.wav` + `mock_elevenlabs.wav` + `mock_shotstack.mp4` + `still_image.jpg` (모두 decimal bytes placeholder)
-- [ ] `tests/phase07/mocks/` — MockKlingI2V + MockRunwayI2V + MockTypecast + MockElevenLabs + MockShotstack (fault-injection capable)
-- [ ] `scripts/validate/phase07_acceptance.py` — SC 1-5 E2E wrapper (Phase 5/6 acceptance.py 패턴 승계)
-- [ ] `scripts/validate/harness_audit.py --json-out` 플래그 추가 (기존 text 출력 backward-compatible)
+- [x] `tests/phase07/__init__.py` — package marker (Plan 07-01 ✅ shipped 2026-04-19)
+- [x] `tests/phase07/conftest.py` — 공유 fixture (_fake_env + tmp_session_id + mock_pass_verdict + mock_fail_verdict + repo_root + phase07_fixtures, 93 lines, D-13 independent) (Plan 07-01 ✅)
+- [x] `tests/phase07/fixtures/` — `mock_kling.mp4` + `mock_runway.mp4` + `mock_typecast.wav` + `mock_elevenlabs.wav` + `mock_shotstack.mp4` + `still_image.jpg` (모두 0-byte placeholder per Don't Hand-Roll) (Plan 07-01 ✅)
+- [ ] `tests/phase07/mocks/` — MockKlingI2V + MockRunwayI2V + MockTypecast + MockElevenLabs + MockShotstack (fault-injection capable) [Plan 07-02 Wave 1]
+- [ ] `scripts/validate/phase07_acceptance.py` — SC 1-5 E2E wrapper (Phase 5/6 acceptance.py 패턴 승계) [Plan 07-08 Wave 5]
+- [x] `scripts/validate/harness_audit.py --json-out` 플래그 추가 (기존 text 출력 backward-compatible) (Plan 07-01 ✅ — D-11 6-key schema emission)
 
 *Wave 0 완료 조건: Plan 01 완료 시 `wave_0_complete: true` flip*
 
