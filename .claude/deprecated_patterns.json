@@ -1,0 +1,28 @@
+{
+  "patterns": [
+    {
+      "regex": "skip_gates\\s*=",
+      "reason": "ORCH-08 / CONFLICT_MAP A-6: skip_gates 물리 차단 (D-8, AF-14)"
+    },
+    {
+      "regex": "TODO\\s*\\(\\s*next-session",
+      "reason": "ORCH-09 / CONFLICT_MAP A-5: TODO(next-session) 물리 차단 (D-9)"
+    },
+    {
+      "regex": "(?i)(text_to_video|text2video|(?<![a-z])t2v(?![a-z]))",
+      "reason": "VIDEO-01 / D-13: T2V 코드 경로 부재 강제 (I2V only + Anchor Frame)"
+    },
+    {
+      "regex": "segments\\s*\\[\\s*\\]",
+      "reason": "Phase 3 canonical: cuts[] only, segments[] deprecated"
+    },
+    {
+      "regex": "\\bimport\\s+selenium\\b|\\bfrom\\s+selenium\\s+import",
+      "reason": "AF-8: Selenium 영구 금지 (YouTube ToS 위반)"
+    },
+    {
+      "regex": "try\\s*:[^\\n]*\\n\\s+pass\\s*$",
+      "reason": "Project Rule 3: try-except 침묵 폴백 금지 — 명시적 raise 필수"
+    }
+  ]
+}

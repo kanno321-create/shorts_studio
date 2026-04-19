@@ -67,3 +67,6 @@ Thumbs.db
 *.archive-*/
 *.legacy-*/
 *.backup-*/
+
+# Phase 5 orchestrator runtime state (Checkpointer output per Plan 03)
+state/
