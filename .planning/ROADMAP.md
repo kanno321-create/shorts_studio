@@ -153,7 +153,18 @@
   4. Continuity Bible Prefix(색상 팔레트, 카메라 렌즈, 시각적 스타일)가 모든 영상 생성 API 호출에 자동 주입되어 샘플 3개 연속 생성 시 시각적 일관성이 관찰 가능하다
   5. `FAILURES.md`가 append-only로 동작하며 (Hook이 직접 편집 차단), `SKILL_HISTORY/{skill_name}/v{n}.md.bak` 백업이 SKILL 수정 시 자동 생성된다
   6. 30일 집계 로직이 패턴 ≥ 3회 발견 시 `SKILL.md.candidate`를 생성하고 7일 staged rollout 대기 상태로 진입한다 (드라이런 검증)
-**Plans:** TBD
+**Plans:** 11 plans
+- [ ] 06-01-PLAN.md — Wave 0 FOUNDATION: scripts/wiki/ + tests/phase06/ scaffold + phase06_acceptance.py
+- [ ] 06-02-PLAN.md — Wave 1 WIKI CONTENT: 5 ready nodes + 5 MOC checkbox flips + 3 test files
+- [ ] 06-03-PLAN.md — Wave 2 NOTEBOOKLM WRAPPER: scripts/notebooklm/query.py subprocess wrapper (D-6/D-7)
+- [ ] 06-04-PLAN.md — Wave 2 LIBRARY REGISTRATION: library.json channel-bible entry (D-8) + deferred-items.md
+- [ ] 06-05-PLAN.md — Wave 2 FALLBACK CHAIN: 3-tier RAG -> grep -> defaults (D-5)
+- [ ] 06-06-PLAN.md — Wave 3 CONTINUITY MODEL: ContinuityPrefix pydantic v2 (D-20) + prefix.json
+- [ ] 06-07-PLAN.md — Wave 3 SHOTSTACK INJECTION: filter[0] continuity_prefix + D-17 tail preservation (D-9/D-19)
+- [ ] 06-08-PLAN.md — Wave 4 HOOK EXTENSION: FAILURES append-only + SKILL_HISTORY backup (D-11/D-12/D-14) + 2 deprecated_patterns
+- [ ] 06-09-PLAN.md — Wave 4 AGGREGATION CLI: 30-day dry-run (D-13)
+- [ ] 06-10-PLAN.md — Wave 4 AGENT MASS UPDATE: 15 AGENT.md files + sha256 manifests (D-3/D-18)
+- [ ] 06-11-PLAN.md — Wave 5 PHASE GATE: D-14 sha256 + acceptance E2E + 9-REQ traceability + VALIDATION flip
 
 ---
 
@@ -228,7 +239,7 @@
 | 3. Harvest | 9/9 | ✅ Complete | 2026-04-19 |
 | 4. Agent Team Design | 10/10 | Complete    | 2026-04-18 |
 | 5. Orchestrator v2 | 10/10 | ✅ Complete | 2026-04-19 |
-| 6. Wiki + NotebookLM + FAILURES | 0/TBD | Not started | - |
+| 6. Wiki + NotebookLM + FAILURES | 0/11 | Not started | - |
 | 7. Integration Test | 0/TBD | Not started | - |
 | 8. Remote + Publishing | 0/TBD | Not started | - |
 | 9. Docs + KPI + Taste Gate | 0/TBD | Not started | - |
