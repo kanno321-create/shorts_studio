@@ -1,8 +1,8 @@
 ---
 category: kpi
-status: scaffold
+status: partial
 tags: [moc, shorts, kpi]
-updated: 2026-04-19
+updated: 2026-04-20
 ---
 
 # KPI — Map of Content
@@ -21,7 +21,7 @@ Shorts 성과 지표 목표값 + 측정 방식. 3초 hook retention / 완주율 
 - [ ] `three_second_hook_target.md` — retention > 60% (SUMMARY §9 Korean specifics)
 - [ ] `completion_rate_target.md` — 완주율 > 40%
 - [ ] `avg_watch_duration_target.md` — > 25초
-- [ ] `kpi_log_template.md` — 월 1회 `kpi_log.md` 자동 생성 포맷 (KPI-02)
+- [x] [[kpi_log]] — Hybrid format: Part A (KPI-06 targets) + Part B (Monthly Tracking) (Phase 9 ready)
 - [x] `retention_3second_hook.md` — 3초 retention >60% 목표 + YouTube Analytics 측정 (Phase 6 ready)
 
 ## Related
