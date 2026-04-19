@@ -52,12 +52,12 @@ created: 2026-04-19
 | 8-04-02 | 04 | 3 | PUB-03 | unit (KST window weekday 20-23) | `pytest tests/phase08/test_kst_window_weekday.py -q` | ❌ W0 | ⬜ pending |
 | 8-04-03 | 04 | 3 | PUB-03 | unit (KST window weekend 12-15) | `pytest tests/phase08/test_kst_window_weekend.py -q` | ❌ W0 | ⬜ pending |
 | 8-04-04 | 04 | 3 | PUB-01 | **ANCHOR A** — AST `containsSyntheticMedia=True` + `False` 0 hits | `pytest tests/phase08/test_ai_disclosure_anchor.py -q` | ❌ W0 | ⬜ pending |
-| 8-05-01 | 05 | 4 | PUB-04 | unit (production_metadata 4-field schema) | `pytest tests/phase08/test_production_metadata_schema.py -q` | ❌ W0 | ⬜ pending |
-| 8-05-02 | 05 | 4 | PUB-04 | unit (HTML comment embedding roundtrip) | `pytest tests/phase08/test_metadata_html_comment.py -q` | ❌ W0 | ⬜ pending |
-| 8-05-03 | 05 | 4 | PUB-05 | unit (commentThreads.insert payload) | `pytest tests/phase08/test_pinned_comment.py -q` | ❌ W0 | ⬜ pending |
-| 8-05-04 | 05 | 4 | PUB-05 | **ANCHOR B** — grep `captions.insert` + `endScreen` 0 hits | `pytest tests/phase08/test_endscreen_nonexistent_anchor.py -q` | ❌ W0 | ⬜ pending |
-| 8-05-05 | 05 | 4 | PUB-02 | **ANCHOR C** — grep selenium/webdriver/playwright 0 hits | `pytest tests/phase08/test_no_selenium_anchor.py -q` | ❌ W0 | ⬜ pending |
-| 8-05-06 | 05 | 4 | PUB-02 | unit (youtube_uploader.upload_shorts full flow mocked) | `pytest tests/phase08/test_uploader_mocked_e2e.py -q` | ❌ W0 | ⬜ pending |
+| 8-05-01 | 05 | 4 | PUB-04 | unit (production_metadata 4-field schema) | `pytest tests/phase08/test_production_metadata_schema.py -q` | ✅ | ✅ green |
+| 8-05-02 | 05 | 4 | PUB-04 | unit (HTML comment embedding roundtrip) | `pytest tests/phase08/test_metadata_html_comment.py -q` | ✅ | ✅ green |
+| 8-05-03 | 05 | 4 | PUB-05 | unit (commentThreads.insert payload) | `pytest tests/phase08/test_pinned_comment.py -q` | ✅ | ✅ green |
+| 8-05-04 | 05 | 4 | PUB-05 | **ANCHOR B** — grep `captions.insert` + `endScreen` 0 hits | `pytest tests/phase08/test_endscreen_nonexistent_anchor.py -q` | ✅ | ✅ green |
+| 8-05-05 | 05 | 4 | PUB-02 | **ANCHOR C** — grep selenium/webdriver/playwright 0 hits | `pytest tests/phase08/test_no_selenium_anchor.py -q` | ✅ | ✅ green |
+| 8-05-06 | 05 | 4 | PUB-02 | unit (youtube_uploader.upload_shorts full flow mocked) | `pytest tests/phase08/test_uploader_mocked_e2e.py -q` | ✅ | ✅ green |
 | 8-06-01 | 06 | 5 | PUB-01..05 | **SMOKE GATE — USER APPROVAL REQUIRED** | Manual dispatch after approval | ❌ W0 | ⬜ pending |
 | 8-06-02 | 06 | 5 | PUB-01..05 | subprocess (videos.delete cleanup verified) | `pytest tests/phase08/test_smoke_cleanup.py -q` | ❌ W0 | ⬜ pending |
 | 8-07-01 | 07 | 6 | PUB-01..05 + REMOTE-01..03 | E2E acceptance mocked | `python scripts/validate/phase08_acceptance.py` | ❌ W0 | ⬜ pending |
