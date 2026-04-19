@@ -155,7 +155,7 @@
   6. 30일 집계 로직이 패턴 ≥ 3회 발견 시 `SKILL.md.candidate`를 생성하고 7일 staged rollout 대기 상태로 진입한다 (드라이런 검증)
 **Plans:** 11 plans
 - [x] 06-01-PLAN.md — Wave 0 FOUNDATION: scripts/wiki/ + tests/phase06/ scaffold + phase06_acceptance.py — ✅ shipped 2026-04-19, studio@6690e12 (15/15 tests green, scripts.wiki imports OK, phase06_acceptance exits 1 gracefully at Wave 0, phase05 regression 329/329 preserved)
-- [ ] 06-02-PLAN.md — Wave 1 WIKI CONTENT: 5 ready nodes + 5 MOC checkbox flips + 3 test files
+- [x] 06-02-PLAN.md — Wave 1 WIKI CONTENT: 5 ready nodes + 5 MOC checkbox flips + 3 test files
 - [ ] 06-03-PLAN.md — Wave 2 NOTEBOOKLM WRAPPER: scripts/notebooklm/query.py subprocess wrapper (D-6/D-7)
 - [ ] 06-04-PLAN.md — Wave 2 LIBRARY REGISTRATION: library.json channel-bible entry (D-8) + deferred-items.md
 - [ ] 06-05-PLAN.md — Wave 2 FALLBACK CHAIN: 3-tier RAG -> grep -> defaults (D-5)

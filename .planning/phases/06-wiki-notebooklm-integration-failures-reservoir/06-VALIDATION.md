@@ -40,9 +40,9 @@ created: 2026-04-19
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
 | 6-01-01 | 01 | 0 | WIKI-05 | unit | `pytest tests/phase06/test_wiki_frontmatter.py` | ✅ on disk | ✅ green |
 | 6-01-02 | 01 | 0 | WIKI-05 | unit | `pytest tests/phase06/test_wiki_reference_format.py` | ✅ on disk | ✅ green |
-| 6-02-01 | 02 | 1 | WIKI-01 | unit | `pytest tests/phase06/test_wiki_nodes_ready.py` | ❌ W0 | ⬜ pending |
-| 6-02-02 | 02 | 1 | WIKI-01 | integration | `pytest tests/phase06/test_moc_linkage.py` | ❌ W0 | ⬜ pending |
-| 6-02-03 | 02 | 1 | WIKI-02 | unit | `pytest tests/phase06/test_continuity_bible_node.py` | ❌ W0 | ⬜ pending |
+| 6-02-01 | 02 | 1 | WIKI-01 | unit | `pytest tests/phase06/test_wiki_nodes_ready.py` | ✅ on disk | ✅ green |
+| 6-02-02 | 02 | 1 | WIKI-01 | integration | `pytest tests/phase06/test_moc_linkage.py` | ✅ on disk | ✅ green |
+| 6-02-03 | 02 | 1 | WIKI-02 | unit | `pytest tests/phase06/test_continuity_bible_node.py` | ✅ on disk | ✅ green |
 | 6-03-01 | 03 | 2 | WIKI-03 | unit | `pytest tests/phase06/test_notebooklm_wrapper.py` | ❌ W0 | ⬜ pending |
 | 6-03-02 | 03 | 2 | WIKI-03 | integration | `pytest tests/phase06/test_notebooklm_subprocess.py` | ❌ W0 | ⬜ pending |
 | 6-04-01 | 04 | 2 | WIKI-03 | unit | `pytest tests/phase06/test_library_json_channel_bible.py` | ❌ W0 | ⬜ pending |
