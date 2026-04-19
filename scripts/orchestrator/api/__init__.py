@@ -8,10 +8,11 @@ Phase 5 Plan 06 fills this package with:
     - shotstack.py       : ShotstackAdapter (timeline render, ken-burns fallback)
 
 Design constraint (VIDEO-01 / D-13):
-    T2V code paths are FORBIDDEN. Adapters expose image_to_video() only.
-    RunwayI2VAdapter MUST NOT expose text_to_video() even if upstream SDK has
-    one. The pre_tool_use Hook regex in .claude/deprecated_patterns.json
-    blocks re-introduction of t2v / text_to_video / text2video identifiers.
+    Text-driven video code paths are FORBIDDEN. Adapters expose
+    image_to_video() only, using an anchor frame as the seed. Even if an
+    upstream SDK exposes a text-only method, the adapter MUST NOT re-export
+    it. The pre_tool_use Hook regex in .claude/deprecated_patterns.json
+    blocks re-introduction of the banned identifiers (see ORCH-08 / AF-14).
 
 No imports at this layer — each adapter is optional at runtime and the
 pipeline injects them via constructor args.
