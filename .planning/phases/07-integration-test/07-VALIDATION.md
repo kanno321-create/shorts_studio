@@ -52,10 +52,10 @@ created: 2026-04-19
 | 11  | 7-04-02 | 04 | 2 | TEST-02 | integration | `pytest tests/phase07/test_verify_all_dispatched_13.py -q` | ✅ | ✅ green |
 | 12  | 7-04-03 | 04 | 2 | TEST-02 | unit | `pytest tests/phase07/test_gate_order_violation.py -q` | ✅ | ✅ green |
 | 13  | 7-04-04 | 04 | 2 | TEST-02 | integration | `pytest tests/phase07/test_checkpointer_atomic_writes_13.py -q` | ✅ | ✅ green |
-| 14  | 7-05-01 | 05 | 3 | TEST-03 | unit | `pytest tests/phase07/test_circuit_breaker_3x_open.py -q` | ❌ W0 | ⬜ pending |
-| 15  | 7-05-02 | 05 | 3 | TEST-03 | integration | `pytest tests/phase07/test_cooldown_300s_enforced.py -q` | ❌ W0 | ⬜ pending |
-| 16  | 7-06-01 | 06 | 3 | TEST-04 | integration | `pytest tests/phase07/test_fallback_ken_burns_thumbnail.py -q` | ❌ W0 | ⬜ pending |
-| 17  | 7-06-02 | 06 | 3 | TEST-04 | integration | `pytest tests/phase07/test_failures_append_on_retry_exceeded.py -q` | ❌ W0 | ⬜ pending |
+| 14  | 7-05-01 | 05 | 3 | TEST-03 | unit | `pytest tests/phase07/test_circuit_breaker_3x_open.py -q` | ✅ | ✅ green |
+| 15  | 7-05-02 | 05 | 3 | TEST-03 | integration | `pytest tests/phase07/test_cooldown_300s_enforced.py -q` | ✅ | ✅ green |
+| 16  | 7-06-01 | 06 | 3 | TEST-04 | integration | `pytest tests/phase07/test_fallback_ken_burns_thumbnail.py -q` | ✅ | ✅ green |
+| 17  | 7-06-02 | 06 | 3 | TEST-04 | integration | `pytest tests/phase07/test_failures_append_on_retry_exceeded.py -q` | ✅ | ✅ green |
 | 18  | 7-07-01 | 07 | 4 | AUDIT-02 | CLI | `python scripts/validate/harness_audit.py --json-out` | ⚠️ exists (text-only) | ⬜ pending |
 | 19  | 7-07-02 | 07 | 4 | AUDIT-02 | unit | `pytest tests/phase07/test_harness_audit_json_schema.py -q` | ❌ W0 | ⬜ pending |
 | 20  | 7-07-03 | 07 | 4 | AUDIT-02 | unit | `pytest tests/phase07/test_harness_audit_score_ge_80.py -q` | ❌ W0 | ⬜ pending |
