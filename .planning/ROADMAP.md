@@ -203,9 +203,9 @@
   4. publish lock이 48시간+ 랜덤 간격을 enforcement 하며 한국 피크 시간(평일 20-23 KST / 주말 12-15 KST) 윈도우 안에서만 업로드가 발동한다
   5. 업로드된 영상 metadata에 production_metadata(script_hash, assets_origin, pipeline_version)가 첨부되어 Reused Content 이의제기 시 증명 자료로 활용 가능하다
   6. 업로드 직후 publisher가 핀 댓글 + end-screen subscribe funnel을 자동 설정한다 (샘플 업로드 1회 실측)
-**Plans:** 2/8 shipped
+**Plans:** 3/8 shipped
 - [x] 08-01-PLAN.md — Wave 0 FOUNDATION (tests/phase08 scaffold + MockYouTube/MockGitHub + scripts/publisher namespace + CD-02 5-class exceptions) — ✅ shipped 2026-04-19, studio@5fb2d38+501777d+b53d218 (3 atomic commits, 39/39 new tests + 986/986 regression preserved)
-- [ ] 08-02-PLAN.md — Wave 1 REMOTE (GitHub Private repo create + push main + submodule add)
+- [x] 08-02-PLAN.md — Wave 1 REMOTE (GitHub Private repo create + push main + submodule add) — ✅ shipped 2026-04-19, studio@763cbc1+97a27b3+ad29325 (3 atomic commits, 15/15 new tests — 4 REMOTE-01 + 5 REMOTE-02 + 6 REMOTE-03 + Pitfall 2/10 anchors + 986/986 phase04-07 regression preserved, parallel with 08-03)
 - [x] 08-03-PLAN.md — Wave 2 OAUTH (InstalledAppFlow + refresh token) — ✅ shipped 2026-04-19, studio@95022d4+9d04c18+a6db395 (3 atomic commits, 11/11 new tests + 59/59 phase08 preserved)
 - [ ] 08-04-PLAN.md — Wave 3 LOCK+WINDOW+DISCLOSURE (publish_lock + kst_window + ai_disclosure)
 - [ ] 08-05-PLAN.md — Wave 4 METADATA+FUNNEL (production_metadata + pinned comment)

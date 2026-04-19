@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-19T13:45:00.000Z"
+last_updated: "2026-04-19T13:55:02.103Z"
 progress:
   total_phases: 10
   completed_phases: 6
   total_plans: 62
-  completed_plans: 58
-  percent: 93
+  completed_plans: 59
+  percent: 95
 ---
 
 # STATE — naberal-shorts-studio
@@ -32,12 +32,13 @@ progress:
 ## Current Position
 
 Phase: 8 (Remote + Publishing + Production Metadata) — EXECUTING
-Plan: 3 of 8 (Wave 2 OAUTH shipped — parallel with Plan 08-02 Wave 1 REMOTE)
+Plan: 4 of 8 (Wave 1 REMOTE + Wave 2 OAUTH both shipped in parallel session)
 
 - **Phase:** 8
-- **Next Action:** Continue with Plan 08-04 Wave 3 LOCK+WINDOW+DISCLOSURE after Plan 08-02 Wave 1 REMOTE lands (expected concurrently)
-- **Status:** Executing
-- **Progress:** [█████████░] 93%
+- **Next Action:** Proceed with Plan 08-04 Wave 3 LOCK+WINDOW+DISCLOSURE (publish_lock + kst_window + ai_disclosure)
+- **Status:** Ready to execute
+- **Progress:** [██████████] 95%
+- **Last completed:** Plan 08-02 Wave 1 REMOTE — 17min, 3 tasks, 6 files (commits 763cbc1 + 97a27b3 + ad29325)
 
 ---
 
@@ -322,6 +323,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 7 P02 | 6m | 5 tasks | 11 files |
 | Phase 7 P07 | 20 | 6 tasks | 6 files |
 | Phase 08 P01 | 13min | 3 tasks | 14 files |
+| Phase 08-remote-publishing-production-metadata P02 | 17min | 3 tasks | 6 files |
 
 ### Plan Execution Log
 
