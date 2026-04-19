@@ -16,7 +16,7 @@
 - [x] **Phase 3: Harvest** — shorts_naberal 작동 자산 이관 + CONFLICT_MAP 39 전수 판정 + Tier 3 attrib +R 잠금 (세션 #15 완료 2026-04-19, verify_harvest --full 15/15 PASS)
 - [x] **Phase 4: Agent Team Design** — 17 inspector + Producer 14 + Supervisor 1 = 32 에이전트 + rubric JSON Schema **동시 정의** (세션 #16 완료 2026-04-19, studio@62c0758)
 - [x] **Phase 5: Orchestrator v2** — 500~800줄 state machine + 12 GATE + DAG + 영상/음성 분리 합성 (세션 #18 완료 2026-04-19, 329 pytest green + SC 1-6 PASS + 17/17 REQs complete)
-- [ ] **Phase 6: Wiki + NotebookLM + FAILURES Reservoir** — Tier 2 합성 + 2-노트북 세팅 + Continuity Bible Prefix + 저수지 패턴
+- [x] **Phase 6: Wiki + NotebookLM + FAILURES Reservoir** — Tier 2 합성 + 2-노트북 세팅 + Continuity Bible Prefix + 저수지 패턴 (세션 #19 완료 2026-04-19, 236 pytest green + SC 1-6 PASS + 9/9 REQs complete + D-14 sha256 a1d92cc1... immutable)
 - [ ] **Phase 7: Integration Test** — E2E mock asset + verify_all_dispatched() + harness-audit ≥ 80
 - [ ] **Phase 8: Remote + Publishing + Production Metadata** — GitHub push + YouTube API v3 + AI disclosure 자동 ON + Reused content 증명
 - [ ] **Phase 9: Documentation + KPI Dashboard + Taste Gate** — KPI 목표 설정 + 월 1회 대표님 taste 평가 회로 가동
@@ -153,7 +153,7 @@
   4. Continuity Bible Prefix(색상 팔레트, 카메라 렌즈, 시각적 스타일)가 모든 영상 생성 API 호출에 자동 주입되어 샘플 3개 연속 생성 시 시각적 일관성이 관찰 가능하다
   5. `FAILURES.md`가 append-only로 동작하며 (Hook이 직접 편집 차단), `SKILL_HISTORY/{skill_name}/v{n}.md.bak` 백업이 SKILL 수정 시 자동 생성된다
   6. 30일 집계 로직이 패턴 ≥ 3회 발견 시 `SKILL.md.candidate`를 생성하고 7일 staged rollout 대기 상태로 진입한다 (드라이런 검증)
-**Plans:** 11 plans
+**Plans:** 11/11 plans executed ✅ PHASE 6 COMPLETE 2026-04-19
 - [x] 06-01-PLAN.md — Wave 0 FOUNDATION: scripts/wiki/ + tests/phase06/ scaffold + phase06_acceptance.py — ✅ shipped 2026-04-19, studio@6690e12 (15/15 tests green, scripts.wiki imports OK, phase06_acceptance exits 1 gracefully at Wave 0, phase05 regression 329/329 preserved)
 - [x] 06-02-PLAN.md — Wave 1 WIKI CONTENT: 5 ready nodes + 5 MOC checkbox flips + 3 test files
 - [x] 06-03-PLAN.md — Wave 2 NOTEBOOKLM WRAPPER: scripts/notebooklm/query.py subprocess wrapper (D-6/D-7)
@@ -164,7 +164,7 @@
 - [x] 06-08-PLAN.md — Wave 4 HOOK EXTENSION: FAILURES append-only + SKILL_HISTORY backup (D-11/D-12/D-14) + 2 deprecated_patterns — ✅ shipped 2026-04-19, studio@88a3ae5 (.claude/hooks/pre_tool_use.py 152→272 lines: check_failures_append_only [D-11 basename-exact match + Windows-path-safe + _imported exempt] + backup_skill_before_write [D-12 v<YYYYMMDD_HHMMSS>.md.bak via shutil.copy2]; .claude/deprecated_patterns.json 6→8 entries as audit trail; .claude/failures/FAILURES.md + FAILURES_INDEX.md seeded [10-field schema + category index by fail-ID, never modifies _imported_from_shorts_naberal.md]; SKILL_HISTORY/README.md convention; 30 new tests green [14 in-process unit + 7 subprocess + 9 backup]; Phase 5 hook regression 31 tests + verify_hook_blocks.py 5/5 preserved; FAIL-01 + FAIL-03 satisfied)
 - [x] 06-09-PLAN.md — Wave 4 AGGREGATION CLI: 30-day dry-run (D-13) — ✅ shipped 2026-04-19, studio@921886e (scripts/failures/aggregate_patterns.py 164 lines stdlib-only: argparse + hashlib + json + re + Counter + pathlib; ENTRY_RE/TRIGGER_RE parse both imported + seeded FAILURES.md schemas; iter_entries with missing-file warn-and-continue; normalize_pattern_key sha256[:12] 48-bit collision-safe per RESEARCH Area 8 [lowercase + punctuation-strip + whitespace-collapse + Korean preserved + trigger[:80] truncated]; aggregate with threshold filter + examples cap at 3; main CLI --input repeatable required + --threshold default 3 + --dry-run store_true default=True without BooleanOptionalAction [D-13 disable-impossibility encoded in argparse surface] + --output JSON + UTF-8 ensure_ascii=False + sys.stdout.reconfigure Windows cp949 fallback; scripts/failures/__init__.py 7-line namespace; 31 tests green [21 unit test_aggregate_patterns.py + 10 subprocess test_aggregate_dry_run.py]; Phase 6 217/217 PASS; D-13 verified rglob 3-root scan zero SKILL.md.candidate; D-14 verified sha256 a1d92cc1... _imported_from_shorts_naberal.md byte-identical before/after full suite; sample: threshold=3 against imported → candidates=[] total=12, threshold=1 both files → 13 unique candidates each count=1; FAIL-02 satisfied)
 - [x] 06-10-PLAN.md — Wave 4 AGENT MASS UPDATE: 15 AGENT.md files + sha256 manifests (D-3/D-18) — ✅ shipped 2026-04-19, studio@948c4d9 (15 of 33 AGENT.md files edited with 52 @wiki/shorts refs across 5 Plan 02 ready nodes [continuity_bible/channel_identity 14 refs / algorithm/ranking_factors 11 / render/remotion_kling_stack 11 / kpi/retention_3second_hook 4 / ypp/entry_conditions 3]; 18 non-target agents byte-identical per sha256 manifest diff; 16 tests green [8 ref validation + 8 byte-diff regression guard]; validate_all_agent_refs returns 0 problems; Phase 6 186/186 PASS; D-3 + D-18 surgical scope proven; WIKI-05 satisfied)
-- [ ] 06-11-PLAN.md — Wave 5 PHASE GATE: D-14 sha256 + acceptance E2E + 9-REQ traceability + VALIDATION flip
+- [x] 06-11-PLAN.md — Wave 5 PHASE GATE: D-14 sha256 + acceptance E2E + 9-REQ traceability + VALIDATION flip — ✅ shipped 2026-04-19, studio@18bb414+b64fbbe+7373f4e+d9285d1 (19 new tests: 5 D-14 sha256 full-file immutability + 7 acceptance E2E wrapper + 7 traceability orphan guard; 06-TRACEABILITY.md 9-REQ x source/test/SC matrix mirroring Phase 5 format; 06-VALIDATION.md frontmatter status=complete + nyquist_compliant=true + wave_0_complete=true + completed=2026-04-19, all 24 task rows ✅ green, 6 sign-off checkboxes [x], Completion Summary appended; Phase 5 baseline updated 6->8 deprecated_patterns as documented contract evolution (production Hook behaviour unchanged); phase06_acceptance.py exit 0 with 6/6 SC PASS; regression sweep Phase 4 244/244 + Phase 5 329/329 + Phase 6 236/236 + combined 809/809; D-14 sha256 a1d92cc1... + line count 500 unchanged since Phase 3 freeze). **PHASE 6 COMPLETE.**
 
 ---
 
@@ -239,7 +239,7 @@
 | 3. Harvest | 9/9 | ✅ Complete | 2026-04-19 |
 | 4. Agent Team Design | 10/10 | Complete    | 2026-04-18 |
 | 5. Orchestrator v2 | 10/10 | ✅ Complete | 2026-04-19 |
-| 6. Wiki + NotebookLM + FAILURES | 9/11 | Executing | - |
+| 6. Wiki + NotebookLM + FAILURES | 11/11 | ✅ Complete | 2026-04-19 |
 | 7. Integration Test | 0/TBD | Not started | - |
 | 8. Remote + Publishing | 0/TBD | Not started | - |
 | 9. Docs + KPI + Taste Gate | 0/TBD | Not started | - |
