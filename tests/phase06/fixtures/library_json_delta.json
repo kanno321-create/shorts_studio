@@ -1,0 +1,16 @@
+{
+  "naberal-shorts-channel-bible": {
+    "id": "naberal-shorts-channel-bible",
+    "url": "TBD-url-await-user",
+    "name": "Naberal Shorts Channel Bible",
+    "description": "Continuity Bible prefix 전용.",
+    "topics": ["continuity", "channel-identity", "korean-seniors"],
+    "content_types": [],
+    "use_cases": [],
+    "tags": [],
+    "created_at": "2026-04-19T00:00:00Z",
+    "updated_at": "2026-04-19T00:00:00Z",
+    "use_count": 0,
+    "last_used": null
+  }
+}
