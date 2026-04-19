@@ -105,8 +105,8 @@ verdict=FAIL 시 semantic_feedback에 다음 형식으로 기술:
 
 ### Wiki
 
-- `wiki/algorithm/MOC.md` — Korean short-form 3초 hook 완주율 데이터 (Phase 6 채움).
-- `wiki/kpi/MOC.md` — 완주율/CTR 목표 수치 (Phase 6 채움).
+- `@wiki/shorts/algorithm/ranking_factors.md` — Korean short-form 3초 hook 완주율 데이터 (D-17 ready).
+- `@wiki/shorts/kpi/retention_3second_hook.md` — 완주율/CTR 목표 수치 + KPI 정의 (D-10 ready).
 
 ### Validators
 

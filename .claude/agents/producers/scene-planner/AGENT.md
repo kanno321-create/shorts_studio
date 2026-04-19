@@ -161,8 +161,8 @@ anchor_frame / camera_move 세부 / I2V 프롬프트 / shot 개수 금지. shot-
 
 ### Wiki
 
-- `wiki/continuity_bible/MOC.md` — Continuity Bible + 1 Move Rule (Phase 6 채움).
-- `wiki/render/MOC.md` — scene 분절 SOP (Phase 6 채움).
+- `@wiki/shorts/continuity_bible/channel_identity.md` — Continuity Bible 5 구성요소 + 1 Move Rule (D-10 ready).
+- `@wiki/shorts/render/remotion_kling_stack.md` — scene 분절 SOP + Remotion+Kling 렌더 스택 (D-17 ready).
 
 ### NotebookLM tags
 

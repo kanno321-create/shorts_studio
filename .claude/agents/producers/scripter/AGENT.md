@@ -191,8 +191,9 @@ register 예시:
 
 ### Wiki
 
-- `wiki/algorithm/MOC.md` — Korean short-form 3초 hook 완주율 (Phase 6 채움).
-- `wiki/kpi/MOC.md` — 완주율 KPI (Phase 6 채움).
+- `@wiki/shorts/algorithm/ranking_factors.md` — Korean short-form 3초 hook 완주율 ranking 신호 (D-17 ready).
+- `@wiki/shorts/kpi/retention_3second_hook.md` — 완주율 KPI + 3초 잔존율 >60% 목표 (D-10 ready).
+- `@wiki/shorts/continuity_bible/channel_identity.md` — 채널바이블 5 구성요소 + duo dialogue 화법 규칙 (D-10 ready).
 
 ### Validators
 

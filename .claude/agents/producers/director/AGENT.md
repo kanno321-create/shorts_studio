@@ -117,8 +117,8 @@ Blueprint JSON (scene-planner의 입력):
 
 ### Wiki
 
-- `wiki/continuity_bible/MOC.md` — Continuity Bible (Phase 6 채움).
-- `wiki/algorithm/MOC.md` — high_level_structure SOP (Phase 6 채움).
+- `@wiki/shorts/continuity_bible/channel_identity.md` — Continuity Bible 5 구성요소 (D-10 ready).
+- `@wiki/shorts/algorithm/ranking_factors.md` — high_level_structure SOP + ranking 신호 (D-17 ready).
 
 ### Validators
 

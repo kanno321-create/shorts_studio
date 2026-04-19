@@ -118,7 +118,7 @@ maxTurns: 3
 
 ### Wiki
 
-- `wiki/continuity_bible/MOC.md` — 채널바이블 continuity 규격 (Phase 6 채움).
+- `@wiki/shorts/continuity_bible/channel_identity.md` — 채널바이블 5 구성요소 + Korean seniors skew (D-10 ready).
 
 ### Validators
 

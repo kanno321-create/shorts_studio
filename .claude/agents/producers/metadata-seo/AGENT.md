@@ -14,7 +14,7 @@ maxTurns: 3
 ## Purpose
 
 - **AGENT-01 + CONTENT-07 충족** — Producer Core 6 중 6번. 한국어 + 로마자 YouTube 메타데이터 생성.
-- **파이프라인 종단** — scripter → script-polisher → metadata-seo가 producer 파이프라인의 마지막. 본 출력은 render/publish 단계(Phase 6+)로 직접 전달.
+- **파이프라인 종단** — scripter → script-polisher → metadata-seo가 producer 파이프라인의 마지막. 본 출력은 render/publish 단계(`@wiki/shorts/render/remotion_kling_stack.md` D-19 filter chain)로 직접 전달.
 - **SEO + 검색 의도 반영** — niche_tag + trend keywords + hook_text를 기반으로 검색 최적화. 클릭베이트 금지 (channel_bible.금지어 준수).
 
 ## Inputs
@@ -136,12 +136,12 @@ maxTurns: 3
 
 ### 국립국어원 로마자 표기법
 
-- 한국어 → 로마자 음차 표준. Phase 6에서 자동 변환 라이브러리(kroman 등) wiring 예정.
+- 한국어 → 로마자 음차 표준. 자동 변환 라이브러리(kroman 등) wiring 대상 — `@wiki/shorts/ypp/entry_conditions.md` 한국 RPM baseline 준수.
 
 ### Wiki
 
-- `wiki/algorithm/MOC.md` — YouTube SEO 알고리즘 (Phase 6 채움).
-- `wiki/kpi/MOC.md` — CTR/keyword density 목표 (Phase 6 채움).
+- `@wiki/shorts/algorithm/ranking_factors.md` — YouTube SEO 알고리즘 + 한국 시니어 시청자 skew (D-17 ready).
+- `@wiki/shorts/kpi/retention_3second_hook.md` — CTR/keyword density 목표 + 3초 hook 잔존율 (D-10 ready).
 
 ### Validators
 

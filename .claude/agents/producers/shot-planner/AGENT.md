@@ -23,7 +23,7 @@ maxTurns: 3
 |-------|-------------|----------|--------|
 | `--scenes` | scene-planner 출력 Scenes JSON (4-8 scene + move_hint) | yes | scene-planner |
 | `--channel-bible` | niche-classifier matched_fields (화면규칙 + 색상 팔레트) | yes | niche-classifier |
-| `--asset-catalog` | harvested anchor frame 자산 카탈로그 (asset:// URI 목록) | no (Phase 6) | Phase 6 wiring |
+| `--asset-catalog` | harvested anchor frame 자산 카탈로그 (asset:// URI 목록) | no | `@wiki/shorts/render/remotion_kling_stack.md` I2V asset pipeline |
 | `--prior-vqqa` | 직전 Inspector semantic_feedback (RUB-03) | no | Supervisor retry |
 
 **Producer 변형 (role=producer):**
@@ -32,7 +32,7 @@ maxTurns: 3
 
 ## Outputs
 
-Shots JSON (render 단계 Phase 6의 입력):
+Shots JSON (render 단계 `@wiki/shorts/render/remotion_kling_stack.md` D-19 filter chain 의 입력):
 
 ```json
 {
@@ -73,7 +73,7 @@ Shots JSON (render 단계 Phase 6의 입력):
       "continuity_tags": ["blue_red_palette", "map_motif"]
     }
   ],
-  "render_budget_notes": "shot 수 12개, I2V 평균 5초, 총 render ~60s (Phase 6 Veo-3 또는 Nano Banana)"
+  "render_budget_notes": "shot 수 12개, I2V 평균 5초, 총 render ~60s (Kling 2.6 Pro primary / Runway Gen-3 Alpha Turbo backup per @wiki/shorts/render/remotion_kling_stack.md)"
 }
 ```
 
@@ -112,7 +112,7 @@ Shots JSON (render 단계 Phase 6의 입력):
 **모든 shot은 anchor frame 기반 I2V (image-to-video) 생성.**
 
 ### I2V 프롬프트 작성 규칙
-1. `anchor_frame_ref`: asset:// URI 필수 (harvested asset 카탈로그 또는 Phase 6 신규 생성).
+1. `anchor_frame_ref`: asset:// URI 필수 (harvested asset 카탈로그 또는 신규 생성 — `@wiki/shorts/render/remotion_kling_stack.md` I2V asset pipeline).
 2. `i2v_prompt`: anchor frame에서 출발하여 camera_move 방향 + 피사체 변화 서술.
 3. Nano Banana 스타일 권장 (cinematic + 채도 조정 + 팔레트 일관성).
 4. 로컬 파일 경로 (file://) 금지 — Continuity Bible asset URI만.
@@ -159,7 +159,7 @@ I2V 패턴 (허용):
 
 ### Schemas
 
-- Phase 6 render 단계 (Veo-3 / Nano Banana / Remotion)가 본 Producer 출력을 입력으로 받음.
+- render 단계 (Remotion v4 + Kling 2.6 Pro I2V primary + Runway Gen-3 Alpha Turbo backup, `@wiki/shorts/render/remotion_kling_stack.md` D-17)가 본 Producer 출력을 입력으로 받음.
 
 ### Channel bibles (읽기 전용)
 
@@ -171,12 +171,12 @@ I2V 패턴 (허용):
 
 ### Wiki
 
-- `wiki/continuity_bible/MOC.md` — 색상 팔레트 + 카메라 렌즈 Continuity Bible (Phase 6 채움).
-- `wiki/render/MOC.md` — Nano Banana / Veo-3 I2V 엔진 비교 (Phase 6 채움).
+- `@wiki/shorts/continuity_bible/channel_identity.md` — 색상 팔레트 + 카메라 렌즈 Continuity Bible (D-10 ready).
+- `@wiki/shorts/render/remotion_kling_stack.md` — Kling I2V / Runway backup I2V 엔진 비교 + T2V 금지 (D-17 ready).
 
-### Asset catalog (Phase 6 wiring)
+### Asset catalog
 
-- `.preserved/harvested/` — harvested anchor frame 후보 (Phase 6에서 asset:// URI 등록).
+- `.preserved/harvested/` — harvested anchor frame 후보 (asset:// URI 등록 대상, `@wiki/shorts/render/remotion_kling_stack.md` I2V 요구).
 
 ### Validators
 
@@ -185,7 +185,7 @@ I2V 패턴 (허용):
 ## MUST REMEMBER (DO NOT VIOLATE)
 
 1. **I2V only, T2V 금지 (NotebookLM T1)** — 모든 shot은 anchor frame 기반 image-to-video. T2V prompt 작성 시 자기 검열 FAIL. t2v_forbidden_check 필드로 자가 주장 필수. T2V 허용 시 continuity 붕괴 + hallucination 위험.
-2. **anchor_frame_ref 필수** — asset:// URI 형식. 로컬 파일 경로 (file://) 금지. Continuity Bible 강제. Phase 6에서 asset catalog wiring 예정, Phase 4는 placeholder URI 허용.
+2. **anchor_frame_ref 필수** — asset:// URI 형식. 로컬 파일 경로 (file://) 금지. `@wiki/shorts/continuity_bible/channel_identity.md` D-10 강제. asset catalog wiring 연동 (`@wiki/shorts/render/remotion_kling_stack.md`), placeholder URI 허용.
 3. **3단 격리 — scene-planner / director prompt 읽기 금지** — scene-planner의 move_hint만 입력, director의 Blueprint는 직접 참조 금지. 3단 독립성 보장.
 4. **shot duration 합 = scene duration** — 각 scene의 shot duration 합이 scene.duration_sec와 일치. 불일치 시 ins-timing-consistency FAIL.
 5. **Continuity 유지 (channel_bible.화면규칙)** — 색상 팔레트 + 카메라 렌즈 + AI/실사 비율 준수. continuity_tags 필드로 명시.

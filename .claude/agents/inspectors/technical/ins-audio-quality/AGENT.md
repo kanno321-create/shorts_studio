@@ -93,7 +93,7 @@ verdict=FAIL 시 semantic_feedback 에 다음 형식으로 기술:
 
 ### Wiki
 
-- `wiki/render/MOC.md` — Tier 2 scaffold, Phase 6 에서 audio/render 실측 기준 채움.
+- `@wiki/shorts/render/remotion_kling_stack.md` — Remotion+Kling audio/render 실측 기준 (D-17 ready).
 
 ### Validators
 

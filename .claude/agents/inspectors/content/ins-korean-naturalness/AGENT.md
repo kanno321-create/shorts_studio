@@ -133,8 +133,8 @@ verdict=FAIL 시 semantic_feedback에 다음 형식으로 기술:
 
 ### Wiki
 
-- `wiki/continuity_bible/MOC.md` — duo dialogue 화법 규칙 (Phase 6 채움).
-- `wiki/algorithm/MOC.md` — Korean short-form 자연성 완주율 시그널 (Phase 6 채움).
+- `@wiki/shorts/continuity_bible/channel_identity.md` — duo dialogue 화법 규칙 (D-10 ready).
+- `@wiki/shorts/algorithm/ranking_factors.md` — Korean short-form 자연성 완주율 시그널 (D-17 ready).
 
 ### Validators
 

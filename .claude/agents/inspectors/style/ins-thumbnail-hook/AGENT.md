@@ -15,7 +15,7 @@ thumbnail CTR hook Inspector. thumbnail-designer가 산출한 썸네일 JSON(텍
 
 - **AGENT-04 충족** — Style 카테고리 3 inspector 중 썸네일 CTR 담당.
 - **AF-5 예방 게이트** — 인물 얼굴 / 로고 thumbnail 노출 시 mosaic 또는 blur 적용 여부 확인. media 카테고리 `ins-mosaic`의 프리-게이트.
-- **채널 일관성** — Phase 6 Continuity Bible에서 정의될 색상 팔레트와 thumbnail 팔레트가 일치하는지 확인.
+- **채널 일관성** — `@wiki/shorts/continuity_bible/channel_identity.md` 색상 팔레트와 thumbnail 팔레트 일치 검증 (D-10).
 - **불변 조건** — 평가만 (RUB-02). 썸네일 재디자인 / 대안 색상 제시 금지. producer_prompt 차단 (RUB-06).
 
 ## Inputs
@@ -70,7 +70,7 @@ verdict 결정: 5 sub-q 중 3+ "Y"면 main_q=Y → verdict=PASS, 그 외 FAIL. s
 - 텍스트 길이: ≤7 글자 (쇼츠 세로 9:16 썸네일, 모바일 피드 1-2초 인지)
 - 명도 대비: 텍스트 vs 배경 ≥ 4.5:1 (WCAG AA 기준)
 - hook 패턴: 질문형 (`?`, '왜', '어떻게') OR 숫자 (`[0-9]{1,}`) OR 고유명사 (`[가-힣]{2,}` 인물/지명/브랜드)
-- 색상 팔레트: channel_bible_ref의 [9. 화면규칙] 톤과 정합 (Phase 6 Continuity Bible 임시 proxy)
+- 색상 팔레트: channel_bible_ref의 [9. 화면규칙] 톤과 정합 (`@wiki/shorts/continuity_bible/channel_identity.md` D-10 color_palette HEX 3-5색 기준)
 - blur: 인물 얼굴 / 로고 영역 blur_regions[]에 지정 (AF-5 mosaic 프리-게이트)
 
 ## LogicQA (RUB-01)
@@ -79,7 +79,7 @@ verdict 결정: 5 sub-q 중 3+ "Y"면 main_q=Y → verdict=PASS, 그 외 FAIL. s
   q1: 텍스트 길이 ≤ 7 글자? (공백·특수문자 제외 한글·영문 문자 수 기준)
   q2: 텍스트-배경 명도 대비 ≥ 4.5:1? (WCAG AA)
   q3: 텍스트에 질문형(`?`) OR 숫자(`[0-9]{1,}`) OR 고유명사(`[가-힣]{2,}`) hook 중 1+ 존재?
-  q4: 색상 팔레트가 channel_bible_ref의 [9. 화면규칙] 톤과 일치? (Phase 6 미완 시 경고 레벨로 처리, info severity)
+  q4: 색상 팔레트가 channel_bible_ref의 [9. 화면규칙] 톤과 일치? (`@wiki/shorts/continuity_bible/channel_identity.md` D-10 color_palette 기준)
   q5: 인물 얼굴 / 로고가 이미지에 포함된 경우 blur_regions[]에 해당 영역 지정? (AF-5 예방, 인물 없으면 자동 Y)
 </sub_qs>
 5 sub-q 중 3+ "Y"면 main_q=Y (다수결). Supervisor가 logicqa_sub_verdicts로 재확인.
