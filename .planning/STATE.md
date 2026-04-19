@@ -2,20 +2,20 @@
 gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
-status: planning
-last_updated: "2026-04-19T04:25:20.178Z"
+status: executing
+last_updated: "2026-04-19T07:17:00.000Z"
 progress:
   total_phases: 10
   completed_phases: 4
-  total_plans: 35
-  completed_plans: 35
-  percent: 100
+  total_plans: 46
+  completed_plans: 36
+  percent: 78
 ---
 
 # STATE — naberal-shorts-studio
 
-**Last updated:** 2026-04-19T04:05:00Z
-**Session:** #18 (✅ Phase 5 Plan 10 Wave 7 FINAL VERIFICATION shipped — Phase 5 COMPLETE. 4 verification artifacts: tests/phase05/test_blacklist_grep.py (132 lines, 11 tests — SC 2/5 grep contracts matching phase05_acceptance.py case-sensitive word-boundary T2V regex) + tests/phase05/test_line_count.py (116 lines, 6 tests — SC 1 [500,800] + soft caps calibrated to Wave 1-4 actuals) + tests/phase05/test_phase05_acceptance.py (111 lines, 8 tests — E2E subprocess wrapper asserting phase05_acceptance.py exit 0 + 6 SC labels + zero FAIL rows + full sweep green) + tests/phase05/test_traceability_matrix.py (145 lines, 8 tests — 17-REQ automation guard with bogus-marker protection). Plus .planning/phases/05-orchestrator-v2-write/05-TRACEABILITY.md (92 lines — 17-REQ matrix + SC aggregation + Plan→REQ→Commit audit trail for 10 plans). 05-VALIDATION.md frontmatter flipped status=complete + nyquist_compliant=true + wave_0_complete=true + completed=2026-04-19; 29 task rows flipped from ⬜ pending to ✅ green; Validation Sign-Off 6 checkboxes all [x]; ~75-line Completion Summary appended with SC status table + plan commit hashes. Full phase05 suite 329/329 PASS (296 baseline + 33 Plan 10). phase05_acceptance.py exits 0 with all 6 SC reporting PASS. verify_hook_blocks.py exits 0 (5 hook enforcement checks green). 17/17 Phase 5 REQs [x] in REQUIREMENTS.md. Commits: 64ae113 (Task 1 blacklist+line_count) + 4bbd534 (Task 2 acceptance wrapper) + 695dc89 (Task 3 traceability matrix) + a17f58f (Task 4 VALIDATION flip). Duration 6m40s. Phase 5 officially nyquist-compliant and shippable. Ready for /gsd:verify-work 05 then /gsd:plan-phase 6.)
+**Last updated:** 2026-04-19T07:17:00Z
+**Session:** #19 (✅ Phase 6 Plan 01 Wave 0 FOUNDATION shipped — scripts.wiki package + tests/phase06/ scaffold + 2 validation CLIs. 3 atomic commits: studio@74e469d (Task 1 scripts.wiki stdlib parser + link validator, 202 lines, no pyyaml dep) + studio@0bf08a3 (Task 2 tests/phase06/ scaffold — __init__.py + conftest.py 99 lines 8 fixtures + 4 fixtures dir + 2 test files 15 tests green) + studio@6690e12 (Task 3 verify_wiki_frontmatter CLI + phase06_acceptance CLI SC 1-6 wrapper, UTF-8 subprocess encoding per STATE #28). Full validation: scripts.wiki imports clean, tests/phase06/ 15/15 PASS, verify_wiki_frontmatter --allow-scaffold exits 0 against current 5 MOC.md scaffolds, phase06_acceptance exits 1 gracefully at Wave 0 (no crash — SC1-6 correctly FAIL because Plans 02-09 not yet shipped). tests/phase05/ 329/329 PASS — no infrastructure collision. No drift tokens (skip_gates/TODO/t2v/selenium/segments) in new code. 06-VALIDATION.md frontmatter wave_0_complete=true flipped + 2 task rows (6-01-01/02) flipped to ✅ green + Wave 0 Requirements 5/5 checkboxes [x]. ROADMAP.md Plan 01 [x] flipped with commit hash + Progress Table 0/11 -> 1/11 Executing. REQUIREMENTS.md WIKI-05 + WIKI-06 [x] per plan frontmatter contract. Duration ~15m. Ready to advance to Plan 02 Wave 1 WIKI CONTENT. Historical Plan 10 Wave 7 FINAL VERIFICATION context: 4 verification artifacts: tests/phase05/test_blacklist_grep.py (132 lines, 11 tests — SC 2/5 grep contracts matching phase05_acceptance.py case-sensitive word-boundary T2V regex) + tests/phase05/test_line_count.py (116 lines, 6 tests — SC 1 [500,800] + soft caps calibrated to Wave 1-4 actuals) + tests/phase05/test_phase05_acceptance.py (111 lines, 8 tests — E2E subprocess wrapper asserting phase05_acceptance.py exit 0 + 6 SC labels + zero FAIL rows + full sweep green) + tests/phase05/test_traceability_matrix.py (145 lines, 8 tests — 17-REQ automation guard with bogus-marker protection). Plus .planning/phases/05-orchestrator-v2-write/05-TRACEABILITY.md (92 lines — 17-REQ matrix + SC aggregation + Plan→REQ→Commit audit trail for 10 plans). 05-VALIDATION.md frontmatter flipped status=complete + nyquist_compliant=true + wave_0_complete=true + completed=2026-04-19; 29 task rows flipped from ⬜ pending to ✅ green; Validation Sign-Off 6 checkboxes all [x]; ~75-line Completion Summary appended with SC status table + plan commit hashes. Full phase05 suite 329/329 PASS (296 baseline + 33 Plan 10). phase05_acceptance.py exits 0 with all 6 SC reporting PASS. verify_hook_blocks.py exits 0 (5 hook enforcement checks green). 17/17 Phase 5 REQs [x] in REQUIREMENTS.md. Commits: 64ae113 (Task 1 blacklist+line_count) + 4bbd534 (Task 2 acceptance wrapper) + 695dc89 (Task 3 traceability matrix) + a17f58f (Task 4 VALIDATION flip). Duration 6m40s. Phase 5 officially nyquist-compliant and shippable. Ready for /gsd:verify-work 05 then /gsd:plan-phase 6.)
 
 ---
 
@@ -31,13 +31,13 @@ progress:
 
 ## Current Position
 
-Phase: 05 (orchestrator-v2-write) — ✅ COMPLETE (2026-04-19, session #18)
-Plan: Not started
+Phase: 06 (wiki-notebooklm-integration-failures-reservoir) — EXECUTING
+Plan: 2 of 11
 
 - **Phase:** 6
-- **Next Action:** `/gsd:verify-work 05` (independent verifier) then `/gsd:plan-phase 6`
-- **Status:** Ready to plan
-- **Progress:** [██████████] 100%
+- **Next Action:** `/gsd:execute-phase 6` (advance to Plan 02 Wave 1 WIKI CONTENT)
+- **Status:** Executing Phase 06 — Wave 0 FOUNDATION shipped
+- **Progress:** [█░░░░░░░░░] 9% (1/11 plans complete)
 
 ---
 
@@ -85,14 +85,16 @@ Plan: Not started
   - ✅ Plan 05-08: Wave 6 hc_checks regression port — 1176-line rewrite preserving 13 signatures + 41 tests (studio@92b2b33+d4ad6f8+6b3f744). ORCH-01 reinforced.
   - ✅ Plan 05-09: Wave 6 Hook enforcement regression — 5 subprocess test files / 31 tests proving Hook denies blacklist + allows canonical I2V (studio@df4dac3+a9b313d+0636120+690a58a+259c5d1+9c7d266). ORCH-08/09 + VIDEO-01 Hook-layer.
   - ✅ Plan 05-10: Wave 7 FINAL VERIFICATION — 4 test files (33 tests) + 17-REQ TRACEABILITY.md + 05-VALIDATION.md frontmatter flip (studio@64ae113+4bbd534+695dc89+a17f58f). 329/329 pytest PASS, SC 1-6 all PASS, 17/17 REQs covered. **PHASE 5 COMPLETE.**
-- ⏳ **Phase 6~10**: Pending (Phase 5 complete, Phase 6 Wiki + NotebookLM + FAILURES Reservoir ready to start)
+- 🔄 **Phase 6: Wiki + NotebookLM + FAILURES** — EXECUTING (1/11 plans). Plan 01 Wave 0 FOUNDATION complete 2026-04-19.
+  - ✅ Plan 06-01: Wave 0 FOUNDATION — scripts.wiki package (frontmatter parser + link validator, stdlib-only) + tests/phase06/ scaffold (15 seed tests green) + 2 validation CLIs (verify_wiki_frontmatter exits 0, phase06_acceptance exits 1 gracefully at Wave 0). studio@74e469d + 0bf08a3 + 6690e12. WIKI-05 + WIKI-06 satisfied. Phase 5 regression 329/329 preserved.
+- ⏳ **Phase 7~10**: Pending
 
 ---
 
 ## Performance Metrics
 
 - **Requirements Mapped:** 96 / 96 (100%)
-- **Requirements Completed:** 64 / 96 (67%) — Phase 1 (3) + Phase 2 (1) + Phase 3 (9) + Phase 4 (34) + Phase 5 (17: ORCH-01/02/03/04/05/06/07/08/09/10/11/12 + VIDEO-01/02/03/04/05). Phase 5 complete 2026-04-19.
+- **Requirements Completed:** 66 / 96 (69%) — Phase 1 (3) + Phase 2 (1) + Phase 3 (9) + Phase 4 (34) + Phase 5 (17: ORCH-01/02/03/04/05/06/07/08/09/10/11/12 + VIDEO-01/02/03/04/05) + Phase 6 partial (2: WIKI-05/06). Phase 6 Plan 01 complete 2026-04-19.
 - **Orphaned REQ:** 0
 - **Phases:** 10 (granularity=fine 목표 구간 내)
 - **Harness Audit Baseline:** ✅ 100 (Phase 4 Plan 10 Wave 5, threshold 80, 20-point margin) — AUDIT-02 Phase 10 baseline prep satisfied. Phase 7 Integration Test 재검증 예정.
@@ -185,6 +187,20 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 55. **33 regression tests ported verbatim** — `tests/phase05/test_hc_checks_regression.py` (487 lines) duplicates every test case from `.preserved/harvested/hc_checks_raw/test_hc_checks.py` (475 lines) with only import paths changed (`scripts.orchestrator.hc_checks` → `scripts.hc_checks.hc_checks`). `test_run_all_hc_checks_returns_13_results` confirms the 13 HC entries (HC-1..7 + HC-6.5 + HC-8/9/10 + HC-13/14) surface in the exact baseline order. Zero logic rewrites — regression safety net intact.
 56. **8 new GATE-integration tests added** — `tests/phase05/test_hc_checks_gate_integration.py` (137 lines) proves: HC-10 lazy-import SKIP/FAIL/PASS paths work, `GATE_INSPECTORS` covers all 13 operational gates with ≥1 inspector each, HC-8 SKIP stub contract (detail + evidence), no circular import between `shorts_pipeline.py` and `hc_checks.py` (meta-tests read source from disk and assert the first 80 lines contain neither `from scripts.hc_checks` in shorts_pipeline.py nor `from scripts.orchestrator` in hc_checks.py), `scripts.hc_checks.__all__` set-equals baseline 13. All 41 new tests green (33 + 8). Full phase05 suite 296/296 PASS (224 Wave 5 baseline + 41 this plan + 31 sibling Plan 09).
 
+### Session #19 Decisions (Plan 06-01 — Wave 0 FOUNDATION scripts.wiki + tests/phase06/ scaffold)
+
+57. **README.md skip rule in verify_wiki_frontmatter.py** — `wiki/README.md` has minimal frontmatter (`tags: [readme, wiki-home]` only — no D-17 5-field block). README.md is a navigation index (category map), not a wiki node. Running `validate_node` on it would raise `ValueError: no frontmatter block`. Two options: (a) relax validator to tolerate partial frontmatter, or (b) skip README.md by basename. Chose (b) — cleanest separation: README.md is a different document type, not a "partially-invalid node". Explicit `if md.name == "README.md": continue` at top of rglob loop. Plan's acceptance criterion `test -f wiki/README.md exits 0` implicitly required this (README must exist, not be schema-validated). Rule 3 clarification, not a deviation from architectural intent.
+
+58. **`scaffold` as first-class allowed enum in `_ALLOWED_STATUS`** — Plan's D-17 interface block specified `status: <stub|ready>` but the 5 existing `wiki/*/MOC.md` files were scaffolded by Phase 2 Plan 03 with `status: scaffold`. Option (a): exclude `scaffold` from module-level enum and rely entirely on `--allow-scaffold` re-parse flag after ValueError; option (b): include `scaffold` in `_ALLOWED_STATUS = {stub, ready, scaffold}` and let `validate_node` pass it through unconditionally. Chose (b). Rationale: three legitimate lifecycle states (scaffold -> stub -> ready) should all be "valid schema values"; the CLI flag governs which are *acceptable at sweep time*, not which are *ever valid*. The scaffolded MOC.md files still fail validate_node due to missing `source_notebook` field; `--allow-scaffold` re-parses after ValueError and swallows iff status=scaffold. Both layers agree. Documented in frontmatter.py comment: "scaffold = legacy Phase 2 MOC placeholder tolerated by CLI --allow-scaffold".
+
+59. **Wave 0 graceful-FAIL contract in phase06_acceptance.py** — Plan explicitly requires `python scripts/validate/phase06_acceptance.py; echo $?` outputs 0 or 1 (NOT 2+ crash) at Wave 0. Implementation: per-SC try/except around each check function so EXCEPTIONs become FAIL rows rather than unhandled tracebacks. `_run()` subprocess helper catches FileNotFoundError (rc=127) + TimeoutExpired (rc=124) so missing test files at Wave 0 report cleanly. UTF-8 encoding applied (STATE #28) so pytest Korean/em-dash output doesn't crash cp949 Windows environments. Verified: exit 1 at Wave 0 with clean 6-row markdown table, no Python tracebacks.
+
+60. **No pyyaml dependency — regex frontmatter parser (RESEARCH line 132 DECISION confirmed)** — `parse_frontmatter` preserves raw string values (tags stored as literal `[tag1, tag2]` string, not parsed to list). Full YAML would require pyyaml which RESEARCH explicitly banned for Phase 6 scope. Downstream consumers (link_validator, tests) only need status/category/source_notebook strings — no tag-list reads at execution time. If Plan 02-10 needs list parsing, it can be added as a helper method (e.g., `parse_tags(raw: str) -> list[str]`) with targeted tests. Keeps Wave 0 surface area minimal.
+
+61. **Phase 5 `_REPO_ROOT` + sys.path pattern mirrored in tests/phase06/conftest.py** — STATE decision #40 (session #16): `@pytest.fixture(scope="module")` depending on function-scoped `repo_root` would ScopeMismatch. Fix: resolve `_REPO_ROOT = pathlib.Path(__file__).resolve().parents[2]` at import time + `sys.path.insert(0, str(_REPO_ROOT))` so `from scripts.wiki.frontmatter import ...` works before any fixture evaluates. Zero drift from Phase 4/5 conftest shapes. Directly copied the import-time pattern.
+
+62. **`mock_notebooklm_skill_env` fixture seeds fake skill dir with `scripts/run.py` + `data/library.json`** — Plan 03/04/05 tests will want to invoke the notebooklm subprocess wrapper; doing so against the real `C:/Users/PC/Desktop/shorts_naberal/.claude/skills/notebooklm/` would hit real Playwright browser_state (expired per RESEARCH Area Missing Deps) and make tests non-deterministic. Fake skill dir + `monkeypatch.setenv("NOTEBOOKLM_SKILL_PATH", str(fake))` lets downstream plans assert subprocess call-shape without hitting the real runtime. Mirrors Phase 5's `_fake_env` pattern (STATE #50) for API adapter env vars.
+
 ### Session #15 Decisions (Plan 03-08 — HARVEST-DECISIONS + BLACKLIST-AUDIT)
 
 22. **Blacklist count invariant delegation (Plan 01 M-2 contract honored)** — Plan 08 does NOT re-assert `len(blacklist) == 10`; that invariant is owned by `blacklist_parser.parse_blacklist()` which raises ValueError on mismatch. Redundant asserts would violate DRY + SSoT. A/B/C count assertion (13/16/10) IS preserved at decision_builder entry because it validates a DIFFERENT invariant (CONFLICT_MAP parse integrity).
@@ -224,6 +240,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 - [x] **Phase 3 COMPLETE** — All 9 REQs (HARVEST-01..08 + AGENT-06) satisfied. .preserved/harvested/ Tier 3 immutable locked. Ready to enter Phase 4 Agent Team Design.
 - [x] **Phase 4 Plan 04-01 execute** → Wave 0 FOUNDATION (2026-04-19, session #16). 6 shared files + 5 validators + 14/14 pytest PASS. studio@0dcb007 (schemas+template+VQQA) + studio@cd1d074 (AF+Korean banks) + studio@daca457 (TDD RED) + studio@5a70504 (TDD GREEN). RUB-04 + AGENT-07/08/09 + COMPLY-01..06 + AUDIO-04 + SUBT-02 = 12 REQs satisfied. harness_audit score 95.
 - [x] **Phase 5 Plan 05-01 execute** → Wave 1 FOUNDATION (2026-04-19, session #17). scripts/orchestrator/ + scripts/hc_checks/ packages + GateName IntEnum 15 members + GATE_DEPS DAG (graphlib import-time validation) + 10-class exception hierarchy + .claude/deprecated_patterns.json 6 regexes (pre_tool_use Hook now active; RESEARCH §10 gap closed) + tests/phase05/ scaffold (18/18 PASS) + 3 validation CLIs. studio@a3e9476 (Task 1) + 8c19c23 (Task 2) + cf9874d (Task 3) + 2fea858 (Task 4). ORCH-02/03/07/08/09 = 5 REQs satisfied. Rule 1 deviations: graphlib double-prepare fix + Edit payload shape + cp949 UTF-8 + SC5 grep narrowed for T2VForbidden guard class.
+- [x] **Phase 6 Plan 06-01 execute** → Wave 0 FOUNDATION (2026-04-19, session #19). scripts/wiki/ package (frontmatter.py 111 lines stdlib-only D-17 parser + link_validator.py 83 lines @wiki/shorts walker, no pyyaml per RESEARCH line 132 DECISION) + scripts/validate/ (verify_wiki_frontmatter.py 76 lines --allow-scaffold exits 0 + phase06_acceptance.py 207 lines SC 1-6 E2E wrapper UTF-8 subprocess encoding) + tests/phase06/ scaffold (__init__.py + conftest.py 99 lines 8 fixtures Phase 5 _REPO_ROOT pattern + 4 fixtures + 2 test files 15/15 green). studio@74e469d (Task 1) + 0bf08a3 (Task 2) + 6690e12 (Task 3). WIKI-05 + WIKI-06 satisfied. Full validation: phase06 15/15 PASS, phase05 regression 329/329 preserved, verify CLI exits 0 on current wiki, acceptance CLI exits 1 gracefully at Wave 0 (no crash). Rule 3 clarification: README.md skip rule + `scaffold` status enum as first-class (session #19 decisions 57-62).
 
 ### Blockers
 
@@ -276,6 +293,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 03-harvest P09 | 8 | 2 | 2 committed (8ae370e: audit_log Task 1 Tier 3 lockdown / d4fc5e4: audit_log Task 2 + verify_harvest.py Rule 3 fix + 03-VALIDATION.md flipped) + 1 meta (SUMMARY) |
 | Phase 04-agent-team-design P01 | 10 | 3 (4 commits incl. TDD RED/GREEN) | 17 committed across 4 commits (0dcb007: 4 shared foundation / cd1d074: 2 sample banks / daca457: 6 test files RED / 5a70504: 5 validator files GREEN) + 1 meta (SUMMARY + STATE + ROADMAP) |
 | Phase 05-orchestrator-v2-write P01 | 14 | 4 | 17 committed across 4 commits (a3e9476: Task 1 orchestrator/+hc_checks/ skeleton / 8c19c23: Task 2 deprecated_patterns.json + gitignore state/ / cf9874d: Task 3 tests/phase05/ scaffold 18 tests / 2fea858: Task 4 3 validation CLIs) + 1 meta (SUMMARY + STATE + ROADMAP + REQUIREMENTS) |
+| Phase 06-wiki-notebooklm-integration P01 | 15 | 3 | 13 committed across 3 commits (74e469d: Task 1 scripts.wiki package — frontmatter.py + link_validator.py + __init__.py, 202 lines, stdlib-only, no pyyaml / 0bf08a3: Task 2 tests/phase06/ scaffold — __init__.py + conftest.py 99 lines 8 fixtures + 4 fixture files + 2 test files 15 tests green / 6690e12: Task 3 2 CLIs — verify_wiki_frontmatter.py 76 lines + phase06_acceptance.py 207 lines SC 1-6 wrapper) + 1 meta (SUMMARY + STATE + ROADMAP + REQUIREMENTS + VALIDATION flip). WIKI-05/06 satisfied. Phase 5 regression 329/329 preserved. |
 
 ---
 
@@ -296,15 +314,16 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 ```
 
 1. Read .planning/STATE.md (← 본 파일)
-2. Read .planning/phases/04-agent-team-design/04-10-SUMMARY.md (Phase 4 capstone: 32 agents + SC1 reconciliation + harness_audit 100)
-3. Execute: /gsd:plan-phase 5 (Phase 5 Orchestrator v2 — 17 REQs: ORCH-01~12 + VIDEO-01~05 — 500~800줄 state machine)
+2. Read .planning/phases/06-wiki-notebooklm-integration-failures-reservoir/06-01-SUMMARY.md (Wave 0 FOUNDATION capstone: scripts.wiki + tests/phase06/ + 2 validation CLIs)
+3. Execute: /gsd:execute-phase 6 (advance to Plan 02 Wave 1 WIKI CONTENT — 5 ready nodes + MOC checkbox flips)
 
-Phase 4 artifacts available:
+Phase 6 Plan 01 artifacts available:
 
-- .claude/agents/ (32 AGENT.md files, 6 Inspector categories + 14 Producer + 1 Supervisor)
-- .claude/agents/_shared/ (rubric-schema.json + agent-template.md + vqqa_corpus.md)
-- scripts/validate/ (5 stdlib validators + harness_audit.py)
-- tests/phase04/ (244 tests, all PASS)
+- scripts/wiki/ (frontmatter.py D-17 parser + link_validator.py @wiki/shorts walker, stdlib-only)
+- scripts/validate/ (verify_wiki_frontmatter.py CLI + phase06_acceptance.py SC 1-6 E2E wrapper)
+- tests/phase06/ (15 seed tests green — 10 frontmatter + 5 reference format)
+- tests/phase06/conftest.py (8 shared fixtures — repo_root, fixtures_dir, tmp_wiki_dir, mock_notebooklm_skill_env, etc.)
+- tests/phase06/fixtures/ (4 fixtures — valid D-17 sample + missing-fields probe + library_json_delta + failures_sample)
 
 ```
 

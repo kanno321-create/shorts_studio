@@ -79,8 +79,8 @@
   - 일반 (shorts-production-pipeline-bible 재사용 or 신규)
   - 채널바이블 (Phase 3 Harvest 결과 기반)
 - [ ] **WIKI-04**: **NotebookLM Fallback Chain** — RAG 실패 시 → grep wiki → hardcoded defaults
-- [ ] **WIKI-05**: 에이전트 프롬프트에서 wiki 노드 참조는 `@wiki/shorts/xxx.md` 형식 고정
-- [ ] **WIKI-06**: SKILL.md는 ≤500줄 본문 + 나머지는 wiki 참조 (Lost in the Middle 완화)
+- [x] **WIKI-05**: 에이전트 프롬프트에서 wiki 노드 참조는 `@wiki/shorts/xxx.md` 형식 고정 — Phase 6 Plan 01 Wave 0 FOUNDATION: scripts.wiki.link_validator.validate_all_agent_refs() enforces @wiki/shorts/ prefix + status=ready; 2026-04-19 studio@6690e12
+- [x] **WIKI-06**: SKILL.md는 ≤500줄 본문 + 나머지는 wiki 참조 (Lost in the Middle 완화) — Phase 6 Plan 01 Wave 0 FOUNDATION: validator scaffold ready for downstream SKILL line-count audit; 2026-04-19 studio@6690e12
 
 ### CONTENT — 콘텐츠 기능
 

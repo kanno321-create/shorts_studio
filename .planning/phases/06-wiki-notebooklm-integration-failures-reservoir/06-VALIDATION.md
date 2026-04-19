@@ -3,7 +3,7 @@ phase: 6
 slug: wiki-notebooklm-integration-failures-reservoir
 status: draft
 nyquist_compliant: false
-wave_0_complete: false
+wave_0_complete: true
 created: 2026-04-19
 ---
 
@@ -38,8 +38,8 @@ created: 2026-04-19
 
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 6-01-01 | 01 | 0 | WIKI-05 | unit | `pytest tests/phase06/test_wiki_frontmatter.py` | ❌ W0 | ⬜ pending |
-| 6-01-02 | 01 | 0 | WIKI-05 | unit | `pytest tests/phase06/test_wiki_reference_format.py` | ❌ W0 | ⬜ pending |
+| 6-01-01 | 01 | 0 | WIKI-05 | unit | `pytest tests/phase06/test_wiki_frontmatter.py` | ✅ on disk | ✅ green |
+| 6-01-02 | 01 | 0 | WIKI-05 | unit | `pytest tests/phase06/test_wiki_reference_format.py` | ✅ on disk | ✅ green |
 | 6-02-01 | 02 | 1 | WIKI-01 | unit | `pytest tests/phase06/test_wiki_nodes_ready.py` | ❌ W0 | ⬜ pending |
 | 6-02-02 | 02 | 1 | WIKI-01 | integration | `pytest tests/phase06/test_moc_linkage.py` | ❌ W0 | ⬜ pending |
 | 6-02-03 | 02 | 1 | WIKI-02 | unit | `pytest tests/phase06/test_continuity_bible_node.py` | ❌ W0 | ⬜ pending |
@@ -71,13 +71,13 @@ created: 2026-04-19
 
 Wave 0은 Phase 6 실행의 최초 wave(Plan 01 — frontmatter + wiki lint baseline). 필요 인프라:
 
-- [ ] `tests/phase06/__init__.py` — package marker
-- [ ] `tests/phase06/conftest.py` — 공유 fixture (tmp wiki dir, mock notebooklm subprocess, mock pre_tool_use hook env)
-- [ ] `tests/phase06/fixtures/` — wiki 노드 sample frontmatter, library.json delta sample, FAILURES entry sample
-- [ ] `scripts/validate/phase06_acceptance.py` — SC 1-6 E2E wrapper (Phase 5 phase05_acceptance.py 패턴 승계)
-- [ ] `scripts/validate/verify_wiki_frontmatter.py` — WIKI-05 grep 검증 CLI
+- [x] `tests/phase06/__init__.py` — package marker
+- [x] `tests/phase06/conftest.py` — 공유 fixture (tmp wiki dir, mock notebooklm subprocess, mock pre_tool_use hook env)
+- [x] `tests/phase06/fixtures/` — wiki 노드 sample frontmatter, library.json delta sample, FAILURES entry sample
+- [x] `scripts/validate/phase06_acceptance.py` — SC 1-6 E2E wrapper (Phase 5 phase05_acceptance.py 패턴 승계)
+- [x] `scripts/validate/verify_wiki_frontmatter.py` — WIKI-05 grep 검증 CLI
 
-*Wave 0 완료 시점: Plan 01 종료 후 `wave_0_complete: true` 프론트매터 flip*
+*Wave 0 완료: Plan 01 완료 시 `wave_0_complete: true` flipped 2026-04-19*
 
 ---
 
