@@ -34,13 +34,28 @@ from typing import TYPE_CHECKING, Any
 import httpx
 
 from ..voice_first_timeline import TimelineEntry, TransitionEntry
-from .models import ShotstackRenderRequest
+from .models import ContinuityPrefix, ShotstackRenderRequest
 
 if TYPE_CHECKING:
     from ..circuit_breaker import CircuitBreaker
 
 
 DEFAULT_OUTPUT_DIR = Path("outputs/shotstack")
+
+# D-9 / D-19 Phase 6 WIKI-02: Continuity Bible prefix injected at filter[0].
+# Source = wiki/continuity_bible/prefix.json; schema = models.ContinuityPrefix (D-20).
+DEFAULT_CONTINUITY_PRESET_PATH = Path("wiki/continuity_bible/prefix.json")
+
+
+def _load_continuity_preset(path: Path | None = None) -> ContinuityPrefix | None:
+    """D-9/D-19: load ContinuityPrefix from prefix.json. Returns None when
+    file absent (graceful degradation). ValidationError propagates on
+    schema drift / out-of-range / malformed HEX (D-20 Pitfall 5 fail-fast).
+    ``path`` overrides the module default (unit tests)."""
+    p = path or DEFAULT_CONTINUITY_PRESET_PATH
+    if not p.exists():
+        return None
+    return ContinuityPrefix.model_validate_json(p.read_text(encoding="utf-8"))
 
 
 class ShotstackAdapter:
@@ -253,7 +268,16 @@ class ShotstackAdapter:
         aspect_ratio: str,
         filters_order: list[str],
     ) -> dict[str, Any]:
-        """Build the full Shotstack render JSON."""
+        """Build Shotstack render JSON. D-9/D-19 WIKI-02: prepends
+        ``"continuity_prefix"`` at filter[0] when preset loaded; D-17 tail
+        preserved; idempotent; caller list not mutated."""
+
+        # D-9/D-19: preset None when prefix.json absent → pass-through.
+        preset = _load_continuity_preset()
+        if preset is not None and (
+            not filters_order or filters_order[0] != "continuity_prefix"
+        ):
+            filters_order = ["continuity_prefix", *filters_order]
 
         clips: list[dict[str, Any]] = []
         audio_tracks: list[dict[str, Any]] = []
@@ -301,6 +325,10 @@ class ShotstackAdapter:
                     {"clips": audio_tracks},
                 ],
                 "filters": list(filters_order),
+                # D-20 preset params for downstream; None when prefix.json missing.
+                "continuity_preset": (
+                    preset.model_dump() if preset is not None else None
+                ),
             },
             "output": {
                 "format": "mp4",

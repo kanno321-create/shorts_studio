@@ -103,7 +103,26 @@ def test_render_720p_default_payload(mock_client_class, tmp_path):
 
 
 @patch("scripts.orchestrator.api.shotstack.httpx.Client")
-def test_render_payload_carries_d17_filter_order(mock_client_class):
+def test_render_payload_carries_d17_filter_order(mock_client_class, monkeypatch):
+    """D-17 Phase 5 invariant: when no continuity preset is present, the
+    Shotstack filter chain is exactly the 3-element D-17 tail
+    ``color_grade → saturation → film_grain``. Phase 6 Plan 07 adds an
+    OPTIONAL prefix injection (D-19, asserted in tests/phase06/
+    test_filter_order_preservation.py); this Phase 5 regression guard
+    stubs the preset loader to None so the D-17 tail is asserted in
+    isolation without coupling to the presence of
+    wiki/continuity_bible/prefix.json.
+    """
+
+    # Phase 6 Plan 07: isolate Phase 5 invariant by disabling preset
+    # injection. This keeps the Phase 5 contract (D-17 tail) intact and
+    # lets Phase 6 tests own the D-19 post-injection contract.
+    from scripts.orchestrator.api import shotstack as _shotstack_mod
+
+    monkeypatch.setattr(
+        _shotstack_mod, "_load_continuity_preset", lambda path=None: None
+    )
+
     mock_client = _make_mock_httpx_client({"response": {}, "success": True})
     mock_client_class.return_value = mock_client
 
