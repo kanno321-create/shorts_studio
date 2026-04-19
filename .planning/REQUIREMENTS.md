@@ -151,7 +151,7 @@
 - [x] **TEST-01**: E2E mock asset 파이프라인 1회 성공 (실 API 비용 회피)
 - [x] **TEST-02**: `verify_all_dispatched()` 통과 + 13 operational gate 모두 호출 확인 (Correction 1: 13, NOT 17) — Plan 07-04 (studio@496056f)
 - [x] **TEST-03**: Circuit Breaker 3회 발동 시나리오 테스트 — Plan 07-05 (studio@36324a0 + 95801cb)
-- [ ] **TEST-04**: Fallback 샷(정지 이미지 + 줌인) 테스트
+- [x] **TEST-04**: Fallback 샷(정지 이미지 + 줌인) 테스트 — Plan 07-06 (studio@cbacaad + 31ccfb3): THUMBNAIL 3×FAIL → ken-burns → COMPLETE + append-only FAILURES + Correction 3 AST anchor + Hook bypass-by-naming
 
 ### AUDIT — 감사
 

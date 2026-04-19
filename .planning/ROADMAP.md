@@ -248,7 +248,7 @@
 | 4. Agent Team Design | 10/10 | Complete    | 2026-04-18 |
 | 5. Orchestrator v2 | 10/10 | ✅ Complete | 2026-04-19 |
 | 6. Wiki + NotebookLM + FAILURES | 11/11 | ✅ Complete | 2026-04-19 |
-| 7. Integration Test | 2/8 | In Progress|  |
+| 7. Integration Test | 6/8 | In Progress|  |
 | 8. Remote + Publishing | 0/TBD | Not started | - |
 | 9. Docs + KPI + Taste Gate | 0/TBD | Not started | - |
 | 10. Sustained Operations | 0/TBD | Not started (영구 지속) | - |
