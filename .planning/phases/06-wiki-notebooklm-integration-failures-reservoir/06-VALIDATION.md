@@ -50,8 +50,8 @@ created: 2026-04-19
 | 6-05-02 | 05 | 2 | WIKI-04 | integration | `pytest tests/phase06/test_fallback_injection.py` | ✅ on disk | ✅ green |
 | 6-06-01 | 06 | 3 | WIKI-02 | unit | `pytest tests/phase06/test_continuity_prefix_schema.py` | ✅ on disk | ✅ green |
 | 6-06-02 | 06 | 3 | WIKI-02 | unit | `pytest tests/phase06/test_prefix_json_serialization.py` | ✅ on disk | ✅ green |
-| 6-07-01 | 07 | 3 | WIKI-02 | unit | `pytest tests/phase06/test_shotstack_prefix_injection.py` | ❌ W0 | ⬜ pending |
-| 6-07-02 | 07 | 3 | WIKI-02 | integration | `pytest tests/phase06/test_filter_order_preservation.py` | ❌ W0 | ⬜ pending |
+| 6-07-01 | 07 | 3 | WIKI-02 | unit | `pytest tests/phase06/test_shotstack_prefix_injection.py` | ✅ on disk | ✅ green |
+| 6-07-02 | 07 | 3 | WIKI-02 | integration | `pytest tests/phase06/test_filter_order_preservation.py` | ✅ on disk | ✅ green |
 | 6-08-01 | 08 | 4 | FAIL-01 | unit | `pytest tests/phase06/test_failures_append_only.py` | ❌ W0 | ⬜ pending |
 | 6-08-02 | 08 | 4 | FAIL-01 | subprocess | `pytest tests/phase06/test_hook_failures_block.py` | ❌ W0 | ⬜ pending |
 | 6-08-03 | 08 | 4 | FAIL-03 | unit | `pytest tests/phase06/test_skill_history_backup.py` | ❌ W0 | ⬜ pending |

@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-19T08:06:40.185Z"
+last_updated: "2026-04-19T08:18:09.821Z"
 progress:
   total_phases: 10
   completed_phases: 4
   total_plans: 46
-  completed_plans: 41
-  percent: 89
+  completed_plans: 42
+  percent: 91
 ---
 
 # STATE — naberal-shorts-studio
@@ -32,12 +32,12 @@ progress:
 ## Current Position
 
 Phase: 06 (wiki-notebooklm-integration-failures-reservoir) — EXECUTING
-Plan: 7 of 11
+Plan: 8 of 11
 
 - **Phase:** 6
 - **Next Action:** `/gsd:execute-phase 6` (advance to Plan 06 Wave 3 ContinuityPrefix pydantic v2 schema + prefix.json serialization)
 - **Status:** Ready to execute
-- **Progress:** [█████████░] 89%
+- **Progress:** [█████████░] 91%
 
 ---
 
@@ -85,11 +85,14 @@ Plan: 7 of 11
   - ✅ Plan 05-08: Wave 6 hc_checks regression port — 1176-line rewrite preserving 13 signatures + 41 tests (studio@92b2b33+d4ad6f8+6b3f744). ORCH-01 reinforced.
   - ✅ Plan 05-09: Wave 6 Hook enforcement regression — 5 subprocess test files / 31 tests proving Hook denies blacklist + allows canonical I2V (studio@df4dac3+a9b313d+0636120+690a58a+259c5d1+9c7d266). ORCH-08/09 + VIDEO-01 Hook-layer.
   - ✅ Plan 05-10: Wave 7 FINAL VERIFICATION — 4 test files (33 tests) + 17-REQ TRACEABILITY.md + 05-VALIDATION.md frontmatter flip (studio@64ae113+4bbd534+695dc89+a17f58f). 329/329 pytest PASS, SC 1-6 all PASS, 17/17 REQs covered. **PHASE 5 COMPLETE.**
-- 🔄 **Phase 6: Wiki + NotebookLM + FAILURES** — EXECUTING (4/11 plans). Plans 01-04 complete 2026-04-19.
+- 🔄 **Phase 6: Wiki + NotebookLM + FAILURES** — EXECUTING (7/11 plans). Plans 01-07 complete 2026-04-19.
   - ✅ Plan 06-01: Wave 0 FOUNDATION — scripts.wiki package (frontmatter parser + link validator, stdlib-only) + tests/phase06/ scaffold (15 seed tests green) + 2 validation CLIs (verify_wiki_frontmatter exits 0, phase06_acceptance exits 1 gracefully at Wave 0). studio@74e469d + 0bf08a3 + 6690e12. WIKI-05 + WIKI-06 satisfied. Phase 5 regression 329/329 preserved.
   - ✅ Plan 06-02: Wave 1 WIKI CONTENT — 5 ready wiki nodes (algorithm/ypp/render/kpi/continuity_bible) + D-10 5 구성요소 canonical channel_identity.md + prefix.json D-20 pre-serialization + 5 MOC checkbox flips + 21 tests. studio@b906548 + 5251cfd + bb85e63. WIKI-01 + WIKI-02 satisfied.
   - ✅ Plan 06-03: Wave 2 NOTEBOOKLM WRAPPER — scripts.notebooklm package (query_notebook subprocess wrapper, 118 lines, D-6 single-string argv + D-7 skill-path resolver kwarg>env>default + UTF-8 cp949 guard + FOLLOW_UP marker strip + RuntimeError carrying notebook_id for Plan 05 fallback diagnostics) + 21 tests (15 unit + 6 integration, Korean cp949 round-trip verified). studio@78d47e9 (Task 1 wrapper) + c123d5f (Task 2 tests). WIKI-03 satisfied. Phase 6 full suite 57/57 PASS, Phase 5 regression 329/329 preserved. Zero D-7 cross-imports. Duration ~4m.
   - ✅ Plan 06-04: Wave 2 LIBRARY REGISTRATION — scripts.notebooklm.library (173 lines — add_channel_bible_entry idempotent helper, load_library, dump_library, CHANNEL_BIBLE_ID constant, CHANNEL_BIBLE_TEMPLATE D-8 verbatim with Korean 타겟팅 description) + 15 tests (TDD RED 38fb098 -> GREEN b6df271 -> deferred-items 4ffa9ee). External shorts_naberal library.json appended with naberal-shorts-channel-bible (URL placeholder TBD-url-await-user; existing 2 notebooks shorts-production-pipeline-bible + crime-stories-+-typecast-emotion byte-identical dict equality; active_notebook_id unchanged). D-04-01 URL blocker tracked in deferred-items.md with 6-step unblock procedure (대표님 Google NotebookLM console + helper re-run). D-7 preserved (0 cross-imports). Phase 6 full suite 72/72 PASS, Phase 5 regression 329/329 preserved. WIKI-03 reinforced (already ticked by Plan 03). Duration ~5m.
+  - ✅ Plan 06-05: Wave 2 FALLBACK CHAIN — scripts.notebooklm.fallback (231 lines — QueryBackend @runtime_checkable Protocol + RAGBackend Tier 0 reusing query_notebook verbatim per D-7 + GrepWikiBackend Tier 1 with r'[\w가-힣]{3,}' Korean-aware intersection tokenizer + HardcodedDefaultsBackend Tier 2 never-raises with D-10/D-5 canonical strings + NotebookLMFallbackChain returning (answer, tier_used) tuple; broad except Exception documented with # noqa: BLE001 as ONE intentional silent-swallow site per D-5 contract) + 18 tests (15 fallback_chain unit + 3 fallback_injection integration). studio@0369f8b (Task 1a RED) + 25993bb (Task 1b GREEN). WIKI-04 satisfied. Phase 6 full suite 90/90 PASS, Phase 5 regression 329/329 preserved. Duration ~10m.
+  - ✅ Plan 06-06: Wave 3 CONTINUITY PREFIX MODEL — scripts/orchestrator/api/models.py::ContinuityPrefix pydantic v2 BaseModel (7 D-10 fields, extra='forbid') + HexColor Annotated alias appended (models.py 122→164 lines under 180 soft cap) + wiki/continuity_bible/prefix.json normalised to canonical 7-field form (Plan 02 metadata keys _schema_version/_source_wiki/_source_notebook/_note removed to satisfy extra='forbid') + 33 tests (26 schema boundary + 7 JSON round-trip/drift). studio@4bb9291 (Task 1 TDD RED) + f661fa7 (Task 1 GREEN). WIKI-02 data-model layer satisfied. Phase 6 123/123 PASS, Phase 5 329/329 preserved. Duration ~4m. fa5fbce metadata commit.
+  - ✅ Plan 06-07: Wave 3 SHOTSTACK CONTINUITY INJECTION (KEYSTONE) — scripts/orchestrator/api/shotstack.py extended with DEFAULT_CONTINUITY_PRESET_PATH + _load_continuity_preset lazy loader (None when prefix.json absent; pydantic.ValidationError on drift) + _build_timeline_payload prepends 'continuity_prefix' at filters_order[0] with idempotency + emits timeline.continuity_preset=preset.model_dump() | None (369→397 lines under 400 soft cap via docstring compaction per Rule 1 deviation) + 17 tests (11 unit test_shotstack_prefix_injection.py + 6 integration test_filter_order_preservation.py asserting D-19 canonical `['continuity_prefix','color_grade','saturation','film_grain']` by exact list equality per Pitfall 4 defence). studio@b20ba21 (Task 1 TDD RED: 16/17 failing with AttributeError) + 20cdeed (Task 1 GREEN + Rule 1 deviation: Phase 5 test_render_payload_carries_d17_filter_order isolated via monkeypatch(_load_continuity_preset→None) to decouple pre-injection D-17 tail assertion from post-injection D-19 canonical). WIKI-02 runtime-wiring layer complete — every Shotstack render now auto-carries channel visual DNA. Phase 6 full suite 140/140 PASS, Phase 5 regression 329/329 preserved, full repo 713/713 PASS. Duration ~6m. Plans 08-11 unblocked.
 - ⏳ **Phase 7~10**: Pending
 
 ---
@@ -97,7 +100,7 @@ Plan: 7 of 11
 ## Performance Metrics
 
 - **Requirements Mapped:** 96 / 96 (100%)
-- **Requirements Completed:** 69 / 96 (72%) — Phase 1 (3) + Phase 2 (1) + Phase 3 (9) + Phase 4 (34) + Phase 5 (17: ORCH-01/02/03/04/05/06/07/08/09/10/11/12 + VIDEO-01/02/03/04/05) + Phase 6 partial (5: WIKI-01/02/03/05/06; WIKI-03 reinforced by Plan 04 library registration). Phase 6 Plans 01+02+03+04 complete 2026-04-19.
+- **Requirements Completed:** 70 / 96 (73%) — Phase 1 (3) + Phase 2 (1) + Phase 3 (9) + Phase 4 (34) + Phase 5 (17: ORCH-01/02/03/04/05/06/07/08/09/10/11/12 + VIDEO-01/02/03/04/05) + Phase 6 partial (6: WIKI-01/02/03/04/05/06; WIKI-02 now fully wired at runtime via Plan 07 Shotstack injection; WIKI-03 reinforced by Plan 04 library registration; WIKI-04 by Plan 05 fallback chain). Phase 6 Plans 01+02+03+04+05+06+07 complete 2026-04-19.
 - **Orphaned REQ:** 0
 - **Phases:** 10 (granularity=fine 목표 구간 내)
 - **Harness Audit Baseline:** ✅ 100 (Phase 4 Plan 10 Wave 5, threshold 80, 20-point margin) — AUDIT-02 Phase 10 baseline prep satisfied. Phase 7 Integration Test 재검증 예정.
@@ -258,6 +261,10 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 - [x] **Phase 6 Plan 06-01 execute** → Wave 0 FOUNDATION (2026-04-19, session #19). scripts/wiki/ package (frontmatter.py 111 lines stdlib-only D-17 parser + link_validator.py 83 lines @wiki/shorts walker, no pyyaml per RESEARCH line 132 DECISION) + scripts/validate/ (verify_wiki_frontmatter.py 76 lines --allow-scaffold exits 0 + phase06_acceptance.py 207 lines SC 1-6 E2E wrapper UTF-8 subprocess encoding) + tests/phase06/ scaffold (__init__.py + conftest.py 99 lines 8 fixtures Phase 5 _REPO_ROOT pattern + 4 fixtures + 2 test files 15/15 green). studio@74e469d (Task 1) + 0bf08a3 (Task 2) + 6690e12 (Task 3). WIKI-05 + WIKI-06 satisfied. Full validation: phase06 15/15 PASS, phase05 regression 329/329 preserved, verify CLI exits 0 on current wiki, acceptance CLI exits 1 gracefully at Wave 0 (no crash). Rule 3 clarification: README.md skip rule + `scaffold` status enum as first-class (session #19 decisions 57-62).
 - [x] **Phase 6 Plan 06-02 execute** → Wave 1 WIKI CONTENT (2026-04-19, session #19). 5 ready wiki nodes (ranking_factors + entry_conditions + remotion_kling_stack + retention_3second_hook + channel_identity) + D-10 5 구성요소 canonical + prefix.json D-20 pre-serialization + 5 MOC checkbox flips + 3 test files / 21 tests. studio@b906548 + 5251cfd + bb85e63. WIKI-01 + WIKI-02 satisfied.
 - [x] **Phase 6 Plan 06-03 execute** → Wave 2 NOTEBOOKLM WRAPPER (2026-04-19, session #19). scripts/notebooklm/ package (__init__.py 15 lines re-export + query.py 118 lines subprocess wrapper — D-6 single-string argv discipline + D-7 external skill reference via NOTEBOOKLM_SKILL_PATH env var no copy + UTF-8 encoding + errors=replace Rule 2 robustness + FOLLOW_UP_MARKER strip + RuntimeError carrying notebook_id for Plan 05 fallback diagnostics + FileNotFoundError on missing skill) + tests/phase06/ 2 test files / 21 tests (15 unit test_notebooklm_wrapper.py + 6 integration test_notebooklm_subprocess.py Korean cp949 round-trip verified). studio@78d47e9 (Task 1) + c123d5f (Task 2). WIKI-03 satisfied. Phase 6 full suite 57/57 PASS (15 Plan 01 + 21 Plan 02 + 21 Plan 03). Phase 5 regression 329/329 preserved. Zero D-7 cross-imports. 06-VALIDATION.md rows 6-03-01/02 flipped ✅ green. Rule 3 deviation: fake child run.py sys.stdout.reconfigure utf-8. Rule 2 completeness: errors='replace' added. Duration ~4m. Session #19 decisions 63-67.
+- [x] **Phase 6 Plan 06-04 execute** → Wave 2 LIBRARY REGISTRATION (2026-04-19, session #19). scripts/notebooklm/library.py (173 lines — add_channel_bible_entry idempotent helper + CHANNEL_BIBLE_TEMPLATE D-8 verbatim Korean 타겟팅) + 15 tests. 4 atomic commits (38fb098 RED → b6df271 GREEN → 4ffa9ee deferred-items → ef0636a library.json append). D-04-01 URL blocker recorded (6-step unblock procedure). D-7 preserved. WIKI-03 reinforced.
+- [x] **Phase 6 Plan 06-05 execute** → Wave 2 FALLBACK CHAIN (2026-04-19, session #19). scripts/notebooklm/fallback.py (231 lines — 3-tier RAG→grep→hardcoded-defaults with # noqa: BLE001 single silent-swallow point per D-5) + 18 tests. studio@0369f8b (RED) + 25993bb (GREEN). WIKI-04 satisfied. Phase 6 90/90 PASS.
+- [x] **Phase 6 Plan 06-06 execute** → Wave 3 CONTINUITY PREFIX MODEL (2026-04-19, session #19). scripts/orchestrator/api/models.py::ContinuityPrefix + HexColor appended (models.py 122→164 lines) + wiki/continuity_bible/prefix.json normalised to 7-field canonical form (metadata keys removed for extra='forbid') + 33 tests (26 schema + 7 JSON round-trip). studio@4bb9291 (RED) + f661fa7 (GREEN) + fa5fbce (metadata). WIKI-02 data-model layer. Phase 6 123/123 PASS.
+- [x] **Phase 6 Plan 06-07 execute** → Wave 3 SHOTSTACK CONTINUITY INJECTION KEYSTONE (2026-04-19, session #19). scripts/orchestrator/api/shotstack.py (369→397 lines under 400 cap) — DEFAULT_CONTINUITY_PRESET_PATH + _load_continuity_preset lazy loader (None on missing; ValidationError on drift) + _build_timeline_payload prepends 'continuity_prefix' at filters_order[0] with idempotency + emits timeline.continuity_preset=preset.model_dump() | None. 17 tests (11 unit test_shotstack_prefix_injection.py + 6 integration test_filter_order_preservation.py asserting D-19 `['continuity_prefix','color_grade','saturation','film_grain']` by EXACT list equality per Pitfall 4 defence). studio@b20ba21 (Task 1 RED: 16/17 AttributeError) + 20cdeed (Task 1 GREEN + Rule 1 deviation: Phase 5 test_render_payload_carries_d17_filter_order isolated via monkeypatch(_load_continuity_preset→None) — keeps Phase 5 D-17 tail contract independent from Phase 6 D-19 canonical; Rule 1 docstring compaction to respect 400-line soft cap). WIKI-02 runtime-wiring layer complete — every Shotstack render now auto-carries channel visual DNA. Phase 6 full suite 140/140 PASS, Phase 5 329/329 preserved, full repo 713/713 PASS. Duration ~6m. Plans 08-11 unblocked.
 
 ### Blockers
 
@@ -294,6 +301,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 06-wiki-notebooklm-integration-failures-reservoir P03 | 4m | 2 tasks | 4 files |
 | Phase 06 P04 | 5m | 2 tasks | 3 files |
 | Phase 06-wiki-notebooklm-integration-failures-reservoir P06 | 4m | 2 tasks | 5 files |
+| Phase 06 P07 | 6m | 2 tasks | 5 files |
 
 ### Plan Execution Log
 
