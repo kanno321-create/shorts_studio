@@ -75,7 +75,7 @@
 
 - [x] **WIKI-01**: Tier 2 `studios/shorts/wiki/` — 도메인 특화 노드 (알고리즘/YPP/렌더/KPI) Obsidian 그래프
 - [x] **WIKI-02**: **Continuity Bible** (색상 팔레트, 카메라 렌즈, 시각적 스타일) — 모든 API 호출 시 Prefix 자동 주입 (NotebookLM T12)
-- [ ] **WIKI-03**: NotebookLM 2-노트북 세팅
+- [x] **WIKI-03**: NotebookLM 2-노트북 세팅
   - 일반 (shorts-production-pipeline-bible 재사용 or 신규)
   - 채널바이블 (Phase 3 Harvest 결과 기반)
 - [ ] **WIKI-04**: **NotebookLM Fallback Chain** — RAG 실패 시 → grep wiki → hardcoded defaults

@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-19T07:26:00.656Z"
+last_updated: "2026-04-19T07:35:20.759Z"
 progress:
   total_phases: 10
   completed_phases: 4
   total_plans: 46
-  completed_plans: 37
-  percent: 80
+  completed_plans: 38
+  percent: 83
 ---
 
 # STATE — naberal-shorts-studio
 
-**Last updated:** 2026-04-19T07:17:00Z
-**Session:** #19 (✅ Phase 6 Plan 01 Wave 0 FOUNDATION shipped — scripts.wiki package + tests/phase06/ scaffold + 2 validation CLIs. 3 atomic commits: studio@74e469d (Task 1 scripts.wiki stdlib parser + link validator, 202 lines, no pyyaml dep) + studio@0bf08a3 (Task 2 tests/phase06/ scaffold — __init__.py + conftest.py 99 lines 8 fixtures + 4 fixtures dir + 2 test files 15 tests green) + studio@6690e12 (Task 3 verify_wiki_frontmatter CLI + phase06_acceptance CLI SC 1-6 wrapper, UTF-8 subprocess encoding per STATE #28). Full validation: scripts.wiki imports clean, tests/phase06/ 15/15 PASS, verify_wiki_frontmatter --allow-scaffold exits 0 against current 5 MOC.md scaffolds, phase06_acceptance exits 1 gracefully at Wave 0 (no crash — SC1-6 correctly FAIL because Plans 02-09 not yet shipped). tests/phase05/ 329/329 PASS — no infrastructure collision. No drift tokens (skip_gates/TODO/t2v/selenium/segments) in new code. 06-VALIDATION.md frontmatter wave_0_complete=true flipped + 2 task rows (6-01-01/02) flipped to ✅ green + Wave 0 Requirements 5/5 checkboxes [x]. ROADMAP.md Plan 01 [x] flipped with commit hash + Progress Table 0/11 -> 1/11 Executing. REQUIREMENTS.md WIKI-05 + WIKI-06 [x] per plan frontmatter contract. Duration ~15m. Ready to advance to Plan 02 Wave 1 WIKI CONTENT. Historical Plan 10 Wave 7 FINAL VERIFICATION context: 4 verification artifacts: tests/phase05/test_blacklist_grep.py (132 lines, 11 tests — SC 2/5 grep contracts matching phase05_acceptance.py case-sensitive word-boundary T2V regex) + tests/phase05/test_line_count.py (116 lines, 6 tests — SC 1 [500,800] + soft caps calibrated to Wave 1-4 actuals) + tests/phase05/test_phase05_acceptance.py (111 lines, 8 tests — E2E subprocess wrapper asserting phase05_acceptance.py exit 0 + 6 SC labels + zero FAIL rows + full sweep green) + tests/phase05/test_traceability_matrix.py (145 lines, 8 tests — 17-REQ automation guard with bogus-marker protection). Plus .planning/phases/05-orchestrator-v2-write/05-TRACEABILITY.md (92 lines — 17-REQ matrix + SC aggregation + Plan→REQ→Commit audit trail for 10 plans). 05-VALIDATION.md frontmatter flipped status=complete + nyquist_compliant=true + wave_0_complete=true + completed=2026-04-19; 29 task rows flipped from ⬜ pending to ✅ green; Validation Sign-Off 6 checkboxes all [x]; ~75-line Completion Summary appended with SC status table + plan commit hashes. Full phase05 suite 329/329 PASS (296 baseline + 33 Plan 10). phase05_acceptance.py exits 0 with all 6 SC reporting PASS. verify_hook_blocks.py exits 0 (5 hook enforcement checks green). 17/17 Phase 5 REQs [x] in REQUIREMENTS.md. Commits: 64ae113 (Task 1 blacklist+line_count) + 4bbd534 (Task 2 acceptance wrapper) + 695dc89 (Task 3 traceability matrix) + a17f58f (Task 4 VALIDATION flip). Duration 6m40s. Phase 5 officially nyquist-compliant and shippable. Ready for /gsd:verify-work 05 then /gsd:plan-phase 6.)
+**Last updated:** 2026-04-19T07:32:20Z
+**Session:** #19 (✅ Phase 6 Plan 03 Wave 2 NOTEBOOKLM WRAPPER shipped — scripts.notebooklm.query_notebook subprocess wrapper + 21 tests green. 2 atomic commits: studio@78d47e9 (Task 1 __init__.py 15 lines re-export + query.py 118 lines — D-6 single-string argv + D-7 NOTEBOOKLM_SKILL_PATH env var + UTF-8 + errors=replace + FOLLOW_UP marker strip + RuntimeError carrying notebook_id for Plan 05 diagnostics) + studio@c123d5f (Task 2 21 tests — 15 unit + 6 integration Korean cp949 round-trip verified). Full validation: Phase 6 57/57 PASS (15+21+21), Phase 5 regression 329/329 preserved, 0 D-7 cross-imports. 06-VALIDATION.md rows 6-03-01/02 flipped ✅ green. Rule 3 deviation: fake child run.py sys.stdout.reconfigure utf-8. Rule 2 completeness: errors='replace' added. Duration ~4m. Plans 04+05 now unblocked. Earlier in session #19: ✅ Phase 6 Plan 02 Wave 1 WIKI CONTENT shipped (5 ready wiki nodes + D-10 canonical + prefix.json + 21 tests, studio@b906548 + 5251cfd + bb85e63, WIKI-01+02 satisfied, ~6m) and ✅ Phase 6 Plan 01 Wave 0 FOUNDATION shipped — scripts.wiki package + tests/phase06/ scaffold + 2 validation CLIs. 3 atomic commits: studio@74e469d (Task 1 scripts.wiki stdlib parser + link validator, 202 lines, no pyyaml dep) + studio@0bf08a3 (Task 2 tests/phase06/ scaffold — __init__.py + conftest.py 99 lines 8 fixtures + 4 fixtures dir + 2 test files 15 tests green) + studio@6690e12 (Task 3 verify_wiki_frontmatter CLI + phase06_acceptance CLI SC 1-6 wrapper, UTF-8 subprocess encoding per STATE #28). Full validation: scripts.wiki imports clean, tests/phase06/ 15/15 PASS, verify_wiki_frontmatter --allow-scaffold exits 0 against current 5 MOC.md scaffolds, phase06_acceptance exits 1 gracefully at Wave 0 (no crash — SC1-6 correctly FAIL because Plans 02-09 not yet shipped). tests/phase05/ 329/329 PASS — no infrastructure collision. No drift tokens (skip_gates/TODO/t2v/selenium/segments) in new code. 06-VALIDATION.md frontmatter wave_0_complete=true flipped + 2 task rows (6-01-01/02) flipped to ✅ green + Wave 0 Requirements 5/5 checkboxes [x]. ROADMAP.md Plan 01 [x] flipped with commit hash + Progress Table 0/11 -> 1/11 Executing. REQUIREMENTS.md WIKI-05 + WIKI-06 [x] per plan frontmatter contract. Duration ~15m. Ready to advance to Plan 02 Wave 1 WIKI CONTENT. Historical Plan 10 Wave 7 FINAL VERIFICATION context: 4 verification artifacts: tests/phase05/test_blacklist_grep.py (132 lines, 11 tests — SC 2/5 grep contracts matching phase05_acceptance.py case-sensitive word-boundary T2V regex) + tests/phase05/test_line_count.py (116 lines, 6 tests — SC 1 [500,800] + soft caps calibrated to Wave 1-4 actuals) + tests/phase05/test_phase05_acceptance.py (111 lines, 8 tests — E2E subprocess wrapper asserting phase05_acceptance.py exit 0 + 6 SC labels + zero FAIL rows + full sweep green) + tests/phase05/test_traceability_matrix.py (145 lines, 8 tests — 17-REQ automation guard with bogus-marker protection). Plus .planning/phases/05-orchestrator-v2-write/05-TRACEABILITY.md (92 lines — 17-REQ matrix + SC aggregation + Plan→REQ→Commit audit trail for 10 plans). 05-VALIDATION.md frontmatter flipped status=complete + nyquist_compliant=true + wave_0_complete=true + completed=2026-04-19; 29 task rows flipped from ⬜ pending to ✅ green; Validation Sign-Off 6 checkboxes all [x]; ~75-line Completion Summary appended with SC status table + plan commit hashes. Full phase05 suite 329/329 PASS (296 baseline + 33 Plan 10). phase05_acceptance.py exits 0 with all 6 SC reporting PASS. verify_hook_blocks.py exits 0 (5 hook enforcement checks green). 17/17 Phase 5 REQs [x] in REQUIREMENTS.md. Commits: 64ae113 (Task 1 blacklist+line_count) + 4bbd534 (Task 2 acceptance wrapper) + 695dc89 (Task 3 traceability matrix) + a17f58f (Task 4 VALIDATION flip). Duration 6m40s. Phase 5 officially nyquist-compliant and shippable. Ready for /gsd:verify-work 05 then /gsd:plan-phase 6.)
 
 ---
 
@@ -32,12 +32,12 @@ progress:
 ## Current Position
 
 Phase: 06 (wiki-notebooklm-integration-failures-reservoir) — EXECUTING
-Plan: 3 of 11
+Plan: 4 of 11
 
 - **Phase:** 6
-- **Next Action:** `/gsd:execute-phase 6` (advance to Plan 02 Wave 1 WIKI CONTENT)
+- **Next Action:** `/gsd:execute-phase 6` (advance to Plan 04 Wave 2 library.json channel-bible entry + canary query)
 - **Status:** Ready to execute
-- **Progress:** [████████░░] 80%
+- **Progress:** [████████░░] 83%
 
 ---
 
@@ -85,8 +85,10 @@ Plan: 3 of 11
   - ✅ Plan 05-08: Wave 6 hc_checks regression port — 1176-line rewrite preserving 13 signatures + 41 tests (studio@92b2b33+d4ad6f8+6b3f744). ORCH-01 reinforced.
   - ✅ Plan 05-09: Wave 6 Hook enforcement regression — 5 subprocess test files / 31 tests proving Hook denies blacklist + allows canonical I2V (studio@df4dac3+a9b313d+0636120+690a58a+259c5d1+9c7d266). ORCH-08/09 + VIDEO-01 Hook-layer.
   - ✅ Plan 05-10: Wave 7 FINAL VERIFICATION — 4 test files (33 tests) + 17-REQ TRACEABILITY.md + 05-VALIDATION.md frontmatter flip (studio@64ae113+4bbd534+695dc89+a17f58f). 329/329 pytest PASS, SC 1-6 all PASS, 17/17 REQs covered. **PHASE 5 COMPLETE.**
-- 🔄 **Phase 6: Wiki + NotebookLM + FAILURES** — EXECUTING (1/11 plans). Plan 01 Wave 0 FOUNDATION complete 2026-04-19.
+- 🔄 **Phase 6: Wiki + NotebookLM + FAILURES** — EXECUTING (3/11 plans). Plan 01 Wave 0 FOUNDATION + Plan 02 Wave 1 WIKI CONTENT + Plan 03 Wave 2 NOTEBOOKLM WRAPPER complete 2026-04-19.
   - ✅ Plan 06-01: Wave 0 FOUNDATION — scripts.wiki package (frontmatter parser + link validator, stdlib-only) + tests/phase06/ scaffold (15 seed tests green) + 2 validation CLIs (verify_wiki_frontmatter exits 0, phase06_acceptance exits 1 gracefully at Wave 0). studio@74e469d + 0bf08a3 + 6690e12. WIKI-05 + WIKI-06 satisfied. Phase 5 regression 329/329 preserved.
+  - ✅ Plan 06-02: Wave 1 WIKI CONTENT — 5 ready wiki nodes (algorithm/ypp/render/kpi/continuity_bible) + D-10 5 구성요소 canonical channel_identity.md + prefix.json D-20 pre-serialization + 5 MOC checkbox flips + 21 tests. studio@b906548 + 5251cfd + bb85e63. WIKI-01 + WIKI-02 satisfied.
+  - ✅ Plan 06-03: Wave 2 NOTEBOOKLM WRAPPER — scripts.notebooklm package (query_notebook subprocess wrapper, 118 lines, D-6 single-string argv + D-7 skill-path resolver kwarg>env>default + UTF-8 cp949 guard + FOLLOW_UP marker strip + RuntimeError carrying notebook_id for Plan 05 fallback diagnostics) + 21 tests (15 unit + 6 integration, Korean cp949 round-trip verified). studio@78d47e9 (Task 1 wrapper) + c123d5f (Task 2 tests). WIKI-03 satisfied. Phase 6 full suite 57/57 PASS, Phase 5 regression 329/329 preserved. Zero D-7 cross-imports. Duration ~4m.
 - ⏳ **Phase 7~10**: Pending
 
 ---
@@ -94,7 +96,7 @@ Plan: 3 of 11
 ## Performance Metrics
 
 - **Requirements Mapped:** 96 / 96 (100%)
-- **Requirements Completed:** 66 / 96 (69%) — Phase 1 (3) + Phase 2 (1) + Phase 3 (9) + Phase 4 (34) + Phase 5 (17: ORCH-01/02/03/04/05/06/07/08/09/10/11/12 + VIDEO-01/02/03/04/05) + Phase 6 partial (2: WIKI-05/06). Phase 6 Plan 01 complete 2026-04-19.
+- **Requirements Completed:** 69 / 96 (72%) — Phase 1 (3) + Phase 2 (1) + Phase 3 (9) + Phase 4 (34) + Phase 5 (17: ORCH-01/02/03/04/05/06/07/08/09/10/11/12 + VIDEO-01/02/03/04/05) + Phase 6 partial (5: WIKI-01/02/03/05/06). Phase 6 Plans 01+02+03 complete 2026-04-19.
 - **Orphaned REQ:** 0
 - **Phases:** 10 (granularity=fine 목표 구간 내)
 - **Harness Audit Baseline:** ✅ 100 (Phase 4 Plan 10 Wave 5, threshold 80, 20-point margin) — AUDIT-02 Phase 10 baseline prep satisfied. Phase 7 Integration Test 재검증 예정.
@@ -201,6 +203,18 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 
 62. **`mock_notebooklm_skill_env` fixture seeds fake skill dir with `scripts/run.py` + `data/library.json`** — Plan 03/04/05 tests will want to invoke the notebooklm subprocess wrapper; doing so against the real `C:/Users/PC/Desktop/shorts_naberal/.claude/skills/notebooklm/` would hit real Playwright browser_state (expired per RESEARCH Area Missing Deps) and make tests non-deterministic. Fake skill dir + `monkeypatch.setenv("NOTEBOOKLM_SKILL_PATH", str(fake))` lets downstream plans assert subprocess call-shape without hitting the real runtime. Mirrors Phase 5's `_fake_env` pattern (STATE #50) for API adapter env vars.
 
+### Session #19 Decisions (Plan 06-03 — Wave 2 NOTEBOOKLM WRAPPER query_notebook)
+
+63. **`DEFAULT_SKILL_PATH` forward-slash Windows literal — `Path(r"C:/Users/PC/Desktop/shorts_naberal/.claude/skills/notebooklm")`** — matches plan CONTEXT line 97 verbatim. Forward slashes chosen so the same string literal resolves identically on Windows + WSL + POSIX (Path() normalizes on consumption). Unit test `test_default_skill_path_is_the_2026_install` locks the normalized string form so a future refactor cannot silently drift the fallback location. `_resolve_skill_path` returns `Path` instances (not strings) — tests compare with `==` on Path objects to avoid separator ambiguity.
+
+64. **`RuntimeError` message embeds `notebook_id` for Plan 05 fallback diagnostics** — `raise RuntimeError(f"NotebookLM query failed (rc={rc}) notebook_id={notebook_id}: {stderr}")`. Plan 05 Fallback Chain needs per-notebook failure distinction (auth-expired vs notebook-missing vs Playwright-crash); embedding `notebook_id` in the exception string lets the Tier 0→1 transition log which notebook triggered fall-through without requiring a custom exception subclass. `test_subprocess_error_includes_notebook_id` asserts the substring explicitly. FileNotFoundError (skill dir absent) is a DISTINCT exception class so fallback chain can distinguish "skill not installed" (hard-fail → jump to grep wiki tier) from "skill ran but failed" (soft-fail → possibly retryable).
+
+65. **Rule 3 deviation: fake child `run.py` must `sys.stdout.reconfigure(encoding='utf-8')`** — Task 2 initial pytest showed `UnicodeEncodeError: 'cp949' codec can't encode '\u2014'` inside the child process. Root cause: Windows child Python inherits cp949 default for `sys.stdout`; the wrapper's `encoding='utf-8'` only governs the PARENT's decode of captured bytes. Fix: added `sys.stdout.reconfigure(encoding='utf-8')` at the top of `_make_fake_skill` helper's generated run.py. Inline comment in fixture documents this as a test-only mimic of what the real `ask_question.py` does via pyperclip + browser DOM. Fix applied before Task 2 commit — rolled into `c123d5f`. NOT a production bug — the real skill handles encoding through Playwright, not stdout.
+
+66. **Rule 2 completeness: `errors='replace'` added to subprocess.run alongside `encoding='utf-8'`** — Plan CONTEXT line 590 spec only `encoding='utf-8'`. Default `errors='strict'` would raise `UnicodeDecodeError` inside subprocess.run itself if the child emits a corrupted byte (possible during Playwright mid-crash partial writes). `'replace'` maps bad bytes to U+FFFD and lets the rc!=0 path surface as our cleanly-diagnostic RuntimeError carrying stderr instead of a less-informative UnicodeDecodeError. Zero behavior change in happy path. Public contract unchanged.
+
+67. **Argv shape locked at exactly 9 elements** — `[sys.executable, run.py, ask_question.py, --question, Q, --notebook-id, ID, --timeout, T]`. `test_subprocess_argv_shape` asserts `len(cmd) == 9` plus per-index identity. Any future addition (e.g., `--show-browser` debug flag) trips this assert — intentional drift detector. Future wrapper extensions must be accompanied by test update.
+
 ### Session #15 Decisions (Plan 03-08 — HARVEST-DECISIONS + BLACKLIST-AUDIT)
 
 22. **Blacklist count invariant delegation (Plan 01 M-2 contract honored)** — Plan 08 does NOT re-assert `len(blacklist) == 10`; that invariant is owned by `blacklist_parser.parse_blacklist()` which raises ValueError on mismatch. Redundant asserts would violate DRY + SSoT. A/B/C count assertion (13/16/10) IS preserved at decision_builder entry because it validates a DIFFERENT invariant (CONFLICT_MAP parse integrity).
@@ -241,6 +255,8 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 - [x] **Phase 4 Plan 04-01 execute** → Wave 0 FOUNDATION (2026-04-19, session #16). 6 shared files + 5 validators + 14/14 pytest PASS. studio@0dcb007 (schemas+template+VQQA) + studio@cd1d074 (AF+Korean banks) + studio@daca457 (TDD RED) + studio@5a70504 (TDD GREEN). RUB-04 + AGENT-07/08/09 + COMPLY-01..06 + AUDIO-04 + SUBT-02 = 12 REQs satisfied. harness_audit score 95.
 - [x] **Phase 5 Plan 05-01 execute** → Wave 1 FOUNDATION (2026-04-19, session #17). scripts/orchestrator/ + scripts/hc_checks/ packages + GateName IntEnum 15 members + GATE_DEPS DAG (graphlib import-time validation) + 10-class exception hierarchy + .claude/deprecated_patterns.json 6 regexes (pre_tool_use Hook now active; RESEARCH §10 gap closed) + tests/phase05/ scaffold (18/18 PASS) + 3 validation CLIs. studio@a3e9476 (Task 1) + 8c19c23 (Task 2) + cf9874d (Task 3) + 2fea858 (Task 4). ORCH-02/03/07/08/09 = 5 REQs satisfied. Rule 1 deviations: graphlib double-prepare fix + Edit payload shape + cp949 UTF-8 + SC5 grep narrowed for T2VForbidden guard class.
 - [x] **Phase 6 Plan 06-01 execute** → Wave 0 FOUNDATION (2026-04-19, session #19). scripts/wiki/ package (frontmatter.py 111 lines stdlib-only D-17 parser + link_validator.py 83 lines @wiki/shorts walker, no pyyaml per RESEARCH line 132 DECISION) + scripts/validate/ (verify_wiki_frontmatter.py 76 lines --allow-scaffold exits 0 + phase06_acceptance.py 207 lines SC 1-6 E2E wrapper UTF-8 subprocess encoding) + tests/phase06/ scaffold (__init__.py + conftest.py 99 lines 8 fixtures Phase 5 _REPO_ROOT pattern + 4 fixtures + 2 test files 15/15 green). studio@74e469d (Task 1) + 0bf08a3 (Task 2) + 6690e12 (Task 3). WIKI-05 + WIKI-06 satisfied. Full validation: phase06 15/15 PASS, phase05 regression 329/329 preserved, verify CLI exits 0 on current wiki, acceptance CLI exits 1 gracefully at Wave 0 (no crash). Rule 3 clarification: README.md skip rule + `scaffold` status enum as first-class (session #19 decisions 57-62).
+- [x] **Phase 6 Plan 06-02 execute** → Wave 1 WIKI CONTENT (2026-04-19, session #19). 5 ready wiki nodes (ranking_factors + entry_conditions + remotion_kling_stack + retention_3second_hook + channel_identity) + D-10 5 구성요소 canonical + prefix.json D-20 pre-serialization + 5 MOC checkbox flips + 3 test files / 21 tests. studio@b906548 + 5251cfd + bb85e63. WIKI-01 + WIKI-02 satisfied.
+- [x] **Phase 6 Plan 06-03 execute** → Wave 2 NOTEBOOKLM WRAPPER (2026-04-19, session #19). scripts/notebooklm/ package (__init__.py 15 lines re-export + query.py 118 lines subprocess wrapper — D-6 single-string argv discipline + D-7 external skill reference via NOTEBOOKLM_SKILL_PATH env var no copy + UTF-8 encoding + errors=replace Rule 2 robustness + FOLLOW_UP_MARKER strip + RuntimeError carrying notebook_id for Plan 05 fallback diagnostics + FileNotFoundError on missing skill) + tests/phase06/ 2 test files / 21 tests (15 unit test_notebooklm_wrapper.py + 6 integration test_notebooklm_subprocess.py Korean cp949 round-trip verified). studio@78d47e9 (Task 1) + c123d5f (Task 2). WIKI-03 satisfied. Phase 6 full suite 57/57 PASS (15 Plan 01 + 21 Plan 02 + 21 Plan 03). Phase 5 regression 329/329 preserved. Zero D-7 cross-imports. 06-VALIDATION.md rows 6-03-01/02 flipped ✅ green. Rule 3 deviation: fake child run.py sys.stdout.reconfigure utf-8. Rule 2 completeness: errors='replace' added. Duration ~4m. Session #19 decisions 63-67.
 
 ### Blockers
 
@@ -274,6 +290,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 05-orchestrator-v2-write P05-08 | 7 | 2 tasks | 3 files |
 | Phase 05 P10 | 7m | 4 tasks | 6 files |
 | Phase 06 P02 | 6m | 3 tasks | 14 files |
+| Phase 06-wiki-notebooklm-integration-failures-reservoir P03 | 4m | 2 tasks | 4 files |
 
 ### Plan Execution Log
 
@@ -295,6 +312,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 04-agent-team-design P01 | 10 | 3 (4 commits incl. TDD RED/GREEN) | 17 committed across 4 commits (0dcb007: 4 shared foundation / cd1d074: 2 sample banks / daca457: 6 test files RED / 5a70504: 5 validator files GREEN) + 1 meta (SUMMARY + STATE + ROADMAP) |
 | Phase 05-orchestrator-v2-write P01 | 14 | 4 | 17 committed across 4 commits (a3e9476: Task 1 orchestrator/+hc_checks/ skeleton / 8c19c23: Task 2 deprecated_patterns.json + gitignore state/ / cf9874d: Task 3 tests/phase05/ scaffold 18 tests / 2fea858: Task 4 3 validation CLIs) + 1 meta (SUMMARY + STATE + ROADMAP + REQUIREMENTS) |
 | Phase 06-wiki-notebooklm-integration P01 | 15 | 3 | 13 committed across 3 commits (74e469d: Task 1 scripts.wiki package — frontmatter.py + link_validator.py + __init__.py, 202 lines, stdlib-only, no pyyaml / 0bf08a3: Task 2 tests/phase06/ scaffold — __init__.py + conftest.py 99 lines 8 fixtures + 4 fixture files + 2 test files 15 tests green / 6690e12: Task 3 2 CLIs — verify_wiki_frontmatter.py 76 lines + phase06_acceptance.py 207 lines SC 1-6 wrapper) + 1 meta (SUMMARY + STATE + ROADMAP + REQUIREMENTS + VALIDATION flip). WIKI-05/06 satisfied. Phase 5 regression 329/329 preserved. |
+| Phase 06-wiki-notebooklm-integration P03 | 4m | 2 | 4 committed across 2 commits (78d47e9: Task 1 scripts/notebooklm package — __init__.py 15 lines re-export + query.py 118 lines subprocess wrapper, D-6 single-string argv + D-7 NOTEBOOKLM_SKILL_PATH env var + UTF-8 encoding + errors=replace + FOLLOW_UP marker strip + RuntimeError carrying notebook_id for Plan 05 diagnostics / c123d5f: Task 2 21 tests — test_notebooklm_wrapper.py 202 lines 15 unit tests monkeypatched subprocess + test_notebooklm_subprocess.py 114 lines 6 integration tests real subprocess to fake skill with Korean cp949 round-trip verified) + 1 meta (SUMMARY + STATE + ROADMAP + REQUIREMENTS + VALIDATION flip). WIKI-03 satisfied. Phase 6 full suite 57/57 PASS (15 + 21 + 21). Phase 5 regression 329/329 preserved. Zero D-7 cross-imports. |
 
 ---
 
@@ -315,14 +333,16 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 ```
 
 1. Read .planning/STATE.md (← 본 파일)
-2. Read .planning/phases/06-wiki-notebooklm-integration-failures-reservoir/06-01-SUMMARY.md (Wave 0 FOUNDATION capstone: scripts.wiki + tests/phase06/ + 2 validation CLIs)
-3. Execute: /gsd:execute-phase 6 (advance to Plan 02 Wave 1 WIKI CONTENT — 5 ready nodes + MOC checkbox flips)
+2. Read .planning/phases/06-wiki-notebooklm-integration-failures-reservoir/06-03-SUMMARY.md (Wave 2 NOTEBOOKLM WRAPPER capstone: scripts.notebooklm.query_notebook subprocess wrapper + 21 tests)
+3. Execute: /gsd:execute-phase 6 (advance to Plan 04 Wave 2 library.json channel-bible entry + canary query)
 
-Phase 6 Plan 01 artifacts available:
+Phase 6 Plans 01+02+03 artifacts available (as Plan 04+ inputs):
 
 - scripts/wiki/ (frontmatter.py D-17 parser + link_validator.py @wiki/shorts walker, stdlib-only)
+- scripts/notebooklm/ (query.py 118 lines D-6/D-7 subprocess wrapper + __init__.py re-export of query_notebook + DEFAULT_SKILL_PATH + FOLLOW_UP_MARKER)
 - scripts/validate/ (verify_wiki_frontmatter.py CLI + phase06_acceptance.py SC 1-6 E2E wrapper)
-- tests/phase06/ (15 seed tests green — 10 frontmatter + 5 reference format)
+- wiki/ 5 ready leaves (ranking_factors + entry_conditions + remotion_kling_stack + retention_3second_hook + channel_identity) + prefix.json D-20 pre-serialization
+- tests/phase06/ (57 tests green — 15 Plan 01 foundation + 21 Plan 02 wiki content + 21 Plan 03 notebooklm wrapper)
 - tests/phase06/conftest.py (8 shared fixtures — repo_root, fixtures_dir, tmp_wiki_dir, mock_notebooklm_skill_env, etc.)
 - tests/phase06/fixtures/ (4 fixtures — valid D-17 sample + missing-fields probe + library_json_delta + failures_sample)
 
