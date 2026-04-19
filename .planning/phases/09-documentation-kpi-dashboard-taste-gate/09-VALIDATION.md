@@ -1,10 +1,11 @@
 ---
 phase: 9
 slug: documentation-kpi-dashboard-taste-gate
-status: draft
-nyquist_compliant: false
-wave_0_complete: false
+status: complete
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-04-20
+completed: 2026-04-20
 ---
 
 # Phase 9 — Validation Strategy
@@ -96,7 +97,7 @@ created: 2026-04-20
 - [ ] Feedback latency < 5s for phase09 isolated suite
 - [ ] `nyquist_compliant: true` set in frontmatter after all automated + manual gates pass
 
-**Approval:** pending (flip to `approved 2026-04-XX` after Wave 3 phase gate passes)
+**Approval:** approved 2026-04-20 (Wave 3 phase gate passed)
 
 ---
 
