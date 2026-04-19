@@ -51,24 +51,61 @@ SAMPLE_VALID_RUBRIC = {
 # D-11 JSON extension (Phase 7 Wave 0) — additive, backward-compatible
 # ---------------------------------------------------------------------------
 
+# D-12 / Phase 5 precedent: A-rank drift = deprecated patterns appearing as
+# *executable* identifiers in **production code paths** — NOT documentation
+# of the bans (agent AGENT.md, wiki/, planning/) nor negative-assertion tests
+# (which legitimately reference banned literals to verify absence, e.g.
+# tests/phase05/test_blacklist_grep.py). Scope mirrors
+# ``test_blacklist_grep.py`` (scripts/orchestrator/ + scripts/hc_checks/)
+# so A-rank drift here can only appear if someone re-introduces a banned
+# code path in the runtime — the exact failure mode D-12 guards against.
 _SCAN_ROOTS = [
-    pathlib.Path("scripts"),
-    pathlib.Path(".claude/agents"),
-    pathlib.Path("tests"),
-    pathlib.Path("wiki"),
+    pathlib.Path("scripts/orchestrator"),
+    pathlib.Path("scripts/hc_checks"),
 ]
 _SKILL_ROOT = pathlib.Path(".claude/skills")
 _DEPRECATED_PATTERNS_JSON = pathlib.Path(".claude/deprecated_patterns.json")
 
 
+def _strip_python_comments_and_docstrings(text: str) -> str:
+    """Remove comments, docstrings, and string literals from Python *text*.
+
+    Documentation of bans (docstrings explaining *why* T2V is forbidden,
+    Pydantic Field description= strings referencing D-13, Phase 5 guard
+    comments) is expected and MUST NOT register as A-rank drift. Only
+    executable identifiers (imports, function names, variable names)
+    count toward D-12 drift detection.
+    """
+    # Triple-quoted strings (docstrings + multi-line constants used as docs).
+    # Non-greedy; handles both """...""" and '''...'''.
+    text = re.sub(r'"""[\s\S]*?"""', '""', text)
+    text = re.sub(r"'''[\s\S]*?'''", "''", text)
+    # Single-line string literals "..." and '...' (with simple escape support).
+    # Pydantic Field description= strings, error messages, etc. are docs about
+    # the banned behaviour — not executable code paths.
+    text = re.sub(r'"(?:\\.|[^"\\])*"', '""', text)
+    text = re.sub(r"'(?:\\.|[^'\\])*'", "''", text)
+    # Line comments.
+    out_lines = []
+    for line in text.splitlines():
+        idx = line.find("#")
+        if idx >= 0:
+            out_lines.append(line[:idx])
+        else:
+            out_lines.append(line)
+    return "\n".join(out_lines)
+
+
 def _scan_deprecated_patterns(
     patterns_json: pathlib.Path = _DEPRECATED_PATTERNS_JSON,
 ) -> dict[str, int]:
-    """Scan 4 roots for each deprecated_patterns.json regex; return {name: count}.
+    """Scan production code roots for each deprecated_patterns.json regex.
 
-    Keys are stable short names derived from the regex ``reason`` field or the
-    first segment before ':'. Excludes the audit script itself and the
-    patterns JSON from self-referential scans.
+    Returns {stable_name: count}. Scope is the runtime ``scripts/orchestrator/``
+    + ``scripts/hc_checks/`` tree only (see ``_SCAN_ROOTS`` comment for D-12
+    rationale). Comments and docstrings are stripped so documentation of the
+    bans does not self-trigger. Scanner file + patterns JSON itself are
+    excluded from self-referential scans.
     """
     if not patterns_json.exists():
         return {}
@@ -97,9 +134,7 @@ def _scan_deprecated_patterns(
         for root in _SCAN_ROOTS:
             if not root.exists():
                 continue
-            for p in root.rglob("*"):
-                if not p.is_file() or p.suffix not in {".py", ".md", ".json"}:
-                    continue
+            for p in root.rglob("*.py"):
                 try:
                     if p.resolve() in skip_paths:
                         continue
@@ -109,7 +144,8 @@ def _scan_deprecated_patterns(
                     text = p.read_text(encoding="utf-8", errors="ignore")
                 except OSError:
                     continue
-                n += len(rx.findall(text))
+                stripped = _strip_python_comments_and_docstrings(text)
+                n += len(rx.findall(stripped))
         counts[key] = n
     return counts
 
