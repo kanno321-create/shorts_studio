@@ -50,10 +50,11 @@ metrics:
   tasks-completed: 2
   files-created: 3
   files-modified: 0
-  tests-added: 18
-  tests-passing: 18
-  lines-added: 424
+  tests-added: 20
+  tests-passing: 20
+  lines-added: 620
   completed-date: 2026-04-19
+requirements-completed: [ORCH-06]
 ---
 
 # Phase 05 Plan 02: CircuitBreaker Summary
@@ -67,19 +68,19 @@ Deliver the `CircuitBreaker` primitive required by CONTEXT D-6: every external-A
 ## Tasks Executed
 
 ### Task 1 — TDD RED: failing test suite
-**Commit:** `ec94f19`
+**Commit:** `8fd0dce`
 **Files:** `tests/phase05/test_circuit_breaker.py`, `tests/phase05/test_circuit_breaker_cooldown.py`
 
 Two test files split by concern:
 
-- **`test_circuit_breaker.py`** (18 tests covering state transitions) — default construction, CLOSED success/failure counting, CLOSED→OPEN threshold, OPEN short-circuit behaviour (verifying `fn` is *not* invoked), `CircuitBreakerOpenError.breaker_name` propagation, HALF_OPEN success→CLOSED, HALF_OPEN failure→OPEN, `call()` arg/kwarg forwarding, and `to_dict()` JSON-primitive contract (round-trip through `json.dumps`).
-- **`test_circuit_breaker_cooldown.py`** (5 tests covering the 300-second timing contract) — default cooldown value, pre-boundary blocking at 0/299/300s, post-boundary probe admission at 300.001s, custom cooldown respect, and cooldown-restart-on-failed-probe.
+- **`test_circuit_breaker.py`** (14 tests covering state transitions) — default construction, CLOSED success/failure counting, CLOSED→OPEN threshold, OPEN short-circuit behaviour (verifying `fn` is *not* invoked), `CircuitBreakerOpenError.breaker_name` propagation, HALF_OPEN success→CLOSED, HALF_OPEN failure→OPEN, `call()` arg/kwarg forwarding, and `to_dict()` JSON-primitive contract (round-trip through `json.dumps`).
+- **`test_circuit_breaker_cooldown.py`** (6 tests covering the 300-second timing contract) — default cooldown value, pre-boundary blocking at 0/299/300s, post-boundary probe admission at 300.001s, custom cooldown respect, cooldown-restart-on-failed-probe, and a regression guard asserting `time.monotonic` is the clock source (not `datetime.now`).
 
 Time mocking uses `unittest.mock.patch` against the module-local symbol `scripts.orchestrator.circuit_breaker.time.monotonic`, making the suite wall-clock-independent.
 
 ### Task 2 — GREEN: CircuitBreaker implementation
-**Commit:** `5e12977`
-**File:** `scripts/orchestrator/circuit_breaker.py` (183 lines)
+**Commit:** `3c73cdc`
+**File:** `scripts/orchestrator/circuit_breaker.py` (210 lines)
 
 Three public symbols:
 
@@ -99,21 +100,33 @@ Failure handling uses `except BaseException` so `KeyboardInterrupt` / `SystemExi
 
 ```
 python -m pytest tests/phase05/test_circuit_breaker.py tests/phase05/test_circuit_breaker_cooldown.py -q --no-cov
-18 passed in 0.15s
+20 passed in 0.08s
 ```
 
-Full phase05 regression run:
+Full phase05 regression run (Plan 05-02 scope only — sibling Wave 2 test files from Plan 05-03 / 05-04 excluded because those plans are still in flight):
 
 ```
-python -m pytest tests/phase05/ -q --no-cov
-56 passed in 0.37s
+python -m pytest tests/phase05/ -q --no-cov \
+  --ignore=tests/phase05/test_checkpointer_resume.py \
+  --ignore=tests/phase05/test_checkpointer_roundtrip.py
+38 passed in 0.08s
 ```
 
-(38 Wave 1 tests + 18 new — no regressions.)
+(18 Wave 1 tests + 20 new — no regressions.)
 
 ## Deviations from Plan
 
-None — plan executed exactly as written. No Rule 1 bug fixes, Rule 2 completeness adds, Rule 3 blocker resolutions, or Rule 4 architectural escalations were triggered.
+### Auto-fixed Issues
+
+**1. [Rule 1 — Bug] Cooldown boundary admitted a probe at exactly `cooldown_seconds`**
+- **Found during:** Task 2 verification (`pytest tests/phase05/test_circuit_breaker_cooldown.py`)
+- **Issue:** Initial implementation guarded the OPEN state with `remaining > 0`. At elapsed = 300.0s, `remaining` evaluates to 0.0, so the breaker transitioned to HALF_OPEN and invoked `fn`. `test_open_breaker_blocks_before_cooldown_elapses` asserts the breaker must still be blocked at exactly the boundary (strict `>` semantics — the cooldown is a minimum dwell time, not a deadline).
+- **Fix:** Changed the guard to `remaining >= 0`, so the probe is admitted only once more than `cooldown_seconds` have strictly elapsed. Added a block comment pointing to the test suite and CONTEXT D-6 to prevent regression.
+- **Files modified:** `scripts/orchestrator/circuit_breaker.py` (lines 110-117)
+- **Commit:** `f2b42b1`
+- **Verification:** 20/20 CircuitBreaker tests pass, full phase05 suite (38 tests) green.
+
+**Total deviations:** 1 auto-fix (1 boundary-semantics bug). **Impact:** Strict `>` boundary matches the CONTEXT D-6 contract and test-suite intent; no behavioural regression for any call path other than the exactly-at-boundary case, which was already specified as blocked.
 
 ## Parallel-Wave Protocol Compliance
 
@@ -143,7 +156,9 @@ None.
 - `scripts/orchestrator/circuit_breaker.py` — **FOUND**
 - `tests/phase05/test_circuit_breaker.py` — **FOUND**
 - `tests/phase05/test_circuit_breaker_cooldown.py` — **FOUND**
-- Commit `ec94f19` (RED) — **FOUND**
-- Commit `5e12977` (GREEN) — **FOUND**
-- 18/18 new tests passing — **VERIFIED**
-- 56/56 phase05 tests passing (no regression) — **VERIFIED**
+- Commit `8fd0dce` (Task 1 — RED tests) — **FOUND**
+- Commit `3c73cdc` (Task 2 — GREEN implementation) — **FOUND**
+- Commit `f2b42b1` (Rule 1 fix — strict cooldown boundary) — **FOUND**
+- Commit `c13c219` (docs metadata — STATE + ROADMAP + REQUIREMENTS + SUMMARY) — **FOUND**
+- 20/20 new CircuitBreaker tests passing — **VERIFIED**
+- 38/38 phase05 tests passing (18 Wave 1 + 20 new, no regression) — **VERIFIED**
