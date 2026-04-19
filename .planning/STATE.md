@@ -2,20 +2,20 @@
 gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
-status: planning
-last_updated: "2026-04-18T21:15:40.627Z"
+status: executing
+last_updated: "2026-04-19T03:00:38.785Z"
 progress:
   total_phases: 10
   completed_phases: 3
-  total_plans: 25
-  completed_plans: 25
-  percent: 100
+  total_plans: 35
+  completed_plans: 26
+  percent: 74
 ---
 
 # STATE — naberal-shorts-studio
 
-**Last updated:** 2026-04-19T12:14:00Z
-**Session:** #16 (✅ PHASE 4 COMPLETE — Plan 10 Wave 5 Integration shipped. 32 agents (Producer 14 + Inspector 17 + Supervisor 1), harness_audit score 100, 244/244 pytest PASS, GAN_CLEAN 17/17, LogicQA 17/17, 34/34 Phase 4 REQs complete. SC1 reconciliation '12~20 → 32 canonical' resolves RESEARCH.md Open Question 1. Commits: 778745a (Task 1 integration checks) + 62c0758 (Task 2 VALIDATION.md flip) + b35c64b (Task 3 ROADMAP SC1) + 8452876 (REQUIREMENTS 34/34). Cumulative project 47/96 REQs = 49%. Ready to enter Phase 5 Orchestrator v2 Write.)
+**Last updated:** 2026-04-19T03:00:00Z
+**Session:** #17 (✅ Phase 5 Plan 01 Wave 1 FOUNDATION shipped. Python module skeleton (scripts/orchestrator/ + scripts/hc_checks/), GateName IntEnum 15 members, GATE_DEPS DAG with import-time graphlib validation, 10-class exception hierarchy (OrchestratorError + 9 subclasses), .claude/deprecated_patterns.json 6 regex entries activates pre_tool_use Hook (RESEARCH §10 gap closed), tests/phase05/ scaffold 18/18 PASS, 3 validation CLIs (verify_line_count / verify_hook_blocks / phase05_acceptance). Commits: a3e9476 (Task 1 module skeleton) + 8c19c23 (Task 2 deprecated_patterns + gitignore state/) + cf9874d (Task 3 tests scaffold) + 2fea858 (Task 4 validation CLIs). 5 REQs done: ORCH-02/03/07/08/09. Cumulative project 52/96 REQs = 54%. Ready for Plan 05-02 CircuitBreaker.)
 
 ---
 
@@ -31,13 +31,13 @@ progress:
 
 ## Current Position
 
-Phase: 04 (agent-team-design) — ✅ COMPLETE (10/10 plans, 34/34 REQs, 32 agents shipped)
-Plan: Not started
+Phase: 05 (orchestrator-v2-write) — EXECUTING
+Plan: 2 of 10
 
 - **Phase:** 5
 - **Next Plan:** 05-PLAN (Phase 5 Orchestrator v2 Write — `scripts/orchestrator/shorts_pipeline.py` 500~800줄 state machine, 12 GATE DAG, CircuitBreaker, Checkpointer, 영상/음성 분리 합성, Low-Res First 렌더; ORCH-01~12 + VIDEO-01~05 = 17 REQs)
-- **Status:** Ready to plan
-- **Progress:** [██████████] 100% (Phase 4); [████░░░░░░] 40% (overall 4/10 phases + Phase 1+2+3+4 = 47/96 REQs = 49%)
+- **Status:** Ready to execute
+- **Progress:** [███████░░░] 74%
 
 ---
 
@@ -149,6 +149,15 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 39. **ins-safety ↔ ins-gore 역할 경계 양쪽 문서화** — ins-safety AGENT.md Purpose + MUST REMEMBER #8, 그리고 향후 ins-gore (Plan 07) 도 동일 경계를 본문에 명시해야 함. 담당 축: ins-safety = 대본 텍스트 담론, ins-gore = 시각 프레임 픽셀 수위. Phase 07 에서 ins-gore 가 텍스트 차원의 재판정을 추가하지 않도록 미리 차단.
 40. **Rule 3 deviation: Pytest ScopeMismatch 회피 패턴** — `@pytest.fixture(scope="module")` 가 function-scoped `repo_root` 를 의존하면 16 테스트가 setup 단계에서 ScopeMismatch 로 실패. 모듈 상단 `_REPO_ROOT = pathlib.Path(__file__).resolve().parents[2]` 로 import-time resolve 후 fixture 에서 사용 (conftest.py 와 동일 패턴). tests/phase04/ 향후 테스트 모두 이 패턴 준수.
 
+### Session #17 Decisions (Plan 05-01 — Wave 1 FOUNDATION)
+
+41. **GateName as IntEnum (not Enum) — canonical D-2 numbering 0..14** — `IntEnum` chosen so Checkpointer can name files `gate_{int(gate):02d}.json` for natural lexical sort on resume. 15 states total (IDLE=0 bookend, 13 operational TREND..MONITOR, COMPLETE=14 bookend). `len(GateName) == 15` is the contract assertion every downstream plan imports.
+42. **`_validate_dag()` uses `static_order()` alone, not `prepare()` + `static_order()`** — `graphlib.TopologicalSorter` raises `ValueError("cannot prepare() more than once")` when both are called. `static_order()` internally calls `prepare()` and surfaces `graphlib.CycleError` on cycle, which is the import-time fail-fast guarantee we need. Inline comment in gates.py documents the constraint so future contributors don't re-add explicit prepare().
+43. **Exception class named `T2VForbidden` (plan-mandated) — SC5 grep narrowed accordingly** — CONTEXT D-13 interface block line 173 explicitly specifies `class T2VForbidden(OrchestratorError): ...`. A case-insensitive `grep -riE "t2v"` would always false-positive on the guard class itself. Rule 1 deviation: `phase05_acceptance.py` SC5 grep uses `(^|[^A-Za-z_])t2v([^A-Za-z_]|$)|text_to_video|text2video` (case-sensitive, word-boundary) to catch lowercase identifier usage (function calls, attribute access) while leaving the PascalCase `T2VForbidden` sentinel untouched. Preserves plan contract exactly.
+44. **verify_hook_blocks.py per-tool payload shape** — `pre_tool_use.py` reads `input.content` for Write, `input.new_string` for Edit, `input.edits[*].new_string` for MultiEdit. Naïve uniform payload (`{"content": "..."}` for all tool_names) would silently false-pass because the Hook would see an empty string for Edit/MultiEdit. The validator now branches on `tool_name` to construct the correct shape — matches the Hook's real-world invocation contract.
+45. **UTF-8 subprocess encoding reaffirmed (STATE #28 pattern)** — `phase05_acceptance.py` and `verify_hook_blocks.py` both set `encoding="utf-8"` on `subprocess.run(...)` calls. Windows default cp949 cannot decode em-dash (`—`) or Korean reason text that `pre_tool_use.py` emits in deny messages or that pytest warnings emit from Korean-content test fixtures. Without this, acceptance CLI raises `UnicodeDecodeError` mid-script — violating the plan's "MUST not raise Python exceptions" rule.
+46. **Namespace-marker `__init__.py` pattern** — `scripts/orchestrator/api/__init__.py` and `scripts/hc_checks/__init__.py` are docstring-only files with zero imports. Docstring explains which future plan (06 / 08) fills the package. Creates the Python package without committing to any implementation detail prematurely; avoids `from __future__ import annotations` being the first non-comment line on disk.
+
 ### Session #15 Decisions (Plan 03-08 — HARVEST-DECISIONS + BLACKLIST-AUDIT)
 
 22. **Blacklist count invariant delegation (Plan 01 M-2 contract honored)** — Plan 08 does NOT re-assert `len(blacklist) == 10`; that invariant is owned by `blacklist_parser.parse_blacklist()` which raises ValueError on mismatch. Redundant asserts would violate DRY + SSoT. A/B/C count assertion (13/16/10) IS preserved at decision_builder entry because it validates a DIFFERENT invariant (CONFLICT_MAP parse integrity).
@@ -187,6 +196,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 - [x] **Phase 3 Plan 03-09 execute** → Tier 3 lockdown (studio@8ae370e, attrib +R /S /D recursive on .preserved/harvested/, 55 files R-flagged, lockdown.verify_lockdown PermissionError probe PASS) + verify_harvest --full 15/15 PASS (studio@d4fc5e4, 13 task checks + deep_diff 2 tree-copy dirs clean + sha256 5-file spot sample hash-match; Rule 3 fix: verify_harvest.py _deep_diff_all + _sha256_spot_sample filter non-dict manifest entries). 03-VALIDATION.md status=complete/nyquist_compliant=true/wave_0_complete=true. HARVEST-06 satisfied.
 - [x] **Phase 3 COMPLETE** — All 9 REQs (HARVEST-01..08 + AGENT-06) satisfied. .preserved/harvested/ Tier 3 immutable locked. Ready to enter Phase 4 Agent Team Design.
 - [x] **Phase 4 Plan 04-01 execute** → Wave 0 FOUNDATION (2026-04-19, session #16). 6 shared files + 5 validators + 14/14 pytest PASS. studio@0dcb007 (schemas+template+VQQA) + studio@cd1d074 (AF+Korean banks) + studio@daca457 (TDD RED) + studio@5a70504 (TDD GREEN). RUB-04 + AGENT-07/08/09 + COMPLY-01..06 + AUDIO-04 + SUBT-02 = 12 REQs satisfied. harness_audit score 95.
+- [x] **Phase 5 Plan 05-01 execute** → Wave 1 FOUNDATION (2026-04-19, session #17). scripts/orchestrator/ + scripts/hc_checks/ packages + GateName IntEnum 15 members + GATE_DEPS DAG (graphlib import-time validation) + 10-class exception hierarchy + .claude/deprecated_patterns.json 6 regexes (pre_tool_use Hook now active; RESEARCH §10 gap closed) + tests/phase05/ scaffold (18/18 PASS) + 3 validation CLIs. studio@a3e9476 (Task 1) + 8c19c23 (Task 2) + cf9874d (Task 3) + 2fea858 (Task 4). ORCH-02/03/07/08/09 = 5 REQs satisfied. Rule 1 deviations: graphlib double-prepare fix + Edit payload shape + cp949 UTF-8 + SC5 grep narrowed for T2VForbidden guard class.
 
 ### Blockers
 
@@ -209,6 +219,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 04 P02 | 5m | 2 tasks | 4 files |
 | Phase 04 P07 | 18m | 2 tasks | 4 files |
 | Phase 04 P06 | 6min | 2 tasks | 4 files |
+| Phase 05 P01 | 14m | 4 tasks | 17 files |
 
 ### Plan Execution Log
 
@@ -228,6 +239,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 03-harvest P08 | 3 | 2 | 2 committed (15b827f: 03-HARVEST_DECISIONS.md 39 rows + audit_log Task 1 / c14ab95: audit_log Task 2 blacklist audit PASS) + 1 meta (SUMMARY) |
 | Phase 03-harvest P09 | 8 | 2 | 2 committed (8ae370e: audit_log Task 1 Tier 3 lockdown / d4fc5e4: audit_log Task 2 + verify_harvest.py Rule 3 fix + 03-VALIDATION.md flipped) + 1 meta (SUMMARY) |
 | Phase 04-agent-team-design P01 | 10 | 3 (4 commits incl. TDD RED/GREEN) | 17 committed across 4 commits (0dcb007: 4 shared foundation / cd1d074: 2 sample banks / daca457: 6 test files RED / 5a70504: 5 validator files GREEN) + 1 meta (SUMMARY + STATE + ROADMAP) |
+| Phase 05-orchestrator-v2-write P01 | 14 | 4 | 17 committed across 4 commits (a3e9476: Task 1 orchestrator/+hc_checks/ skeleton / 8c19c23: Task 2 deprecated_patterns.json + gitignore state/ / cf9874d: Task 3 tests/phase05/ scaffold 18 tests / 2fea858: Task 4 3 validation CLIs) + 1 meta (SUMMARY + STATE + ROADMAP + REQUIREMENTS) |
 
 ---
 

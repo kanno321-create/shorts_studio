@@ -59,14 +59,14 @@
 ### ORCH — 오케스트레이터 v2
 
 - [ ] **ORCH-01**: `scripts/orchestrator/shorts_pipeline.py` 작성 — **500~800줄 state machine**
-- [ ] **ORCH-02**: 12 GATE 구현: `IDLE → TREND → NICHE → RESEARCH_NLM → BLUEPRINT → SCRIPT → POLISH → VOICE → ASSETS → ASSEMBLY → THUMBNAIL → METADATA → UPLOAD → MONITOR → COMPLETE`
-- [ ] **ORCH-03**: `GateGuard.dispatch(gate, verdict)` 강제 — Reviewer FAIL 시 raise
+- [x] **ORCH-02**: 12 GATE 구현: `IDLE → TREND → NICHE → RESEARCH_NLM → BLUEPRINT → SCRIPT → POLISH → VOICE → ASSETS → ASSEMBLY → THUMBNAIL → METADATA → UPLOAD → MONITOR → COMPLETE`
+- [x] **ORCH-03**: `GateGuard.dispatch(gate, verdict)` 강제 — Reviewer FAIL 시 raise
 - [ ] **ORCH-04**: `verify_all_dispatched()` = COMPLETE 진입 조건
 - [ ] **ORCH-05**: Checkpointer — `state/{session_id}/gate_{n}.json`
 - [ ] **ORCH-06**: CircuitBreaker — 3회 실패 → 5분 cooldown
-- [ ] **ORCH-07**: **DAG 의존성 그래프** — 선행 GATE 미통과 시 후속 실행 차단 (NotebookLM T16)
-- [ ] **ORCH-08**: **`skip_gates` 파라미터 물리 제거** (존재 자체 금지) + regex 차단 (`pre_tool_use`)
-- [ ] **ORCH-09**: **TODO(next-session) 물리 차단** (`pre_tool_use` regex)
+- [x] **ORCH-07**: **DAG 의존성 그래프** — 선행 GATE 미통과 시 후속 실행 차단 (NotebookLM T16)
+- [x] **ORCH-08**: **`skip_gates` 파라미터 물리 제거** (존재 자체 금지) + regex 차단 (`pre_tool_use`)
+- [x] **ORCH-09**: **TODO(next-session) 물리 차단** (`pre_tool_use` regex)
 - [ ] **ORCH-10**: 영상/음성 완전 분리 합성 (NotebookLM T3) — Typecast 먼저 → 타임스탬프 매핑 → Shotstack 합성
 - [ ] **ORCH-11**: Low-Res First 렌더 (720p) → AI 업스케일 (T4)
 - [ ] **ORCH-12**: 재생성 루프 3회 hardcoded → FAILURES 저수지 → "정지 이미지 + 줌인" Fallback (T8)
