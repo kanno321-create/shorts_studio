@@ -78,7 +78,7 @@
 - [x] **WIKI-03**: NotebookLM 2-노트북 세팅
   - 일반 (shorts-production-pipeline-bible 재사용 or 신규)
   - 채널바이블 (Phase 3 Harvest 결과 기반)
-- [ ] **WIKI-04**: **NotebookLM Fallback Chain** — RAG 실패 시 → grep wiki → hardcoded defaults
+- [x] **WIKI-04**: **NotebookLM Fallback Chain** — RAG 실패 시 → grep wiki → hardcoded defaults — Phase 6 Plan 05 Wave 2 FALLBACK CHAIN: scripts/notebooklm/fallback.py 3-tier (RAGBackend Tier 0 reuses query_notebook + GrepWikiBackend Tier 1 keyword intersection on wiki/**/*.md + HardcodedDefaultsBackend Tier 2 never-raises with D-10/D-5 canonical + NotebookLMFallbackChain returns (answer, tier_used)); 18 tests green [15 fallback_chain + 3 fallback_injection]; D-5 fault injection acceptance proven via monkeypatched subprocess rc=1 forcing tier>=1; RuntimeError('all NotebookLM fallback tiers exhausted') literal pinned; 2026-04-19 studio@25993bb
 - [x] **WIKI-05**: 에이전트 프롬프트에서 wiki 노드 참조는 `@wiki/shorts/xxx.md` 형식 고정 — Phase 6 Plan 01 Wave 0 FOUNDATION: scripts.wiki.link_validator.validate_all_agent_refs() enforces @wiki/shorts/ prefix + status=ready; 2026-04-19 studio@6690e12
 - [x] **WIKI-06**: SKILL.md는 ≤500줄 본문 + 나머지는 wiki 참조 (Lost in the Middle 완화) — Phase 6 Plan 01 Wave 0 FOUNDATION: validator scaffold ready for downstream SKILL line-count audit; 2026-04-19 studio@6690e12
 

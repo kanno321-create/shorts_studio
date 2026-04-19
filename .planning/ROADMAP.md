@@ -158,7 +158,7 @@
 - [x] 06-02-PLAN.md — Wave 1 WIKI CONTENT: 5 ready nodes + 5 MOC checkbox flips + 3 test files
 - [x] 06-03-PLAN.md — Wave 2 NOTEBOOKLM WRAPPER: scripts/notebooklm/query.py subprocess wrapper (D-6/D-7)
 - [x] 06-04-PLAN.md — Wave 2 LIBRARY REGISTRATION: library.json channel-bible entry (D-8) + deferred-items.md
-- [ ] 06-05-PLAN.md — Wave 2 FALLBACK CHAIN: 3-tier RAG -> grep -> defaults (D-5)
+- [x] 06-05-PLAN.md — Wave 2 FALLBACK CHAIN: 3-tier RAG -> grep -> defaults (D-5) — ✅ shipped 2026-04-19, studio@25993bb (scripts/notebooklm/fallback.py 231 lines: QueryBackend Protocol + RAGBackend/GrepWikiBackend/HardcodedDefaultsBackend + NotebookLMFallbackChain; 18 tests green [15 fallback_chain + 3 fallback_injection]; D-5 fault injection via monkeypatched subprocess rc=1 proves tier>=1 activation; WIKI-04 satisfied)
 - [ ] 06-06-PLAN.md — Wave 3 CONTINUITY MODEL: ContinuityPrefix pydantic v2 (D-20) + prefix.json
 - [ ] 06-07-PLAN.md — Wave 3 SHOTSTACK INJECTION: filter[0] continuity_prefix + D-17 tail preservation (D-9/D-19)
 - [ ] 06-08-PLAN.md — Wave 4 HOOK EXTENSION: FAILURES append-only + SKILL_HISTORY backup (D-11/D-12/D-14) + 2 deprecated_patterns
@@ -239,7 +239,7 @@
 | 3. Harvest | 9/9 | ✅ Complete | 2026-04-19 |
 | 4. Agent Team Design | 10/10 | Complete    | 2026-04-18 |
 | 5. Orchestrator v2 | 10/10 | ✅ Complete | 2026-04-19 |
-| 6. Wiki + NotebookLM + FAILURES | 3/11 | Executing | - |
+| 6. Wiki + NotebookLM + FAILURES | 5/11 | Executing | - |
 | 7. Integration Test | 0/TBD | Not started | - |
 | 8. Remote + Publishing | 0/TBD | Not started | - |
 | 9. Docs + KPI + Taste Gate | 0/TBD | Not started | - |

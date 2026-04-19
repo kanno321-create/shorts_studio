@@ -46,8 +46,8 @@ created: 2026-04-19
 | 6-03-01 | 03 | 2 | WIKI-03 | unit | `pytest tests/phase06/test_notebooklm_wrapper.py` | ✅ on disk | ✅ green |
 | 6-03-02 | 03 | 2 | WIKI-03 | integration | `pytest tests/phase06/test_notebooklm_subprocess.py` | ✅ on disk | ✅ green |
 | 6-04-01 | 04 | 2 | WIKI-03 | unit | `pytest tests/phase06/test_library_json_channel_bible.py` | ✅ on disk | ✅ green |
-| 6-05-01 | 05 | 2 | WIKI-04 | unit | `pytest tests/phase06/test_fallback_chain.py` | ❌ W0 | ⬜ pending |
-| 6-05-02 | 05 | 2 | WIKI-04 | integration | `pytest tests/phase06/test_fallback_injection.py` | ❌ W0 | ⬜ pending |
+| 6-05-01 | 05 | 2 | WIKI-04 | unit | `pytest tests/phase06/test_fallback_chain.py` | ✅ on disk | ✅ green |
+| 6-05-02 | 05 | 2 | WIKI-04 | integration | `pytest tests/phase06/test_fallback_injection.py` | ✅ on disk | ✅ green |
 | 6-06-01 | 06 | 3 | WIKI-02 | unit | `pytest tests/phase06/test_continuity_prefix_schema.py` | ❌ W0 | ⬜ pending |
 | 6-06-02 | 06 | 3 | WIKI-02 | unit | `pytest tests/phase06/test_prefix_json_serialization.py` | ❌ W0 | ⬜ pending |
 | 6-07-01 | 07 | 3 | WIKI-02 | unit | `pytest tests/phase06/test_shotstack_prefix_injection.py` | ❌ W0 | ⬜ pending |
