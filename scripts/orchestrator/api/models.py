@@ -28,9 +28,9 @@ validation as the contract enforcement layer.
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Literal
+from typing import Annotated, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints
 
 
 class I2VRequest(BaseModel):
@@ -115,8 +115,50 @@ class ShotstackRenderRequest(BaseModel):
     )
 
 
+# ---------------------------------------------------------------------------
+# Phase 6 Plan 06: Continuity Bible Prefix (D-20 / WIKI-02)
+# ---------------------------------------------------------------------------
+
+HexColor = Annotated[str, StringConstraints(pattern=r"^#[0-9A-Fa-f]{6}$")]
+"""6-digit hex color like ``#1A2E4A``. Consumed by :class:`ContinuityPrefix`."""
+
+
+class ContinuityPrefix(BaseModel):
+    """D-20: Continuity Bible prefix schema — channel-identity fingerprint.
+
+    All fields enforce D-10's 5 components at parse time so a missing or
+    drifted component fails before any render attempt:
+
+    * ``color_palette`` + ``warmth``  -> D-10(a) color palette
+    * ``focal_length_mm`` + ``aperture_f``  -> D-10(b) camera lens
+    * ``visual_style``  -> D-10(c) locked literal
+    * ``audience_profile``  -> D-10(d) + D-16 Korean senior descriptor
+    * ``bgm_mood``  -> D-10(e) 3 presets
+
+    Serialized form lives at ``wiki/continuity_bible/prefix.json``;
+    :mod:`scripts.orchestrator.api.shotstack` loads it at render time and
+    injects ``"continuity_prefix"`` at the first position of
+    :attr:`ShotstackRenderRequest.filters_order` per D-19.
+
+    ``extra="forbid"`` ensures schema drift in ``prefix.json`` surfaces at
+    parse time rather than corrupting renders silently (Pitfall 5).
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    color_palette: list[HexColor] = Field(min_length=3, max_length=5, description="D-10(a): 3-5 HEX anchors.")
+    warmth: Annotated[float, Field(ge=-1.0, le=1.0)] = Field(description="D-10(a): -1 cool .. +1 warm.")
+    focal_length_mm: Annotated[int, Field(ge=18, le=85)] = Field(description="D-10(b): typical 35 or 50.")
+    aperture_f: Annotated[float, Field(ge=1.4, le=16.0)] = Field(description="D-10(b): f-stop.")
+    visual_style: Literal["photorealistic", "cinematic", "documentary"] = Field(description="D-10(c).")
+    audience_profile: str = Field(min_length=10, description="D-10(d)+D-16 Korean senior descriptor.")
+    bgm_mood: Literal["ambient", "tension", "uplift"] = Field(description="D-10(e): 3 presets.")
+
+
 __all__ = [
     "I2VRequest",
     "TypecastRequest",
     "ShotstackRenderRequest",
+    "ContinuityPrefix",
+    "HexColor",
 ]

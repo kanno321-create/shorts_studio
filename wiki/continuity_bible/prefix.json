@@ -4,10 +4,6 @@
   "focal_length_mm": 35,
   "aperture_f": 2.8,
   "visual_style": "cinematic",
-  "audience_profile": "Korean seniors 50-65, low-involvement B2C, 존댓말 narration baseline, 탐정 하오체 + 조수 해요체 duo persona exception (CONTENT-02)",
-  "bgm_mood": "ambient",
-  "_schema_version": "d-20",
-  "_source_wiki": "wiki/continuity_bible/channel_identity.md",
-  "_source_notebook": "naberal-shorts-channel-bible",
-  "_note": "Direct JSON serialization of D-10 5 components. ContinuityPrefix pydantic v2 model consumes this at scripts/orchestrator/api/shotstack.py _load_continuity_preset. Filter chain first position (D-19). Phase 06 Plan 02 authored; Plan 06 wires the pydantic model."
+  "audience_profile": "한국 시니어 50-65세, 채도 낮은 톤 선호, 빠른 정보 전달 기대",
+  "bgm_mood": "ambient"
 }
