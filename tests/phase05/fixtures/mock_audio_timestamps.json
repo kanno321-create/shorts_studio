@@ -1,0 +1,9 @@
+{
+  "words": [
+    {"word": "탐정님", "start": 0.0, "end": 0.42},
+    {"word": "이것은", "start": 0.52, "end": 0.88},
+    {"word": "흥미롭군요", "start": 0.98, "end": 1.62}
+  ],
+  "total_duration_seconds": 1.62,
+  "language": "ko"
+}

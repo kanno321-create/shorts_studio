@@ -1,0 +1,10 @@
+{
+  "result": "FAIL",
+  "score": 42,
+  "evidence": [
+    {"rule": "HC-2", "line": 15, "detail": "title line 1 exceeds 28 chars"},
+    {"rule": "TONE-01", "line": 22, "detail": "detective speaker using 해요체 (expected 하오체)"}
+  ],
+  "semantic_feedback": "Two structural failures: overlong title and register drift.",
+  "inspector_name": "shorts-supervisor"
+}
