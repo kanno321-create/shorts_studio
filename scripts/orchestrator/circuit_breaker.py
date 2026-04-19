@@ -123,9 +123,14 @@ class CircuitBreaker:
 
         if self.state is CircuitState.OPEN:
             remaining = self._cooldown_remaining()
-            if remaining > 0:
+            # Strict `>`: at exactly cooldown_seconds elapsed the breaker is
+            # still OPEN; a probe is admitted only once strictly more time
+            # has passed. This matches the test suite's boundary contract
+            # (tests/phase05/test_circuit_breaker_cooldown.py) and D-6
+            # which treats cooldown_seconds as the minimum dwell time.
+            if remaining >= 0:
                 raise CircuitBreakerOpenError(self.name, cooldown_remaining=remaining)
-            # Cooldown elapsed → transition to HALF_OPEN and execute probe.
+            # Cooldown exceeded → transition to HALF_OPEN and execute probe.
             self.state = CircuitState.HALF_OPEN
 
         try:
