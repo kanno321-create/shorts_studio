@@ -159,7 +159,7 @@
 - [x] 06-03-PLAN.md — Wave 2 NOTEBOOKLM WRAPPER: scripts/notebooklm/query.py subprocess wrapper (D-6/D-7)
 - [x] 06-04-PLAN.md — Wave 2 LIBRARY REGISTRATION: library.json channel-bible entry (D-8) + deferred-items.md
 - [x] 06-05-PLAN.md — Wave 2 FALLBACK CHAIN: 3-tier RAG -> grep -> defaults (D-5) — ✅ shipped 2026-04-19, studio@25993bb (scripts/notebooklm/fallback.py 231 lines: QueryBackend Protocol + RAGBackend/GrepWikiBackend/HardcodedDefaultsBackend + NotebookLMFallbackChain; 18 tests green [15 fallback_chain + 3 fallback_injection]; D-5 fault injection via monkeypatched subprocess rc=1 proves tier>=1 activation; WIKI-04 satisfied)
-- [ ] 06-06-PLAN.md — Wave 3 CONTINUITY MODEL: ContinuityPrefix pydantic v2 (D-20) + prefix.json
+- [x] 06-06-PLAN.md — Wave 3 CONTINUITY MODEL: ContinuityPrefix pydantic v2 (D-20) + prefix.json — ✅ shipped 2026-04-19, studio@f661fa7 (scripts/orchestrator/api/models.py 164 lines: HexColor Annotated alias + ContinuityPrefix BaseModel with 7 D-20 fields + extra='forbid'; wiki/continuity_bible/prefix.json normalised to canonical 7-field form [dropped 4 metadata keys, audience_profile = canonical Korean literal]; 33 tests green [26 schema boundary + 7 serialization/drift]; Phase 5 329/329 preserved; Phase 6 123/123; WIKI-02 data-model layer complete)
 - [ ] 06-07-PLAN.md — Wave 3 SHOTSTACK INJECTION: filter[0] continuity_prefix + D-17 tail preservation (D-9/D-19)
 - [ ] 06-08-PLAN.md — Wave 4 HOOK EXTENSION: FAILURES append-only + SKILL_HISTORY backup (D-11/D-12/D-14) + 2 deprecated_patterns
 - [ ] 06-09-PLAN.md — Wave 4 AGGREGATION CLI: 30-day dry-run (D-13)
