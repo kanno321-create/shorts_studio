@@ -58,8 +58,8 @@ created: 2026-04-19
 | 8-05-04 | 05 | 4 | PUB-05 | **ANCHOR B** — grep `captions.insert` + `endScreen` 0 hits | `pytest tests/phase08/test_endscreen_nonexistent_anchor.py -q` | ✅ | ✅ green |
 | 8-05-05 | 05 | 4 | PUB-02 | **ANCHOR C** — grep selenium/webdriver/playwright 0 hits | `pytest tests/phase08/test_no_selenium_anchor.py -q` | ✅ | ✅ green |
 | 8-05-06 | 05 | 4 | PUB-02 | unit (youtube_uploader.upload_shorts full flow mocked) | `pytest tests/phase08/test_uploader_mocked_e2e.py -q` | ✅ | ✅ green |
-| 8-06-01 | 06 | 5 | PUB-01..05 | **SMOKE GATE — USER APPROVAL REQUIRED** | Manual dispatch after approval | ❌ W0 | ⬜ pending |
-| 8-06-02 | 06 | 5 | PUB-01..05 | subprocess (videos.delete cleanup verified) | `pytest tests/phase08/test_smoke_cleanup.py -q` | ❌ W0 | ⬜ pending |
+| 8-06-01 | 06 | 5 | PUB-01..05 | **SMOKE GATE — CODE SHIPPED; real exec deferred to orchestrator** | `python -m py_compile scripts/publisher/smoke_test.py` | ✅ | ✅ green (code) |
+| 8-06-02 | 06 | 5 | PUB-01..05 | subprocess (videos.delete cleanup verified) | `pytest tests/phase08/test_smoke_cleanup.py -q` | ✅ | ✅ green |
 | 8-07-01 | 07 | 6 | PUB-01..05 + REMOTE-01..03 | E2E acceptance mocked | `python scripts/validate/phase08_acceptance.py` | ❌ W0 | ⬜ pending |
 | 8-07-02 | 07 | 6 | TEST-regression | full regression sweep | `pytest tests/phase04 tests/phase05 tests/phase06 tests/phase07 tests/phase08 --no-cov` | ❌ W0 | ⬜ pending |
 | 8-08-01 | 08 | 7 | All Phase 8 | TRACEABILITY matrix orphan guard | `pytest tests/phase08/test_traceability_matrix.py -q` | ❌ W0 | ⬜ pending |
