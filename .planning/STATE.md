@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-19T07:35:20.759Z"
+last_updated: "2026-04-19T07:47:50.995Z"
 progress:
   total_phases: 10
   completed_phases: 4
   total_plans: 46
-  completed_plans: 38
-  percent: 83
+  completed_plans: 39
+  percent: 85
 ---
 
 # STATE — naberal-shorts-studio
@@ -32,12 +32,12 @@ progress:
 ## Current Position
 
 Phase: 06 (wiki-notebooklm-integration-failures-reservoir) — EXECUTING
-Plan: 4 of 11
+Plan: 5 of 11
 
 - **Phase:** 6
 - **Next Action:** `/gsd:execute-phase 6` (advance to Plan 04 Wave 2 library.json channel-bible entry + canary query)
 - **Status:** Ready to execute
-- **Progress:** [████████░░] 83%
+- **Progress:** [█████████░] 85%
 
 ---
 
@@ -85,10 +85,11 @@ Plan: 4 of 11
   - ✅ Plan 05-08: Wave 6 hc_checks regression port — 1176-line rewrite preserving 13 signatures + 41 tests (studio@92b2b33+d4ad6f8+6b3f744). ORCH-01 reinforced.
   - ✅ Plan 05-09: Wave 6 Hook enforcement regression — 5 subprocess test files / 31 tests proving Hook denies blacklist + allows canonical I2V (studio@df4dac3+a9b313d+0636120+690a58a+259c5d1+9c7d266). ORCH-08/09 + VIDEO-01 Hook-layer.
   - ✅ Plan 05-10: Wave 7 FINAL VERIFICATION — 4 test files (33 tests) + 17-REQ TRACEABILITY.md + 05-VALIDATION.md frontmatter flip (studio@64ae113+4bbd534+695dc89+a17f58f). 329/329 pytest PASS, SC 1-6 all PASS, 17/17 REQs covered. **PHASE 5 COMPLETE.**
-- 🔄 **Phase 6: Wiki + NotebookLM + FAILURES** — EXECUTING (3/11 plans). Plan 01 Wave 0 FOUNDATION + Plan 02 Wave 1 WIKI CONTENT + Plan 03 Wave 2 NOTEBOOKLM WRAPPER complete 2026-04-19.
+- 🔄 **Phase 6: Wiki + NotebookLM + FAILURES** — EXECUTING (4/11 plans). Plans 01-04 complete 2026-04-19.
   - ✅ Plan 06-01: Wave 0 FOUNDATION — scripts.wiki package (frontmatter parser + link validator, stdlib-only) + tests/phase06/ scaffold (15 seed tests green) + 2 validation CLIs (verify_wiki_frontmatter exits 0, phase06_acceptance exits 1 gracefully at Wave 0). studio@74e469d + 0bf08a3 + 6690e12. WIKI-05 + WIKI-06 satisfied. Phase 5 regression 329/329 preserved.
   - ✅ Plan 06-02: Wave 1 WIKI CONTENT — 5 ready wiki nodes (algorithm/ypp/render/kpi/continuity_bible) + D-10 5 구성요소 canonical channel_identity.md + prefix.json D-20 pre-serialization + 5 MOC checkbox flips + 21 tests. studio@b906548 + 5251cfd + bb85e63. WIKI-01 + WIKI-02 satisfied.
   - ✅ Plan 06-03: Wave 2 NOTEBOOKLM WRAPPER — scripts.notebooklm package (query_notebook subprocess wrapper, 118 lines, D-6 single-string argv + D-7 skill-path resolver kwarg>env>default + UTF-8 cp949 guard + FOLLOW_UP marker strip + RuntimeError carrying notebook_id for Plan 05 fallback diagnostics) + 21 tests (15 unit + 6 integration, Korean cp949 round-trip verified). studio@78d47e9 (Task 1 wrapper) + c123d5f (Task 2 tests). WIKI-03 satisfied. Phase 6 full suite 57/57 PASS, Phase 5 regression 329/329 preserved. Zero D-7 cross-imports. Duration ~4m.
+  - ✅ Plan 06-04: Wave 2 LIBRARY REGISTRATION — scripts.notebooklm.library (173 lines — add_channel_bible_entry idempotent helper, load_library, dump_library, CHANNEL_BIBLE_ID constant, CHANNEL_BIBLE_TEMPLATE D-8 verbatim with Korean 타겟팅 description) + 15 tests (TDD RED 38fb098 -> GREEN b6df271 -> deferred-items 4ffa9ee). External shorts_naberal library.json appended with naberal-shorts-channel-bible (URL placeholder TBD-url-await-user; existing 2 notebooks shorts-production-pipeline-bible + crime-stories-+-typecast-emotion byte-identical dict equality; active_notebook_id unchanged). D-04-01 URL blocker tracked in deferred-items.md with 6-step unblock procedure (대표님 Google NotebookLM console + helper re-run). D-7 preserved (0 cross-imports). Phase 6 full suite 72/72 PASS, Phase 5 regression 329/329 preserved. WIKI-03 reinforced (already ticked by Plan 03). Duration ~5m.
 - ⏳ **Phase 7~10**: Pending
 
 ---
@@ -96,7 +97,7 @@ Plan: 4 of 11
 ## Performance Metrics
 
 - **Requirements Mapped:** 96 / 96 (100%)
-- **Requirements Completed:** 69 / 96 (72%) — Phase 1 (3) + Phase 2 (1) + Phase 3 (9) + Phase 4 (34) + Phase 5 (17: ORCH-01/02/03/04/05/06/07/08/09/10/11/12 + VIDEO-01/02/03/04/05) + Phase 6 partial (5: WIKI-01/02/03/05/06). Phase 6 Plans 01+02+03 complete 2026-04-19.
+- **Requirements Completed:** 69 / 96 (72%) — Phase 1 (3) + Phase 2 (1) + Phase 3 (9) + Phase 4 (34) + Phase 5 (17: ORCH-01/02/03/04/05/06/07/08/09/10/11/12 + VIDEO-01/02/03/04/05) + Phase 6 partial (5: WIKI-01/02/03/05/06; WIKI-03 reinforced by Plan 04 library registration). Phase 6 Plans 01+02+03+04 complete 2026-04-19.
 - **Orphaned REQ:** 0
 - **Phases:** 10 (granularity=fine 목표 구간 내)
 - **Harness Audit Baseline:** ✅ 100 (Phase 4 Plan 10 Wave 5, threshold 80, 20-point margin) — AUDIT-02 Phase 10 baseline prep satisfied. Phase 7 Integration Test 재검증 예정.
@@ -291,6 +292,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 05 P10 | 7m | 4 tasks | 6 files |
 | Phase 06 P02 | 6m | 3 tasks | 14 files |
 | Phase 06-wiki-notebooklm-integration-failures-reservoir P03 | 4m | 2 tasks | 4 files |
+| Phase 06 P04 | 5m | 2 tasks | 3 files |
 
 ### Plan Execution Log
 

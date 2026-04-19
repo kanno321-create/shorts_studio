@@ -157,7 +157,7 @@
 - [x] 06-01-PLAN.md — Wave 0 FOUNDATION: scripts/wiki/ + tests/phase06/ scaffold + phase06_acceptance.py — ✅ shipped 2026-04-19, studio@6690e12 (15/15 tests green, scripts.wiki imports OK, phase06_acceptance exits 1 gracefully at Wave 0, phase05 regression 329/329 preserved)
 - [x] 06-02-PLAN.md — Wave 1 WIKI CONTENT: 5 ready nodes + 5 MOC checkbox flips + 3 test files
 - [x] 06-03-PLAN.md — Wave 2 NOTEBOOKLM WRAPPER: scripts/notebooklm/query.py subprocess wrapper (D-6/D-7)
-- [ ] 06-04-PLAN.md — Wave 2 LIBRARY REGISTRATION: library.json channel-bible entry (D-8) + deferred-items.md
+- [x] 06-04-PLAN.md — Wave 2 LIBRARY REGISTRATION: library.json channel-bible entry (D-8) + deferred-items.md
 - [ ] 06-05-PLAN.md — Wave 2 FALLBACK CHAIN: 3-tier RAG -> grep -> defaults (D-5)
 - [ ] 06-06-PLAN.md — Wave 3 CONTINUITY MODEL: ContinuityPrefix pydantic v2 (D-20) + prefix.json
 - [ ] 06-07-PLAN.md — Wave 3 SHOTSTACK INJECTION: filter[0] continuity_prefix + D-17 tail preservation (D-9/D-19)
