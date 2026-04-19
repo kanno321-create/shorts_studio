@@ -17,7 +17,7 @@
 - [x] **Phase 4: Agent Team Design** — 17 inspector + Producer 14 + Supervisor 1 = 32 에이전트 + rubric JSON Schema **동시 정의** (세션 #16 완료 2026-04-19, studio@62c0758)
 - [x] **Phase 5: Orchestrator v2** — 500~800줄 state machine + 12 GATE + DAG + 영상/음성 분리 합성 (세션 #18 완료 2026-04-19, 329 pytest green + SC 1-6 PASS + 17/17 REQs complete)
 - [x] **Phase 6: Wiki + NotebookLM + FAILURES Reservoir** — Tier 2 합성 + 2-노트북 세팅 + Continuity Bible Prefix + 저수지 패턴 (세션 #19 완료 2026-04-19, 236 pytest green + SC 1-6 PASS + 9/9 REQs complete + D-14 sha256 a1d92cc1... immutable)
-- [ ] **Phase 7: Integration Test** — E2E mock asset + verify_all_dispatched() + harness-audit ≥ 80
+- [x] **Phase 7: Integration Test** — E2E mock asset + verify_all_dispatched() 13 gates + CircuitBreaker 3×300s + Fallback ken-burns THUMBNAIL + harness-audit ≥ 80 (세션 #20 완료 2026-04-19, 177 Phase 7 tests + 809 regression = 986/986 green + SC 1-5 all PASS + 5/5 REQs complete + 3 Research Corrections anchored)
 - [ ] **Phase 8: Remote + Publishing + Production Metadata** — GitHub push + YouTube API v3 + AI disclosure 자동 ON + Reused content 증명
 - [ ] **Phase 9: Documentation + KPI Dashboard + Taste Gate** — KPI 목표 설정 + 월 1회 대표님 taste 평가 회로 가동
 - [ ] **Phase 10: Sustained Operations** — 주 3~4편 자동 발행 + 첫 1~2개월 SKILL patch 전면 금지 (D-2 저수지)
@@ -186,8 +186,8 @@
 - [x] 07-04-PLAN.md — Wave 2 13 operational gates + verify_all_dispatched + checkpointer atomic — ✅ shipped 2026-04-19, studio@496056f (4 commits: 20cdf47 anchor 13-gate Correction 1 guard + 371ce1e verify_all_dispatched 12→False/13→True + IncompleteDispatch + 85e7e2b GateDependencyUnsatisfied DAG order ASSEMBLY/UPLOAD + 496056f Checkpointer 14 files atomic os.replace + no .tmp residue + resume()==14; 4 test files 31 tests added; triple-lock == 13 / != 17 / != 12 anchors RESEARCH Correction 1; _OPERATIONAL_GATES frozenset + GATE_INSPECTORS cross-validation; parallel executor with Plan 07-03 — zero file overlap; 911/911 full sweep)
 - [x] 07-05-PLAN.md — Wave 3 CircuitBreaker 3× fault + 300s cooldown — ✅ shipped 2026-04-19, studio@95801cb (2 commits: 36324a0 test — 3x RuntimeError → OPEN → CircuitBreakerOpenError + Correction 2 anti-regression via split-literal hasattr check; 95801cb test — strict >300s cooldown boundary + HALF_OPEN probe success/failure paths; 2 test files / 14 tests added; stdlib-only determinism via unittest.mock.patch on time.monotonic; parallel executor with Plan 07-06 — zero file overlap; 941/941 full sweep)
 - [x] 07-06-PLAN.md — Wave 3 Fallback ken-burns (THUMBNAIL only) + FAILURES append — ✅ shipped 2026-04-19, studio@31ccfb3 (2 commits: cbacaad test — THUMBNAIL 3xFAIL → ken-burns → COMPLETE + Correction 3 AST-based drift guard + 8 tests including target_is_thumbnail_not_assets anchor; 31ccfb3 test — failures.md append-only format with session marker + evidence + semantic feedback + Hook bypass-by-naming lowercase contract + 8 tests including structural fallback.py open('a')/no-open('w') grep; 2 test files / 16 tests added; TEST-04 SC4 proven: fallback_count == 1 + dispatched_count == 13 + ctx.retry_counts[THUMBNAIL] == 3 + no CircuitBreakerOpenError + shotstack.create_ken_burns_clip called exactly once standalone-POST per Correction 3; parallel executor with Plan 07-05 — zero file overlap; 941/941 full sweep)
-- [x] 07-07-PLAN.md — Wave 4 harness-audit score ≥ 80 + 8 regex drift 0 + SKILL 500 lines check
-- [ ] 07-08-PLAN.md — Wave 5 phase07_acceptance.py + 07-TRACEABILITY + 07-VALIDATION flip + 07-SUMMARY
+- [x] 07-07-PLAN.md — Wave 4 harness-audit score ≥ 80 + 8 regex drift 0 + SKILL 500 lines check — ✅ shipped 2026-04-19, studio@d7c3b34 (6 dimension test files + 27 tests; harness_audit score 90; Rule 1 scanner scope fix: a_rank_drift_count 206→0; SKILL ≤500 double-entry; agent_count 33 filesystem invariant; description ≤1024 double-entry)
+- [x] 07-08-PLAN.md — Wave 5 phase07_acceptance.py + 07-TRACEABILITY + 07-VALIDATION flip + 07-SUMMARY — ✅ shipped 2026-04-19, studio@812660d (5728261 phase07_acceptance.py SC 1-5 aggregator 173 lines + 77cab49 3 gate tests 18 tests total + 812660d 07-VALIDATION flip status=complete/nyquist_compliant=true; 07-TRACEABILITY.md 5-REQ × source × test × SC matrix + 3 Correction anchors + 8-plan table; 986/986 full sweep Phase 4+5+6+7; all 5 SC PASS via phase07_acceptance.py exit 0). **PHASE 7 COMPLETE.**
 
 ---
 
@@ -248,7 +248,7 @@
 | 4. Agent Team Design | 10/10 | Complete    | 2026-04-18 |
 | 5. Orchestrator v2 | 10/10 | ✅ Complete | 2026-04-19 |
 | 6. Wiki + NotebookLM + FAILURES | 11/11 | ✅ Complete | 2026-04-19 |
-| 7. Integration Test | 7/8 | In Progress|  |
+| 7. Integration Test | 8/8 | ✅ Complete | 2026-04-19 |
 | 8. Remote + Publishing | 0/TBD | Not started | - |
 | 9. Docs + KPI + Taste Gate | 0/TBD | Not started | - |
 | 10. Sustained Operations | 0/TBD | Not started (영구 지속) | - |
