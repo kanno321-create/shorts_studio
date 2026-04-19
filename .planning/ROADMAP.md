@@ -18,7 +18,7 @@
 - [x] **Phase 5: Orchestrator v2** — 500~800줄 state machine + 12 GATE + DAG + 영상/음성 분리 합성 (세션 #18 완료 2026-04-19, 329 pytest green + SC 1-6 PASS + 17/17 REQs complete)
 - [x] **Phase 6: Wiki + NotebookLM + FAILURES Reservoir** — Tier 2 합성 + 2-노트북 세팅 + Continuity Bible Prefix + 저수지 패턴 (세션 #19 완료 2026-04-19, 236 pytest green + SC 1-6 PASS + 9/9 REQs complete + D-14 sha256 a1d92cc1... immutable)
 - [x] **Phase 7: Integration Test** — E2E mock asset + verify_all_dispatched() 13 gates + CircuitBreaker 3×300s + Fallback ken-burns THUMBNAIL + harness-audit ≥ 80 (세션 #20 완료 2026-04-19, 177 Phase 7 tests + 809 regression = 986/986 green + SC 1-5 all PASS + 5/5 REQs complete + 3 Research Corrections anchored)
-- [ ] **Phase 8: Remote + Publishing + Production Metadata** — GitHub push + YouTube API v3 + AI disclosure 자동 ON + Reused content 증명
+- [x] **Phase 8: Remote + Publishing + Production Metadata** — GitHub push + YouTube API v3 + AI disclosure 자동 ON + Reused content 증명 (세션 #22 완료 2026-04-19, 8/8 plans + 8/8 REQs + 6/6 SC PASS + 3 anchors permanent + 986 + Phase 8 regression green)
 - [ ] **Phase 9: Documentation + KPI Dashboard + Taste Gate** — KPI 목표 설정 + 월 1회 대표님 taste 평가 회로 가동
 - [ ] **Phase 10: Sustained Operations** — 주 3~4편 자동 발행 + 첫 1~2개월 SKILL patch 전면 금지 (D-2 저수지)
 
@@ -210,8 +210,8 @@
 - [x] 08-04-PLAN.md — Wave 3 LOCK+WINDOW+DISCLOSURE (publish_lock + kst_window + ai_disclosure) — ✅ shipped 2026-04-19, studio@8c2d9bf+dbe0f61+f48ade1+6d06bee+b601e86+a3809ab (6 atomic TDD commits, 41 new tests — 11 publish_lock + 13 kst_weekday + 9 kst_weekend + 9 ANCHOR A + 986/986 phase04-07 regression preserved + 106/106 phase08 isolated + ANCHOR A containsSyntheticMedia=True AST-anchor permanent; parallel boundary with 08-05 preserved)
 - [x] 08-05-PLAN.md — Wave 4 METADATA+FUNNEL+UPLOADER (production_metadata + youtube_uploader + pinned comment) — ✅ shipped 2026-04-19, studio@98b4e46+79e38c5+51e5332+8531475+73c5eb3+7cb1caa (6 atomic TDD commits, 42 new tests — 10 schema + 6 HTML comment + 4 pin + 5 ANCHOR B + 11 ANCHOR C + 12 E2E + 986/986 phase04-07 regression preserved + 148/148 phase08 isolated + ANCHOR B captions.insert/endScreen/end_screen_subscribe_cta 0 hits + ANCHOR C selenium/webdriver/playwright 0 imports AST-anchor permanent; Pitfall 5/6/7 corrections applied at body-build boundary)
 - [x] 08-06-PLAN.md — Wave 5 SMOKE-GATE (code shipping only — smoke_test.py CLI + test_smoke_cleanup.py MockYouTube coverage) — ✅ shipped 2026-04-19, studio@63464ca+d9509f8 (2 atomic commits, 15 new tests — happy + public/private ValueError + cleanup=False + delete-fail + wait fast-path + wait timeout + plan invariants + --dry-run + --no-cleanup + real-path precondition + 986/986 phase04-07 regression preserved + 163/163 phase08 isolated; real YouTube API execution deferred to orchestrator per user-approved D-11 Option A gate, 대표님 confirmed config/client_secret.json + youtube_token.json in place)
-- [x] 08-07-PLAN.md — Wave 6 E2E+REGRESSION (full phase08_acceptance.py + regression sweep)
-- [ ] 08-08-PLAN.md — Wave 7 PHASE GATE (TRACEABILITY + VALIDATION flip)
+- [x] 08-07-PLAN.md — Wave 6 E2E+REGRESSION (full phase08_acceptance.py + regression sweep) — ✅ shipped 2026-04-19, studio@8b9c790+6656e07+feaa0f3 (acceptance aggregator SC 1-6 + test_phase08_acceptance.py wrapper 8 tests + test_regression_986_green.py 5 tests + test_full_publish_chain_mocked.py 6 tests; Phase 4 244 + Phase 5 329 + Phase 6 236 + Phase 7 177 = 986/986 preserved; Phase 8 169 fast sweep + 19 Wave 6 additions)
+- [x] 08-08-PLAN.md — Wave 7 PHASE GATE (TRACEABILITY + VALIDATION flip) — ✅ shipped 2026-04-19, studio@2f8a7c8+<final-flip> (08-TRACEABILITY.md 8-REQ × source × test × SC matrix mirroring Phase 7 format + 3 anchors A/B/C + 2 Pitfall 6/7 corrections + 8-plan audit trail + tests/phase08/test_traceability_matrix.py 23 orphan-guard tests; 08-VALIDATION.md frontmatter status=complete/nyquist_compliant=true/wave_0_complete=true/completed=2026-04-19; 24 rows ✅ green; 6 sign-off checkboxes [x]; Completion Summary appended). **PHASE 8 COMPLETE.**
 **UI hint:** no
 
 ---
@@ -257,7 +257,7 @@
 | 5. Orchestrator v2 | 10/10 | ✅ Complete | 2026-04-19 |
 | 6. Wiki + NotebookLM + FAILURES | 11/11 | ✅ Complete | 2026-04-19 |
 | 7. Integration Test | 8/8 | ✅ Complete | 2026-04-19 |
-| 8. Remote + Publishing | 7/8 | In Progress|  |
+| 8. Remote + Publishing | 8/8 | ✅ Complete | 2026-04-19 |
 | 9. Docs + KPI + Taste Gate | 0/TBD | Not started | - |
 | 10. Sustained Operations | 0/TBD | Not started (영구 지속) | - |
 
