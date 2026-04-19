@@ -149,7 +149,7 @@
 ### TEST — 통합 테스트
 
 - [x] **TEST-01**: E2E mock asset 파이프라인 1회 성공 (실 API 비용 회피)
-- [ ] **TEST-02**: `verify_all_dispatched()` 통과 + 17 GATE 모두 호출 확인
+- [x] **TEST-02**: `verify_all_dispatched()` 통과 + 13 operational gate 모두 호출 확인 (Correction 1: 13, NOT 17) — Plan 07-04 (studio@496056f)
 - [ ] **TEST-03**: Circuit Breaker 3회 발동 시나리오 테스트
 - [ ] **TEST-04**: Fallback 샷(정지 이미지 + 줌인) 테스트
 
