@@ -19,7 +19,7 @@
 - [x] **Phase 6: Wiki + NotebookLM + FAILURES Reservoir** — Tier 2 합성 + 2-노트북 세팅 + Continuity Bible Prefix + 저수지 패턴 (세션 #19 완료 2026-04-19, 236 pytest green + SC 1-6 PASS + 9/9 REQs complete + D-14 sha256 a1d92cc1... immutable)
 - [x] **Phase 7: Integration Test** — E2E mock asset + verify_all_dispatched() 13 gates + CircuitBreaker 3×300s + Fallback ken-burns THUMBNAIL + harness-audit ≥ 80 (세션 #20 완료 2026-04-19, 177 Phase 7 tests + 809 regression = 986/986 green + SC 1-5 all PASS + 5/5 REQs complete + 3 Research Corrections anchored)
 - [x] **Phase 8: Remote + Publishing + Production Metadata** — GitHub push + YouTube API v3 + AI disclosure 자동 ON + Reused content 증명 (세션 #22 완료 2026-04-19, 8/8 plans + 8/8 REQs + 6/6 SC PASS + 3 anchors permanent + 986 + Phase 8 regression green)
-- [ ] **Phase 9: Documentation + KPI Dashboard + Taste Gate** — KPI 목표 설정 + 월 1회 대표님 taste 평가 회로 가동
+- [x] **Phase 9: Documentation + KPI Dashboard + Taste Gate** — KPI 목표 설정 + 월 1회 대표님 taste 평가 회로 가동 (세션 #23 완료 2026-04-20, 6/6 plans + 4/4 SC PASS + 2/2 REQs)
 - [ ] **Phase 10: Sustained Operations** — 주 3~4편 자동 발행 + 첫 1~2개월 SKILL patch 전면 금지 (D-2 저수지)
 
 ---
@@ -226,7 +226,13 @@
   2. KPI 목표(3초 retention > 60%, 완주율 > 40%, 평균 시청 > 25초)가 `wiki/shorts/kpi_log.md` 템플릿에 선언되고 측정 방식이 명시되어 있다
   3. Taste Gate 프로토콜이 문서화되어 있으며 월 1회 대표님이 상위 3 / 하위 3 영상을 평가하는 실제 피드백 폼이 존재한다 (첫 회 dry-run 완료)
   4. Taste Gate 평가 결과가 `FAILURES.md`로 흘러드는 경로가 연결되어 있으며, 다음 월 Producer 입력에 반영될 수 있음이 샘플로 검증된다
-**Plans:** 1/6 plans executed
+**Plans:** 6/6 plans complete
+- [x] 09-00-foundation-PLAN.md — Wave 0 FOUNDATION (test scaffolding + conftest fixtures + acceptance RED stub)
+- [x] 09-01-architecture-PLAN.md — Wave 1 ARCHITECTURE.md (3 Mermaid diagrams + reading time markers + TL;DR + 12 GATE state + 17 inspector categories + 3-Tier wiki)
+- [x] 09-02-kpi-log-PLAN.md — Wave 1 kpi_log.md Hybrid (Part A Target Declaration + Part B Monthly Tracking + YouTube Analytics v2 contract) — KPI-06
+- [x] 09-03-taste-gate-docs-PLAN.md — Wave 1 taste_gate_protocol.md + taste_gate_2026-04.md dry-run — KPI-05 docs layer
+- [x] 09-04-record-feedback-PLAN.md — Wave 2 scripts/taste_gate/record_feedback.py (parse + D-13 filter + D-12 Hook-safe append) — KPI-05 runtime
+- [x] 09-05-e2e-phase-gate-PLAN.md — Wave 3 E2E synthetic dry-run flip + phase09_acceptance ALL_PASS + 09-TRACEABILITY + 09-VALIDATION flip. **PHASE 9 COMPLETE.**
 
 ---
 
@@ -258,7 +264,7 @@
 | 6. Wiki + NotebookLM + FAILURES | 11/11 | ✅ Complete | 2026-04-19 |
 | 7. Integration Test | 8/8 | ✅ Complete | 2026-04-19 |
 | 8. Remote + Publishing | 8/8 | Complete    | 2026-04-19 |
-| 9. Docs + KPI + Taste Gate | 1/6 | In Progress|  |
+| 9. Docs + KPI + Taste Gate | 6/6 | ✅ Complete | 2026-04-20 |
 | 10. Sustained Operations | 0/TBD | Not started (영구 지속) | - |
 
 ---
