@@ -1194,6 +1194,8 @@ Phase 6 does NOT re-implement these. It only adds the wiki node that agents can 
 
 ## Area 12: Validation Architecture
 
+## Validation Architecture
+
 ### Test Framework
 
 | Property | Value |
