@@ -1,0 +1,19 @@
+{
+  "score": 90,
+  "a_rank_drift_count": 0,
+  "skill_over_500_lines": [],
+  "agent_count": 33,
+  "description_over_1024": [],
+  "deprecated_pattern_matches": {
+    "ORCH-08 / CONFLICT_MAP A-6": 0,
+    "ORCH-09 / CONFLICT_MAP A-5": 0,
+    "VIDEO-01 / D-13": 0,
+    "Phase 3 canonical": 0,
+    "AF-8": 0,
+    "Project Rule 3": 0,
+    "FAIL-01 / D-11": 0,
+    "FAIL-03 / D-12": 0
+  },
+  "phase": 7,
+  "timestamp": "2026-04-19T11:23:01.495058Z"
+}

@@ -56,16 +56,17 @@ created: 2026-04-19
 | 15  | 7-05-02 | 05 | 3 | TEST-03 | integration | `pytest tests/phase07/test_cooldown_300s_enforced.py -q` | ✅ | ✅ green |
 | 16  | 7-06-01 | 06 | 3 | TEST-04 | integration | `pytest tests/phase07/test_fallback_ken_burns_thumbnail.py -q` | ✅ | ✅ green |
 | 17  | 7-06-02 | 06 | 3 | TEST-04 | integration | `pytest tests/phase07/test_failures_append_on_retry_exceeded.py -q` | ✅ | ✅ green |
-| 18  | 7-07-01 | 07 | 4 | AUDIT-02 | CLI | `python scripts/validate/harness_audit.py --json-out` | ⚠️ exists (text-only) | ⬜ pending |
-| 19  | 7-07-02 | 07 | 4 | AUDIT-02 | unit | `pytest tests/phase07/test_harness_audit_json_schema.py -q` | ❌ W0 | ⬜ pending |
-| 20  | 7-07-03 | 07 | 4 | AUDIT-02 | unit | `pytest tests/phase07/test_harness_audit_score_ge_80.py -q` | ❌ W0 | ⬜ pending |
-| 21  | 7-07-04 | 07 | 4 | AUDIT-02 | unit | `pytest tests/phase07/test_skill_500_line_scan.py -q` | ❌ W0 | ⬜ pending |
+| 18  | 7-07-01 | 07 | 4 | AUDIT-02 | CLI | `python scripts/validate/harness_audit.py --json-out` | ✅ | ✅ green |
+| 19  | 7-07-02 | 07 | 4 | AUDIT-02 | unit | `pytest tests/phase07/test_harness_audit_json_schema.py -q` | ✅ | ✅ green |
+| 20  | 7-07-03 | 07 | 4 | AUDIT-02 | unit | `pytest tests/phase07/test_harness_audit_score_ge_80.py -q` | ✅ | ✅ green |
+| 21  | 7-07-04 | 07 | 4 | AUDIT-02 | unit | `pytest tests/phase07/test_skill_500_line_scan.py -q` | ✅ | ✅ green |
 | 22  | 7-08-01 | 08 | 5 | ALL | E2E | `python scripts/validate/phase07_acceptance.py` | ❌ W0 | ⬜ pending |
 | 23  | 7-08-02 | 08 | 5 | ALL | unit | `pytest tests/phase07/test_traceability_matrix.py -q` | ❌ W0 | ⬜ pending |
 | 24  | 7-08-03 | 08 | 5 | ALL | regression | `pytest tests/phase04 tests/phase05 tests/phase06 -q` | ✅ | ⬜ pending |
 | 25  | 7-01-03 | 01 | 0 | TEST-01 | regression | `pytest tests/phase04 tests/phase05 tests/phase06 -q` (Wave 0 baseline sweep) | ✅ | ✅ green |
-| 26  | 7-07-05 | 07 | 4 | AUDIT-02 | unit | `pytest tests/phase07/test_agent_count_invariant.py -q` | ❌ W0 | ⬜ pending |
-| 27  | 7-07-06 | 07 | 4 | AUDIT-02 | unit | `pytest tests/phase07/test_description_1024_scan.py -q` | ❌ W0 | ⬜ pending |
+| 26  | 7-07-05 | 07 | 4 | AUDIT-02 | unit | `pytest tests/phase07/test_agent_count_invariant.py -q` | ✅ | ✅ green |
+| 27  | 7-07-06 | 07 | 4 | AUDIT-02 | unit | `pytest tests/phase07/test_description_1024_scan.py -q` | ✅ | ✅ green |
+| 28  | 7-07-04b | 07 | 4 | AUDIT-02 | unit | `pytest tests/phase07/test_a_rank_drift_zero.py -q` (D-12 drift gate; plan-checker M3 flagged missing row) | ✅ | ✅ green |
 
 *Status legend: `pending` (not yet run) · `✅ green` (all tests passing) · `❌ red` (failing) · `⚠️ flaky` (intermittent)*
 

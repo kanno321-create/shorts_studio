@@ -156,7 +156,7 @@
 ### AUDIT — 감사
 
 - [ ] **AUDIT-01**: `session_start.py` 매 세션 자동 감사 (점수 ≥ 80)
-- [ ] **AUDIT-02**: `harness-audit` 월 1회 통합 감사 (SKILL 500줄, 에이전트 12~20, description 1024자)
+- [x] **AUDIT-02**: `harness-audit` 월 1회 통합 감사 (SKILL 500줄, 에이전트 12~20, description 1024자)
 - [ ] **AUDIT-03**: `drift_scan.py` 주 1회 `deprecated_patterns.json` 전수 스캔 → A급 drift 0 유지
 - [ ] **AUDIT-04**: A급 drift 발견 시 Phase 차단 (다음 작업 불가)
 
