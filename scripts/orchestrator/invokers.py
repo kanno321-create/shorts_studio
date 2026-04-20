@@ -52,6 +52,9 @@ __all__ = [
     "make_default_producer_invoker",
     "make_default_supervisor_invoker",
     "make_default_asset_sourcer",
+    # Phase 11 Option D retry-with-nudge (F-D2-EXCEPTION-01 defense-in-depth)
+    "_MAX_NUDGE_ATTEMPTS",
+    "_JSON_NUDGE_PROMPT_KO",
 ]
 
 # CLI binary name (resolved via shutil.which at call time)
@@ -115,14 +118,14 @@ def _resolve_cli_path(explicit: str | None = None) -> str:
     return found
 
 
-def _invoke_claude_cli(
+def _invoke_claude_cli_once(
     system_prompt: str,
     user_prompt: str,
     json_schema: str,
     cli_path: str,
     timeout_s: int = DEFAULT_TIMEOUT_S,
 ) -> str:
-    """Run ``claude --print`` via stdin piping and return stdout.
+    """Run ``claude --print`` via stdin piping and return stdout (single attempt).
 
     Claude CLI 2.1.112 canonical form: user_prompt flows through
     stdin (``--input-format text`` is the default). The legacy
@@ -182,6 +185,124 @@ def _invoke_claude_cli(
             "claude CLI stdout 비어있음 — --json-schema 응답 미수신 (대표님)"
         )
     return stdout.strip()
+
+
+# Nudge message injected on retry when first attempt returned non-JSON
+# (Phase 11 F-D2-EXCEPTION-01 교훈 — Option D defense-in-depth).
+_JSON_NUDGE_PROMPT_KO = (
+    "직전 응답은 JSON이 아니었습니다. JSON 객체만 출력하세요. "
+    "설명/질문 금지."
+)
+
+# Max total attempts for _invoke_claude_cli retry-with-nudge wrapper
+# (1 initial + 2 nudge retries = 3 total per Task 3 spec).
+_MAX_NUDGE_ATTEMPTS = 3
+
+
+def _looks_like_json(text: str) -> bool:
+    """Cheap prefix check — valid JSON response starts with ``{`` or ``[``."""
+    if not text:
+        return False
+    stripped = text.lstrip()
+    if not stripped:
+        return False
+    first = stripped[0]
+    return first in ("{", "[")
+
+
+def _invoke_claude_cli(
+    system_prompt: str,
+    user_prompt: str,
+    json_schema: str,
+    cli_path: str,
+    timeout_s: int = DEFAULT_TIMEOUT_S,
+    agent_label: str = "claude-cli",
+) -> str:
+    """Retry-with-JSON-nudge wrapper around :func:`_invoke_claude_cli_once`.
+
+    Phase 11 F-D2-EXCEPTION-01 defense-in-depth (대표님 session #29 Option D):
+    when the first attempt returns text that does not look like JSON, we
+    re-invoke the CLI with a short Korean nudge prepended to the user
+    prompt — up to ``_MAX_NUDGE_ATTEMPTS`` (3 total) attempts. If every
+    attempt still fails to yield JSON (or raises RuntimeError), the last
+    RuntimeError / best-effort stdout surfaces to the caller.
+
+    The signature is kept source-compatible with ``_invoke_claude_cli_once``
+    plus an optional ``agent_label`` used only for diagnostic logging. All
+    existing test seams (``cli_runner`` injection at
+    ``ClaudeAgentProducerInvoker`` / ``ClaudeAgentSupervisorInvoker``)
+    continue to bypass this wrapper — only the production default path
+    goes through retry.
+
+    Args:
+        system_prompt: AGENT.md body (Phase 4 agent definition).
+        user_prompt: JSON-encoded input payload.
+        json_schema: JSON schema string enforcing structured output.
+        cli_path: Absolute path to ``claude`` binary.
+        timeout_s: subprocess timeout in seconds.
+        agent_label: producer/supervisor name for log lines (default
+            ``"claude-cli"`` when wrapped by the low-level call).
+
+    Returns:
+        stdout text that passes the :func:`_looks_like_json` prefix check
+        on some attempt 1..3. Raises :class:`RuntimeError` if all attempts
+        fail.
+    """
+    last_err: Exception | None = None
+    last_stdout: str | None = None
+    for attempt in range(1, _MAX_NUDGE_ATTEMPTS + 1):
+        # Prepend a nudge on retries 2+. The initial prompt is unchanged.
+        effective_prompt = (
+            user_prompt
+            if attempt == 1
+            else f"{_JSON_NUDGE_PROMPT_KO}\n\n{user_prompt}"
+        )
+        try:
+            stdout = _invoke_claude_cli_once(
+                system_prompt=system_prompt,
+                user_prompt=effective_prompt,
+                json_schema=json_schema,
+                cli_path=cli_path,
+                timeout_s=timeout_s,
+            )
+        except RuntimeError as err:
+            last_err = err
+            last_stdout = None
+            if attempt < _MAX_NUDGE_ATTEMPTS:
+                logger.warning(
+                    "[invoker] %s CLI 오류 재시도 %d/%d (대표님): %s",
+                    agent_label, attempt, _MAX_NUDGE_ATTEMPTS, err,
+                )
+                continue
+            # Exhausted — re-raise the last error verbatim.
+            raise
+        # CLI returned something — check if it looks like JSON.
+        last_stdout = stdout
+        if _looks_like_json(stdout):
+            if attempt > 1:
+                logger.info(
+                    "[invoker] %s JSON 복구 성공 (시도 %d/%d, 대표님)",
+                    agent_label, attempt, _MAX_NUDGE_ATTEMPTS,
+                )
+            return stdout
+        # Non-JSON output — schedule retry with nudge.
+        if attempt < _MAX_NUDGE_ATTEMPTS:
+            logger.warning(
+                "[invoker] %s JSON 미준수 재시도 %d/%d (대표님) — head=%r",
+                agent_label, attempt, _MAX_NUDGE_ATTEMPTS, stdout[:120],
+            )
+            continue
+        # Final attempt also non-JSON — raise synthesising error.
+        raise RuntimeError(
+            f"{agent_label} JSON 미준수 재시도 {_MAX_NUDGE_ATTEMPTS}회 모두 실패 "
+            f"(대표님): head={stdout[:120]!r}"
+        )
+    # Unreachable — the for-loop either returns or raises.
+    _tail = last_stdout[:120] if last_stdout else None
+    raise RuntimeError(  # pragma: no cover
+        f"{agent_label} retry 루프 이탈 (대표님): "
+        f"last_err={last_err!r} last_stdout={_tail!r}"
+    )
 
 
 class ClaudeAgentProducerInvoker:

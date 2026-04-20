@@ -10,6 +10,15 @@ D-01/D-02/D-04 LOCKED decisions:
 
 Regression protection: tests/phase04/+ use the `cli_runner` injection seam
 (bypass subprocess entirely); those 244 tests are unaffected by this rewrite.
+
+Phase 11 Option D note (2026-04-21, F-D2-EXCEPTION-01 defense-in-depth):
+the production entry point ``_invoke_claude_cli`` was promoted to a
+retry-with-JSON-nudge wrapper (up to 3 attempts). The single-attempt
+logic moved to ``_invoke_claude_cli_once``; these PIPELINE-01 regression
+tests target ``_invoke_claude_cli_once`` directly so the stdin/argv/
+timeout/rc/stdout contract remains asserted without the retry layer
+intercepting side_effects. Retry behavior is tested separately in
+``test_invoker_retry.py``.
 """
 from __future__ import annotations
 
@@ -18,7 +27,9 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from scripts.orchestrator.invokers import _invoke_claude_cli
+from scripts.orchestrator.invokers import (
+    _invoke_claude_cli_once as _invoke_claude_cli,
+)
 
 
 def _make_popen_mock(
