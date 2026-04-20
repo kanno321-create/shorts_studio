@@ -28,3 +28,48 @@
 **Plan 10-01 in-scope tests:** `tests/phase10/` 11/11 GREEN (3 fixture + 8 CLI behavioural). Confirmed via `pytest tests/phase10/test_skill_patch_counter.py -q`.
 
 **Phase 4 regression:** 244/244 GREEN (clean baseline preserved — phase04 untouched by any Phase 5/6/9.1 drift).
+
+---
+
+## D10-03-DEF-01 — Plan 10-02 drift_scan STATE.md frontmatter assertion
+
+**Discovered during:** Plan 10-03 (fetch_kpi + monthly_aggregate) regression sweep 2026-04-20.
+
+**Failure:**
+- `tests/phase10/test_drift_scan.py::test_state_md_frontmatter_phase_lock_false_default` — asserts literal `phase_lock: false` substring must be present in `.planning/STATE.md` frontmatter, but current STATE.md frontmatter (written by `gsd-tools state advance-plan` after Plan 10-02) omits the `phase_lock` field when default is false.
+
+**Current STATE.md frontmatter:**
+```
+gsd_state_version: 1.0
+milestone: v1.0.1
+milestone_name: milestone
+status: executing
+last_updated: "2026-04-20T..."
+progress: { ... }
+```
+
+**Scope boundary:** Plan 10-03 only touches `scripts/analytics/`, `scripts/publisher/oauth.py` (Wave 0 done), `tests/phase10/test_fetch_kpi.py`, `tests/phase10/test_monthly_aggregate.py`, `wiki/kpi/kpi_log.md`, and `tests/phase08/test_oauth_installed_flow.py` (scope count fix). STATE.md frontmatter management is owned by gsd-tools orchestrator, not Plan 10-03. The assertion pattern should be `phase_lock: (false|true)? (missing means false)` — Plan 10-02 scope.
+
+**Plan 10-03 in-scope tests:** `tests/phase10/test_fetch_kpi.py` 10/10 GREEN + `tests/phase10/test_monthly_aggregate.py` 10/10 GREEN. Plan 10-01/10-02 in-scope tests 50/51 GREEN (1 pre-existing drift_scan failure out-of-scope).
+
+**Proposed owner:** Plan 10-02 follow-up (either (a) harden test to accept missing `phase_lock` field as implicit `false`, OR (b) teach gsd-tools to always write `phase_lock: false` explicitly).
+
+---
+
+## D10-03-DEF-02 — Phase 5/6/7/8 regression cascade sweep (inherited)
+
+**Discovered during:** Plan 10-03 background Phase 8 sweep 2026-04-20 (15m13s full).
+
+**Failures (4, before Plan 10-03 Task 1 fix):**
+- `tests/phase08/test_regression_986_green.py::test_phase05_green`
+- `tests/phase08/test_regression_986_green.py::test_phase06_green`
+- `tests/phase08/test_regression_986_green.py::test_phase07_green`
+- `tests/phase08/test_regression_986_green.py::test_combined_986_green`
+
+**Root cause:** Same inherited cascade as D10-01-DEF-01 (Phase 9.1 stack migration: gen3_alpha_turbo → gen4.5 + Kling 2.6 Pro primary). These sweep tests aggregate phase05+phase06+phase07 which contain pre-existing failures.
+
+**Scope boundary:** Zero file overlap with Plan 10-03. Plan 10-03 fixed the 5th failure (`test_scopes_are_exactly_two_in_order` → `_three_in_order`) which was a direct regression caused by Plan 10-03 Wave 0 scope expansion — that fix is in-scope.
+
+**Plan 10-03 verification:** `pytest tests/phase08/test_oauth_installed_flow.py -q` → 6/6 GREEN post-fix.
+
+**Proposed owner:** Same as D10-01-DEF-01 — dedicated `phase-regression-cleanup` plan after Phase 10 main sequence.
