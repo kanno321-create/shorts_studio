@@ -380,7 +380,7 @@ v1 검증 완료 후 또는 수익 발생 후 활성화.
 
 ### SKILL-ROUTE — Agent × Skill 매핑 매트릭스
 
-- [ ] **SKILL-ROUTE-01**: `wiki/agent_skill_matrix.md` 생성 — 30 × 6 매트릭스 (에이전트 × 5 공용 skill + 1 additional 컬럼). Row: 13 producer + 17 inspector. Column: progressive-disclosure, gate-dispatcher, drift-detection, context-compressor, harness-audit, additional. 각 cell (공용 5): required / optional / n/a. additional 컬럼: agent-specific skill freeform (예: ins-factcheck "notebooklm-query*"). Pytest validation: `scripts/validate/verify_agent_skill_matrix.py` — 매트릭스 entry 와 실제 AGENT.md `<skills>` 블록 bidirectional reciprocity (`--fail-on-drift`). **Note**: 기존 "8 column" 초안 은 2026-04-21 실측 시 `.claude/skills/` 5 공용 skill dir 만 존재 확인 → RESEARCH §Open Question Q1 Option A 채택 (D-2 Lock 2026-04-20~06-20 기간 신규 SKILL.md 생성 금지 보존; 본 정정은 스코프 조정이며 D-2 Lock 위반 아님). Phase 12 Plan 04 Task 1.
+- [x] **SKILL-ROUTE-01**: `wiki/agent_skill_matrix.md` 생성 — 30 × 6 매트릭스 (에이전트 × 5 공용 skill + 1 additional 컬럼). Row: 13 producer + 17 inspector. Column: progressive-disclosure, gate-dispatcher, drift-detection, context-compressor, harness-audit, additional. 각 cell (공용 5): required / optional / n/a. additional 컬럼: agent-specific skill freeform (예: ins-factcheck "notebooklm-query*"). Pytest validation: `scripts/validate/verify_agent_skill_matrix.py` — 매트릭스 entry 와 실제 AGENT.md `<skills>` 블록 bidirectional reciprocity (`--fail-on-drift`). **Note**: 기존 "8 column" 초안 은 2026-04-21 실측 시 `.claude/skills/` 5 공용 skill dir 만 존재 확인 → RESEARCH §Open Question Q1 Option A 채택 (D-2 Lock 2026-04-20~06-20 기간 신규 SKILL.md 생성 금지 보존; 본 정정은 스코프 조정이며 D-2 Lock 위반 아님). Phase 12 Plan 04 Task 1.
 
 ### FAIL-PROTO — FAILURES.md 500줄 rotation + directive-authorized batch
 

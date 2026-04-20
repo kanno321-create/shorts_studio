@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-20T23:01:15.821Z"
+last_updated: "2026-04-20T23:11:22.159Z"
 progress:
   total_phases: 13
   completed_phases: 11
   total_plans: 97
-  completed_plans: 93
-  percent: 96
+  completed_plans: 94
+  percent: 97
 ---
 
 # STATE — naberal-shorts-studio
@@ -38,10 +38,11 @@ Next Phase: 12 (Agent Standardization + Skill Routing + FAILURES Protocol) — �
 - **Phase:** 12 (executing)
 - **Next Action:** `/gsd:execute-phase 12` Plan 02 (Producer 14 migration using producer.md.template — prototype round-trip already proven via trend-collector v1.2). Budget: $0.00 / $5.00 cap preserved. Tests: 280/280 baseline + 16 phase12 skipped GREEN.
 - **Status:** Executing Phase 12
-- **Progress:** [██████████] 96%
+- **Progress:** [██████████] 97%
 - **Last completed:** Phase 12 Plan 12-01 Wave 0 Foundation (5 tasks, 16 files). 5 atomic commits: e9fd3a3 (templates 2종) + 6aac44b (tests/phase12 scaffold + MockClaudeCLI) + a06dc9b (verify_agent_md_schema.py CLI) + 0ebb5e9 (trend-collector v1.1→v1.2) + 9a8db78 (12-VALIDATION.md flip + 19-row map). 244 Phase 4 + 36 Phase 11 regression intact. 2 Rule 1 deviations documented (31 AGENT.md scope vs plan's 30, channel_bible path drift). AGENT-STD-01 + AGENT-STD-02 requirements [x].
 
 ### Plan 12-01 Decisions
+
 - Verifier CLI scope = 14 producer + 17 inspector = 31 AGENT.md in scope (not plan's stated 30). harvest-importer lives at `.claude/agents/harvest-importer/` root-level outside `producers/` scan path. Plan 02/03 batch test names should reconcile to 31.
 - MockClaudeCLI adopts defensive `*args/**kwargs` signature absorbing real `_invoke_claude_cli` 6-arg vs `ClaudeAgentSupervisorInvoker._call` 4-kwarg call-site gap. Survives future real-fn signature drift.
 - trend-collector v1.2 `<mandatory_reads>` item 2 path corrected `wiki/ypp/channel_bible.md` → `wiki/continuity_bible/channel_identity.md` (Phase 6 Plan 02 D-10 canonical 5-component baseline). First migration was the right moment for drift rectification before 13 more producers inherit it.
@@ -371,6 +372,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 11 P03 | 5min | 2 tasks | 3 files |
 | Phase 11 P04 | 2m14s | 2 tasks | 4 files |
 | Phase 12 P01 | 16min | 5 tasks | 16 files |
+| Phase 12 P04 | 4min | 4 tasks | 4 files |
 
 ### Plan Execution Log
 
