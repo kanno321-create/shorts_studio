@@ -73,3 +73,18 @@ progress: { ... }
 **Plan 10-03 verification:** `pytest tests/phase08/test_oauth_installed_flow.py -q` → 6/6 GREEN post-fix.
 
 **Proposed owner:** Same as D10-01-DEF-01 — dedicated `phase-regression-cleanup` plan after Phase 10 main sequence.
+
+---
+
+## D10-06-DEF-01 — Plan 10-07 trajectory_append collection error (inherited from Plan 10-07 Wave 0 RED TDD)
+
+**Discovered during:** Plan 10-06 (research_loop) regression sweep 2026-04-20.
+
+**Failure:**
+- `tests/phase10/test_trajectory_append.py` — ModuleNotFoundError: `No module named 'scripts.analytics.trajectory_append'`. Test file seeded as a RED TDD anchor in commit `39c79c1 test(10-07): RED — 13 failing tests for trajectory_append (SC#6)` before the Plan 10-07 implementation module was written.
+
+**Scope boundary:** Plan 10-06 touches `scripts/research_loop/` + `tests/phase10/test_research_loop.py` + `wiki/kpi/monthly_context_template.md` + `FAILURES.md` appends only. Zero overlap with `scripts/analytics/trajectory_append.py` (Plan 10-07 territory). Plan 10-07 will satisfy this RED anchor when its GREEN phase ships.
+
+**Plan 10-06 in-scope tests:** `tests/phase10/test_research_loop.py` 16/16 GREEN. Full Phase 10 sweep (excluding the Plan 10-07 RED file + D10-03-DEF-01 pre-existing failure): 95/96 GREEN.
+
+**Proposed owner:** Plan 10-07 (trajectory_append) executor.
