@@ -340,7 +340,7 @@ v1 검증 완료 후 또는 수익 발생 후 활성화.
 
 ### SCRIPT — 대본 품질 옵션 확정 (신규 카테고리)
 
-- [ ] **SCRIPT-01**: D10-SCRIPT-DEF-01 옵션 확정 — 영상 1편 실 발행 + 대표님 품질 평가를 근거로 옵션 A (현 `scripter` agent 유지) / B (NLM 2-step 호출 모드 재설계, `scripts/notebooklm/query.py` 2-notebook 호출 구조) / C (Shorts/Longform 2-mode 분리, channel_bible.길이 기반 routing) 중 1개 확정. 선택된 옵션의 구현까지 완료.
+- [ ] **SCRIPT-01**: D10-SCRIPT-DEF-01 옵션 확정 — 영상 1편 실 발행 (Option A 베이스라인 산출물) + 대표님 품질 평가를 근거로 옵션 A (현 `scripter` agent 유지) / B (NLM 2-step 호출 모드 재설계, `scripts/notebooklm/query.py` 2-notebook 호출 구조) / C (Shorts/Longform 2-mode 분리, channel_bible.길이 기반 routing) 중 1개 확정. A 선택 시 Phase 11 에서 완료. B/C 선택 시 Phase 12 (NLM 2-Step Scripter Redesign) 에서 구현 후 완료 — Phase 11 verification-gate 는 SCRIPT_QUALITY_DECISION.md 내 verdict letter 확정 + (B/C 시) Phase 12 spawn trigger 로 충족.
 
 ### AUDIT 확장
 
