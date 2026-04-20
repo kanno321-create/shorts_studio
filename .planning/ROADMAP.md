@@ -23,6 +23,8 @@
 - [x] **Phase 9.1: Production Engine Wiring** — producer/supervisor Claude SDK wiring + Nano Banana Pro adapter + CharRegistry + Ken-Burns FFmpeg 로컬 + Runway VALID_RATIOS_BY_MODEL + ElevenLabs voice 3-tier + Stage 2→4 smoke $0.29 (세션 #24 YOLO 완결 2026-04-20, 8/8 plans + 7/7 REQs + 15/15 decisions)
 - [x] **Phase 10: Sustained Operations** — 주 3~4편 자동 발행 + 첫 1~2개월 SKILL patch 전면 금지 (D-2 저수지) (completed 2026-04-20)
 
+- [ ] **Phase 11: Pipeline Real-Run Activation + Script Quality Mode** — D10-PIPELINE-DEF-01 5-item backlog 해결 + 영상 1편 실 발행 + D10-SCRIPT-DEF-01 옵션 확정 (planned 2026-04-21)
+
 ---
 
 ## Phase Details
@@ -287,6 +289,29 @@ Plans:
 
 ---
 
+### Phase 11: Pipeline Real-Run Activation + Script Quality Mode
+
+**Goal:** v1.0.1 milestone 의 구조 완결 상태에서 **실 운영 작동 확보** + **대본 품질 옵션 확정**. 세션 #28 대표님 smoke test 2026-04-21 에서 발견된 5 에러 chain (D10-PIPELINE-DEF-01: relative import / .env auto-load 부재 / Shotstack eager instantiation / claude CLI invoker argv 불일치) 을 해결하여 Full pipeline end-to-end real-run 을 가동한다. 첫 실 영상 1편 발행 + 대표님 품질 평가를 근거로 D10-SCRIPT-DEF-01 대본 NLM-direct 재설계 (옵션 A/B/C) 를 확정한다. D10-01-DEF-02 skill_patch_counter idempotency 결함을 2026-05-20 첫 월간 scheduler 실행 전 해결한다. 본 phase 완결 시 대표님의 Core Value (외부 수익) 경로가 실제로 열림.
+**Depends on:** Phase 10 (구조 완결 + v1.0.1 audit PASSED)
+**Requirements:** PIPELINE-01, PIPELINE-02, PIPELINE-03, PIPELINE-04, SCRIPT-01, AUDIT-05
+**Success Criteria** (what must be TRUE):
+  1. Full pipeline end-to-end smoke (1 session, GATE 0→13) 실 Claude CLI + 실 외부 API 호출로 완주 — no mock invoker
+  2. 영상 1편 실 발행 (YouTube Shorts 업로드 완료) + 대표님 품질 평가 → D10-SCRIPT-DEF-01 옵션 (A 현 시스템 유지 / B NLM 2-step 재설계 / C Shorts/Longform 2-mode 분리) 확정
+  3. `scripts/audit/skill_patch_counter.py` idempotency — 동일 git state 에서 2회 연속 실행 시 첫 회만 FAILURES.md append, 2회차는 skip. Regression test `test_idempotency_skip_existing` GREEN
+  4. `shorts_pipeline.py` 또는 orchestrator `__init__` 에 `load_dotenv()` 통합으로 `.env` 자동 로드 — PowerShell 추가 env 주입 없이 더블클릭 wrapper 로 실행 가능
+  5. `run_pipeline.ps1` 또는 `.bat` wrapper 생성 — 관리자 권한 불필요, `.env` 자동 로드 + `--session-id $(Get-Date -Format yyyyMMdd_HHmmss)` 자동 주입 + pause (창 안 꺼짐)
+  6. (선택) Phase 04/08 retrospective VERIFICATION.md 작성 — Phase 04 (33 agent filesystem invariant) + Phase 08 (smoke upload 2 evidence) 증거 체인 공식화
+**Plans:** TBD — /gsd:discuss-phase 11 + /gsd:plan-phase 11 이후 확정
+
+- [ ] 11-XX-pipeline-invoker-fix-PLAN.md — claude CLI argv/stdin 재조사 + invokers.py 수정 (PIPELINE-01)
+- [ ] 11-XX-dotenv-integration-PLAN.md — load_dotenv() 통합 + adapter graceful degrade 전면 (PIPELINE-02, PIPELINE-03)
+- [ ] 11-XX-wrapper-ux-PLAN.md — run_pipeline.ps1 wrapper + .env 자동 로드 + session-id 자동 생성 (PIPELINE-04)
+- [ ] 11-XX-full-smoke-PLAN.md — Full 0→13 GATE end-to-end smoke + 영상 1편 실 발행 (PIPELINE-01 validation + SCRIPT-01)
+- [ ] 11-XX-skill-patch-idempotency-PLAN.md — skill_patch_counter idempotency + regression test (AUDIT-05)
+- [ ] 11-XX-script-quality-decision-PLAN.md — D10-SCRIPT-DEF-01 옵션 A/B/C 확정 + (옵션 B 선택 시) NLM 2-step 호출 scripter 재설계
+
+---
+
 ## Progress Table
 
 | Phase | Plans Complete | Status | Completed |
@@ -302,6 +327,7 @@ Plans:
 | 9. Docs + KPI + Taste Gate | 6/6 | ✅ Complete | 2026-04-20 |
 | 9.1. Production Engine Wiring | 7/7 | ✅ Complete | 2026-04-20 |
 | 10. Sustained Operations | 8/8 | Complete    | 2026-04-20 |
+| 11. Pipeline Real-Run Activation | 0/6 | 📋 Planned | - |
 
 ---
 

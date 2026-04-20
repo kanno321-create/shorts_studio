@@ -324,3 +324,41 @@ v1 검증 완료 후 또는 수익 발생 후 활성화.
 ---
 
 *Last updated: 2026-04-19 — Phase Traceability finalized by gsd-roadmapper (96/96 REQ mapped, 0 orphans). Previous update: Research 합성 완료 (commit 7a9b16d).*
+
+---
+
+## Phase 11 신규 REQ (v1.0.1 → v1.0.2 bridge)
+
+세션 #28 2026-04-21 — v1.0.1 audit PASSED 직후 대표님 smoke test 에서 발견된 D10-PIPELINE-DEF-01 (5 에러 chain) + D10-SCRIPT-DEF-01 (대본 품질 NLM-direct) + D10-01-DEF-02 (skill_patch_counter idempotency) 해결을 위한 Phase 11 신규 6 REQ.
+
+### PIPELINE — Pipeline Real-Run Activation (신규 카테고리)
+
+- [ ] **PIPELINE-01**: Full pipeline end-to-end smoke — 1 session GATE 0→13 실 Claude CLI + 실 외부 API 호출 완주. mock invoker 금지. `invokers.py:141` argv/stdin 형식 Claude CLI 2.1.112 호환 수정.
+- [ ] **PIPELINE-02**: `.env` 자동 로드 — `shorts_pipeline.py` 또는 orchestrator `__init__` 에 `from dotenv import load_dotenv; load_dotenv()` 통합. PowerShell `set -a && source .env` 추가 주입 없이 `py -3.11 -m scripts.orchestrator.shorts_pipeline` 실행 가능.
+- [ ] **PIPELINE-03**: Adapter graceful degrade 전면 — Kling/Runway/Typecast/ElevenLabs/Shotstack 5개 adapter 모두 Phase 9.1 nanobanana/ken_burns 와 동일한 `try/except + logger.warning + self.X = None` 패턴 적용. 사용 안 하는 adapter 의 env 부재가 `__init__` 을 막지 않음.
+- [ ] **PIPELINE-04**: 더블클릭 wrapper UX — `run_pipeline.ps1` 또는 `.bat` 작성. `.env` 자동 로드 + `--session-id $(timestamp)` 자동 주입 + pause (창 안 꺼짐). 대표님이 관리자 권한 불필요하게 더블클릭 1회로 실행 가능.
+
+### SCRIPT — 대본 품질 옵션 확정 (신규 카테고리)
+
+- [ ] **SCRIPT-01**: D10-SCRIPT-DEF-01 옵션 확정 — 영상 1편 실 발행 + 대표님 품질 평가를 근거로 옵션 A (현 `scripter` agent 유지) / B (NLM 2-step 호출 모드 재설계, `scripts/notebooklm/query.py` 2-notebook 호출 구조) / C (Shorts/Longform 2-mode 분리, channel_bible.길이 기반 routing) 중 1개 확정. 선택된 옵션의 구현까지 완료.
+
+### AUDIT 확장
+
+- [ ] **AUDIT-05**: skill_patch_counter idempotency — 동일 git state 에서 2회 연속 실행 시 첫 회만 `FAILURES.md` append, 2회차는 기존 entry grep 후 skip. `tests/phase10/test_skill_patch_counter.py` 에 `test_idempotency_skip_existing` 케이스 추가. 2026-05-20 첫 월간 scheduler (Plan 10-04 `skill-patch-count-monthly.yml`) 실행 전 완료 필수.
+
+### Phase 11 Traceability
+
+| REQ-ID | Phase |
+|--------|-------|
+| PIPELINE-01 | 11 |
+| PIPELINE-02 | 11 |
+| PIPELINE-03 | 11 |
+| PIPELINE-04 | 11 |
+| SCRIPT-01 | 11 |
+| AUDIT-05 | 11 |
+
+**Phase 11 Coverage**: 6 신규 REQ — v1.0.1 96 REQ 와 합쳐 102 REQ 전체 mapping.
+
+---
+
+*Phase 11 REQ 추가: 2026-04-21 (세션 #28) — D10-PIPELINE-DEF-01 + D10-SCRIPT-DEF-01 + D10-01-DEF-02 deferred items 를 공식 REQ 로 승격. /gsd:discuss-phase 11 + /gsd:plan-phase 11 로 세부 plan 결정 예정.*
