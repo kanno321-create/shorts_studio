@@ -20,6 +20,7 @@
 - [x] **Phase 7: Integration Test** — E2E mock asset + verify_all_dispatched() 13 gates + CircuitBreaker 3×300s + Fallback ken-burns THUMBNAIL + harness-audit ≥ 80 (세션 #20 완료 2026-04-19, 177 Phase 7 tests + 809 regression = 986/986 green + SC 1-5 all PASS + 5/5 REQs complete + 3 Research Corrections anchored)
 - [x] **Phase 8: Remote + Publishing + Production Metadata** — GitHub push + YouTube API v3 + AI disclosure 자동 ON + Reused content 증명 (세션 #22 완료 2026-04-19, 8/8 plans + 8/8 REQs + 6/6 SC PASS + 3 anchors permanent + 986 + Phase 8 regression green)
 - [x] **Phase 9: Documentation + KPI Dashboard + Taste Gate** — KPI 목표 설정 + 월 1회 대표님 taste 평가 회로 가동 (세션 #23 완료 2026-04-20, 6/6 plans + 4/4 SC PASS + 2/2 REQs)
+- [x] **Phase 9.1: Production Engine Wiring** — producer/supervisor Claude SDK wiring + Nano Banana Pro adapter + CharRegistry + Ken-Burns FFmpeg 로컬 + Runway VALID_RATIOS_BY_MODEL + ElevenLabs voice 3-tier + Stage 2→4 smoke $0.29 (세션 #24 YOLO 완결 2026-04-20, 8/8 plans + 7/7 REQs + 15/15 decisions)
 - [ ] **Phase 10: Sustained Operations** — 주 3~4편 자동 발행 + 첫 1~2개월 SKILL patch 전면 금지 (D-2 저수지)
 
 ---
@@ -238,13 +239,28 @@
 
 ### Phase 09.1: Production Engine Wiring (INSERTED)
 
-**Goal:** [Urgent work - to be planned]
-**Requirements**: TBD
+**Goal:** Phase 5 오케스트레이터의 `NotImplementedError` 3슬롯을 Claude Agent SDK 실 호출로 교체하고, Nano Banana Pro scene adapter + Ken-Burns FFmpeg 로컬 adapter + CharacterRegistry util + `RunwayI2VAdapter.VALID_RATIOS_BY_MODEL` + ElevenLabs `voice_id` 3-tier discovery 를 추가하여 Stage 2→4 (Nano Banana → Runway) 1회 스모크 테스트로 end-to-end 검증한다. 9.1 완료 시 Phase 10 첫 실 콘텐츠 production 진입 준비 완료.
+**Requirements:** REQ-091-01, REQ-091-02, REQ-091-03, REQ-091-04, REQ-091-05, REQ-091-06, REQ-091-07
 **Depends on:** Phase 9
-**Plans:** 7/8 plans executed
+**Success Criteria** (what must be TRUE):
+  1. `shorts_pipeline.py` 의 `_default_producer_invoker` / `_default_supervisor_invoker` / `_default_asset_sourcer` 3 슬롯에서 `NotImplementedError` 가 제거되고 Claude Agent SDK factory 로 교체되어 있다
+  2. 4개 신규 adapter (`NanoBananaAdapter` / `KenBurnsLocalAdapter` / `ClaudeAgentProducerInvoker` / `ClaudeAgentSupervisorInvoker`) 가 import 가능하며 `CircuitBreaker` 로 wrap 되어 있다
+  3. `shorts_pipeline.py` 는 800 lines 이하 (Pitfall 8 invariant)
+  4. `scripts/smoke/phase091_stage2_to_4.py --dry-run` 이 `manifest.json` (`cost_cap_usd=1.0`) 과 placeholder 산출물을 생성하며 exit 0
+  5. Hook 3종 (`skip_gates` / `TODO(next-session)` / silent-except) 가 9.1 신규 6 파일에서 0 hits
+  6. Korean-first 에러 메시지 — 모든 신규 raise 에 한글 포함
+  7. `CharacterRegistry().load().get_reference_path("channel_profile")` 이 실파일로 resolve
+**Plans:** 7/7 plans complete
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 09.1 to break down)
+- [x] 09.1-00-foundation-PLAN.md — Wave 0 FOUNDATION (17 test RED stubs + conftest + anchor PNG + Wave 0 acceptance banner)
+- [x] 09.1-01-nanobanana-adapter-PLAN.md — Wave 1 NanoBananaAdapter (google-genai SDK, SAFETY softening retry) — REQ-091-02
+- [x] 09.1-02-character-registry-PLAN.md — Wave 1 CharacterRegistry + CharacterEntry pydantic v2 + seed manifest (channel_profile) — REQ-091-03
+- [x] 09.1-03-ken-burns-adapter-PLAN.md — Wave 1 KenBurnsLocalAdapter (ffmpeg subprocess) + Shotstack `create_ken_burns_clip` DeprecationWarning — REQ-091-04
+- [x] 09.1-04-runway-ratios-voice-PLAN.md — Wave 1 `VALID_RATIOS_BY_MODEL` + `voice_discovery.py` + ElevenLabs default_voice_id 3-tier — REQ-091-05 + REQ-091-06
+- [x] 09.1-05-claude-sdk-invokers-PLAN.md — Wave 2 `invokers.py` (Producer/Supervisor/AGENT.md loader) + `shorts_pipeline.py` wiring (NotImplementedError slots replaced) — REQ-091-01
+- [x] 09.1-06-stage2-4-smoke-PLAN.md — Wave 3 `scripts/smoke/phase091_stage2_to_4.py` CLI + $1 cost cap + live run $0.29 + hook hygiene GREEN — REQ-091-07
+- [x] 09.1-07-phase-gate-PLAN.md — Wave 4 `phase091_acceptance.py` SC1-7 aggregator + `09.1-TRACEABILITY.md` + VALIDATION flip + ROADMAP + STATE. **PHASE 9.1 COMPLETE.**
 
 ### Phase 10: Sustained Operations
 
@@ -275,6 +291,7 @@ Plans:
 | 7. Integration Test | 8/8 | ✅ Complete | 2026-04-19 |
 | 8. Remote + Publishing | 8/8 | Complete    | 2026-04-19 |
 | 9. Docs + KPI + Taste Gate | 6/6 | ✅ Complete | 2026-04-20 |
+| 9.1. Production Engine Wiring | 7/7 | ✅ Complete | 2026-04-20 |
 | 10. Sustained Operations | 0/TBD | Not started (영구 지속) | - |
 
 ---

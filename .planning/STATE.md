@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-20T03:36:58.465Z"
+last_updated: "2026-04-20T13:00:00.000Z"
 progress:
   total_phases: 11
-  completed_phases: 8
-  total_plans: 76
-  completed_plans: 77
+  completed_phases: 9
+  total_plans: 83
+  completed_plans: 83
   percent: 100
 ---
 
@@ -31,15 +31,15 @@ progress:
 
 ## Current Position
 
-Phase: 9.1 (production-engine-wiring) — EXECUTING
-Plan: 3 of 8
+Phase: 9.1 (production-engine-wiring) — **COMPLETE** 2026-04-20 (세션 #24 YOLO 4세션 연속)
+Plan: 7 of 7 — PHASE GATE PASSED
 Next Phase: 10 (sustained-operations) — 영구 지속, 첫 1-2개월 SKILL patch 전면 금지 (D-2 저수지 규율)
 
-- **Phase:** 9 complete (6/6 plans, 4/4 SC PASS, 2/2 REQs — KPI-05 + KPI-06)
-- **Next Action:** Phase 10 Sustained Operations planning — `/gsd:plan-phase 10` after 대표님 approval. First 1-2 months: SKILL patch 전면 금지, FAILURES/KPI 데이터만 축적.
-- **Status:** Ready to execute
+- **Phase:** 9.1 complete (7/7 plans, 7/7 SC PASS, 7/7 REQs — REQ-091-01..07, 15/15 decisions D-01..D-15)
+- **Next Action:** Phase 10 Sustained Operations planning — `/gsd:plan-phase 10` after 대표님 approval + 대표님 수동 검증 3건 (ANTHROPIC_API_KEY / live smoke MP4 재생 / ElevenLabs voice 등록 확인). First 1-2 months: SKILL patch 전면 금지, FAILURES/KPI 데이터만 축적.
+- **Status:** Ready for Phase 10 planning
 - **Progress:** [██████████] 100%
-- **Last completed:** Phase 9 Plan 09-05 Wave 3 E2E + Phase Gate — 3 tasks, 5 files (tests + TRACEABILITY + VALIDATION + ROADMAP + STATE). Phase 9 COMPLETE.
+- **Last completed:** Phase 9.1 Plan 09.1-07 Wave 4 Phase Gate — 4 tasks, 5 files (phase091_acceptance.py SC1-7 aggregator + 09.1-TRACEABILITY.md + 09.1-VALIDATION.md frontmatter + ROADMAP.md Phase 9.1 entry + STATE.md). **Phase 9.1 COMPLETE.** Live smoke $0.29 ≤ $1.00 cap, 7/7 SC PASS via `python tests/phase091/phase091_acceptance.py` exit 0.
 
 ---
 
@@ -119,7 +119,16 @@ Next Phase: 10 (sustained-operations) — 영구 지속, 첫 1-2개월 SKILL pat
   - ✅ Plan 09-03: Wave 1 taste_gate docs — wiki/kpi/taste_gate_protocol.md 123 lines (매월 1일 KST 09:00 + 상위 3 / 하위 3 selection protocol) + wiki/kpi/taste_gate_2026-04.md 65 lines dry-run (status: dry-run + 6 synthetic video IDs abc123/def456/ghi789/jkl012/mno345/pqr678 with Research Pitfall 3 obviously-fake format + no 테스트용 쇼츠 placeholder).
   - ✅ Plan 09-04: Wave 2 record_feedback.py — scripts/taste_gate/record_feedback.py 277 lines (parse_taste_gate + filter_escalate D-13 score ≤ 3 + build_failures_block KST timestamp + append_to_failures D-12 Hook-safe read+concat+write pattern; argparse --month YYYY-MM + --dry-run; stdlib-only). 16/16 tests passing; dry-run against wiki/kpi/taste_gate_2026-04.md produces exactly 3 escalations.
   - ✅ Plan 09-05: Wave 3 E2E + Phase Gate — test_e2e_synthetic_dry_run.py finalized to 4 GREEN tests (parse+filter+append D-12/D-13 + --dry-run byte-identical + exact 3 escalations [1,2,3] + KST marker); phase09_acceptance.py flipped Wave 0 stubs → 4 concrete checks (SC#1 ARCHITECTURE structural + SC#2 kpi_log 14 literals + SC#3 taste_gate protocol+dryrun literals + SC#4 subprocess pytest E2E), exits 0 with ALL_PASS; 09-TRACEABILITY.md 2-REQ × source × test × SC matrix + 4-SC mapping + 6-plan audit trail; 09-VALIDATION.md frontmatter flipped (status=complete, nyquist_compliant=true, wave_0_complete=true, completed=2026-04-20) + approval line flipped; ROADMAP.md Phase 9 [ ] → [x] at 3 sites (phases list + Plans detail + Progress Table); STATE.md Phase 9 complete marker. **PHASE 9 COMPLETE.**
-- ⏳ **Phase 10: Sustained Operations** — Next target (영구 지속, 첫 1-2개월 SKILL patch 전면 금지 per D-2 저수지 규율)
+- ✅ **Phase 9.1: Production Engine Wiring** — 2026-04-20 (session #24 YOLO 4세션 연속) — 7/7 plans complete, 7/7 REQs complete (REQ-091-01~07), all 7 SC PASS (SC1 `_default_*` removed / SC2 4 adapters importable / SC3 `shorts_pipeline.py` 792 ≤ 800 / SC4 smoke manifest `cost_cap_usd=1.0` + `total_usd=$0.29` / SC5 Hook 3종 0 hits on 6 files / SC6 Korean 6/6 / SC7 `channel_profile` resolves), 41 Phase 9.1 isolated tests green + 1023+ Phase 4-9 regression preserved, `phase091_acceptance.py` exit 0 ALL_PASS.
+  - ✅ Plan 09.1-00: Wave 0 FOUNDATION — tests/phase091/ scaffold (17 test scaffolds) + conftest.py 5 shared fixtures + assets/characters/channel_profile_ref.png (byte copy from shorts_naberal per D-09) + output/phase091_smoke/ dir + phase091_acceptance.py Wave 0 stub.
+  - ✅ Plan 09.1-01: Wave 1 NanoBananaAdapter — scripts/orchestrator/api/nanobanana.py (google-genai SDK wrapper, model=nano-banana-pro-preview, SAFETY/BLOCK/PROHIBITED softening retry via _soften, mirror signature with KlingI2VAdapter/RunwayI2VAdapter). REQ-091-02.
+  - ✅ Plan 09.1-02: Wave 1 CharacterRegistry — scripts/orchestrator/character_registry.py (99 lines, pydantic v2 ConfigDict(extra='forbid'), FS+JSON hybrid per D-07, self.assets_root relative resolution per Pitfall 5) + assets/characters/registry.json seed (1 entry `channel_profile`). REQ-091-03.
+  - ✅ Plan 09.1-03: Wave 1 KenBurnsLocalAdapter — scripts/orchestrator/api/ken_burns.py (ffmpeg subprocess, shutil.which fail-fast → KenBurnsUnavailable at construction, pure _build_command staticmethod) + scripts/orchestrator/api/shotstack.py surgical DeprecationWarning (body byte-identical per D-11). REQ-091-04.
+  - ✅ Plan 09.1-04: Wave 1 Runway ratios + Voice discovery — scripts/orchestrator/api/runway_i2v.py VALID_RATIOS_BY_MODEL dict + model/ratio constructor Korean validation (D-12) + scripts/orchestrator/voice_discovery.py new module (httpx mock, module-level cache per Pitfall 6) + scripts/orchestrator/api/elevenlabs.py default_voice_id 3-tier lazy resolution (D-13). REQ-091-05 + REQ-091-06.
+  - ✅ Plan 09.1-05: Wave 2 Claude Agent SDK invokers — scripts/orchestrator/invokers.py (~420 lines: ClaudeAgentProducerInvoker + ClaudeAgentSupervisorInvoker + load_agent_system_prompt YAML frontmatter parser + make_default_producer/supervisor/asset_sourcer factories) + scripts/orchestrator/state.py Verdict Enum (coexisting with Phase 5 rubric dataclass) + shorts_pipeline.py surgical edit (787 → 792 lines, NotImplementedError 3 slots replaced, 4 new CircuitBreakers nanobanana/ken_burns/claude_producer/claude_supervisor, 2 new adapter slots nanobanana_adapter/ken_burns_adapter). REQ-091-01.
+  - ✅ Plan 09.1-06: Wave 3 Stage 2→4 smoke — scripts/smoke/phase091_stage2_to_4.py (argparse --dry-run default / --live, $1.00 cost cap via _check_cost_cap pre-call guard, CharacterRegistry → NanoBanana scene → Runway 5s clip chain) + output/phase091_smoke/ artefacts (scene.png + clip.mp4 + manifest.json). Live run 2026-04-20: mode=live, total_usd=$0.29 (nanobanana $0.04 + runway $0.25), wall_time 49.2s, ≤ $1.00 cap. tests/phase091/test_hook_hygiene.py RED → GREEN flipped. .planning/phases/09.1-production-engine-wiring/deferred-items.md logged D09.1-DEF-01 (Runway gen3a_turbo advertised `["16:9","9:16",...]` but live API only accepts pixel ratios — Rule 1 smoke hardcodes `"768:1280"`, adapter constant defers to Phase 10 patch). REQ-091-07.
+  - ✅ Plan 09.1-07: Wave 4 Phase Gate — tests/phase091/phase091_acceptance.py replaced Wave 0 exit-1 banner with 7-check aggregator (SC1 AST walk _default_* / SC2 4-adapter import / SC3 line count 792 / SC4 manifest parse / SC5 Hook AST 3종 / SC6 Korean grapheme 6/6 / SC7 CharacterRegistry load+resolve); 09.1-TRACEABILITY.md 15-D × 7-REQ × 7-plan × 6-source × 17-test × 7-SC matrix (mirrors 09-TRACEABILITY.md pattern); 09.1-VALIDATION.md frontmatter flipped status=complete/nyquist_compliant=true/wave_0_complete=true/completed=2026-04-20 + 6 Validation Sign-Off checkboxes [x] + Approval flipped to 2026-04-20; ROADMAP.md Phase 9.1 [ ] → [x] at 3 sites (phases list top + Plans detail + Progress Table row 7/7 ✅ Complete); STATE.md Phase 9.1 complete marker (본 entry). **PHASE 9.1 COMPLETE.**
+- ⏳ **Phase 10: Sustained Operations** — Next target (영구 지속, 첫 1-2개월 SKILL patch 전면 금지 per D-2 저수지 규율). 대표님 수동 검증 3건 먼저: (1) ANTHROPIC_API_KEY `.env` 추가 후 Claude SDK 실 호출, (2) `python scripts/smoke/phase091_stage2_to_4.py --live` 재실행 후 clip.mp4 대표님 재생 & 품질 평가, (3) ElevenLabs 한국어 voice 등록 상태 확인 (Pitfall 9).
 
 ---
 
