@@ -122,7 +122,17 @@ def _invoke_claude_cli(
     cli_path: str,
     timeout_s: int = DEFAULT_TIMEOUT_S,
 ) -> str:
-    """Run ``claude --print`` and return stdout.
+    """Run ``claude --print`` via stdin piping and return stdout.
+
+    Claude CLI 2.1.112 canonical form: user_prompt flows through
+    stdin (``--input-format text`` is the default). The legacy
+    positional ``user_prompt`` argv slot was removed by the CLI —
+    attempting to pass it raises "Input must be provided either
+    through stdin or as a prompt argument when using --print"
+    (D10-PIPELINE-DEF-01 error #5, Phase 11 PIPELINE-01 D-01/D-02).
+
+    Args unchanged (D-04 test-seam preservation). Raises unchanged
+    (Korean-first RuntimeError on timeout / rc!=0 / empty stdout).
 
     Args:
         system_prompt: AGENT.md body (Phase 4 agent definition).
@@ -143,32 +153,35 @@ def _invoke_claude_cli(
         "--print",
         "--append-system-prompt", system_prompt,
         "--json-schema", json_schema,
-        user_prompt,
     ]
+    proc = subprocess.Popen(
+        cmd,
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
     try:
-        result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-            timeout=timeout_s,
-            check=False,
-        )
+        stdout, stderr = proc.communicate(input=user_prompt, timeout=timeout_s)
     except subprocess.TimeoutExpired as err:
+        # Explicit reap — prevents zombie on Windows + drains pipes.
+        proc.kill()
+        proc.communicate()
         raise RuntimeError(
             f"claude CLI 타임아웃 ({timeout_s}s 초과, 대표님): {err}"
         ) from err
-    if result.returncode != 0:
-        stderr_tail = (result.stderr or "")[-500:]
+    if proc.returncode != 0:
+        stderr_tail = (stderr or "")[-500:]
         raise RuntimeError(
-            f"claude CLI 실패 (rc={result.returncode}, 대표님): {stderr_tail}"
+            f"claude CLI 실패 (rc={proc.returncode}, 대표님): {stderr_tail}"
         )
-    if not result.stdout or not result.stdout.strip():
+    if not stdout or not stdout.strip():
         raise RuntimeError(
             "claude CLI stdout 비어있음 — --json-schema 응답 미수신 (대표님)"
         )
-    return result.stdout.strip()
+    return stdout.strip()
 
 
 class ClaudeAgentProducerInvoker:
