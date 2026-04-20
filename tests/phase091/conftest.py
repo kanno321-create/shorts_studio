@@ -109,9 +109,14 @@ def fixture_png_bytes() -> bytes:
 
 @pytest.fixture
 def mock_anthropic_client() -> MagicMock:
-    """Return a MagicMock shaped like `anthropic.Anthropic()` with a canned
-    `messages.create` returning a TextBlock-like object whose `.text` is
-    `'"verdict": "PASS", "score": 0.9}'` (JSON tail after prefill `{`)."""
+    """DEPRECATED (2026-04-20 세션 #24): kept for back-compat only. invokers.py
+    는 이제 Claude CLI subprocess 기반 (memory:
+    project_claude_code_max_no_api_key). 신규 테스트는 ``mock_cli_runner``
+    사용.
+
+    MagicMock shaped like ``anthropic.Anthropic()`` — 과거 API 직접 호출
+    시나리오 테스트용 (현재는 무의미하나 phase05/phase07 레거시 test 가
+    참조할 가능성으로 유지)."""
     client = MagicMock()
     text_block = MagicMock()
     text_block.text = '"verdict": "PASS", "score": 0.9}'
@@ -119,6 +124,22 @@ def mock_anthropic_client() -> MagicMock:
     response.content = [text_block]
     client.messages.create.return_value = response
     return client
+
+
+@pytest.fixture
+def mock_cli_runner() -> MagicMock:
+    """Return a MagicMock replacing ``_invoke_claude_cli`` signature.
+
+    Callable with kwargs (system_prompt, user_prompt, json_schema, cli_path,
+    timeout_s=...) returning stdout JSON string. Default return: valid
+    ``{"verdict": "PASS", "score": 0.9}`` producer-shaped response.
+
+    Supervisor tests override ``.return_value`` to
+    ``'{"verdict": "PASS"}'`` (supervisor schema strict).
+    """
+    runner = MagicMock()
+    runner.return_value = '{"verdict": "PASS", "score": 0.9}'
+    return runner
 
 
 @pytest.fixture
@@ -142,6 +163,7 @@ __all__ = [
     "tmp_registry_path",
     "fake_agent_md_dir",
     "fixture_png_bytes",
-    "mock_anthropic_client",
+    "mock_anthropic_client",  # DEPRECATED: see fixture docstring
+    "mock_cli_runner",
     "mock_genai_client",
 ]

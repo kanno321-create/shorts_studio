@@ -1,18 +1,21 @@
-"""Claude Agent SDK wiring (REQ-091-01, Phase 9.1).
+"""Claude Code CLI wiring (REQ-091-01, Phase 9.1 architecture fix 2026-04-20).
 
 Replaces :meth:`ShortsPipeline._default_producer_invoker` /
 ``_default_supervisor_invoker`` / ``_default_asset_sourcer``
-(NotImplementedError since Phase 5) with real Anthropic SDK-backed
+(NotImplementedError since Phase 5) with Claude Code CLI subprocess
 invokers.
+
+대표님 Claude Code Max 구독 — ``anthropic`` Python SDK (usage-based
+billing) 직접 호출 금지 (memory: project_claude_code_max_no_api_key).
+Max 구독 인증은 ``claude`` CLI 가 담당 → subprocess 로 재사용.
 
 Architecture
 ------------
-* Producer (per-gate content generation) → Claude Sonnet 4.6
-* Supervisor (Verdict judgment) → Claude Opus 4.6
+* Producer (per-gate content generation) → ``claude --print
+  --append-system-prompt <AGENT.md body> --json-schema ...``
+* Supervisor (Verdict judgment) → 동일 CLI, schema 는 ``{"verdict":
+  "PASS"|"FAIL"|"RETRY"}`` 만 강제
 * Asset sourcer (script → anchor image path) → NanoBananaAdapter
-
-All three invokers honour the existing DI contract. Tests pass
-``MagicMock`` invokers unchanged (Phase 7 regression preserved).
 
 Contract
 --------
@@ -21,12 +24,11 @@ Contract
   (``Verdict`` is the enum from :mod:`scripts.orchestrator.state`)
 * Asset sourcer signature: ``(prompt: str) -> Path``
 
-JSON enforcement (Pitfall 1)
-----------------------------
-Anthropic's SDK has no native ``response_format=json`` parameter. We
-use a triple defence: (a) system prompt terminator instruction in
-Korean, (b) assistant prefill ``{`` message, (c) client-side
-``json.loads`` with prefill reassembly (``'{' + response.content[...].text``).
+JSON enforcement
+----------------
+Claude Code CLI 의 ``--json-schema`` 플래그가 구조적 출력을 강제.
+Anthropic API 의 response_format 대체 (Phase 9.1 original code 의
+triple defense 보다 단일 flag 로 간결).
 
 Korean-first errors per 나베랄 감마 tone (대표님 전용).
 """
@@ -34,14 +36,16 @@ from __future__ import annotations
 
 import json
 import logging
+import shutil
+import subprocess
 from pathlib import Path
 from typing import Callable
 
 logger = logging.getLogger(__name__)
 
 __all__ = [
-    "PRODUCER_MODEL",
-    "SUPERVISOR_MODEL",
+    "CLAUDE_CLI_BIN",
+    "DEFAULT_TIMEOUT_S",
     "load_agent_system_prompt",
     "ClaudeAgentProducerInvoker",
     "ClaudeAgentSupervisorInvoker",
@@ -50,19 +54,21 @@ __all__ = [
     "make_default_asset_sourcer",
 ]
 
-PRODUCER_MODEL = "claude-sonnet-4-6-20260301"
-SUPERVISOR_MODEL = "claude-opus-4-6-20260320"
+# CLI binary name (resolved via shutil.which at call time)
+CLAUDE_CLI_BIN = "claude"
 
-_JSON_INSTRUCTION = (
-    "\n\nCRITICAL: 반드시 단일 valid JSON 객체로만 응답하세요. "
-    "markdown code fence, preamble, commentary 전부 금지. "
-    "준수 불가 시 {\"error\": \"<사유>\"} 로 응답."
+# subprocess timeout per invocation. Phase 10 tuning 가능.
+DEFAULT_TIMEOUT_S = 180
+
+_PRODUCER_JSON_SCHEMA = '{"type":"object"}'
+_SUPERVISOR_JSON_SCHEMA = (
+    '{"type":"object","required":["verdict"],'
+    '"properties":{"verdict":{"type":"string","enum":["PASS","FAIL","RETRY"]}}}'
 )
 
-_MISSING_KEY_MSG = (
-    "ANTHROPIC_API_KEY 미설정 — 대표님 .env 에 추가 후 재시도하세요. "
-    "현재 mock 모드에서만 호출 가능합니다 "
-    "(tests/phase091/ MagicMock client 주입 경로 사용 중)."
+_MISSING_CLI_MSG = (
+    "claude CLI 를 PATH 에서 찾을 수 없습니다 — 대표님 Claude Code 설치 상태 "
+    "확인 필요 (memory: project_claude_code_max_no_api_key)."
 )
 
 
@@ -74,8 +80,8 @@ def load_agent_system_prompt(agent_dir: Path) -> tuple[str, dict]:
 
     Raises:
         FileNotFoundError: ``AGENT.md`` is missing from ``agent_dir``.
-        RuntimeError: PyYAML not importable (should never happen —
-            Phase 6 pinned the dependency; raised with Korean guidance).
+        RuntimeError: PyYAML not importable (Phase 6 dependency pin,
+            Korean-first error on violation).
     """
     path = Path(agent_dir) / "AGENT.md"
     if not path.exists():
@@ -99,60 +105,97 @@ def load_agent_system_prompt(agent_dir: Path) -> tuple[str, dict]:
     return content.strip(), {}
 
 
-def _build_client(explicit):
-    """Return an Anthropic client, raising a Korean ValueError on import
-    or auth setup failure.
-
-    ``Anthropic()`` itself does NOT raise on missing API key — it defers
-    authentication to the first real call. We therefore only catch the
-    (rare) construction failure here; a missing key surfaces when the
-    invoker is actually called against the live API.
-    """
-    if explicit is not None:
+def _resolve_cli_path(explicit: str | None = None) -> str:
+    """Resolve ``claude`` CLI absolute path; raise Korean ValueError if missing."""
+    if explicit:
         return explicit
-    try:
-        from anthropic import Anthropic
-        return Anthropic(max_retries=0)
-    except Exception as err:  # ImportError, runtime errors — Hook 3종 noisy
-        raise ValueError(_MISSING_KEY_MSG) from err
+    found = shutil.which(CLAUDE_CLI_BIN)
+    if not found:
+        raise ValueError(_MISSING_CLI_MSG)
+    return found
 
 
-def _reassemble_prefill(content_blocks) -> str:
-    """Restore the assistant ``{`` prefill to form the complete JSON text.
+def _invoke_claude_cli(
+    system_prompt: str,
+    user_prompt: str,
+    json_schema: str,
+    cli_path: str,
+    timeout_s: int = DEFAULT_TIMEOUT_S,
+) -> str:
+    """Run ``claude --print`` and return stdout.
 
-    Pitfall 1 defence — the Anthropic SDK does NOT echo the assistant
-    prefill back in ``response.content``. ``json.loads`` on the raw
-    text would fail on the leading ``"key": "value"}`` fragment.
+    Args:
+        system_prompt: AGENT.md body (Phase 4 agent definition).
+        user_prompt: JSON-encoded input payload (producer/supervisor).
+        json_schema: JSON schema string enforcing structured output.
+        cli_path: Absolute path to ``claude`` binary.
+        timeout_s: subprocess timeout in seconds.
+
+    Returns:
+        stdout text (JSON string per ``--json-schema`` contract).
+
+    Raises:
+        RuntimeError: non-zero exit code, timeout, or stdout empty
+            (Korean-first diagnostic).
     """
-    body = "".join(
-        getattr(b, "text", "")
-        for b in content_blocks
-        if hasattr(b, "text") and getattr(b, "text", None)
-    )
-    return "{" + body
+    cmd = [
+        cli_path,
+        "--print",
+        "--append-system-prompt", system_prompt,
+        "--json-schema", json_schema,
+        user_prompt,
+    ]
+    try:
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=timeout_s,
+            check=False,
+        )
+    except subprocess.TimeoutExpired as err:
+        raise RuntimeError(
+            f"claude CLI 타임아웃 ({timeout_s}s 초과, 대표님): {err}"
+        ) from err
+    if result.returncode != 0:
+        stderr_tail = (result.stderr or "")[-500:]
+        raise RuntimeError(
+            f"claude CLI 실패 (rc={result.returncode}, 대표님): {stderr_tail}"
+        )
+    if not result.stdout or not result.stdout.strip():
+        raise RuntimeError(
+            "claude CLI stdout 비어있음 — --json-schema 응답 미수신 (대표님)"
+        )
+    return result.stdout.strip()
 
 
 class ClaudeAgentProducerInvoker:
     """Callable invoker: ``(agent_name, gate, inputs) -> dict``.
 
     Resolves the per-producer system prompt from
-    ``agent_dir_root / <agent_name> / AGENT.md``, injects the JSON
-    enforcement suffix, calls Claude Sonnet 4.6 with a ``{`` prefill,
-    reassembles the response, and returns the parsed dict.
+    ``agent_dir_root / <agent_name> / AGENT.md``, invokes ``claude
+    --print`` via subprocess with ``--append-system-prompt`` +
+    ``--json-schema {"type":"object"}``, and returns the parsed dict.
 
-    Tests inject a ``client`` MagicMock; production passes ``None`` and
-    an ``Anthropic()`` instance is built lazily.
+    Uses Claude Code Max 구독 인증 (no API key). Tests inject a
+    ``cli_runner`` callable; production passes ``None`` and the real
+    subprocess call is used.
     """
 
     def __init__(
         self,
         agent_dir_root: Path,
         circuit_breaker=None,
-        client=None,
+        cli_path: str | None = None,
+        cli_runner: Callable | None = None,
     ) -> None:
         self.agent_dir_root = Path(agent_dir_root)
         self.circuit_breaker = circuit_breaker
-        self.client = _build_client(client)
+        self._cli_path = _resolve_cli_path(cli_path)
+        # cli_runner = test seam; signature mirrors _invoke_claude_cli
+        self._cli_runner = cli_runner or _invoke_claude_cli
 
     def __call__(self, agent_name: str, gate: str, inputs: dict) -> dict:
         agent_dir = self.agent_dir_root / agent_name
@@ -162,35 +205,29 @@ class ClaudeAgentProducerInvoker:
                 f"Phase 4 AGENT.md 확인 (대표님)"
             )
         body, _ = load_agent_system_prompt(agent_dir)
-        system_full = body + _JSON_INSTRUCTION
         user_payload = json.dumps(
             {"gate": gate, "inputs": inputs}, ensure_ascii=False
         )
 
         def _call():
-            return self.client.messages.create(
-                model=PRODUCER_MODEL,
-                max_tokens=4096,
-                system=system_full,
-                messages=[
-                    {"role": "user", "content": user_payload},
-                    {"role": "assistant", "content": "{"},
-                ],
-                temperature=0.3,
+            return self._cli_runner(
+                system_prompt=body,
+                user_prompt=user_payload,
+                json_schema=_PRODUCER_JSON_SCHEMA,
+                cli_path=self._cli_path,
             )
 
-        resp = (
+        stdout = (
             self.circuit_breaker.call(_call)
             if self.circuit_breaker is not None
             else _call()
         )
-        text = _reassemble_prefill(resp.content)
         try:
-            return json.loads(text)
+            return json.loads(stdout)
         except json.JSONDecodeError as err:
             logger.error(
                 "[invoker] producer '%s' JSON parse 실패: %s — head=%r",
-                agent_name, err, text[:200],
+                agent_name, err, stdout[:200],
             )
             raise RuntimeError(
                 f"Producer '{agent_name}' JSON 미준수 (대표님): {err}"
@@ -213,17 +250,17 @@ class ClaudeAgentSupervisorInvoker:
         self,
         agent_dir: Path,
         circuit_breaker=None,
-        client=None,
+        cli_path: str | None = None,
+        cli_runner: Callable | None = None,
     ) -> None:
         self.agent_dir = Path(agent_dir)
         self.circuit_breaker = circuit_breaker
-        self.client = _build_client(client)
+        self._cli_path = _resolve_cli_path(cli_path)
+        self._cli_runner = cli_runner or _invoke_claude_cli
         self._system, _ = load_agent_system_prompt(self.agent_dir)
-        self._system_full = self._system + _JSON_INSTRUCTION
 
     def __call__(self, gate, output: dict):
-        # Lazy import to avoid a cycle: state.py → invokers.py import
-        # chain stays acyclic even when the pipeline imports both.
+        # Lazy import to avoid a cycle.
         from .state import Verdict
 
         gate_name = getattr(gate, "name", str(gate))
@@ -233,24 +270,19 @@ class ClaudeAgentSupervisorInvoker:
         )
 
         def _call():
-            return self.client.messages.create(
-                model=SUPERVISOR_MODEL,
-                max_tokens=512,
-                system=self._system_full,
-                messages=[
-                    {"role": "user", "content": user_payload},
-                    {"role": "assistant", "content": "{"},
-                ],
-                temperature=0.0,
+            return self._cli_runner(
+                system_prompt=self._system,
+                user_prompt=user_payload,
+                json_schema=_SUPERVISOR_JSON_SCHEMA,
+                cli_path=self._cli_path,
             )
 
-        resp = (
+        stdout = (
             self.circuit_breaker.call(_call)
             if self.circuit_breaker is not None
             else _call()
         )
-        text = _reassemble_prefill(resp.content)
-        parsed = json.loads(text)
+        parsed = json.loads(stdout)
         verdict_str = (parsed.get("verdict") or "").upper()
         try:
             return Verdict[verdict_str]
@@ -269,7 +301,7 @@ def make_default_producer_invoker(
     agent_dir_root: Path,
     circuit_breaker=None,
 ) -> ClaudeAgentProducerInvoker:
-    """Factory: construct the SDK-backed producer invoker."""
+    """Factory: construct the Claude CLI-backed producer invoker."""
     return ClaudeAgentProducerInvoker(
         agent_dir_root, circuit_breaker=circuit_breaker
     )
@@ -279,7 +311,7 @@ def make_default_supervisor_invoker(
     agent_dir: Path,
     circuit_breaker=None,
 ) -> ClaudeAgentSupervisorInvoker:
-    """Factory: construct the SDK-backed supervisor invoker."""
+    """Factory: construct the Claude CLI-backed supervisor invoker."""
     return ClaudeAgentSupervisorInvoker(
         agent_dir, circuit_breaker=circuit_breaker
     )
