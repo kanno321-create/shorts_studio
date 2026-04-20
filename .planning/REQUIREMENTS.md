@@ -374,8 +374,8 @@ v1 검증 완료 후 또는 수익 발생 후 활성화.
 
 ### AGENT — 에이전트 표준화 + mandatory reads
 
-- [ ] **AGENT-STD-01**: 30명 에이전트 (13 producer + 17 inspector) AGENT.md 표준 5섹션 schema 준수 — `<role>`, `<mandatory_reads>`, `<output_format>`, `<skills>`, `<constraints>`. Phase 12 에서 표준 template + 전수 migration. Phase 11 에서 노출된 출력 형식 drift / 도구 오용 / 재호출 루프 3대 고질 해소.
-- [ ] **AGENT-STD-02**: 각 AGENT.md 첫 블록에 `<mandatory_reads>` 명시 — `.claude/failures/FAILURES.md` (500줄 내 전수 읽기, 샘플링 금지 — 대표님 session #29 지시) + `wiki/ypp/channel_bible.md` (관련 niche 매핑) + 해당 에이전트 관련 스킬 (예: gate-dispatcher, progressive-disclosure). 매 호출마다 fresh read 필수 — system prompt 캐시 유무 불문.
+- [x] **AGENT-STD-01**: 30명 에이전트 (13 producer + 17 inspector) AGENT.md 표준 5섹션 schema 준수 — `<role>`, `<mandatory_reads>`, `<output_format>`, `<skills>`, `<constraints>`. Phase 12 에서 표준 template + 전수 migration. Phase 11 에서 노출된 출력 형식 drift / 도구 오용 / 재호출 루프 3대 고질 해소.
+- [x] **AGENT-STD-02**: 각 AGENT.md 첫 블록에 `<mandatory_reads>` 명시 — `.claude/failures/FAILURES.md` (500줄 내 전수 읽기, 샘플링 금지 — 대표님 session #29 지시) + `wiki/ypp/channel_bible.md` (관련 niche 매핑) + 해당 에이전트 관련 스킬 (예: gate-dispatcher, progressive-disclosure). 매 호출마다 fresh read 필수 — system prompt 캐시 유무 불문.
 - [ ] **AGENT-STD-03**: Supervisor invoker (`ClaudeAgentSupervisorInvoker.__call__`) 가 producer_output 을 summary-only 모드로 압축하여 Claude CLI 에 주입 — 현재 full JSON 을 `--append-system-prompt` body 에 dump 해 '프롬프트가 너무 깁니다' (rc=1) 를 유발. 요약 형식: `{gate, verdict, decisions[], error_codes[]}` 만 추출 (verbose prose drop). Phase 11 verification gap closure — 2026-04-21 live smoke 2차 attempt GATE 2 에서 노출된 context limit 한계 해소. **출처**: Phase 11 11-VERIFICATION.md Gap #1 + 대표님 session #29 'a' 응답 (Phase 12 scope expansion 승인).
 
 ### SKILL-ROUTE — Agent × Skill 매핑 매트릭스

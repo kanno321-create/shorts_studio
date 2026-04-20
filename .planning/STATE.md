@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
-status: phase_11_complete_with_deferred
-last_updated: "2026-04-21T06:00:00.000Z"
+status: executing
+last_updated: "2026-04-20T23:01:15.821Z"
 progress:
-  total_phases: 12
-  completed_phases: 11  # 11 complete_with_deferred per 대표님 session #29 'a' approval
-  total_plans: 90
-  completed_plans: 97  # +6 from Phase 11 (11-01..11-05 full, 11-06 partial)
-  percent: 100
+  total_phases: 13
+  completed_phases: 11
+  total_plans: 97
+  completed_plans: 93
+  percent: 96
 ---
 
 # STATE — naberal-shorts-studio
@@ -31,17 +31,20 @@ progress:
 
 ## Current Position
 
-Phase: 11 (Pipeline Real-Run Activation + Script Quality Mode) — 🟡 COMPLETE_WITH_DEFERRED (2026-04-21 session #29)
-Plan: 5.5 of 6 (11-06 Task 1-3a done, Task 3b-4 deferred to Phase 12)
+Phase: 12 (agent-standardization-skill-routing-failures-protocol) — EXECUTING
+Plan: 2 of 7
 Next Phase: 12 (Agent Standardization + Skill Routing + FAILURES Protocol) — 별 세션 권장. 대표님 session #29 architectural insight + supervisor prompt compression 확장 (AGENT-STD-03 NEW)
 
-- **Phase:** 11 (complete_with_deferred) → 12 (planned)
-- **Next Action:** `/gsd:discuss-phase 12` (별 세션 권장 — context budget preservation). Phase 11 complete_with_deferred per 대표님 session #29 'a' approval. Phase 12 scope: 30명 AGENT.md 표준화 + Skill routing 매트릭스 + FAILURES rotation + **AGENT-STD-03 supervisor prompt compression** (NEW from Phase 11 verification gap). Budget: $0.00 / $5.00 cap preserved. Tests: 280/280 GREEN.
-- **Status:** Ready to execute
-- **Progress:** [██████████] 100%
-- **Last completed:** Phase 9.1 Plan 09.1-07 Wave 4 Phase Gate — 4 tasks, 5 files (phase091_acceptance.py SC1-7 aggregator + 09.1-TRACEABILITY.md + 09.1-VALIDATION.md frontmatter + ROADMAP.md Phase 9.1 entry + STATE.md). **Phase 9.1 COMPLETE.** Live smoke $0.29 ≤ ## Current Position
+- **Phase:** 12 (executing)
+- **Next Action:** `/gsd:execute-phase 12` Plan 02 (Producer 14 migration using producer.md.template — prototype round-trip already proven via trend-collector v1.2). Budget: $0.00 / $5.00 cap preserved. Tests: 280/280 baseline + 16 phase12 skipped GREEN.
+- **Status:** Executing Phase 12
+- **Progress:** [██████████] 96%
+- **Last completed:** Phase 12 Plan 12-01 Wave 0 Foundation (5 tasks, 16 files). 5 atomic commits: e9fd3a3 (templates 2종) + 6aac44b (tests/phase12 scaffold + MockClaudeCLI) + a06dc9b (verify_agent_md_schema.py CLI) + 0ebb5e9 (trend-collector v1.1→v1.2) + 9a8db78 (12-VALIDATION.md flip + 19-row map). 244 Phase 4 + 36 Phase 11 regression intact. 2 Rule 1 deviations documented (31 AGENT.md scope vs plan's 30, channel_bible path drift). AGENT-STD-01 + AGENT-STD-02 requirements [x].
 
-.00 cap, 7/7 SC PASS via `python tests/phase091/phase091_acceptance.py` exit 0.
+### Plan 12-01 Decisions
+- Verifier CLI scope = 14 producer + 17 inspector = 31 AGENT.md in scope (not plan's stated 30). harvest-importer lives at `.claude/agents/harvest-importer/` root-level outside `producers/` scan path. Plan 02/03 batch test names should reconcile to 31.
+- MockClaudeCLI adopts defensive `*args/**kwargs` signature absorbing real `_invoke_claude_cli` 6-arg vs `ClaudeAgentSupervisorInvoker._call` 4-kwarg call-site gap. Survives future real-fn signature drift.
+- trend-collector v1.2 `<mandatory_reads>` item 2 path corrected `wiki/ypp/channel_bible.md` → `wiki/continuity_bible/channel_identity.md` (Phase 6 Plan 02 D-10 canonical 5-component baseline). First migration was the right moment for drift rectification before 13 more producers inherit it.
 
 ---
 
@@ -367,6 +370,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 11 P05 | 130 | 2 tasks | 2 files |
 | Phase 11 P03 | 5min | 2 tasks | 3 files |
 | Phase 11 P04 | 2m14s | 2 tasks | 4 files |
+| Phase 12 P01 | 16min | 5 tasks | 16 files |
 
 ### Plan Execution Log
 
