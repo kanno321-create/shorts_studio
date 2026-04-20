@@ -8,6 +8,7 @@
 - [project_claude_code_max_no_api_key](project_claude_code_max_no_api_key.md) — Claude Code Max 구독 활용, ANTHROPIC_API_KEY 영구 금지
 - [project_shorts_production_pipeline](project_shorts_production_pipeline.md) — 4-stage 영상 제작 chain (Script → Image → Voice → Video)
 - [project_tts_stack_typecast](project_tts_stack_typecast.md) — TTS 스택: Typecast primary + ElevenLabs fallback + EdgeTTS 최종 폴백
+- [project_server_infrastructure_plan](project_server_infrastructure_plan.md) — 현재 Windows PC (임시), 향후 Mac Mini 이관. cron 은 launchd/crontab 전환
 
 ## Feedback (대표님 지시 + 검증된 접근)
 - [feedback_i2v_prompt_principles](feedback_i2v_prompt_principles.md) — I2V 3원칙: Camera Lock / Anatomy Positive Persistence / Micro Verb

@@ -83,6 +83,13 @@ Phase 10 continuous monitoring 의 실행 엔진을 구축한다. GH Actions cro
 
 Purpose: 코드만 있고 cron 이 없으면 continuous pass 는 허상. 이 Plan 이 Phase 10 을 "영구 지속 phase" 로 만드는 유일한 실행 계층.
 Output: 4 YAML + 2 schedule scripts + 2 test files + FAILURES.md append 계약 증명.
+
+**Server Migration Note (세션 #27 박제, memory: `project_server_infrastructure_plan`)**:
+- 현재 Windows PC 는 **임시 운영 환경**. 장기 계획은 Mac Mini (상시 가동 headless 서버) 이관.
+- 본 Plan 의 `windows_tasks.ps1` 는 **Windows 전용** 구현이며, 이관 시 macOS **launchd** plist 3종 (com.naberal.shorts.pipeline/upload/notify.plist) 으로 재작성 필요 — Phase 11 candidate.
+- GH Actions cron 4종 은 클라우드 기반이라 **서버 이관 영향 없음** (그대로 유지).
+- Python 스크립트 (`scripts/schedule/notify_failure.py` 등) 는 cross-platform 으로 작성되어 재사용 가능 — OS 의존 코드 최소화.
+- 이관 판정 3 조건: Mac Mini OS 셋팅 + 상시 가동 + Windows 운영 1개월+ 실적 축적.
 </objective>
 
 <execution_context>

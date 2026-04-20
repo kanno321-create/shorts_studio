@@ -193,6 +193,7 @@
 - **Typecast voice_discovery 확장** (D091-DEF-02 #8): primary 안정 확인 후.
 - **audienceRetention timeseries 정확도 개선** (WARNING #3, Plan 3 관련): Phase 10 v1 은 audienceWatchRatio 를 retention_3s proxy 로 사용. audienceRetention timeseries 호출로 정확도 개선은 Phase 11 candidate — 실 데이터 축적 후 proxy ↔ 실측 오차 확인.
 - **Producer AGENT.md monthly_context wikilink 추가** (INFO #2, Plan 6 관련): Producer AGENT.md 에 `@wiki/shorts/kpi/monthly_context_latest.md` 참조를 추가하여 KPI-04 end-to-end cascade 완성. D-2 Lock (2026-06-20) 해제 후 Plan 11 candidate — AGENT.md 는 `.claude/agents/*/` 에 위치하므로 D-2 Lock 범위.
+- **Mac Mini 서버 이관** (세션 #27 박제, memory: `project_server_infrastructure_plan`): 현재 Scheduler 는 대표님 Windows PC (임시). 장기 계획은 Mac Mini (상시 가동 headless 서버). Windows Task Scheduler → macOS launchd plist 3종 이관. GH Actions cron 4종 은 클라우드 기반이라 영향 없음. 이관 판정 3 조건 (Mac Mini OS 셋팅 + 상시 가동 + Windows 운영 1개월+ 실적 축적) 충족 시 Phase 11 candidate.
 
 </deferred>
 
