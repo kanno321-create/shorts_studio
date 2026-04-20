@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "description": "shorts_studio 캐릭터 레지스트리 — Phase 9.1 seed (대표님)",
+  "characters": [
+    {
+      "name": "channel_profile",
+      "ref_path": "channel_profile_ref.png",
+      "description": "세션 #24 품질 테스트 anchor — shorts_naberal profile_kr_bright.png 복사본, Stage 2→4 smoke test 용",
+      "tags": ["seed", "test", "smoke", "phase091"]
+    }
+  ]
+}
