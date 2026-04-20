@@ -79,4 +79,5 @@ config/youtube_token.json.bak*
 # Phase 8 — runtime state (upload history + 48h lock)
 .planning/publish_lock.json
 output/
+outputs/
 scripts/experimental/
