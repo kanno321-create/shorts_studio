@@ -313,6 +313,29 @@ Plans:
 
 ---
 
+### Phase 12: Agent Standardization + Skill Routing + FAILURES Protocol
+
+**Goal:** Phase 11 라이브 smoke 1차 실패 (trend-collector JSON 미준수, F-D2-EXCEPTION-01) 에서 노출된 하네스 품질 gap 해소. 30명 에이전트 (13 producer + 17 inspector) AGENT.md 전수 표준화 + Agent × Skill 매핑 매트릭스 (wiki/agent_skill_matrix.md) 작성 + FAILURES.md 500줄 상한 rotation 정책 + `<mandatory_reads>` 블록으로 각 에이전트가 본인 업무 관련 FAILURES entry 전수 읽기 (샘플링 금지 — 대표님 session #29 지시). 본 phase 완결 시 에이전트 재호출 루프 / 출력 형식 drift / 도구 오용 3대 고질 해소 예상.
+**Depends on:** Phase 11 (라이브 smoke 완결 + SCRIPT-01 verdict locked)
+**Requirements:** AGENT-STD-01, AGENT-STD-02, SKILL-ROUTE-01, FAIL-PROTO-01, FAIL-PROTO-02
+**Success Criteria:**
+  1. 13 producer + 17 inspector 전체 AGENT.md 가 표준 schema 준수 (`<role>`, `<mandatory_reads>`, `<output_format>`, `<skills>`, `<constraints>` 5섹션)
+  2. `wiki/agent_skill_matrix.md` 생성 — 30 × 8 매트릭스 (에이전트 × 스킬)
+  3. FAILURES.md 500줄 상한 enforcement — 초과 시 `.claude/failures/_archive/YYYY-MM.md` 자동 이관; 현행 버전은 에이전트가 전수 읽기 가능한 크기 유지
+  4. `<mandatory_reads>` 블록이 모든 AGENT.md 의 첫 블록에 존재 — FAILURES.md + channel_bible + 해당 에이전트 관련 스킬 참조
+  5. Phase 11 에서 실패했던 trend-collector JSON 미준수 패턴 재현 불가 (regression test 추가)
+  6. skill_patch_counter 는 Phase 12 의 30+ 파일 patch 를 "directive-authorized batch" 로 단일 F-D2-EXCEPTION-02 entry 처리 (중복 기록 없음 — Phase 11 AUDIT-05 idempotency 활용)
+**Plans:** TBD — /gsd:discuss-phase 12 이후 확정
+
+- [ ] 12-XX-agent-md-standard-schema-PLAN.md — 표준 5섹션 schema + template
+- [ ] 12-XX-producer-13-migration-PLAN.md — 13 producer AGENT.md 전수 전환
+- [ ] 12-XX-inspector-17-migration-PLAN.md — 17 inspector AGENT.md 전수 전환
+- [ ] 12-XX-skill-matrix-PLAN.md — wiki/agent_skill_matrix.md + validation
+- [ ] 12-XX-failures-rotation-PLAN.md — FAILURES.md 500줄 rotation + _archive/
+- [ ] 12-XX-mandatory-reads-enforcement-PLAN.md — AGENT.md `<mandatory_reads>` 블록 + regression test
+
+---
+
 ## Progress Table
 
 | Phase | Plans Complete | Status | Completed |
@@ -329,6 +352,7 @@ Plans:
 | 9.1. Production Engine Wiring | 7/7 | ✅ Complete | 2026-04-20 |
 | 10. Sustained Operations | 8/8 | Complete    | 2026-04-20 |
 | 11. Pipeline Real-Run Activation | 5/6 | In Progress|  |
+| 12. Agent Standardization | 0/6 | 📋 Planned | - |
 
 ---
 
@@ -353,7 +377,15 @@ Plans:
 | TEST | 4 | Phase 7 (4) |
 | AUDIT | 4 | Phase 10 (4) |
 | REMOTE | 3 | Phase 8 (3) |
-| **Total** | **96** | **96/96 mapped (100%)** |
+| **v1 Total** | **96** | **96/96 mapped (100%)** |
+| PIPELINE (Phase 11) | 4 | Phase 11 (4) |
+| SCRIPT (Phase 11) | 1 | Phase 11 (1) |
+| AUDIT-05 (Phase 11 ext.) | 1 | Phase 11 (1) |
+| AGENT-STD (Phase 12) | 2 | Phase 12 (2) |
+| SKILL-ROUTE (Phase 12) | 1 | Phase 12 (1) |
+| FAIL-PROTO (Phase 12) | 2 | Phase 12 (2) |
+| **Phase 11+12 Total** | **11** | **11/11 mapped** |
+| **Grand Total (v1 + Phase 11 + 12)** | **107** | **107/107 mapped (100%)** |
 
 ---
 

@@ -229,6 +229,9 @@ v1 검증 완료 후 또는 수익 발생 후 활성화.
 | AUDIT | 4 |
 | REMOTE | 3 |
 | **v1 총계** | **96 requirements** |
+| Phase 11 (PIPELINE + SCRIPT + AUDIT-05) | 6 |
+| Phase 12 (AGENT-STD + SKILL-ROUTE + FAIL-PROTO) | 5 |
+| **v1 + Phase 11 + Phase 12 전체** | **107 requirements** |
 | v2 deferred | 10 |
 | Out of Scope (AF) | 15 |
 
@@ -362,3 +365,39 @@ v1 검증 완료 후 또는 수익 발생 후 활성화.
 ---
 
 *Phase 11 REQ 추가: 2026-04-21 (세션 #28) — D10-PIPELINE-DEF-01 + D10-SCRIPT-DEF-01 + D10-01-DEF-02 deferred items 를 공식 REQ 로 승격. /gsd:discuss-phase 11 + /gsd:plan-phase 11 로 세부 plan 결정 예정.*
+
+---
+
+## Phase 12 신규 REQ (v1.0.2 bridge — Agent Standardization + Skill Routing + FAILURES Protocol)
+
+세션 #29 2026-04-21 — Phase 11 라이브 smoke 1차 실패 (trend-collector JSON 미준수, F-D2-EXCEPTION-01) 에서 노출된 하네스 품질 gap 해소를 위한 Phase 12 신규 5 REQ. **대표님 session #29 직접 승인 ("둘다" — Option D + Phase 12 발의 양쪽 모두).**
+
+### AGENT — 에이전트 표준화 + mandatory reads
+
+- [ ] **AGENT-STD-01**: 30명 에이전트 (13 producer + 17 inspector) AGENT.md 표준 5섹션 schema 준수 — `<role>`, `<mandatory_reads>`, `<output_format>`, `<skills>`, `<constraints>`. Phase 12 에서 표준 template + 전수 migration. Phase 11 에서 노출된 출력 형식 drift / 도구 오용 / 재호출 루프 3대 고질 해소.
+- [ ] **AGENT-STD-02**: 각 AGENT.md 첫 블록에 `<mandatory_reads>` 명시 — `.claude/failures/FAILURES.md` (500줄 내 전수 읽기, 샘플링 금지 — 대표님 session #29 지시) + `wiki/ypp/channel_bible.md` (관련 niche 매핑) + 해당 에이전트 관련 스킬 (예: gate-dispatcher, progressive-disclosure). 매 호출마다 fresh read 필수 — system prompt 캐시 유무 불문.
+
+### SKILL-ROUTE — Agent × Skill 매핑 매트릭스
+
+- [ ] **SKILL-ROUTE-01**: `wiki/agent_skill_matrix.md` 생성 — 30 × 8 매트릭스 (에이전트 × 스킬). Row: 13 producer + 17 inspector. Column: progressive-disclosure, drift-detection, gate-dispatcher, context-compressor, harness-audit, notebooklm, korean-naturalness, korean-nat-rules. 각 cell: required / optional / n/a. Pytest validation: `scripts/validate/verify_agent_skill_matrix.py` — 매트릭스 entry 와 실제 AGENT.md `<skills>` 블록 cross-reference.
+
+### FAIL-PROTO — FAILURES.md 500줄 rotation + directive-authorized batch
+
+- [ ] **FAIL-PROTO-01**: FAILURES.md 500줄 상한 enforcement — 초과 시 `.claude/failures/_archive/YYYY-MM.md` 자동 이관. 현행 version 은 에이전트가 `<mandatory_reads>` 로 전수 읽기 가능한 크기 유지. 이관 스크립트: `scripts/audit/failures_rotate.py`. Hook: `check_failures_append_only` 수정하여 500줄 초과 커밋 차단 + rotation 안내 메시지.
+- [ ] **FAIL-PROTO-02**: Phase 12 의 30+ 파일 patch 를 skill_patch_counter 가 단일 "directive-authorized batch" entry (F-D2-EXCEPTION-02) 로 처리 — Phase 11 AUDIT-05 idempotency 활용. F-D2-EXCEPTION 계열은 대표님 직접 지시 가정하에 일괄 처리 (단일 FAILURES entry, 중복 기록 없음). Phase 11 F-D2-EXCEPTION-01 (trend-collector) 은 이 정책의 prototype.
+
+### Phase 12 Traceability
+
+| REQ-ID | Phase |
+|--------|-------|
+| AGENT-STD-01 | 12 |
+| AGENT-STD-02 | 12 |
+| SKILL-ROUTE-01 | 12 |
+| FAIL-PROTO-01 | 12 |
+| FAIL-PROTO-02 | 12 |
+
+**Phase 12 Coverage**: 5 신규 REQ — v1.0.1 96 REQ + Phase 11 6 REQ + Phase 12 5 REQ = **101 REQ 전체 mapping**.
+
+---
+
+*Phase 12 REQ 추가: 2026-04-21 (세션 #29) — Phase 11 라이브 smoke 1차 실패로 노출된 하네스 품질 gap 해소. 대표님 직접 승인 (Option D + Phase 12 발의 양쪽 모두). /gsd:discuss-phase 12 + /gsd:plan-phase 12 로 세부 plan 결정 예정.*
