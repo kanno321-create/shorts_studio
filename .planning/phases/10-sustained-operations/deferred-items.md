@@ -116,3 +116,27 @@ progress: { ... }
 3. `tests/phase10/test_skill_patch_counter.py` 에 idempotency 케이스 추가 (동일 git 상태에서 2회 연속 실행 → 첫 회만 append, 2회차는 skip).
 
 **Proposed owner:** Phase 11 entry gate — scheduler 1차 월간 실행 (2026-05-20 경) 전 선행 필요.
+
+---
+
+## D10-SCRIPT-DEF-01 — scripter 대본 품질 NLM-direct 재설계 (Phase 11 candidate)
+
+**Discovered during:** v1.0.1 milestone audit pre-flight 대화 2026-04-21 (대표님 질문 "대본의 질이 궁금하네").
+
+**증상:**
+- `wiki/script/NLM_2STEP_TEMPLATE.md` 는 대표님이 세션 70·77 에서 박제한 **NLM 2-step 대본 생성 규약** (Step 1 `crime-stories-+-typecast-emotion` 노트북 사건 발굴 → Step 2 `script-production-deep-research` 노트북 시나리오 제조, 대본 본문 NLM 단독 작성).
+- 현재 `scripter` agent 는 Claude Opus 가 `blueprint + scenes + research manifest + channel bible` 을 받아 **직접 대본 JSON 을 생성**. NLM 은 `researcher` 를 통해 **citation 공급자 역할만** 수행.
+- Gap: "방대한 소스 기반 NLM 이 대본 문장 자체를 생성" vs "NLM citation 기반 Claude 가 재창작" — source-grounded 강도 + 소스 디테일 전이 품질이 후자에서 열화 가능성.
+
+**근본 원인 가설:**
+- Phase 4~5 설계 시 Shorts 59s 는 NLM 2-step longform(15분) 템플릿 적용 대상 아니라고 판단됨. NLM_2STEP_TEMPLATE.md 는 박제만 되고 scripter agent 구조에 미반영.
+- `scripts/notebooklm/query.py` default 노트북은 Step 2 (`script-production-deep-research`) 단일. Step 1 사건 발굴 노트북 호출 구조 부재.
+
+**Scope boundary:** v1.0.1 milestone 구조 완결 범위 밖. 대표님 Core Value (외부 수익) 직결 품질 이슈이나 **구조(structure) 가 아닌 품질(quality) 차원** — milestone audit 의 requirement coverage + cross-phase integration blocker 아님.
+
+**권장 해결 (Phase 11 candidate, 대표님 판단 대기):**
+1. **옵션 A**: 현 시스템으로 영상 1~2편 실제 제작 → 품질 평가 → 부족 시 재설계 (경험적 검증, 즉시 실행 가능).
+2. **옵션 B**: `scripter` 를 "NLM 2-step 호출 모드" 로 재설계 — Step 1 발굴 노트북 query → Step 2 시나리오 노트북 query → Claude 는 rubric 검수·후처리만. `scripts/notebooklm/query.py` 를 2-notebook 호출 구조로 확장.
+3. **옵션 C**: Shorts/Longform 2-mode 분리 — Shorts(59s, 현 scripter 유지) + Longform(15분, 순수 NLM 2-step). channel_bible.길이 필드 기반 자동 routing.
+
+**Proposed owner:** Phase 11 첫 영상 제작 직후 (2026-04-21~2026-05-05 경). 대표님의 실 영상 1~2편 품질 평가를 근거로 옵션 선택.
