@@ -1,0 +1,17 @@
+{
+  "session_id": "20260421_034724",
+  "status": "FAILED",
+  "error": "claude CLI 실패 (rc=1, 대표님): �������� �ʹ� ��ϴ�.\n",
+  "video_url": null,
+  "wall_time_seconds": 69.73,
+  "gate_file_count": 0,
+  "total_cost_usd_estimate": null,
+  "per_gate_cost_usd": {},
+  "per_gate_retries": {},
+  "total_retries": null,
+  "budget_usd": null,
+  "budget_breached": null,
+  "retry_cap_breached": null,
+  "state_dir": "state/20260421_034724",
+  "generated_at": "2026-04-21T03:48:34.576607"
+}
