@@ -66,10 +66,17 @@ def test_bootstrap_creates_parent_directory(tmp_path, mock_client_secret, monkey
     assert nested.exists()
 
 
-def test_scopes_are_exactly_two_in_order():
+def test_scopes_are_exactly_three_in_order():
+    """Phase 10 Plan 10-03 expanded SCOPES to 3 entries (added yt-analytics.readonly).
+
+    Historic name was `test_scopes_are_exactly_two_in_order`; renamed to match the
+    post-Plan-10-03 invariant. KPI-01 daily fetch requires the 3rd scope; any
+    future addition/removal must update this test in lockstep with oauth.py.
+    """
     assert oauth.SCOPES == [
         "https://www.googleapis.com/auth/youtube.upload",
         "https://www.googleapis.com/auth/youtube.force-ssl",
+        "https://www.googleapis.com/auth/yt-analytics.readonly",
     ]
 
 
