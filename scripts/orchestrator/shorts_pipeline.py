@@ -37,6 +37,7 @@ from __future__ import annotations
 import argparse
 import logging
 from dataclasses import dataclass, field
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable
 
@@ -207,32 +208,25 @@ class ShortsPipeline:
         self.claude_supervisor_breaker = _mk_breaker("claude_supervisor")
 
         # Adapters (injected for tests, constructed from env otherwise).
-        self.kling = kling_adapter or KlingI2VAdapter(circuit_breaker=self.kling_breaker)
-        self.runway = runway_adapter or RunwayI2VAdapter(circuit_breaker=self.runway_breaker)
-        self.typecast = typecast_adapter or TypecastAdapter(circuit_breaker=self.typecast_breaker)
-        self.elevenlabs = elevenlabs_adapter or ElevenLabsAdapter(circuit_breaker=self.elevenlabs_breaker)
-        try:
-            self.shotstack = shotstack_adapter or ShotstackAdapter(circuit_breaker=self.shotstack_breaker)
-        except ValueError as err:
-            logger.warning("[pipeline] shotstack adapter 미초기화 (대표님 — SHOTSTACK_API_KEY 없음, Phase 9.1 ken_burns 로컬 대체로 실 호출 경로 부재): %s", err)
-            self.shotstack = shotstack_adapter
-        # 9.1 additions — Nano Banana + Ken-Burns. Missing API key / ffmpeg
-        # are logged and the slot is left None so mock-based test harnesses
-        # (phase05/07) still construct the pipeline; real runs raise later.
-        try:
-            self.nanobanana = nanobanana_adapter or NanoBananaAdapter(
-                circuit_breaker=self.nanobanana_breaker
-            )
-        except ValueError as err:
-            logger.warning("[pipeline] nanobanana adapter 미초기화 (대표님): %s", err)
-            self.nanobanana = nanobanana_adapter
-        try:
-            self.ken_burns = ken_burns_adapter or KenBurnsLocalAdapter(
-                circuit_breaker=self.ken_burns_breaker
-            )
-        except KenBurnsUnavailable as err:
-            logger.warning("[pipeline] ken_burns 미초기화 (대표님 ffmpeg 확인): %s", err)
-            self.ken_burns = ken_burns_adapter
+        # Missing env for an adapter is logged + slot = injected (usually None)
+        # so mock-based test harnesses construct cleanly; real runs that
+        # dispatch to a missing adapter raise at use-site (D-05 동일 패턴;
+        # D-06 adapter internals untouched; §Line Budget: net -5 on block).
+        def _try_adapter(name, build, injected, hint):
+            try:
+                return build()
+            except (ValueError, KenBurnsUnavailable) as err:
+                suffix = f" — {hint}" if hint else ""
+                logger.warning("[pipeline] %s adapter 미초기화 (대표님%s): %s", name, suffix, err)
+                return injected
+
+        self.kling      = kling_adapter      or _try_adapter("kling",      lambda: KlingI2VAdapter(circuit_breaker=self.kling_breaker),           kling_adapter,      "KLING_API_KEY / FAL_KEY 없음")
+        self.runway     = runway_adapter     or _try_adapter("runway",     lambda: RunwayI2VAdapter(circuit_breaker=self.runway_breaker),         runway_adapter,     "RUNWAY_API_KEY 없음")
+        self.typecast   = typecast_adapter   or _try_adapter("typecast",   lambda: TypecastAdapter(circuit_breaker=self.typecast_breaker),       typecast_adapter,   "TYPECAST_API_KEY 없음")
+        self.elevenlabs = elevenlabs_adapter or _try_adapter("elevenlabs", lambda: ElevenLabsAdapter(circuit_breaker=self.elevenlabs_breaker),   elevenlabs_adapter, "ELEVENLABS_API_KEY 없음")
+        self.shotstack  = shotstack_adapter  or _try_adapter("shotstack",  lambda: ShotstackAdapter(circuit_breaker=self.shotstack_breaker),     shotstack_adapter,  "SHOTSTACK_API_KEY 없음, Phase 9.1 ken_burns 로컬 대체")
+        self.nanobanana = nanobanana_adapter or _try_adapter("nanobanana", lambda: NanoBananaAdapter(circuit_breaker=self.nanobanana_breaker),   nanobanana_adapter, "GOOGLE_API_KEY 없음")
+        self.ken_burns  = ken_burns_adapter  or _try_adapter("ken_burns",  lambda: KenBurnsLocalAdapter(circuit_breaker=self.ken_burns_breaker), ken_burns_adapter,  "ffmpeg 확인 필요")
 
         # Voice-first assembly primitive (Plan 05).
         self.timeline = VoiceFirstTimeline()
@@ -746,7 +740,10 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Phase 5 ShortsPipeline — 13 operational GATE orchestrator"
     )
-    parser.add_argument("--session-id", required=True, help="Session identifier")
+    parser.add_argument(
+        "--session-id", required=False, default=None,
+        help="Session identifier (default: yyyyMMdd_HHMMSS auto-generated)",
+    )
     parser.add_argument(
         "--state-root",
         default="state",
@@ -763,8 +760,9 @@ def main(argv: list[str] | None = None) -> int:
         level=args.log_level,
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     )
+    session_id = args.session_id or datetime.now().strftime("%Y%m%d_%H%M%S")
     pipeline = ShortsPipeline(
-        session_id=args.session_id,
+        session_id=session_id,
         state_root=Path(args.state_root),
     )
     result = pipeline.run()
