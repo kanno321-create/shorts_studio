@@ -302,13 +302,13 @@ Plans:
   4. `shorts_pipeline.py` 또는 orchestrator `__init__` 에 `load_dotenv()` 통합으로 `.env` 자동 로드 — PowerShell 추가 env 주입 없이 더블클릭 wrapper 로 실행 가능
   5. `run_pipeline.ps1` 또는 `.bat` wrapper 생성 — 관리자 권한 불필요, `.env` 자동 로드 + `--session-id $(Get-Date -Format yyyyMMdd_HHmmss)` 자동 주입 + pause (창 안 꺼짐)
   6. (선택) Phase 04/08 retrospective VERIFICATION.md 작성 — Phase 04 (33 agent filesystem invariant) + Phase 08 (smoke upload 2 evidence) 증거 체인 공식화
-**Plans:** 1/6 plans executed
+**Plans:** 3/6 plans executed
 
 - [x] 11-01-invoker-stdin-fix-PLAN.md — _invoke_claude_cli stdin piping (PIPELINE-01) — Wave 1
-- [ ] 11-02-dotenv-loader-PLAN.md — zero-dep .env loader at package __init__ (PIPELINE-02) — Wave 1
+- [x] 11-02-dotenv-loader-PLAN.md — zero-dep .env loader at package __init__ (PIPELINE-02) — Wave 1
 - [ ] 11-03-adapter-graceful-degrade-PLAN.md — 7 adapter uniform wrap via _try_adapter helper + argparse --session-id optional (PIPELINE-03 + PIPELINE-04 tie-in) — Wave 1
 - [ ] 11-04-wrapper-cmd-ps1-PLAN.md — run_pipeline.cmd + run_pipeline.ps1 double-click wrapper (PIPELINE-04) — Wave 2
-- [ ] 11-05-idempotency-counter-PLAN.md — skill_patch_counter commit-hash-set idempotency (AUDIT-05, D-22 2026-05-20 deadline) — Wave 2
+- [x] 11-05-idempotency-counter-PLAN.md — skill_patch_counter commit-hash-set idempotency (AUDIT-05, D-22 2026-05-20 deadline) — Wave 2
 - [ ] 11-06-full-smoke-script-decision-PLAN.md — Full 0→13 GATE live smoke + SCRIPT_QUALITY_DECISION.md template + REQUIREMENTS.md D-19 amendment (PIPELINE-01 SC#1 validation + SCRIPT-01 SC#2) — Wave 3
 
 ---
@@ -328,7 +328,7 @@ Plans:
 | 9. Docs + KPI + Taste Gate | 6/6 | ✅ Complete | 2026-04-20 |
 | 9.1. Production Engine Wiring | 7/7 | ✅ Complete | 2026-04-20 |
 | 10. Sustained Operations | 8/8 | Complete    | 2026-04-20 |
-| 11. Pipeline Real-Run Activation | 1/6 | In Progress|  |
+| 11. Pipeline Real-Run Activation | 3/6 | In Progress|  |
 
 ---
 
