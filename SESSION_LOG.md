@@ -5,6 +5,39 @@
 ### 핵심 결정
 1. naberal_harness v1.0 기반 신규 스튜디오 창업
 
+## Session #28 — 2026-04-21 (CLAUDE.md Navigator + game 스튜디오 창업)
+
+### 진행 범위
+- CLAUDE.md 426 → 96 lines 재설계 (Perfect Navigator 패턴, 37/37 coverage)
+- docs/ARCHITECTURE.md L6 Phase status drift 패치
+- `scripts/validate/navigator_coverage.py` 신설 + Hook/audit 통합
+- naberal_game 별도 repo 창업 (하네스 + AI 위키 + Obsidian 3층)
+- NotebookLM 6 쿼리 딥 리서치 (57,609자) — game 에 박제
+
+### 핵심 결정
+1. **CLAUDE.md = Identity + 금기 + 필수 + Navigator** (대표님 재정의)
+2. Navigator matrix 는 **verb-first 6 카테고리** (제작/검증/조사/수정/점검/복구)
+3. GSD markers **pointer-only sentinel** 로 재주입 방지
+4. **navigator_coverage.py** 자동 검증 = 대표님 "스킵 안 함" 보장 기계적 장치
+5. naberal_game 은 shorts 검증 교훈 Day 1 이식 (426줄 실수 재발 방지)
+6. NotebookLM skill 호환 패치 (UTF-8 + --notebook-url) — game FAIL-001 박제
+
+### Git Commits (shorts + game)
+```
+shorts:
+e57f891 docs(claude-md): slim to 96 lines + add Perfect Navigator
+
+game (신규 repo github.com/kanno321-create/naberal_game):
+02da275 feat(bootstrap): naberal_game studio Phase 0 창업
+70a4bf1 feat(research): NotebookLM deep research 6-query
+```
+
+### 박제 교훈 (F-ARCH-01 shorts + FAIL-001 game)
+- **shorts F-ARCH-01**: docs/ARCHITECTURE.md Phase status 라인은 매 Phase 완결 시 필수 업데이트
+- **game FAIL-001**: 외부 NotebookLM skill 호출 전 argparse 실 체크 + Windows UTF-8 강제
+
+---
+
 ## Session #24 — 2026-04-20 (YOLO 6세션 연속, Phase 9 + 9.1 + I2V stack final)
 
 ### 진행 범위 (단일 세션)

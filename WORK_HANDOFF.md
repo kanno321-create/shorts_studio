@@ -1,9 +1,59 @@
 # WORK HANDOFF — shorts_studio
 
 ## 최종 업데이트
-- 날짜: 2026-04-20 (세션 **#27** — Part A 컨텍스트 단절 영구 수정 + Phase 10 Plan 작성 + OAuth analytics scope + Mac Mini 인프라 박제)
-- 세션: **#27** (4 commits: 8172e9c / 83d2af8 / 2fda570 / e4ab949)
-- 상태: **Phase 10 Plan 완료, execute-phase 대기** — `/gsd:execute-phase 10` trigger 만 남음. Wave 1 (Plan 01 + 02) 병렬 실행 가능.
+- 날짜: 2026-04-21 (세션 **#28** — CLAUDE.md Perfect Navigator 재설계 + naberal_game 스튜디오 창업 + NotebookLM 6-쿼리 딥 리서치)
+- 세션: **#28** (shorts commit `e57f891` 1건 + game 신규 repo 2 commits)
+- 상태: **Phase 10 Plan 완료, execute-phase 대기 유지** — `/gsd:execute-phase 10` trigger 만 남음 (세션 #27 상태 불변). 세션 #28 은 CLAUDE.md 구조 개선 + 신 스튜디오 bootstrap 전용.
+
+---
+
+## 세션 #28 완료 항목 (2026-04-21)
+
+### ✅ CLAUDE.md Perfect Navigator 재설계 (commit `e57f891`)
+대표님 지시: "claude.md는 100미만이 좋다. 정체성·금기·지켜야할사항 + 나머지는 지도·네비게이션역할":
+- CLAUDE.md **426 → 96 lines** (78% 감량)
+- Navigator matrix: 상황 → 자산 **1-hop 라우팅**, 32 agents + 5 skills = **37/37 coverage (100%)**
+- verb-grouped 6 카테고리 (제작/검증/조사/수정/점검/복구) — 대표님 실제 발화 패턴 매칭
+- GSD markers: pointer-only sentinel (재주입 방지, `<!-- managed: pointer-only -->`)
+- 신설 `docs/HARNESS_CHANGELOG.md` — 하네스 변경 이력 append-only 분리
+- 신설 `scripts/validate/navigator_coverage.py` — 자산 drift 자동 검증 (196줄)
+- `session_start.py` Step 6b 추가 — Navigator Coverage 경고 자동 주입
+- `harness_audit.py` D-11 JSON `navigator_coverage` 필드 추가
+- `docs/ARCHITECTURE.md` L6 Phase status drift 패치 (Phase 8 → Phase 9+9.1 완결 + Phase 10 Entry Gate PASSED)
+  - 다른 나베가 "Phase 8" 이라고 오인한 원인 근절 — F-ARCH-01 박제
+
+### ✅ naberal_game 스튜디오 창업 (별도 git repo, Phase 0 Bootstrap)
+대표님 "평생의 꿈 — Unity 6 Steam 솔로 인디 게임":
+- 장르: 로그라이크/시뮬/RPG 복합, 12~24개월 장기 창작
+- 스택: Unity 6 LTS + C# + Steam PC + AI 도구 체인 (Claude Code, Nano Banana Pro, Suno, ElevenLabs, Meshy)
+- 위치: `studios/game/` (shorts 자매 스튜디오) + GitHub 원격 `github.com/kanno321-create/naberal_game` (Private, main 브랜치)
+- `new_domain.py game` 스캐폴드 + Perfect Navigator 패턴 Day 1 이식 (CLAUDE.md 84줄)
+- wiki/ 6 카테고리 (design/engine/gameplay/art/audio/steam) + MOC.md + Obsidian vault anchor
+- scaffolding 확장: memory + failures + deprecated_patterns + session_start.py Step 6b 이식
+
+### ✅ naberal_game NotebookLM 딥 리서치 (6 쿼리, 57,609자 수집)
+대표님 노트북 `a0bb9e88-b8cc-4a8d-a55a-75ffa01996eb` 소스 자료 기반:
+- Q1 인디 현실 + MVP + 게임 디자인 (7,152자)
+- Q2 Unity 6 LTS 전부 (9,301자)
+- Q3 게임 아트 2D/3D + AI 2026 (12,265자)
+- Q4 게임 오디오 (9,665자)
+- Q5 Steam + 마케팅 + 한국 인디 (12,182자)
+- Q6 관리/멘털 + 법률(한국) + AI 2026 (7,044자)
+- 박제: `.planning/research/nlm_summary.md` + `.claude/memory/reference_beginner_gamedev_knowledge.md` + 6 wiki MOC 전수 반영
+- 인프라 패치: `query.py` UTF-8 강제 (PYTHONUTF8=1) + `--notebook-url` lookup 우회 (secondjob_naberal skill cp949 호환) — game FAIL-001 박제
+
+### Git Commits (세션 #28)
+**shorts**:
+```
+e57f891 docs(claude-md): slim to 96 lines + add Perfect Navigator (대표님 directive)
+```
++418/-418 대칭 교체 (Navigator 도입 효과).
+
+**game (신규 repo)**:
+```
+02da275 feat(bootstrap): naberal_game studio Phase 0 창업 — 하네스 + AI 위키 + Obsidian 3층 조합
+70a4bf1 feat(research): NotebookLM deep research 6-query — 초보 1인 인디 게임 개발 전 영역 지식
+```
 
 ---
 
