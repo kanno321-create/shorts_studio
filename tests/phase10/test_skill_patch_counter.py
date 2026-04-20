@@ -309,3 +309,69 @@ def test_H_cli_since_until_override(tmp_git_repo: Path, make_commit, monkeypatch
     # _boundary() normalises bare YYYY-MM-DD to YYYY-MM-DD HH:MM:SS
     assert "2026-05-01" in flat, "--since override must appear in git log args"
     assert "2026-05-31" in flat, "--until override must appear in git log args"
+
+
+# ---------------------------------------------------------------------------
+# AUDIT-05 (Phase 11 Plan 11-05) — idempotency guard regression test (D-24).
+# ---------------------------------------------------------------------------
+
+
+def test_idempotency_skip_existing(tmp_git_repo: Path, make_commit) -> None:
+    """D-24: counter run twice on same state MUST append only once.
+
+    Phase A: fresh hook-file violation → rc=1 + 1 F-D2-NN entry appended.
+    Phase B: identical state, run again → rc=1 but FAILURES.md byte-exact.
+    Phase C: new violation → rc=1 + 1 more entry; Phase A entry preserved.
+    """
+    from scripts.audit.skill_patch_counter import main
+
+    # Seed FAILURES.md so append_failures has a target
+    failures_path = tmp_git_repo / "FAILURES.md"
+    failures_path.write_text(
+        "# FAILURES — append-only\n\n"
+        "## F-D1-00 — 박제\n\n"
+        "Pre-Phase10 seed entry (strict prefix preserved).\n\n",
+        encoding="utf-8",
+    )
+
+    # Phase A: one hook-file violation
+    make_commit({".claude/hooks/example.py": "# modified\n"}, "fix(hook): example edit")
+    rc1 = main([
+        "--repo", str(tmp_git_repo),
+        "--since", "2026-04-20",
+        "--until", "2026-06-20",
+    ])
+    assert rc1 == 1, f"Phase A: violations present → rc=1 (got {rc1})"
+    post1 = failures_path.read_text(encoding="utf-8")
+    assert post1.count("## F-D2-") == 1, (
+        f"Phase A: exactly 1 F-D2 entry expected, got {post1.count('## F-D2-')}"
+    )
+
+    # Phase B: same git state, run again — MUST NOT append
+    rc2 = main([
+        "--repo", str(tmp_git_repo),
+        "--since", "2026-04-20",
+        "--until", "2026-06-20",
+    ])
+    assert rc2 == 1, f"Phase B: violations still exist → rc=1 (got {rc2})"
+    post2 = failures_path.read_text(encoding="utf-8")
+    assert post2 == post1, (
+        "Phase B: FAILURES.md must be byte-exact unchanged on second run"
+    )
+    assert post2.count("## F-D2-") == 1, "Phase B: still exactly 1 F-D2 entry"
+
+    # Phase C: new violation → append ONLY the new one
+    make_commit({"CLAUDE.md": "# mod\n"}, "docs(test): second violation")
+    rc3 = main([
+        "--repo", str(tmp_git_repo),
+        "--since", "2026-04-20",
+        "--until", "2026-06-20",
+    ])
+    assert rc3 == 1, f"Phase C: violations present → rc=1 (got {rc3})"
+    post3 = failures_path.read_text(encoding="utf-8")
+    assert post3.count("## F-D2-") == 2, (
+        f"Phase C: 2 F-D2 entries expected (A preserved + new), got {post3.count('## F-D2-')}"
+    )
+    assert post3.startswith(post1), (
+        "Phase C: Phase A content preserved byte-exact as strict prefix (D-25)"
+    )
