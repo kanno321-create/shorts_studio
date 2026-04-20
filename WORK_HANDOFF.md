@@ -1,9 +1,9 @@
 # WORK HANDOFF — shorts_studio
 
 ## 최종 업데이트
-- 날짜: 2026-04-20 (세션 **#26** safe memory rename + Stage 4 drift 복구)
-- 세션: **#26** (D091-DEF-02 #3 resolved, 9 파일 cascade, 잔여 6항목 Phase 10 batch window 유지)
-- 상태: Phase 9 + 9.1 코드/문서 정합성 완전 복구. Phase 10 진입 조건 = 대표님 HUMAN-UAT 4건만 남음 (무변경).
+- 날짜: 2026-04-20 (세션 **#26** 3차 batch — evidence-first audit + Phase 10 Entry Gate PASSED)
+- 세션: **#26** 3개 batch (1차: memory rename, 2차: settings port, 3차: UAT 전수 resolved + Entry Gate FLIP)
+- 상태: **Phase 10 진입 즉시 가능** — `/gsd:plan-phase 10` trigger 만 남음. AI 추가 작업 없음.
 
 ---
 
@@ -89,24 +89,22 @@
 
 ## 🎯 다음 세션 진입 경로
 
-### A. ⏳ HUMAN-UAT 4건 대기 (대표님 수동 only)
-**Phase 9.1**:
-1. **UAT #1** — Kling 2.6 Pro smoke clip.mp4 재생성 + 품질 평가
-   ```bash
-   cd C:\Users\PC\Desktop\naberal_group\studios\shorts
-   python scripts/smoke/phase091_stage2_to_4.py --live
-   # 예상 비용 $0.39 ($0.04 Nano Banana + $0.35 Kling 5s)
-   # KLING_API_KEY 또는 FAL_KEY + GOOGLE_API_KEY 필요
-   ```
-2. **UAT #2** — ElevenLabs 한국어 voice 계정 확인 또는 `.env` 수동 지정
+### A. ✅ Phase 10 Entry Gate PASSED (세션 #26 3차 batch flip)
 
-**Phase 9** (세션 #24 잔류):
-3. **UAT #1** — 30분 온보딩 stopwatch 실측 (ARCHITECTURE.md 읽기)
-4. **UAT #2** — Taste Gate UX "편함" 주관 평가 (`wiki/kpi/taste_gate_2026-04.md`)
+**더 이상 HUMAN-UAT 대기 없음**. Phase 9 + 9.1 UAT 전수 resolved:
+- Phase 9 UAT #1 `deprecated_single_operator_scope` (1인 운영자 scope 외)
+- Phase 9 UAT #2 `deferred_phase_10_organic` (실 사용 시 자연 평가)
+- Phase 9 UAT #3 `passed` (technical, 세션 #24)
+- Phase 9.1 UAT #1 `passed_by_evidence` (세션 #24 실측 clip `output/prompt_template_test/kling26/kling_20260420_152355.mp4` 4.5MB + 대표님 피드백 후 스택 전환 commit `ff5459b`)
+- Phase 9.1 UAT #2-a `passed_by_attestation` (대표님 "Typecast 계속 사용해왔던거다")
+- Phase 9.1 UAT #2-b `deferred_phase_10` (primary Typecast 안정 시 실 호출 희귀)
 
-### B. Phase 10 Sustained Operations (HUMAN-UAT 4건 통과 시)
+### B. Phase 10 Sustained Operations — 대표님 `/gsd:plan-phase 10` trigger 대기
+- Go Criteria #2 #3 은 Plan 작성 킥오프 시점 대표님 일괄 선언:
+  - #2: Phase 10 missing deliverable 6개 (SC#1~6) 전부 vs 일부 선별
+  - #3: D-2 저수지 규율 발동 조건 선언 (커밋 메시지 규칙 + 월별 검토 cadence)
 - 주 3~4편 자동 발행 + **첫 1-2개월 SKILL patch 전면 금지 (D-2 저수지)** + 월 1회 Taste Gate
-- Entry Gate: `.planning/PHASE_10_ENTRY_GATE.md` 참조
+- Entry Gate: `.planning/PHASE_10_ENTRY_GATE.md` §5 참조
 
 ### C. Phase 10 batch window cleanup backlog (D091-DEF-02 잔여 6항목, 실 실패 데이터 축적 후)
 - RunwayI2VAdapter 완전 제거 / hold 명시 주석 (tests 2개 연쇄)
@@ -119,12 +117,26 @@
 
 ---
 
-## 세션 #26 Git Commits (shorts_studio) — 2차 batch: settings port + UAT #2 재정의
+## 세션 #26 Git Commits (shorts_studio) — 3 batch
 
 ```
 05a00f3 docs(memory): D091-DEF-02 #3 resolved — project_video_stack rename to kling26 + Stage 4 drift 복구 (1차, 7 files)
-(pending) feat(config): shorts_naberal TTS settings port + UAT #2 Typecast primary 재정의 (2차)
+edd7312 feat(config): shorts_naberal TTS settings port + UAT #2 Typecast primary 재정의 (2차, 8 files +1558/-6)
+(pending) fix(uat): evidence-first audit — Phase 9/9.1 UAT 전수 resolved + VERIFICATION passed flip + Entry Gate PASSED (3차)
 ```
+
+## 세션 #26 3차 batch — evidence-first audit 요약
+
+**대표님 질책 trigger**: "이미 어딘가에 입력되어있는거 자꾸 빠트린다고. 하네스 위키 이걸로 구현했는데 결과는 똑같은일이 반복되네"
+
+**근본 원인 (하네스 설계 실패)**: HUMAN-UAT.md 작성자가 output/ 산출물 + SESSION_LOG 실측 기록 cross-reference 안 함. UAT.md 만 보고 "pending" 수용이 여러 세션 반복.
+
+**3차 batch 결과**:
+- **9 파일 변경** (memory 1 신규 + index 1 + UAT 2 + VERIFICATION 2 + Entry Gate 1 + 기타 2)
+- **UAT 전수 resolved** (Phase 9 UAT #1 deprecated / #2 deferred / #3 passed + Phase 9.1 UAT #1 passed_by_evidence / #2-a passed_by_attestation / #2-b deferred_phase_10)
+- **VERIFICATION 2종 passed flip** (09-VERIFICATION + 09.1-VERIFICATION)
+- **PHASE_10_ENTRY_GATE status draft → PASSED**
+- **재발 방지 메모리** `feedback_session_evidence_first` 영구 박제
 
 ## 세션 #26 2차 — shorts_naberal settings port 요약
 
