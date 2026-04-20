@@ -301,7 +301,7 @@ Plans:
 | 8. Remote + Publishing | 8/8 | Complete    | 2026-04-19 |
 | 9. Docs + KPI + Taste Gate | 6/6 | ✅ Complete | 2026-04-20 |
 | 9.1. Production Engine Wiring | 7/7 | ✅ Complete | 2026-04-20 |
-| 10. Sustained Operations | 8/8 | Complete   | 2026-04-20 |
+| 10. Sustained Operations | 8/8 | Complete    | 2026-04-20 |
 
 ---
 
