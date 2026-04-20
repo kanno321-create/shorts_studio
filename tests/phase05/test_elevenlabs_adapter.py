@@ -98,7 +98,12 @@ def test_elevenlabs_init_with_alias_env(monkeypatch):
 
 
 def test_generate_returns_audio_segment_list(tmp_path):
-    adapter = ElevenLabsAdapter(api_key="fake", output_dir=tmp_path)
+    # Phase 9.1 D-13: scenes must carry explicit voice_id OR adapter must have
+    # default_voice_id. Inject via constructor to keep test isolated from
+    # scene-dict shape changes in downstream phases.
+    adapter = ElevenLabsAdapter(
+        api_key="fake", output_dir=tmp_path, default_voice_id="test_voice"
+    )
 
     with patch.object(
         ElevenLabsAdapter, "_invoke_tts", return_value=b"fake mp3"
@@ -122,7 +127,9 @@ def test_generate_rejects_empty_text(tmp_path):
 
 
 def test_generate_with_timestamps_populates_words_by_scene(tmp_path):
-    adapter = ElevenLabsAdapter(api_key="fake", output_dir=tmp_path)
+    adapter = ElevenLabsAdapter(
+        api_key="fake", output_dir=tmp_path, default_voice_id="test_voice"
+    )
 
     fake_alignment = {
         "characters": list("hi there"),
@@ -148,7 +155,9 @@ def test_generate_with_timestamps_populates_words_by_scene(tmp_path):
 def test_generate_with_timestamps_empty_alignment_fallback(tmp_path):
     """SDK returned empty alignment: words_by_scene should hold an empty list."""
 
-    adapter = ElevenLabsAdapter(api_key="fake", output_dir=tmp_path)
+    adapter = ElevenLabsAdapter(
+        api_key="fake", output_dir=tmp_path, default_voice_id="test_voice"
+    )
 
     with patch.object(
         ElevenLabsAdapter,

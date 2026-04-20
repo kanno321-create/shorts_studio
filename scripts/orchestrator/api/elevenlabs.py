@@ -39,6 +39,12 @@ DEFAULT_OUTPUT_DIR = Path("outputs/elevenlabs")
 DEFAULT_MODEL_ID = "eleven_multilingual_v2"
 DEFAULT_LANGUAGE_CODE = "ko"
 DEFAULT_SILENCE_GAP_S = 0.3
+DEFAULT_VOICE_ID_ENV = "ELEVENLABS_DEFAULT_VOICE_ID"
+
+# Pitfall 6 (RESEARCH §5): module-level cache for API discovery result so
+# repeated ElevenLabsAdapter construction within the same process does not
+# re-query GET /v1/voices (cost + rate-limit hygiene).
+_KOREAN_FALLBACK_VOICE_ID: str | None = None
 
 
 # ---------------------------------------------------------------------------
@@ -105,6 +111,7 @@ class ElevenLabsAdapter:
         api_key: str | None = None,
         circuit_breaker: "CircuitBreaker | None" = None,
         output_dir: Path | None = None,
+        default_voice_id: str | None = None,
     ) -> None:
         resolved = (
             api_key
@@ -120,6 +127,38 @@ class ElevenLabsAdapter:
         self.circuit_breaker = circuit_breaker
         self.output_dir = output_dir or DEFAULT_OUTPUT_DIR
         self.words_by_scene: dict[int, list[dict]] = {}
+
+        # D-13 default voice_id resolution (3-tier, lazy):
+        #   (a) explicit constructor kwarg
+        #   (b) env var ELEVENLABS_DEFAULT_VOICE_ID
+        #   (c) discover_korean_default_voice() via GET /v1/voices
+        # Constructor captures (a) + env snapshot (b) so tests can assert the
+        # end state. Tier (c) is deferred to _resolve_default_voice_id() so
+        # network I/O happens only when actually synthesising audio.
+        self._default_voice_id = default_voice_id or os.environ.get(
+            DEFAULT_VOICE_ID_ENV
+        )
+
+    # ------------------------------------------------------------------
+    # Default-voice resolution (D-13)
+    # ------------------------------------------------------------------
+
+    def _resolve_default_voice_id(self) -> str:
+        """3-tier resolution: constructor/env snapshot → module cache → API.
+
+        Uses a module-level cache (:data:`_KOREAN_FALLBACK_VOICE_ID`) so
+        multiple adapter instances in the same process share one GET
+        /v1/voices round-trip (Pitfall 6).
+        """
+
+        global _KOREAN_FALLBACK_VOICE_ID
+        if self._default_voice_id:
+            return self._default_voice_id
+        if _KOREAN_FALLBACK_VOICE_ID:
+            return _KOREAN_FALLBACK_VOICE_ID
+        from ..voice_discovery import discover_korean_default_voice
+        _KOREAN_FALLBACK_VOICE_ID = discover_korean_default_voice(self._api_key)
+        return _KOREAN_FALLBACK_VOICE_ID
 
     # ------------------------------------------------------------------
     # Public API
@@ -141,7 +180,7 @@ class ElevenLabsAdapter:
             text = scene["text"]
             if not text:
                 raise ValueError(f"ElevenLabsAdapter.generate: empty text for scene {scene_id}")
-            voice_id = scene.get("voice_id", "detective_hao")
+            voice_id = scene.get("voice_id") or self._resolve_default_voice_id()
             output_path = self.output_dir / f"scene_{scene_id:03d}.mp3"
 
             audio_bytes = self._invoke_tts(
@@ -187,7 +226,7 @@ class ElevenLabsAdapter:
                 raise ValueError(
                     f"ElevenLabsAdapter.generate_with_timestamps: empty text for scene {scene_id}"
                 )
-            voice_id = scene.get("voice_id", "detective_hao")
+            voice_id = scene.get("voice_id") or self._resolve_default_voice_id()
             output_path = self.output_dir / f"scene_{scene_id:03d}.mp3"
 
             audio_bytes, alignment = self._invoke_tts_with_timestamps(
