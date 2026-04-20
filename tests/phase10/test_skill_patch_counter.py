@@ -306,5 +306,6 @@ def test_H_cli_since_until_override(tmp_git_repo: Path, make_commit, monkeypatch
     log_calls = [c for c in captured_args if len(c) >= 2 and c[0] == "git" and c[1] == "log"]
     assert log_calls, "git log subprocess must have been invoked"
     flat = " ".join(log_calls[0])
-    assert "--since=2026-05-01" in flat or "2026-05-01" in flat
-    assert "--until=2026-05-31" in flat or "2026-05-31" in flat
+    # _boundary() normalises bare YYYY-MM-DD to YYYY-MM-DD HH:MM:SS
+    assert "2026-05-01" in flat, "--since override must appear in git log args"
+    assert "2026-05-31" in flat, "--until override must appear in git log args"
