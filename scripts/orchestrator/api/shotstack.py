@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import os
 import time
+import warnings
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
@@ -162,6 +163,13 @@ class ShotstackAdapter:
     ) -> Path:
         """Generate a pan+scale static-image clip (ORCH-12 Fallback lane).
 
+        .. deprecated:: 9.1
+           Phase 9.1 D-11: replaced by :class:`KenBurnsLocalAdapter` in
+           ``scripts.orchestrator.api.ken_burns`` (offline ffmpeg, no
+           API cost / latency / network). This method remains functional
+           for Phase 7 fallback regression but will be removed in
+           Phase 10 once the fallback chain fully migrates.
+
         Submits a single-clip Shotstack render where the asset is the
         still image and the effect is a zoomIn + pan. Returns the local
         :class:`Path` of the downloaded MP4.
@@ -170,6 +178,15 @@ class ShotstackAdapter:
         when the regeneration loop exhausts retries on an ASSETS /
         THUMBNAIL gate and asset-sourcer produces a stock still instead.
         """
+
+        warnings.warn(
+            "ShotstackAdapter.create_ken_burns_clip 는 Phase 9.1 D-11 에서 "
+            "deprecated 처리되었습니다 — KenBurnsLocalAdapter "
+            "(scripts.orchestrator.api.ken_burns) 사용 권장 (대표님). "
+            "본 메서드는 Phase 10 재설계에서 완전 제거 예정.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
 
         effect_name = self._pan_direction_to_effect(pan_direction)
 
