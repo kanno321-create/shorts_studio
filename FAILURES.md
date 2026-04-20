@@ -32,3 +32,21 @@
 - 동일 유형 질문 재발 시 본 F-CTX-01 참조 후 Step 4-6 로직 실패 여부 진단
 
 **관련 메모리**: `feedback_session_evidence_first` (UAT evidence-first 원칙과 동일 맥락 — 박제된 것을 먼저 읽어라)
+
+---
+
+## F-D2-01 — D-2 Lock 위반 감지 (2026-04-20, skill_patch_counter)
+
+**증상**: D-2 Lock 기간 (2026-04-20 ~ 2026-06-20) 중 금지 경로 commit 발생.
+
+**위반 commit 수**: 2 commits × 2 forbidden paths = 4 matches
+
+**상세**:
+- `e57f891` 2026-04-20T21:07:33+09:00 — `.claude/hooks/session_start.py` (docs(claude-md): slim to 96 lines + add Perfect Navigator (대표님 directive))
+- `e57f891` 2026-04-20T21:07:33+09:00 — `CLAUDE.md` (docs(claude-md): slim to 96 lines + add Perfect Navigator (대표님 directive))
+- `8172e9c` 2026-04-20T19:31:28+09:00 — `.claude/hooks/session_start.py` (fix(context): 세션 컨텍스트 단절 영구 수정 — memory 9종 + session_start Step 4-6 + FAILURES.md F-CTX-01)
+- `8172e9c` 2026-04-20T19:31:28+09:00 — `CLAUDE.md` (fix(context): 세션 컨텍스트 단절 영구 수정 — memory 9종 + session_start Step 4-6 + FAILURES.md F-CTX-01)
+
+**분류**: **Directive-authorized Pre-Phase10 기반 commit** — 대표님 directive 로 수동 수정. Plan `.claude/plans/snappy-pondering-snowflake.md` Risk #1 옵션 D (투명 기록) 준수. D-2 Lock 의 본질은 AI 자동 수정 억제이므로 본 entry 는 위반 기록이 아닌 **규율 검증 로그**. 추가 조치 불필요.
+
+**Lock 재평가**: Exit 조건 재검증 (2개월 경과 + FAILURES ≥ 10 + taste gate 2회) 전까지 patch 금지 유지.

@@ -88,3 +88,31 @@ progress: { ... }
 **Plan 10-06 in-scope tests:** `tests/phase10/test_research_loop.py` 16/16 GREEN. Full Phase 10 sweep (excluding the Plan 10-07 RED file + D10-03-DEF-01 pre-existing failure): 95/96 GREEN.
 
 **Proposed owner:** Plan 10-07 (trajectory_append) executor.
+
+---
+
+## D10-01-DEF-02 — skill_patch_counter idempotency 결함 (Phase 11 candidate)
+
+**Discovered during:** Phase 10 post-verification FAILURES.md inspection 2026-04-21.
+
+**증상:**
+- `scripts/audit/skill_patch_counter.py` 가 동일 violation set 을 재실행할 때마다 새 `F-D2-NN` entry 를 FAILURES.md 에 append.
+- Phase 10 execute 중 Wave 1 + verifier spot-check + manual smoke test 등으로 총 5회 실행되어 F-D2-01~F-D2-05 가 **완전 동일 내용으로 중복 기록** 됨.
+- 대표님 승인 플랜 Risk #1 옵션 D (투명 기록) 는 violation 당 1 entry 의도 — 실행 횟수 비례 append 는 의도 외.
+
+**사후 조치 (2026-04-21 commit):**
+- FAILURES.md 에서 F-D2-02~F-D2-05 제거, F-D2-01 만 "directive-authorized" 주석과 함께 보존.
+- 본 D10-01-DEF-02 에 defect 박제.
+
+**Root cause 가설:**
+- `skill_patch_counter.py` 가 append 전 기존 FAILURES.md 를 grep 하여 "동일 commit 집합이 이미 기록됐는가" 를 확인하지 않음.
+- 결과: 월 1회 scheduler (Plan 10-04 `skill-patch-count-monthly.yml`) 가 실행될 때마다 같은 violation 을 중복 append 하는 버그 잠재.
+
+**Scope boundary:** Phase 10 main sequence 완결 후 발견된 **구현 품질 defect**. Phase 10 verification blocker 아님 (violation 감지 + 기록 기본 기능은 정상 작동).
+
+**권장 해결 (Phase 11 후보):**
+1. `skill_patch_counter.py` 에 idempotency check 추가 — append 전 FAILURES.md grep 으로 동일 commit hash set 존재 여부 확인. 이미 기록된 violation 은 skip.
+2. 월 1회 scheduler 가 재실행되어도 동일 사실을 반복 기록하지 않고, **신규 violation 만** append 하도록 동작.
+3. `tests/phase10/test_skill_patch_counter.py` 에 idempotency 케이스 추가 (동일 git 상태에서 2회 연속 실행 → 첫 회만 append, 2회차는 skip).
+
+**Proposed owner:** Phase 11 entry gate — scheduler 1차 월간 실행 (2026-05-20 경) 전 선행 필요.
