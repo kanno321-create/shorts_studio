@@ -135,7 +135,7 @@
 - [x] **FAIL-01**: `FAILURES.md` append-only (즉시 SKILL 수정 금지) — D-2 저수지 원칙 (Phase 6 Plan 08 — studio@88a3ae5: check_failures_append_only Hook helper + 14 unit + 7 subprocess tests + FAILURES.md/FAILURES_INDEX.md seed; basename-exact match; _imported_from_shorts_naberal.md exempt per D-14)
 - [x] **FAIL-02**: 30일 집계 → 패턴 ≥ 3회 → `SKILL.md.candidate` → 7일 staged rollout → 승격
 - [x] **FAIL-03**: `SKILL_HISTORY/` 디렉토리 — SKILL 수정 시 기존 버전 `v{n}.md.bak` 백업 (Phase 6 Plan 08 — studio@88a3ae5: backup_skill_before_write Hook helper + 9 unit tests + SKILL_HISTORY/README.md convention; v<YYYYMMDD_HHMMSS>.md.bak format; first-time create silent skip; OSError→deny via main)
-- [ ] **FAIL-04**: **Phase 10 첫 1~2개월 SKILL patch 전면 금지** — 데이터 수집만
+- [x] **FAIL-04**: **Phase 10 첫 1~2개월 SKILL patch 전면 금지** — 데이터 수집만
 
 ### KPI — 성과 지표 + 피드백 루프
 
@@ -157,8 +157,8 @@
 
 - [ ] **AUDIT-01**: `session_start.py` 매 세션 자동 감사 (점수 ≥ 80)
 - [x] **AUDIT-02**: `harness-audit` 월 1회 통합 감사 (SKILL 500줄, 에이전트 12~20, description 1024자)
-- [ ] **AUDIT-03**: `drift_scan.py` 주 1회 `deprecated_patterns.json` 전수 스캔 → A급 drift 0 유지
-- [ ] **AUDIT-04**: A급 drift 발견 시 Phase 차단 (다음 작업 불가)
+- [x] **AUDIT-03**: `drift_scan.py` 주 1회 `deprecated_patterns.json` 전수 스캔 → A급 drift 0 유지
+- [x] **AUDIT-04**: A급 drift 발견 시 Phase 차단 (다음 작업 불가)
 
 ### REMOTE — GitHub 원격 (Phase 8)
 
