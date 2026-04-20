@@ -1,0 +1,156 @@
+{
+  "gate": "SCRIPT",
+  "verdict": "RETRY",
+  "decisions": [
+    {
+      "rule": "rule_000_quality_check",
+      "severity": "critical",
+      "score": 40,
+      "evidence": "Decision 0: 본 항목은 critical severity. 씬 0의 타이밍 drift 및 자막 alignment 이슈. 권장: scripter 가 hook 재작성 후 재호출.",
+      "scene_id": "scene_00"
+    },
+    {
+      "rule": "rule_001_quality_check",
+      "severity": "high",
+      "score": 43,
+      "evidence": "Decision 1: 본 항목은 high severity. 씬 1의 타이밍 drift 및 자막 alignment 이슈. 권장: scripter 가 hook 재작성 후 재호출.",
+      "scene_id": "scene_01"
+    },
+    {
+      "rule": "rule_002_quality_check",
+      "severity": "medium",
+      "score": 46,
+      "evidence": "Decision 2: 본 항목은 medium severity. 씬 2의 타이밍 drift 및 자막 alignment 이슈. 권장: scripter 가 hook 재작성 후 재호출.",
+      "scene_id": "scene_02"
+    },
+    {
+      "rule": "rule_003_quality_check",
+      "severity": "low",
+      "score": 49,
+      "evidence": "Decision 3: 본 항목은 low severity. 씬 3의 타이밍 drift 및 자막 alignment 이슈. 권장: scripter 가 hook 재작성 후 재호출.",
+      "scene_id": "scene_03"
+    },
+    {
+      "rule": "rule_004_quality_check",
+      "severity": "critical",
+      "score": 52,
+      "evidence": "Decision 4: 본 항목은 critical severity. 씬 4의 타이밍 drift 및 자막 alignment 이슈. 권장: scripter 가 hook 재작성 후 재호출.",
+      "scene_id": "scene_04"
+    },
+    {
+      "rule": "rule_005_quality_check",
+      "severity": "high",
+      "score": 55,
+      "evidence": "Decision 5: 본 항목은 high severity. 씬 5의 타이밍 drift 및 자막 alignment 이슈. 권장: scripter 가 hook 재작성 후 재호출.",
+      "scene_id": "scene_05"
+    },
+    {
+      "rule": "rule_006_quality_check",
+      "severity": "medium",
+      "score": 58,
+      "evidence": "Decision 6: 본 항목은 medium severity. 씬 6의 타이밍 drift 및 자막 alignment 이슈. 권장: scripter 가 hook 재작성 후 재호출.",
+      "scene_id": "scene_06"
+    },
+    {
+      "rule": "rule_007_quality_check",
+      "severity": "low",
+      "score": 61,
+      "evidence": "Decision 7: 본 항목은 low severity. 씬 7의 타이밍 drift 및 자막 alignment 이슈. 권장: scripter 가 hook 재작성 후 재호출.",
+      "scene_id": "scene_07"
+    },
+    {
+      "rule": "rule_008_quality_check",
+      "severity": "critical",
+      "score": 64,
+      "evidence": "Decision 8: 본 항목은 critical severity. 씬 8의 타이밍 drift 및 자막 alignment 이슈. 권장: scripter 가 hook 재작성 후 재호출.",
+      "scene_id": "scene_08"
+    },
+    {
+      "rule": "rule_009_quality_check",
+      "severity": "high",
+      "score": 67,
+      "evidence": "Decision 9: 본 항목은 high severity. 씬 9의 타이밍 drift 및 자막 alignment 이슈. 권장: scripter 가 hook 재작성 후 재호출.",
+      "scene_id": "scene_09"
+    },
+    {
+      "rule": "rule_010_quality_check",
+      "severity": "medium",
+      "score": 70,
+      "evidence": "Decision 10: 본 항목은 medium severity. 씬 10의 타이밍 drift 및 자막 alignment 이슈. 권장: scripter 가 hook 재작성 후 재호출.",
+      "scene_id": "scene_10"
+    },
+    {
+      "rule": "rule_011_quality_check",
+      "severity": "low",
+      "score": 73,
+      "evidence": "Decision 11: 본 항목은 low severity. 씬 11의 타이밍 drift 및 자막 alignment 이슈. 권장: scripter 가 hook 재작성 후 재호출.",
+      "scene_id": "scene_11"
+    },
+    {
+      "rule": "rule_012_quality_check",
+      "severity": "critical",
+      "score": 76,
+      "evidence": "Decision 12: 본 항목은 critical severity. 씬 12의 타이밍 drift 및 자막 alignment 이슈. 권장: scripter 가 hook 재작성 후 재호출.",
+      "scene_id": "scene_12"
+    },
+    {
+      "rule": "rule_013_quality_check",
+      "severity": "high",
+      "score": 79,
+      "evidence": "Decision 13: 본 항목은 high severity. 씬 13의 타이밍 drift 및 자막 alignment 이슈. 권장: scripter 가 hook 재작성 후 재호출.",
+      "scene_id": "scene_13"
+    },
+    {
+      "rule": "rule_014_quality_check",
+      "severity": "medium",
+      "score": 82,
+      "evidence": "Decision 14: 본 항목은 medium severity. 씬 14의 타이밍 drift 및 자막 alignment 이슈. 권장: scripter 가 hook 재작성 후 재호출.",
+      "scene_id": "scene_14"
+    }
+  ],
+  "evidence": [
+    {
+      "type": "timing_drift",
+      "scene_id": "scene_00",
+      "observed_ms": 150,
+      "expected_ms": 100,
+      "note": "Evidence 0: 실측 타이밍이 기대값을 50ms 초과. Shotstack VoiceFirstTimeline 재계산 권장."
+    },
+    {
+      "type": "timing_drift",
+      "scene_id": "scene_01",
+      "observed_ms": 160,
+      "expected_ms": 100,
+      "note": "Evidence 1: 실측 타이밍이 기대값을 60ms 초과. Shotstack VoiceFirstTimeline 재계산 권장."
+    },
+    {
+      "type": "timing_drift",
+      "scene_id": "scene_02",
+      "observed_ms": 170,
+      "expected_ms": 100,
+      "note": "Evidence 2: 실측 타이밍이 기대값을 70ms 초과. Shotstack VoiceFirstTimeline 재계산 권장."
+    },
+    {
+      "type": "timing_drift",
+      "scene_id": "scene_03",
+      "observed_ms": 180,
+      "expected_ms": 100,
+      "note": "Evidence 3: 실측 타이밍이 기대값을 80ms 초과. Shotstack VoiceFirstTimeline 재계산 권장."
+    },
+    {
+      "type": "timing_drift",
+      "scene_id": "scene_04",
+      "observed_ms": 190,
+      "expected_ms": 100,
+      "note": "Evidence 4: 실측 타이밍이 기대값을 90ms 초과. Shotstack VoiceFirstTimeline 재계산 권장."
+    }
+  ],
+  "error_codes": [
+    "ERR_HOOK_WEAK",
+    "ERR_TIMING_DRIFT",
+    "ERR_CTA_MISSING",
+    "ERR_KOREAN_UNNATURAL"
+  ],
+  "semantic_feedback": "본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 본 에이전트 출력은 여러 차례 재검토가 필요한 품질 이슈를 동반합니다. 특히 hook 의 3초 후킹 강도가 낮고 CTA 가 명확하지 않은 것으로 보입니다. 특히 hook 의 3초 후킹 강도가 낮고 CTA 가 명확하지 않은 것으로 보입니다. 특히 hook 의 3초 후킹 강도가 낮고 CTA 가 명확하지 않은 것으로 보입니다. 특히 hook 의 3초 후킹 강도가 낮고 CTA 가 명확하지 않은 것으로 보입니다. 특히 hook 의 3초 후킹 강도가 낮고 CTA 가 명확하지 않은 것으로 보입니다. 특히 hook 의 3초 후킹 강도가 낮고 CTA 가 명확하지 않은 것으로 보입니다. 특히 hook 의 3초 후킹 강도가 낮고 CTA 가 명확하지 않은 것으로 보입니다. 특히 hook 의 3초 후킹 강도가 낮고 CTA 가 명확하지 않은 것으로 보입니다. ",
+  "raw_response": "((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))((((verbose Claude CLI raw output wrapping 2000+ chars -- dropped in compression))))"
+}
