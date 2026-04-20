@@ -333,7 +333,7 @@ v1 검증 완료 후 또는 수익 발생 후 활성화.
 
 ### PIPELINE — Pipeline Real-Run Activation (신규 카테고리)
 
-- [ ] **PIPELINE-01**: Full pipeline end-to-end smoke — 1 session GATE 0→13 실 Claude CLI + 실 외부 API 호출 완주. mock invoker 금지. `invokers.py:141` argv/stdin 형식 Claude CLI 2.1.112 호환 수정.
+- [x] **PIPELINE-01**: Full pipeline end-to-end smoke — 1 session GATE 0→13 실 Claude CLI + 실 외부 API 호출 완주. mock invoker 금지. `invokers.py:141` argv/stdin 형식 Claude CLI 2.1.112 호환 수정.
 - [ ] **PIPELINE-02**: `.env` 자동 로드 — `shorts_pipeline.py` 또는 orchestrator `__init__` 에 `from dotenv import load_dotenv; load_dotenv()` 통합. PowerShell `set -a && source .env` 추가 주입 없이 `py -3.11 -m scripts.orchestrator.shorts_pipeline` 실행 가능.
 - [ ] **PIPELINE-03**: Adapter graceful degrade 전면 — Kling/Runway/Typecast/ElevenLabs/Shotstack 5개 adapter 모두 Phase 9.1 nanobanana/ken_burns 와 동일한 `try/except + logger.warning + self.X = None` 패턴 적용. 사용 안 하는 adapter 의 env 부재가 `__init__` 을 막지 않음.
 - [ ] **PIPELINE-04**: 더블클릭 wrapper UX — `run_pipeline.ps1` 또는 `.bat` 작성. `.env` 자동 로드 + `--session-id $(timestamp)` 자동 주입 + pause (창 안 꺼짐). 대표님이 관리자 권한 불필요하게 더블클릭 1회로 실행 가능.
