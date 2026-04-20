@@ -24,7 +24,7 @@
 - [x] **Phase 10: Sustained Operations** — 주 3~4편 자동 발행 + 첫 1~2개월 SKILL patch 전면 금지 (D-2 저수지)
  (completed 2026-04-20)
 
-- [ ] **Phase 11: Pipeline Real-Run Activation + Script Quality Mode** — D10-PIPELINE-DEF-01 5-item backlog 해결 + 영상 1편 실 발행 + D10-SCRIPT-DEF-01 옵션 확정 (planned 2026-04-21)
+- [🟡] **Phase 11: Pipeline Real-Run Activation + Script Quality Mode** — D10-PIPELINE-DEF-01 5-에러 chain 인프라 해소 + SC#3/#4/#5 완결 + SC#1/#2 Phase 12 로 이관 (complete_with_deferred 2026-04-21, 대표님 직접 승인)
 
 ---
 
@@ -302,14 +302,14 @@ Plans:
   4. `shorts_pipeline.py` 또는 orchestrator `__init__` 에 `load_dotenv()` 통합으로 `.env` 자동 로드 — PowerShell 추가 env 주입 없이 더블클릭 wrapper 로 실행 가능
   5. `run_pipeline.ps1` 또는 `.bat` wrapper 생성 — 관리자 권한 불필요, `.env` 자동 로드 + `--session-id $(Get-Date -Format yyyyMMdd_HHmmss)` 자동 주입 + pause (창 안 꺼짐)
   6. (선택) Phase 04/08 retrospective VERIFICATION.md 작성 — Phase 04 (33 agent filesystem invariant) + Phase 08 (smoke upload 2 evidence) 증거 체인 공식화
-**Plans:** 5/6 plans executed
+**Plans:** 5.5/6 plans executed (11-06 Task 1-3a complete, Task 3b-4 deferred to Phase 12)
 
 - [x] 11-01-invoker-stdin-fix-PLAN.md — _invoke_claude_cli stdin piping (PIPELINE-01) — Wave 1
 - [x] 11-02-dotenv-loader-PLAN.md — zero-dep .env loader at package __init__ (PIPELINE-02) — Wave 1
 - [x] 11-03-adapter-graceful-degrade-PLAN.md — 7 adapter uniform wrap via _try_adapter helper + argparse --session-id optional (PIPELINE-03 + PIPELINE-04 tie-in) — Wave 1
 - [x] 11-04-wrapper-cmd-ps1-PLAN.md — run_pipeline.cmd + run_pipeline.ps1 double-click wrapper (PIPELINE-04) — Wave 2
 - [x] 11-05-idempotency-counter-PLAN.md — skill_patch_counter commit-hash-set idempotency (AUDIT-05, D-22 2026-05-20 deadline) — Wave 2
-- [ ] 11-06-full-smoke-script-decision-PLAN.md — Full 0→13 GATE live smoke + SCRIPT_QUALITY_DECISION.md template + REQUIREMENTS.md D-19 amendment (PIPELINE-01 SC#1 validation + SCRIPT-01 SC#2) — Wave 3
+- [🟡] 11-06-full-smoke-script-decision-PLAN.md — Task 1-3a ✅ (template + D-19 amendment + 0→13 harness), Task 3b ❌ (2 live smoke attempts aborted pre-billing at GATE 2 supervisor), Task 4 ⏳ deferred to Phase 12 (SCRIPT-01 verdict awaits first successful smoke)
 
 ---
 
@@ -317,7 +317,7 @@ Plans:
 
 **Goal:** Phase 11 라이브 smoke 1차 실패 (trend-collector JSON 미준수, F-D2-EXCEPTION-01) 에서 노출된 하네스 품질 gap 해소. 30명 에이전트 (13 producer + 17 inspector) AGENT.md 전수 표준화 + Agent × Skill 매핑 매트릭스 (wiki/agent_skill_matrix.md) 작성 + FAILURES.md 500줄 상한 rotation 정책 + `<mandatory_reads>` 블록으로 각 에이전트가 본인 업무 관련 FAILURES entry 전수 읽기 (샘플링 금지 — 대표님 session #29 지시). 본 phase 완결 시 에이전트 재호출 루프 / 출력 형식 drift / 도구 오용 3대 고질 해소 예상.
 **Depends on:** Phase 11 (라이브 smoke 완결 + SCRIPT-01 verdict locked)
-**Requirements:** AGENT-STD-01, AGENT-STD-02, SKILL-ROUTE-01, FAIL-PROTO-01, FAIL-PROTO-02
+**Requirements:** AGENT-STD-01, AGENT-STD-02, AGENT-STD-03 (NEW 2026-04-21 from Phase 11 verification gap), SKILL-ROUTE-01, FAIL-PROTO-01, FAIL-PROTO-02
 **Success Criteria:**
   1. 13 producer + 17 inspector 전체 AGENT.md 가 표준 schema 준수 (`<role>`, `<mandatory_reads>`, `<output_format>`, `<skills>`, `<constraints>` 5섹션)
   2. `wiki/agent_skill_matrix.md` 생성 — 30 × 8 매트릭스 (에이전트 × 스킬)
@@ -325,7 +325,7 @@ Plans:
   4. `<mandatory_reads>` 블록이 모든 AGENT.md 의 첫 블록에 존재 — FAILURES.md + channel_bible + 해당 에이전트 관련 스킬 참조
   5. Phase 11 에서 실패했던 trend-collector JSON 미준수 패턴 재현 불가 (regression test 추가)
   6. skill_patch_counter 는 Phase 12 의 30+ 파일 patch 를 "directive-authorized batch" 로 단일 F-D2-EXCEPTION-02 entry 처리 (중복 기록 없음 — Phase 11 AUDIT-05 idempotency 활용)
-**Plans:** TBD — /gsd:discuss-phase 12 이후 확정
+**Plans:** 7 plans proposed (6 original + AGENT-STD-03 from Phase 11 verification gap) — /gsd:discuss-phase 12 이후 확정
 
 - [ ] 12-XX-agent-md-standard-schema-PLAN.md — 표준 5섹션 schema + template
 - [ ] 12-XX-producer-13-migration-PLAN.md — 13 producer AGENT.md 전수 전환
@@ -333,6 +333,7 @@ Plans:
 - [ ] 12-XX-skill-matrix-PLAN.md — wiki/agent_skill_matrix.md + validation
 - [ ] 12-XX-failures-rotation-PLAN.md — FAILURES.md 500줄 rotation + _archive/
 - [ ] 12-XX-mandatory-reads-enforcement-PLAN.md — AGENT.md `<mandatory_reads>` 블록 + regression test
+- [ ] 12-XX-supervisor-prompt-compression-PLAN.md — ClaudeAgentSupervisorInvoker producer_output summary-only mode (AGENT-STD-03, Phase 11 gap closure)
 
 ---
 
@@ -351,8 +352,8 @@ Plans:
 | 9. Docs + KPI + Taste Gate | 6/6 | ✅ Complete | 2026-04-20 |
 | 9.1. Production Engine Wiring | 7/7 | ✅ Complete | 2026-04-20 |
 | 10. Sustained Operations | 8/8 | Complete    | 2026-04-20 |
-| 11. Pipeline Real-Run Activation | 5/6 | In Progress|  |
-| 12. Agent Standardization | 0/6 | 📋 Planned | - |
+| 11. Pipeline Real-Run Activation | 5/6 | 🟡 Complete (Deferred SC#1/SC#2) | 2026-04-21 |
+| 12. Agent Standardization | 0/7 | 📋 Planned | - |
 
 ---
 
@@ -381,11 +382,11 @@ Plans:
 | PIPELINE (Phase 11) | 4 | Phase 11 (4) |
 | SCRIPT (Phase 11) | 1 | Phase 11 (1) |
 | AUDIT-05 (Phase 11 ext.) | 1 | Phase 11 (1) |
-| AGENT-STD (Phase 12) | 2 | Phase 12 (2) |
+| AGENT-STD (Phase 12) | 3 | Phase 12 (3 — STD-01/02 + STD-03 from Phase 11 verification) |
 | SKILL-ROUTE (Phase 12) | 1 | Phase 12 (1) |
 | FAIL-PROTO (Phase 12) | 2 | Phase 12 (2) |
-| **Phase 11+12 Total** | **11** | **11/11 mapped** |
-| **Grand Total (v1 + Phase 11 + 12)** | **107** | **107/107 mapped (100%)** |
+| **Phase 11+12 Total** | **12** | **12/12 mapped** |
+| **Grand Total (v1 + Phase 11 + 12)** | **108** | **108/108 mapped (100%)** |
 
 ---
 
