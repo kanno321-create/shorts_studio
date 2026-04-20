@@ -41,3 +41,18 @@ above schema or any existing entry once added — append-only Hook will deny.)
 - **검증**: `grep -n "Phase status" docs/ARCHITECTURE.md` → 현재 Phase 번호 vs `.planning/ROADMAP.md` [x] 마커 일치 여부. 세션 시작 session_start.py Hook 에 "ARCHITECTURE.md Phase status 일치 검사" 추가 후보
 - **상태**: resolved (세션 #28 패치) — 재발 방지는 Phase 완결 체크리스트에 라인 업데이트 추가 필요
 - **관련**: commit `e57f891` / `WORK_HANDOFF.md` 세션 #28 완료 항목 / `CLAUDE.md` Navigator 재설계와 동반 발견
+
+### F-D2-EXCEPTION-01: trend-collector AGENT.md directive-authorized patch — JSON-only output enforcement
+- **Tier**: B
+- **발생 세션**: 2026-04-21 세션 #29 (Phase 11 Wave 3 remediation)
+- **재발 횟수**: 1
+- **Trigger**: Phase 11 라이브 smoke 1차 실행 (session_id `phase11_20260421_031945`) GATE 1 TREND 진입 시 trend-collector 가 JSON 대신 한국어 대화체("대표님, 어떤 결정 정보를 필요합니다...") 반환 → `json.JSONDecodeError: Expecting value: line 1 column 1 (char 0)` → `RuntimeError: Producer 'trend-collector' JSON 미준수 (대표님)` → 파이프라인 149.74s 만에 중단, gate_file_count=0
+- **무엇**: Phase 11 smoke 전체 0/14 GATE 완주. 비용 $0.00 (early abort). reports/phase11_smoke_phase11_20260421_031945.json 에 실패 audit 기록. Root cause: trend-collector AGENT.md 에 출력 형식 엄격 명시 부재 — Claude CLI 가 해석 요청 받은 것으로 오인하여 대화체로 응답
+- **왜**: trend-collector AGENT.md v1.0 에 "JSON만 출력" 지시는 있었으나 (a) 금지 패턴 예시 부재, (b) `<mandatory_reads>` 블록으로 과거 실패 전수 인지 강제 없음, (c) invoker 측 retry-with-nudge 부재 — 1차 실패 즉시 GATE 실패로 직행
+- **정답**: trend-collector AGENT.md v1.1 로 업그레이드 (`<mandatory_reads>` + `<output_format>` 블록 + 금지 패턴 5종 예시 + Invoker nudge 계약 명시). D-2 저수지 원칙은 SKILL patch 금지 (학습 충돌 방지 목적) 를 의미하지만, 본 patch 는 **"인프라 구조 확립"** — 학습이 아닌 출력 형식 강제 + 실패 사례 인지 주입이므로 directive-authorized exception 으로 처리
+- **Scope**: 1 파일 (`.claude/agents/producers/trend-collector/AGENT.md`, v1.0 → v1.1)
+- **Authorized by**: 대표님 직접 지시 (세션 #29 "둘다" 응답 = Option D 승인 + Phase 12 발의 양쪽)
+- **검증**: (1) trend-collector AGENT.md 의 frontmatter version 이 1.1 이고 `<mandatory_reads>` + `<output_format>` 블록 존재. (2) `grep -n "JSON 전용 출력" .claude/agents/producers/trend-collector/AGENT.md` 가 MUST REMEMBER §8 매칭. (3) Phase 11 smoke 재실행 시 GATE 1 TREND 가 JSON 반환으로 통과 (또는 실패 시 invoker retry-with-nudge 가 흡수).
+- **상태**: resolved (patch 적용 완료) — Phase 12 에서 30명 전수 표준화 예정 (AGENT-STD-01/02 REQ)
+- **Follow-up**: Phase 12 의 30+ 파일 patch 는 F-D2-EXCEPTION-02 (directive-authorized batch) 단일 entry 로 처리 예정 — FAIL-PROTO-02 REQ
+- **관련**: Phase 11 Plan 11-06 / reports/phase11_smoke_phase11_20260421_031945.json / Phase 12 AGENT-STD-01, AGENT-STD-02, FAIL-PROTO-02 REQ-IDs
