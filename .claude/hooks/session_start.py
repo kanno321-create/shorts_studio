@@ -65,6 +65,59 @@ def check_conflict_map(studio_root: Path) -> dict:
         return {"exists": True, "a_grade_total": -1}
 
 
+def summarize_work_handoff(studio_root: Path, max_lines: int = 30) -> str | None:
+    """WORK_HANDOFF.md 첫 N줄 요약 (현재 세션 상태 + 박제된 결정사항).
+
+    F-CTX-01 재발 방지 — 세션 시작 시 이전 세션 핸드오프를 자동 주입.
+    """
+    wh = studio_root / "WORK_HANDOFF.md"
+    if not wh.exists():
+        return None
+    try:
+        lines = wh.read_text(encoding="utf-8", errors="ignore").splitlines()[:max_lines]
+        return "\n".join(lines)
+    except Exception:
+        return None
+
+
+def list_env_keys(studio_root: Path) -> list[str]:
+    """`.env` 에 저장된 key 이름 목록 (값은 마스킹, 이름만 노출).
+
+    F-CTX-01 재발 방지: API key 재질문 절대 금지 근거 자료.
+    """
+    env = studio_root / ".env"
+    if not env.exists():
+        return []
+    try:
+        keys = []
+        for line in env.read_text(encoding="utf-8", errors="ignore").splitlines():
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            if "=" not in line:
+                continue
+            key_name = line.split("=", 1)[0].strip()
+            if key_name:
+                keys.append(key_name)
+        return keys
+    except Exception:
+        return []
+
+
+def load_memory_index(studio_root: Path) -> str | None:
+    """`.claude/memory/MEMORY.md` 인덱스 전체 로드.
+
+    auto memory 규약: MEMORY.md 는 200줄 이내 index 전용.
+    """
+    idx = studio_root / ".claude" / "memory" / "MEMORY.md"
+    if not idx.exists():
+        return None
+    try:
+        return idx.read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        return None
+
+
 def scan_deprecated_patterns(studio_root: Path) -> list[str]:
     """deprecated_patterns.json에 정의된 패턴이 스튜디오 내 어느 파일에 잔존하는지."""
     config = studio_root / ".claude" / "deprecated_patterns.json"
@@ -160,6 +213,39 @@ def main() -> int:
             lines.append(f"   ... 외 {len(found) - 5}건")
     else:
         lines.append("✅ Deprecated 패턴 잔존 없음.")
+
+    # 4. WORK_HANDOFF.md 첫 30줄 요약 (F-CTX-01 재발 방지)
+    lines.append("")
+    lines.append("### 📋 이전 세션 핸드오프 (WORK_HANDOFF.md 첫 30줄)")
+    handoff_summary = summarize_work_handoff(studio_root, max_lines=30)
+    if handoff_summary:
+        lines.append("```")
+        lines.append(handoff_summary)
+        lines.append("```")
+    else:
+        lines.append("ℹ️ WORK_HANDOFF.md 없음 (신규 스튜디오 정상).")
+
+    # 5. .env API key 이름 목록 (값 마스킹, F-CTX-01 재발 방지)
+    lines.append("")
+    lines.append("### 🔑 API Keys available in .env (값은 환경변수로만 접근, 재질문 금지)")
+    env_keys = list_env_keys(studio_root)
+    if env_keys:
+        lines.append(f"**대표님께 API key 를 다시 묻지 말 것.** 다음 {len(env_keys)}개 key 가 이미 저장돼 있다:")
+        for k in env_keys:
+            lines.append(f"- `{k}`")
+        lines.append("")
+        lines.append("참조: `.claude/memory/reference_api_keys_location.md` (용도 매핑)")
+    else:
+        lines.append("⚠️ .env 파일 없음 또는 비어있음 — `.env.example` 을 복사해 값 채우기 필요.")
+
+    # 6. 로컬 메모리 인덱스 전체 주입 (auto memory 규약)
+    lines.append("")
+    lines.append("### 🧠 Local Memory Index (.claude/memory/MEMORY.md)")
+    memory_idx = load_memory_index(studio_root)
+    if memory_idx:
+        lines.append(memory_idx)
+    else:
+        lines.append("ℹ️ `.claude/memory/MEMORY.md` 없음 — 메모리 시스템 미초기화 (신규 스튜디오).")
 
     context_text = "\n".join(lines)
 
