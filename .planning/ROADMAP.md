@@ -21,7 +21,7 @@
 - [x] **Phase 8: Remote + Publishing + Production Metadata** — GitHub push + YouTube API v3 + AI disclosure 자동 ON + Reused content 증명 (세션 #22 완료 2026-04-19, 8/8 plans + 8/8 REQs + 6/6 SC PASS + 3 anchors permanent + 986 + Phase 8 regression green)
 - [x] **Phase 9: Documentation + KPI Dashboard + Taste Gate** — KPI 목표 설정 + 월 1회 대표님 taste 평가 회로 가동 (세션 #23 완료 2026-04-20, 6/6 plans + 4/4 SC PASS + 2/2 REQs)
 - [x] **Phase 9.1: Production Engine Wiring** — producer/supervisor Claude SDK wiring + Nano Banana Pro adapter + CharRegistry + Ken-Burns FFmpeg 로컬 + Runway VALID_RATIOS_BY_MODEL + ElevenLabs voice 3-tier + Stage 2→4 smoke $0.29 (세션 #24 YOLO 완결 2026-04-20, 8/8 plans + 7/7 REQs + 15/15 decisions)
-- [ ] **Phase 10: Sustained Operations** — 주 3~4편 자동 발행 + 첫 1~2개월 SKILL patch 전면 금지 (D-2 저수지)
+- [x] **Phase 10: Sustained Operations** — 주 3~4편 자동 발행 + 첫 1~2개월 SKILL patch 전면 금지 (D-2 저수지) (completed 2026-04-20)
 
 ---
 
@@ -274,7 +274,7 @@ Plans:
   4. `drift_scan.py`가 주 1회 실행되어 `deprecated_patterns.json` 전수 스캔 결과 A급 drift가 **0건**으로 유지된다 (drift 발견 시 다음 작업 phase 차단이 실제 발동)
   5. Auto Research Loop가 월 1회 성공 패턴(상위 3 영상)을 NotebookLM RAG에 업데이트하고 다음 월 Producer 입력에 KPI 반영이 관찰된다
   6. YouTube 채널 구독자 트래젝토리 + Shorts 뷰 누적이 월별로 기록되어 YPP 진입 궤도(1000구독 + 10M views/년)까지의 진행률이 visible 하다
-**Plans:** 7/8 plans executed
+**Plans:** 8/8 plans complete
 
 - [x] 10-01-skill-patch-counter-PLAN.md — D-2 Lock SKILL patch counter CLI (FAIL-04) — Wave 1
 - [x] 10-02-drift-scan-phase-lock-PLAN.md — drift_scan wrapper + deprecated_patterns grade 확장 + STATE.md phase_lock (AUDIT-03, AUDIT-04) — Wave 1
@@ -283,7 +283,7 @@ Plans:
 - [x] 10-05-session-audit-rolling-PLAN.md — session_audit_rollup 30-day rolling (AUDIT-01) — Wave 3
 - [x] 10-06-research-loop-notebooklm-PLAN.md — monthly research loop + NotebookLM subprocess + 3-tier fallback (KPI-03, KPI-04) — Wave 3
 - [x] 10-07-ypp-trajectory-PLAN.md — YPP trajectory scaffold + 3-milestone gate appender (SC#6 structural) — Wave 3
-- [ ] 10-08-rollback-docs-PLAN.md — ROLLBACK.md 3 시나리오 runbook + stop_scheduler CLI (FAIL-04 지원) — Wave 4
+- [x] 10-08-rollback-docs-PLAN.md — ROLLBACK.md 3 시나리오 runbook + stop_scheduler CLI (FAIL-04 지원) — Wave 4
 
 ---
 
@@ -301,7 +301,7 @@ Plans:
 | 8. Remote + Publishing | 8/8 | Complete    | 2026-04-19 |
 | 9. Docs + KPI + Taste Gate | 6/6 | ✅ Complete | 2026-04-20 |
 | 9.1. Production Engine Wiring | 7/7 | ✅ Complete | 2026-04-20 |
-| 10. Sustained Operations | 7/8 | In Progress|  |
+| 10. Sustained Operations | 8/8 | Complete   | 2026-04-20 |
 
 ---
 
