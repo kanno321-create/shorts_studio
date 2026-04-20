@@ -136,6 +136,10 @@ Next Phase: 10 (sustained-operations) — 영구 지속, 첫 1-2개월 SKILL pat
 
 ## Accumulated Context
 
+### Roadmap Evolution
+
+- Phase 9.1 inserted after Phase 9: Production Engine Wiring (URGENT) — 2026-04-20 세션 #24. 대표님 "영상 품질" 체감 테스트 중 발견된 구조적 drift 6건 복구 + Phase 5 orchestrator 의 producer_invoker / supervisor_invoker `NotImplementedError` wiring + Nano Banana Pro adapter 신설 + 캐릭터 레지스트리 + 4-stage chain 구현. Phase 10 (Sustained Operations) 진입 전 필수 선행 작업 (엔진 없이 운영 불가).
+
 ### Key Decisions (D-1 ~ D-10)
 
 PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 Phase 완료 시점에 해당 D# 검증 + 상태 업데이트.

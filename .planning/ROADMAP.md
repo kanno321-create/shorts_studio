@@ -236,6 +236,16 @@
 
 ---
 
+### Phase 09.1: Production Engine Wiring (INSERTED)
+
+**Goal:** [Urgent work - to be planned]
+**Requirements**: TBD
+**Depends on:** Phase 9
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 09.1 to break down)
+
 ### Phase 10: Sustained Operations
 
 **Goal:** 주 3~4편 자동 발행을 지속하면서 **첫 1~2개월은 SKILL patch를 전면 금지**하고 FAILURES/KPI 데이터만 축적하여 D-2 저수지 규율을 실증한다. 월 1회 harness-audit + drift scan + FAILURES batch 리뷰로 A급 drift 0건을 유지하며, Auto Research Loop가 YouTube Analytics 시그널을 NotebookLM RAG에 피드백하여 다음 달 Producer 입력이 데이터 기반으로 갱신되는 학습 회로를 완성한다. 본 phase는 영구 지속되며 종료 시점은 YPP 진입 + 외부 수익 발생이다.
