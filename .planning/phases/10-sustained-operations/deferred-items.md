@@ -140,3 +140,32 @@ progress: { ... }
 3. **옵션 C**: Shorts/Longform 2-mode 분리 — Shorts(59s, 현 scripter 유지) + Longform(15분, 순수 NLM 2-step). channel_bible.길이 필드 기반 자동 routing.
 
 **Proposed owner:** Phase 11 첫 영상 제작 직후 (2026-04-21~2026-05-05 경). 대표님의 실 영상 1~2편 품질 평가를 근거로 옵션 선택.
+
+---
+
+## D10-PIPELINE-DEF-01 — Pipeline real-run end-to-end 미작동 (Phase 11 CRITICAL)
+
+**Discovered during:** v1.0.1 audit PASSED 직후 대표님 smoke test 2026-04-21.
+
+**증상 (4 연속 에러 chain):**
+- **에러 1**: `shorts_pipeline.py` 더블클릭 시 argparse `--session-id` 필수 → 창 즉시 닫힘 (UX 이슈).
+- **에러 2**: `py script.py` 스크립트 모드 실행 시 `from .checkpointer import` relative import 실패 → `-m scripts.orchestrator.shorts_pipeline` 모듈 모드 필수.
+- **에러 3**: `ValueError: KlingI2VAdapter: no API key supplied...` — `.env` 파일은 존재하나 **Python 이 자동 로드하지 않음** (`load_dotenv()` 호출 코드 부재). `set -a && source .env` 로 env 주입 후 통과.
+- **에러 4**: `ValueError: ShotstackAdapter: SHOTSTACK_API_KEY is not set` — Phase 9.1 에서 Shotstack ken_burns 를 로컬 FFmpeg 로 교체했으나 `__init__` 의 eager instantiation 은 유지. 내 즉석 graceful degrade 패치로 통과.
+- **에러 5 (본질)**: `RuntimeError: claude CLI 실패 (rc=1): Error: Input must be provided either through stdin or as a prompt argument when using --print` — `invokers.py:141` 의 argv 구성 `[cli, "--print", "--append-system-prompt", body, "--json-schema", schema, user_prompt]` 이 Claude CLI 2.1.112 와 **호출 형식 불일치**. Pipeline 실 GATE 진입 불가.
+
+**Scope:** v1.0.1 audit 는 "구조·문서·REQ 커버리지·smoke test 단일 경로" 검증이지 **real invoker + full `__init__` + 실제 GATE 호출 경로** 를 포함 안 함. Phase 9.1 smoke test ($0.29 MP4) 는 mock invoker 기반이었을 가능성.
+
+**Severity:** **CRITICAL** — D10-SCRIPT-DEF-01 (대본 품질) 보다 **먼저 해결 필요**. 파이프라인이 실 작동하지 않으면 대본 품질을 평가할 수 없음.
+
+**본 debug 에서 이미 해결된 것:**
+1. `shorts_pipeline.py` shotstack adapter graceful degrade 패치 (Phase 9.1 nanobanana/ken_burns 와 동일 패턴으로 통일).
+
+**Phase 11 해결 필요 항목 (우선순위 순):**
+1. **invokers.py Claude CLI 호출 형식** — `claude --print` 의 정확한 argv 또는 stdin 전달 방식 재조사. 아마도 `user_prompt` 를 stdin 으로 전달하거나 argv 순서 수정. 테스트 필요.
+2. **`.env` 자동 로드** — `shorts_pipeline.py` 또는 orchestrator `__init__` 에 `from dotenv import load_dotenv; load_dotenv()` 추가. 또는 `scripts/orchestrator/__init__.py` 에 삽입.
+3. **Adapter eager instantiation 전면 검토** — Shotstack 뿐 아니라 Kling/Runway/Typecast/ElevenLabs 모두 graceful degrade pattern 적용 고려. 사용 안 하는 adapter 가 환경변수 요구로 `__init__` 막는 것은 설계 결함.
+4. **Full pipeline real-run smoke test** — mock 이 아닌 실제 Claude CLI 호출 + 실 API 호출로 1편 생성까지 완주 검증. Phase 9.1 의 "Stage 2→4 smoke" 를 "Stage 0→13 full-GATE smoke" 로 확장.
+5. **더블클릭 편의성** — `run_pipeline.bat` 또는 `run_pipeline.ps1` wrapper 로 .env 자동 로드 + pause 추가 (대표님 UX).
+
+**Proposed owner:** Phase 11 진입 첫 과제. 본 gap 은 대표님의 Core Value (외부 수익) 직결이므로 Phase 11 는 **"Pipeline end-to-end real-run 작동 확보"** 를 단독 목표로 설정 권장. 해결 후 D10-SCRIPT-DEF-01 옵션 판단 단계로 진행.

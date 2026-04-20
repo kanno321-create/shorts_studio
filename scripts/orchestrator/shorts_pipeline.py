@@ -211,7 +211,11 @@ class ShortsPipeline:
         self.runway = runway_adapter or RunwayI2VAdapter(circuit_breaker=self.runway_breaker)
         self.typecast = typecast_adapter or TypecastAdapter(circuit_breaker=self.typecast_breaker)
         self.elevenlabs = elevenlabs_adapter or ElevenLabsAdapter(circuit_breaker=self.elevenlabs_breaker)
-        self.shotstack = shotstack_adapter or ShotstackAdapter(circuit_breaker=self.shotstack_breaker)
+        try:
+            self.shotstack = shotstack_adapter or ShotstackAdapter(circuit_breaker=self.shotstack_breaker)
+        except ValueError as err:
+            logger.warning("[pipeline] shotstack adapter 미초기화 (대표님 — SHOTSTACK_API_KEY 없음, Phase 9.1 ken_burns 로컬 대체로 실 호출 경로 부재): %s", err)
+            self.shotstack = shotstack_adapter
         # 9.1 additions — Nano Banana + Ken-Burns. Missing API key / ffmpeg
         # are logged and the slot is left None so mock-based test harnesses
         # (phase05/07) still construct the pipeline; real runs raise later.
