@@ -3,7 +3,7 @@
 **⏱ Reading time:** ~28 min (TL;DR 2 min → 5 sections 26 min)
 **Last updated:** 2026-04-20
 **Audience:** New session loading this codebase for the first time
-**Phase status:** Phase 8 완결 (8/8 plans shipped 2026-04-19, 986+ regression green). Phase 9 진행 중 (문서·KPI·Taste Gate 인프라).
+**Phase status:** Phase 9 + 9.1 완결 (세션 #24, 2026-04-20, 8/8 plans + 7/7 REQs + 4/4 SC PASS). Phase 10 "Sustained Operations" 진입 대기 (세션 #26, Entry Gate PASSED).
 
 ---
 

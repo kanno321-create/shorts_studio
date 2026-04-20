@@ -195,12 +195,59 @@ def _a_rank_drift_count(violations: list[str]) -> int:
     return sum(1 for v in violations if "A급" in v or "A-rank" in v or "drift" in v.lower())
 
 
+def _navigator_coverage_summary(
+    studio_root: pathlib.Path = pathlib.Path("."),
+) -> dict:
+    """Navigator coverage 요약 — CLAUDE.md 매트릭스가 모든 agent/skill 을 참조하는지.
+
+    scripts/validate/navigator_coverage.py 모듈 함수를 직접 import 하여 실행.
+    score penalty 에는 영향 없음 (warning tier); D-11 report 에 informational 필드로만 추가.
+    """
+    try:
+        if __package__ in (None, ""):
+            from scripts.validate.navigator_coverage import (
+                collect_agent_names,
+                collect_skill_names,
+                find_uncovered,
+            )
+        else:
+            from .navigator_coverage import (
+                collect_agent_names,
+                collect_skill_names,
+                find_uncovered,
+            )
+    except ImportError as e:
+        return {"available": False, "error": f"import failed: {e}"}
+
+    claude_md = studio_root / "CLAUDE.md"
+    if not claude_md.exists():
+        return {"available": True, "error": "CLAUDE.md missing"}
+
+    try:
+        text = claude_md.read_text(encoding="utf-8", errors="ignore")
+    except OSError as e:
+        return {"available": True, "error": f"CLAUDE.md read failed: {e}"}
+
+    agents = collect_agent_names(studio_root / ".claude" / "agents")
+    skills = collect_skill_names(studio_root / ".claude" / "skills")
+    uncovered_agents = find_uncovered(agents, text)
+    uncovered_skills = find_uncovered(skills, text)
+
+    return {
+        "available": True,
+        "agents_total": len(agents),
+        "agents_uncovered": sorted(uncovered_agents),
+        "skills_total": len(skills),
+        "skills_uncovered": sorted(uncovered_skills),
+    }
+
+
 def _build_d11_report(
     score: int,
     violations: list[str],
     agents_root: pathlib.Path,
 ) -> dict:
-    """D-11 6-key schema (+ phase + timestamp metadata)."""
+    """D-11 6-key schema (+ phase + timestamp + navigator_coverage metadata)."""
     deprecated = _scan_deprecated_patterns()
     a_rank_from_deprecated = sum(deprecated.values())
     return {
@@ -210,6 +257,7 @@ def _build_d11_report(
         "agent_count": _count_agents(agents_root),
         "description_over_1024": _descriptions_over_1024(agents_root),
         "deprecated_pattern_matches": deprecated,
+        "navigator_coverage": _navigator_coverage_summary(),
         "phase": 7,
         "timestamp": _dt.datetime.now(_dt.timezone.utc)
         .isoformat()

@@ -118,6 +118,36 @@ def load_memory_index(studio_root: Path) -> str | None:
         return None
 
 
+def check_navigator_coverage(studio_root: Path) -> dict:
+    """Navigator coverage 검증 — scripts/validate/navigator_coverage.py 호출.
+
+    CLAUDE.md Navigator 매트릭스가 .claude/agents/ + .claude/skills/ 전수를
+    커버하는지 확인. 누락 자산이 있으면 warning (block 아님, 파이프라인 중단 금지).
+    """
+    script = studio_root / "scripts" / "validate" / "navigator_coverage.py"
+    if not script.exists():
+        return {"available": False}
+    try:
+        import subprocess
+        result = subprocess.run(
+            [sys.executable, str(script), "--warn-only"],
+            cwd=str(studio_root),
+            capture_output=True,
+            text=True,
+            timeout=15,
+            encoding="utf-8",
+            errors="ignore",
+        )
+        return {
+            "available": True,
+            "stdout": (result.stdout or "").strip(),
+            "stderr": (result.stderr or "").strip(),
+            "returncode": result.returncode,
+        }
+    except Exception as e:
+        return {"available": True, "error": str(e)}
+
+
 def scan_deprecated_patterns(studio_root: Path) -> list[str]:
     """deprecated_patterns.json에 정의된 패턴이 스튜디오 내 어느 파일에 잔존하는지."""
     config = studio_root / ".claude" / "deprecated_patterns.json"
@@ -246,6 +276,32 @@ def main() -> int:
         lines.append(memory_idx)
     else:
         lines.append("ℹ️ `.claude/memory/MEMORY.md` 없음 — 메모리 시스템 미초기화 (신규 스튜디오).")
+
+    # 6b. Navigator coverage check — 구현된 자산이 CLAUDE.md 에 등록됐는지 확인
+    # (warning only, 파이프라인 차단 금지 — 하네스 Hook 원칙 "Fail Loud, Not Silent" 의
+    #  균형: 검증은 strict 하지만 Hook 자체는 파이프라인 중단 금지)
+    lines.append("")
+    lines.append("### 🗺️ Navigator Coverage (CLAUDE.md 네비게이터 ↔ 구현 자산 동기화)")
+    nav = check_navigator_coverage(studio_root)
+    if not nav.get("available"):
+        lines.append("ℹ️ `scripts/validate/navigator_coverage.py` 미설치 — Navigator 검증 건너뜀.")
+    elif nav.get("error"):
+        lines.append(f"⚠️ Navigator 검증 실행 실패: {nav['error']}")
+    else:
+        stdout = nav.get("stdout") or ""
+        stderr = nav.get("stderr") or ""
+        if nav.get("returncode") == 0 and "OK" in stdout:
+            # 마지막 'total: N/M covered' 줄만 표시
+            summary = next(
+                (line for line in stdout.splitlines() if "total:" in line),
+                "✅ Navigator 전수 커버",
+            )
+            lines.append(f"✅ {summary.replace('[navigator-coverage] ', '')}")
+        else:
+            lines.append("⚠️ Navigator 커버리지 누락 자산 존재 (CLAUDE.md 매트릭스에 등록 필요):")
+            for line in (stdout + "\n" + stderr).splitlines():
+                if line.strip() and not line.startswith("[navigator-coverage]"):
+                    lines.append(f"   {line}")
 
     context_text = "\n".join(lines)
 
