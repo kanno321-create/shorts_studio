@@ -323,10 +323,13 @@ def test_cli_harness_path_override_missing_falls_back_to_local(
         "---\ngsd_state_version: 1.0\nphase_lock: false\n---\n\nbody\n",
         encoding="utf-8",
     )
-    # Minimal deprecated_patterns.json for _local_load_patterns
+    # Minimal deprecated_patterns.json for _local_load_patterns.
+    # NOTE: use a regex that requires control characters so it never matches
+    # the json file itself (which contains the regex string literally).
     (studio / ".claude" / "deprecated_patterns.json").write_text(
         json.dumps({"patterns": [
-            {"regex": "impossible_match_zzz_zzz", "reason": "A", "grade": "A", "name": "unused"},
+            {"regex": "\\x00zzz_never_matches_\\x00", "reason": "A",
+             "grade": "A", "name": "unused"},
         ]}),
         encoding="utf-8",
     )
@@ -389,7 +392,7 @@ def test_harness_missing_path_falls_back_via_default(
     )
     (studio / ".claude" / "deprecated_patterns.json").write_text(
         json.dumps({"patterns": [
-            {"regex": "never_match_xyz_xyz", "reason": "A", "grade": "A", "name": "unused"},
+            {"regex": "\\x00never_matches_\\x00", "reason": "A", "grade": "A", "name": "unused"},
         ]}),
         encoding="utf-8",
     )
