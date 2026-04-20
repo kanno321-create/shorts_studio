@@ -81,3 +81,8 @@ config/youtube_token.json.bak*
 output/
 outputs/
 scripts/experimental/
+
+# Phase 10 Plan 5 — session audit log (gitignored; logs/.gitkeep 만 git-tracked)
+logs/*.jsonl
+logs/*.json
+!logs/.gitkeep
