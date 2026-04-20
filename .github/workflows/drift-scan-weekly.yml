@@ -1,0 +1,63 @@
+name: drift-scan-weekly
+# AUDIT-03 + AUDIT-04 — A급 drift 주간 스캔 (Phase 10 Plan 04)
+# cron: UTC Monday 00:00 = KST Monday 09:00
+# A급 drift 발견 시 .planning/STATE.md phase_lock 세팅 + GitHub issue 자동 생성.
+# Plan 02 drift_scan.py 가 graceful degradation 지원 — harness repo 부재 시 deprecated_patterns 만 scan.
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'    # UTC Monday 00:00 = KST Monday 09:00
+  workflow_dispatch: {}
+
+permissions:
+  contents: write   # STATE.md + CONFLICT_MAP.md commit
+  issues: write     # gh issue create (A급 drift 발견 시)
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout shorts_studio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # drift scan 은 full history 가 필요
+          path: shorts
+      - name: Checkout naberal_harness
+        uses: actions/checkout@v4
+        with:
+          # naberal_harness 는 shorts_studio 의 submodule 이 아니라 별도 독립 저장소
+          # (CLAUDE.md "독립 git 저장소, 수동 pull"). Plan 4 실행 시점에 실 repo URL 확정 필요.
+          repository: kanno321-create/naberal_harness
+          path: harness
+          ref: main
+        continue-on-error: true   # harness repo private/미생성 시 Plan 2 graceful fallback 이 처리
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Ensure labels exist
+        working-directory: shorts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # BLOCKER #2 redundant safety — Wave 0 manual dispatch 가 primary 이지만
+          # GH Actions step 으로 이중 방어. 이미 존재 시 exit 1 → || true 로 무시.
+          gh label create drift --color "d73a4a" --description "drift detection (auto)" || true
+          gh label create phase-10 --color "0075ca" --description "Phase 10 sustained ops" || true
+          gh label create auto --color "ededed" --description "automated issue" || true
+          # critical 은 GitHub default label 이므로 별도 생성 불필요
+      - name: Run drift scan
+        working-directory: shorts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # --harness-path=../harness — harness 별도 checkout 경로. 미존재 시 local-only fallback.
+          python -m scripts.audit.drift_scan --harness-path=../harness
+      - name: Commit STATE.md + CONFLICT_MAP if changed
+        if: always()
+        working-directory: shorts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .planning/STATE.md .planning/codebase/CONFLICT_MAP.md .planning/codebase/CONFLICT_HISTORY.jsonl 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "audit(drift): weekly scan $(date -u +%Y-%m-%d)"
+          git push || true

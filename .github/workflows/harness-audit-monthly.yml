@@ -1,0 +1,40 @@
+name: harness-audit-monthly
+# AUDIT-02 — Phase 7 existing scripts/validate/harness_audit.py 월 1회 재호출 (Phase 10 Plan 04)
+# cron: UTC day-1 01:00 = KST day-1 10:00 (skill-patch-count-monthly 1시간 후)
+# Phase 7 에서 280줄 구현 완료됨 — Phase 10 은 scheduler wrapping 만 담당.
+# 점수 < 80 시 exit 1 → workflow failure → GH built-in email 알림 (kanno3@naver.com).
+
+on:
+  schedule:
+    - cron: '0 1 1 * *'   # UTC day-1 01:00 = KST day-1 10:00
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run harness audit (threshold 80)
+        # Phase 7 Plan 07 에서 이미 구현된 280줄 스크립트. 점수 < 80 시 exit 1 → workflow
+        # failure → GH built-in email. 자세한 점수 산정은 scripts/validate/harness_audit.py
+        # 본체 참조 (SKILL.md 줄수 / 중복 파일 / deprecated pattern 등 종합).
+        run: |
+          mkdir -p logs
+          python -m scripts.validate.harness_audit \
+            --json-out logs/harness_audit_$(date -u +%Y-%m).json \
+            --threshold 80
+      - name: Upload audit JSON as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: harness-audit-monthly-json
+          path: logs/harness_audit_*.json
+          retention-days: 90

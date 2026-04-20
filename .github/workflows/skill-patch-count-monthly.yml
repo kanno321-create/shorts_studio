@@ -1,0 +1,47 @@
+name: skill-patch-count-monthly
+# FAIL-04 — D-2 Lock SKILL patch counter (Phase 10 Plan 04)
+# cron: UTC day-1 00:00 = KST day-1 09:00 (매월 1일 아침 KST)
+# scripts/audit/skill_patch_counter.py 가 reports/skill_patch_count_YYYY-MM.md 생성 +
+# count > 0 시 FAILURES.md 에 F-D2-XX 엔트리 append.
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'   # UTC day-1 00:00 = KST day-1 09:00
+  workflow_dispatch: {}
+
+permissions:
+  contents: write   # reports/ + FAILURES.md commit
+
+jobs:
+  count:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # git log --since 전체 히스토리 필요
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run skill patch counter
+        # Phase 10 Plan 01 산출물. D-2 Lock 기간 (2026-04-20 ~ 2026-06-20) 동안 SKILL.md /
+        # hook / CLAUDE.md 본문 변경을 카운트. count > 0 시 FAILURES.md 에 F-D2-NN append
+        # + reports/skill_patch_count_YYYY-MM.md 생성.
+        run: |
+          python -m scripts.audit.skill_patch_counter
+      - name: Upload report as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: skill-patch-count-monthly-report
+          path: |
+            reports/skill_patch_count_*.md
+          retention-days: 180
+          if-no-files-found: warn
+      - name: Commit report
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add reports/ FAILURES.md 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "audit(d2-lock): monthly skill patch count $(date -u +%Y-%m)"
+          git push || true
