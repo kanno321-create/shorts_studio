@@ -158,24 +158,37 @@ def check_structure_allowed(file_path: Path, studio_root: Path) -> tuple[bool, s
 
 
 def check_failures_append_only(tool_name: str, tool_input: dict) -> str | None:
-    """D-11: FAILURES.md append-only enforcement.
+    """D-11 append-only + D-A3-01 500줄 cap + D-A3-04 env whitelist (Phase 12 FAIL-PROTO-01).
 
     Applies only to files whose basename is exactly 'FAILURES.md'. EXPLICITLY
-    excludes '_imported_from_shorts_naberal.md' (D-14 immutable, sha256-locked,
-    handled by separate immutability check).
+    excludes '_imported_from_shorts_naberal.md' (Phase 3 D-14 immutable, sha256-locked,
+    handled by separate immutability check — basename mismatch filters it here).
 
     Returns:
-        Deny reason string if the operation would modify existing FAILURES.md
-        content, or None to allow.
+        Deny reason string if the operation would:
+          (a) modify existing FAILURES.md content (D-11 append-only), OR
+          (b) push line count over 500 (D-A3-01 rotation cap).
+        None if the operation is allowed.
 
     Contract:
+        - FAILURES_ROTATE_CTX=1 env var -> return None (D-A3-04 whitelist for rotation CLI)
         - Edit with non-empty old_string -> deny (modifies existing line)
         - Write with new content that does NOT preserve existing content as
           strict prefix -> deny (not an append)
         - Write when file does not yet exist -> allow (first-time create)
         - MultiEdit with any non-empty old_string -> deny
+        - Write/Edit that would produce > 500 lines -> deny with rotation guidance
         - Any tool on files whose basename is not exactly 'FAILURES.md' -> allow
+          (HARD-EXCLUDE: '_imported_from_shorts_naberal.md' passes through here)
     """
+    # --- D-A3-04 env whitelist (Phase 12 FAIL-PROTO-01) ---
+    # rotation script sets FAILURES_ROTATE_CTX=1 before its direct file I/O;
+    # all other callers fall through to normal checks.
+    import os as _os
+    if _os.environ.get("FAILURES_ROTATE_CTX") == "1":
+        return None
+    # ---------------------------------------------------------
+
     fp = tool_input.get("file_path", "")
     if not fp:
         return None
@@ -183,6 +196,32 @@ def check_failures_append_only(tool_name: str, tool_input: dict) -> str | None:
     name = fp.replace("\\", "/").rsplit("/", 1)[-1]
     if name != "FAILURES.md":
         return None
+
+    # --- D-A3-01 500줄 cap (Phase 12 FAIL-PROTO-01) ---
+    # Write/Edit only — MultiEdit cap is OOS (Phase 13 candidate per plan 12-05).
+    if tool_name in ("Write", "Edit"):
+        p = Path(fp)
+        existing = p.read_text(encoding="utf-8") if p.exists() else ""
+        if tool_name == "Write":
+            candidate = tool_input.get("content", "")
+        else:  # Edit
+            old_s = tool_input.get("old_string", "")
+            new_s = tool_input.get("new_string", "")
+            if old_s and old_s in existing:
+                candidate = existing.replace(old_s, new_s, 1)
+            elif old_s:
+                # old_string not found — existing append-only check will deny below
+                candidate = existing
+            else:
+                # Edit with empty old_string = prepend insertion
+                candidate = new_s + existing
+        if len(candidate.splitlines()) > 500:
+            return (
+                "FAILURES.md 500줄 cap 초과 — "
+                "`python scripts/audit/failures_rotate.py` 실행 후 재시도. "
+                "(Phase 12 FAIL-PROTO-01, 500줄 cap 는 에이전트 <mandatory_reads> 전수 읽기 전제)"
+            )
+    # ----------------------------------------------------
 
     if tool_name == "Edit":
         old = tool_input.get("old_string", "")
