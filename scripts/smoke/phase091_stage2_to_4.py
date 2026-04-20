@@ -189,7 +189,11 @@ def _run_live(output_dir: Path, anchor: Path) -> dict:
     # Stage 4 — Runway Gen-3a Turbo 5s I2V clip.
     # ------------------------------------------------------------------
     logger.info("[smoke] Stage 4 — Runway Gen-3a Turbo image_to_video 시작")
-    runway = RunwayI2VAdapter(model="gen3a_turbo", ratio="9:16")
+    # Rule 1 auto-fix (2026-04-20 live run): Runway API rejected the
+    # adapter-advertised "9:16" with 400 'ratio must be one of:
+    # 768:1280, 1280:768'. Use pixel-dimension ratio directly for Stage 4
+    # vertical output. VALID_RATIOS_BY_MODEL drift deferred to Plan 07.
+    runway = RunwayI2VAdapter(model="gen3a_turbo", ratio="768:1280")
     raw_clip = runway.image_to_video(
         prompt=MOTION_PROMPT,
         anchor_frame=scene_path,
