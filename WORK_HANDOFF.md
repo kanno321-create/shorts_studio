@@ -1,11 +1,101 @@
 # WORK HANDOFF — shorts_studio
 
 ## 최종 업데이트
-- 날짜: 2026-04-20 (세션 **#26** 3차 batch — evidence-first audit + Phase 10 Entry Gate PASSED)
-- 세션: **#26** 3개 batch (1차: memory rename, 2차: settings port, 3차: UAT 전수 resolved + Entry Gate FLIP)
-- 상태: **Phase 10 진입 즉시 가능** — `/gsd:plan-phase 10` trigger 만 남음. AI 추가 작업 없음.
+- 날짜: 2026-04-20 (세션 **#27** — Part A 컨텍스트 단절 영구 수정 + Phase 10 Plan 작성 + OAuth analytics scope + Mac Mini 인프라 박제)
+- 세션: **#27** (4 commits: 8172e9c / 83d2af8 / 2fda570 / e4ab949)
+- 상태: **Phase 10 Plan 완료, execute-phase 대기** — `/gsd:execute-phase 10` trigger 만 남음. Wave 1 (Plan 01 + 02) 병렬 실행 가능.
 
 ---
+
+## 세션 #27 완료 항목
+
+### ✅ Part A: 컨텍스트 단절 영구 수정 (commit `8172e9c`)
+대표님 지적 "맨날 그거 안 읽고 모른다는 등 대화가 단절된다" 근본 원인 수정:
+- `.claude/memory/` 로컬 저장소 10 파일 신규 (MEMORY.md + 9 메모리)
+- `session_start.py` Step 4-6 추가 (WORK_HANDOFF 요약 + .env key 이름 + MEMORY 인덱스 자동 주입)
+- `FAILURES.md` 신규 + F-CTX-01 등록 (재발 방지 박제)
+- `CLAUDE.md` Session Init 섹션 업데이트
+- 검증 12/12 PASS
+
+### ✅ Phase 10 Plan 작성 (commit `83d2af8`)
+GSD plan-phase workflow 전수 실행:
+- 10-CONTEXT.md (3 Locked Decision 박제 — Exit Criterion B+C 하이브리드 / D-2 Lock 2개월 / Scheduler 하이브리드)
+- 10-RESEARCH.md (1204줄, 73KB, HIGH confidence, 재사용 자산 7종 API 확인)
+- 10-VALIDATION.md (Continuous Monitoring Model + 13 per-task map + Wave 0 requirements 14건)
+- **8 PLAN.md** (4 Wave 구조)
+- gsd-plan-checker iter 1: 2 BLOCKER + 4 WARNING + 2 INFO 발견
+- gsd-planner revision iter 1: 6/6 issue 전수 resolved
+- gsd-plan-checker iter 2: **VERIFICATION PASSED**
+- 9 REQ-IDs 전수 커버 + D-2 Lock 준수 확인
+
+### ✅ OAuth SCOPES 확장 (commit `2fda570`, Plan 3 Wave 0 선행)
+대표님 "창 띄워봐" 요청:
+- `scripts/publisher/oauth.py` SCOPES 2 → 3 (`yt-analytics.readonly` 추가)
+- 기존 `config/youtube_token.json` 백업 후 재인증 실행
+- 브라우저 자동 팝업 → 대표님 승인 → 3 scopes 확정
+- `.gitignore` 에 `config/youtube_token.json.bak*` 패턴 추가
+- Plan 3 Wave 0 OAuth step 이미 통과 상태
+
+### ✅ Mac Mini 인프라 전환 계획 박제 (commit `e4ab949`)
+대표님 세션 #27 확언 "맥미니 셋팅 안 해놔서 구현만 해놓고, 한동안 Windows PC 로 작업":
+- `.claude/memory/project_server_infrastructure_plan.md` 신규 (10번째 메모리)
+- Windows Task Scheduler → macOS launchd plist 3종 이관 절차 8단계 명시
+- 이관 판정 3 조건 (Mac Mini OS 셋팅 + 상시 가동 + Windows 1개월+ 실적 축적)
+- Plan 4 objective 에 Server Migration Note 추가
+- 10-CONTEXT.md Deferred Ideas 에 Mac Mini migration 엔트리 추가
+
+### ✅ NotebookLM 월간 업로드 합의 확인
+대표님 확언 "매달 요구하면 업로드할게":
+- Plan 6 (monthly_update.py line 446-452) 이미 stdout + email reminder 구조 완비
+- 매달 1일 GH Actions cron 실행 → 대표님 이메일로 "업로드 요청" 발송 → 대표님 브라우저 1분 수동 업로드
+- 추가 구현 불필요 (Plan 6 설계대로 실행되면 자동)
+
+---
+
+## 🎯 다음 세션 진입 경로
+
+### A. Phase 10 execute-phase 진입
+```bash
+/gsd:execute-phase 10
+```
+Wave 1 (Plan 01 skill_patch_counter + Plan 02 drift_scan) 병렬 실행 시작. 대표님이 실행 시점 결정.
+
+**Wave 구조**:
+- Wave 1: Plans 01, 02 (D-2 Lock 실증 + drift 안전망)
+- Wave 2: Plans 03, 04 (YouTube Analytics fetch + Scheduler 하이브리드)
+- Wave 3: Plans 05, 06, 07 (session audit + research loop + YPP trajectory)
+- Wave 4: Plan 08 (Rollback runbook)
+
+### B. Phase 10 실행 중 대표님 manual dispatch 시점
+1. **Plan 3 실행 직전**: OAuth 는 이미 완료 (세션 #27) ✅
+2. **Plan 4 실행 시점**:
+   - SMTP app password 생성 (Gmail 또는 Naver 2단계 인증 → 앱 비밀번호)
+   - PowerShell 관리자 권한 실행 → `scripts/schedule/windows_tasks.ps1` 1회 (작업 3개 등록)
+   - GH repo Settings → Secrets 에 5개 값 등록 (2개는 파일 복사, 3개는 대표님 입력)
+3. **Plan 6 월간 운영 시작 후**: 매달 1일 이메일 알림 → NotebookLM 브라우저 업로드 1분
+
+### C. 중장기 (Phase 11 candidate)
+- Mac Mini 서버 이관 (memory: `project_server_infrastructure_plan`)
+- auto-route Kling → Veo (수동 플래그 → 자동 fallback)
+- audienceRetention timeseries 정확도 개선 (현재 audienceWatchRatio proxy)
+- Producer AGENT.md monthly_context wikilink 추가 (D-2 Lock 해제 후)
+
+---
+
+## 세션 #27 Git Commits (shorts_studio)
+
+```
+e4ab949 docs(memory): 서버 인프라 전환 계획 박제 + Plan 4/CONTEXT 에 Mac Mini migration note
+2fda570 feat(oauth): SCOPES 확장 — yt-analytics.readonly 추가 (Plan 3 Wave 0 선행)
+83d2af8 docs(phase-10): plan 8 PLAN.md + RESEARCH + VALIDATION + CONTEXT — Sustained Operations 진입 준비
+8172e9c fix(context): 세션 컨텍스트 단절 영구 수정 — memory 9종 + session_start Step 4-6 + FAILURES.md F-CTX-01
+```
+
+총 4 commits, +6394 lines.
+
+---
+
+## ⚠️ 세션 #27 이전 기록 (참고용, 세션 #26 상태)
 
 ## 세션 #24 최종 완료 항목
 
