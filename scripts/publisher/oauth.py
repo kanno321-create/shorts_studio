@@ -9,9 +9,10 @@ Google Desktop OAuth 2.0 client auto-accepts localhost loopback at any port.
 Do NOT register fixed redirect URI in Cloud Console — leave Authorized Redirect URIs
 empty or set to exactly 'http://localhost'.
 
-Scopes (exactly 2):
-    - youtube.upload    → videos.insert + thumbnails.set
-    - youtube.force-ssl → commentThreads.insert (pin comment automation)
+Scopes (exactly 3 as of Phase 10):
+    - youtube.upload            → videos.insert + thumbnails.set
+    - youtube.force-ssl         → commentThreads.insert (pin comment automation)
+    - yt-analytics.readonly     → youtubeAnalytics.reports.query (Phase 10 KPI-01/02 daily fetch)
 
 Test strategy: downstream tests monkeypatch Credentials.from_authorized_user_file
 + InstalledAppFlow.from_client_secrets_file to avoid any real network/browser call.
@@ -26,8 +27,9 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 
 
 SCOPES = [
-    "https://www.googleapis.com/auth/youtube.upload",     # videos.insert + thumbnails.set
-    "https://www.googleapis.com/auth/youtube.force-ssl",  # commentThreads.insert
+    "https://www.googleapis.com/auth/youtube.upload",          # videos.insert + thumbnails.set
+    "https://www.googleapis.com/auth/youtube.force-ssl",       # commentThreads.insert
+    "https://www.googleapis.com/auth/yt-analytics.readonly",   # Phase 10 KPI-01/02 daily fetch (analytics v2)
 ]
 
 CLIENT_SECRET_PATH = Path("config/client_secret.json")
