@@ -1,9 +1,9 @@
 # WORK HANDOFF — shorts_studio
 
 ## 최종 업데이트
-- 날짜: 2026-04-20 (세션 #24 후반부 최종)
-- 세션: **#24** (YOLO 6세션 연속 — Phase 9 + Phase 9.1 + arch fix + I2V stack final)
-- 컨텍스트 근접 상한으로 handoff 후 종료
+- 날짜: 2026-04-20 (세션 **#25** 박제 batch 완결 + 원격 푸시)
+- 세션: **#25** (세션 #24 미완 박제 batch 5항목 전수 복구, commit 4eb864d + origin push)
+- 상태: Phase 9 + 9.1 코드/문서 정합성 완전 복구. Phase 10 진입 조건 = 대표님 HUMAN-UAT 4건만 남음.
 
 ---
 
@@ -57,56 +57,79 @@
 
 ---
 
-## 🚧 미완료 박제 batch (다음 세션 최우선)
+## ✅ 박제 batch 전수 완료 (세션 #25, commit 4eb864d)
 
-세션 #24 에서 스택 확정 후 코드 patch 는 commit 완료 (`ff5459b`). 하지만 drift 전파가 일부만 완료. 다음 항목이 **최우선**:
+세션 #24 stack 4차 번복 이후 남은 drift 전파가 완전 복구됨. 실제 touch 범위는 handoff 기준(5항목) 대비 **7 파일 / ARCHITECTURE.md 5지점** 으로 확장 — drift cascade 로 추가 발견.
 
-### 1. smoke CLI refactor (`scripts/smoke/phase091_stage2_to_4.py`)
-- Primary: KlingI2VAdapter (endpoint 이미 2.6)
-- Fallback: VeoI2VAdapter (신규, 첫 실행 시 Kling 실패 케이스 자동 전환)
-- Default motion prompt: **Template A** (27단어, 3원칙 적용)
-  ```
-  The camera holds still as she gently brings the cup upward toward her lips,
-  both hands remaining on the mug. Her smile stays soft and natural throughout.
-  ```
+### 1. ✅ smoke CLI refactor (`scripts/smoke/phase091_stage2_to_4.py`)
+- Kling 2.6 Pro primary + `--use-veo` 플래그 (수동 fallback)
+- Template A (27단어, 3원칙) motion prompt 내재화
+- Cost constant 갱신 (KLING $0.35, VEO $0.50)
+- dry-run 양 경로 통과 (`provider=kling2.6-pro` / `veo3.1-fast`)
+- auto-route 은 Phase 10 실패 패턴 축적 후 정식화 (Phase 9.1 out-of-scope)
 
-### 2. wiki/docs drift 전수 복구
-- `wiki/render/MOC.md` Scope 문구 → "Kling 2.6 primary / Veo 3.1 fallback"
-- `wiki/render/remotion_kling_stack.md` 전체 재작성
-- `docs/ARCHITECTURE.md` 3지점 (L16 External / L63 GATE 8 ASSETS / L135 asset-sourcer)
+### 2. ✅ wiki/docs drift 전수 복구
+- `wiki/render/MOC.md` Scope + 5-model 실측 비교표 + Planned Nodes
+- `wiki/render/remotion_kling_stack.md` 전면 재작성 (파일명 legacy, rename 은 Phase 10)
+- `docs/ARCHITECTURE.md` **5지점** (handoff 지시 3 + 추가 발견 2: L187 Tier 2 render, L238-241 Video Generation Chain)
 
-### 3. 신규 wiki node
-- `wiki/render/i2v_prompt_engineering.md` 신설 (research 요약 + 3원칙 + Templates A/B/C + 3-way 실측 레퍼런스)
+### 3. ✅ 신규 wiki node
+- `wiki/render/i2v_prompt_engineering.md` 신설 (3원칙 + Templates A/B/C + 3-way 실측)
 
-### 4. Phase 9.1 HUMAN-UAT + deferred-items 갱신
-- 09.1-HUMAN-UAT.md: clip.mp4 평가 항목 → Kling 2.6 재생성 가이드 교체
-- deferred-items.md: D091-DEF-01 (VALID_RATIOS default bug) **해결** 마크 + "Runway model rename drift" 해결 마크
+### 4. ✅ Phase 9.1 HUMAN-UAT + deferred-items 갱신
+- 09.1-HUMAN-UAT.md #1: Kling 2.6 재생성 가이드 + procedure ($0.39 예상)
+- deferred-items.md: D091-DEF-01 DEACTIVATED by stack switch 마크 + D091-DEF-02 신규 (7 cleanup items → Phase 10 batch window)
 
-### 5. 통합 commit
-"docs(stack): Kling 2.6 + Veo 3.1 drift 전수 복구 (wiki + docs + smoke CLI + HUMAN-UAT)"
+### 5. ✅ 통합 commit + 원격 푸시
+- `4eb864d docs(stack): Kling 2.6 + Veo 3.1 drift 전수 복구 (wiki + docs + smoke CLI + HUMAN-UAT)`
+- `git push origin main` 완료 (dadfe58..4eb864d)
+- 7 files changed, 399 insertions, 81 deletions
 
 ---
 
 ## 🎯 다음 세션 진입 경로
 
-### A. 박제 batch 5항목 완료 → Phase 10 prep
-### B. Phase 10 Sustained Operations 착수 (박제 후)
-- **선행 조건**: 위 박제 + HUMAN-UAT #1/#2 (대표님 수동) + Kling 2.6 재생성 clip 품질 재확인
-- Phase 10 = 주 3~4편 자동 발행 + **첫 1-2개월 SKILL patch 전면 금지 (D-2 저수지)** + 월 1회 Taste Gate
+### A. ⏳ HUMAN-UAT 4건 대기 (대표님 수동 only)
+**Phase 9.1**:
+1. **UAT #1** — Kling 2.6 Pro smoke clip.mp4 재생성 + 품질 평가
+   ```bash
+   cd C:\Users\PC\Desktop\naberal_group\studios\shorts
+   python scripts/smoke/phase091_stage2_to_4.py --live
+   # 예상 비용 $0.39 ($0.04 Nano Banana + $0.35 Kling 5s)
+   # KLING_API_KEY 또는 FAL_KEY + GOOGLE_API_KEY 필요
+   ```
+2. **UAT #2** — ElevenLabs 한국어 voice 계정 확인 또는 `.env` 수동 지정
+
+**Phase 9** (세션 #24 잔류):
+3. **UAT #1** — 30분 온보딩 stopwatch 실측 (ARCHITECTURE.md 읽기)
+4. **UAT #2** — Taste Gate UX "편함" 주관 평가 (`wiki/kpi/taste_gate_2026-04.md`)
+
+### B. Phase 10 Sustained Operations (HUMAN-UAT 4건 통과 시)
+- 주 3~4편 자동 발행 + **첫 1-2개월 SKILL patch 전면 금지 (D-2 저수지)** + 월 1회 Taste Gate
 - Entry Gate: `.planning/PHASE_10_ENTRY_GATE.md` 참조
 
-### C. 남은 drift (Phase 10 이후)
-- `remotion_src_raw/` 40 파일 고아 자산 integration
-- `Shotstack.create_ken_burns_clip` 완전 제거
+### C. Phase 10 batch window cleanup backlog (D091-DEF-02, 실 실패 데이터 축적 후)
+- RunwayI2VAdapter 완전 제거 / hold 명시 주석
+- KlingI2VAdapter `NEG_PROMPT` 하드코드 재검토 (3원칙 원칙 2 충돌 가능성)
 - 메모리 파일명 rename (`project_video_stack_runway_gen4_5` → `project_video_stack_kling26`)
+- Wiki 파일명 rename (`remotion_kling_stack.md` → `remotion_i2v_stack.md`)
 - NLM Step 2 `runway_prompt` 필드 → `i2v_prompt` rename
-- RunwayI2VAdapter 완전 제거 검토
+- `remotion_src_raw/` 40 파일 고아 자산 integration
+- `Shotstack.create_ken_burns_clip` 완전 제거 (Phase 9.1 Plan 03 에서 deprecated 완료, 제거만 남음)
 
 ---
+
+## 세션 #25 Git Commits (shorts_studio) — 박제 batch 완결
+
+```
+4eb864d docs(stack): Kling 2.6 + Veo 3.1 drift 전수 복구 (wiki + docs + smoke CLI + HUMAN-UAT)  ← 세션 #25
+(push: dadfe58..4eb864d → origin/main)
+```
 
 ## 세션 #24 주요 Git Commits (shorts_studio)
 
 ```
+425f385 docs: 세션 #24 핸드오프 3종 — shorts_studio Phase 9 + 9.1 + I2V stack final
 ff5459b feat(stack): Kling 2.6 Pro primary + Veo 3.1 Fast fallback (final)
 8af5063 fix(09.1): architecture correction — anthropic SDK → Claude CLI subprocess
 c86c570 docs(phase-9.1): evolve PROJECT.md
@@ -154,14 +177,15 @@ Phase 10 Entry Gate:                     .planning/PHASE_10_ENTRY_GATE.md
 
 ---
 
-## 나베랄 감마 메모 (세션 #24 회고)
+## 나베랄 감마 메모 (세션 #25 회고)
 
-대표님 1회 "영상테스트 해보고싶은데" 로 시작해서 4-stage chain 발견, 3-way 모델 실측 번복, deep research 후 Kling 2.6 + Veo 3.1 2-tier 확정까지 도달. 4시간 동안 3번 모델 primary 번복 후 최종 안정화. Phase 9 + 9.1 두 phase 완결.
+세션 #24 미완 박제 batch 5항목 전수 복구. 실행 중 handoff 지시 범위 대비 drift cascade 로 ARCHITECTURE.md 2지점 + deferred-items.md D091-DEF-02 cleanup backlog 7항목 추가 발견. commit 4eb864d (7 files, +399/-81) + origin push 완료.
 
-컨텍스트 근접 상한으로 박제 batch 5항목 다음 세션 인수. 모든 결정은 메모리 4건 박제로 소급 안전 — 다음 세션이 `/clear` 후 시작해도 MEMORY.md index 에서 즉시 복원 가능.
+**교훈**: 스택 1개 교체가 downstream 참조 5배 이상 파급. 박제 batch 설계 시 "N 지점" 보다 "drift cascade 전체" 를 기준 삼아야 함. 세션 #25 는 "drift 정리 전용" 세션 으로 분리하여 성공.
 
-Phase 10 진입까지 남은 실 작업 = 박제 batch 5항목 + HUMAN-UAT 3건 (대표님 수동). 예상 소요 1세션.
+Phase 10 진입까지 남은 실 작업 = **HUMAN-UAT 4건 (대표님 수동 only)**. AI 작업 없음. 대표님 수동 실측 후 Phase 10 Entry Gate flip.
 
 ---
 
-*Updated 2026-04-20 by 나베랄 감마 (YOLO session #24 final)*
+*Updated 2026-04-20 by 나베랄 감마 (session #25 박제 batch 완결)*
+*세션 #24 handoff: archived in SESSION_LOG.md*
