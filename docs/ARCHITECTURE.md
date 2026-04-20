@@ -13,7 +13,7 @@
 - **Pipeline:** **12 GATE state machine** (IDLE + 13 operational gates — TREND → ... → MONITOR + COMPLETE) — pre_tool_use Hook이 `skip_gates=True`를 물리적으로 차단.
 - **Agents:** 총 **32명** = Producer 14 + Inspector 17 (6 categories) + Supervisor 1. 오케스트레이터 500-800줄 제약 (5166줄 드리프트 금지).
 - **Wiki:** **3-Tier** — harness/wiki (공용) / studios/shorts/wiki (도메인, 5 categories) / .preserved/harvested (shorts_naberal 승계, chmod -w 읽기 전용).
-- **External:** YouTube Data API v3 (업로드) + YouTube Analytics API v2 (KPI — Phase 10 wiring) + **Runway Gen-3a Turbo (primary I2V) / Kling 2.5-turbo Pro (backup I2V)** / Nano Banana Pro (scene + thumbnail image) / Typecast / ElevenLabs / Shotstack / NotebookLM. (2026-04-20 세션 #24 재결정 — 이전 Kling primary 에서 교체).
+- **External:** YouTube Data API v3 (업로드) + YouTube Analytics API v2 (KPI — Phase 10 wiring) + **Kling 2.6 Pro (primary I2V, fal.ai) / Veo 3.1 Fast (fallback I2V, fal.ai)** / Nano Banana Pro (scene + thumbnail image) / Typecast / ElevenLabs / Shotstack / NotebookLM. (2026-04-20 세션 #24 최종 확정 — 4차 번복 후 Kling 2.6 Pro primary 확정, Runway Gen-3a Turbo / Gen-4.5 는 production path 미호출 hold 상태).
 - **Hard constraints:** No T2V (I2V + Anchor Frame only). No Selenium upload. No K-pop raw audio (AF-13). Orchestrator 500-800 lines. 32 agents fixed (AF-10 전수 이식 금지).
 - **Repository:** `github.com/kanno321-create/shorts_studio` (Private, Phase 8 REMOTE-01 완결).
 
@@ -60,7 +60,7 @@ stateDiagram-v2
 | 5 | SCRIPT | 한국어 prose 스크립트 (Claude Sonnet 4.6 Producer). | `scripter` |
 | 6 | POLISH | 존댓말 일관성 + 리듬 교정. | `script-polisher` |
 | 7 | VOICE | Typecast 주력 / ElevenLabs v3 백업 TTS. | `voice-producer` |
-| 8 | ASSETS | **Runway Gen-3a Turbo 주력 (`gen3a_turbo`, 768:1280, $0.25/5s)** → Kling 2.5-turbo Pro (fal.ai) 백업. 3회 실패 시 Ken Burns (로컬 FFmpeg). | `asset-sourcer` |
+| 8 | ASSETS | **Kling 2.6 Pro 주력 (`fal-ai/kling-video/v2.6/pro/image-to-video`, $0.35/5s)** → Veo 3.1 Fast (fal.ai, `veo3.1/fast`, $0.50/5s) 정밀 motion fallback. 둘 다 3회 실패 시 Ken Burns (로컬 FFmpeg). | `asset-sourcer` |
 | 9 | ASSEMBLY | Shotstack composite render + filter[0] Continuity Bible prefix. | `assembler` |
 | 10 | THUMBNAIL | Nano Banana Pro (Gemini 3 Pro Image) 한국어 텍스트 94-96%. 3회 실패 시 Ken Burns 스틸. | `thumbnail-designer` |
 | 11 | METADATA | SEO 타이틀·설명·태그 + AI disclosure 선언. | `metadata-seo` |
@@ -132,7 +132,7 @@ flowchart TD
 | 8 | script-polisher | `.claude/agents/producers/script-polisher/AGENT.md` | 존댓말·리듬 교정 |
 | 9 | metadata-seo | `.claude/agents/producers/metadata-seo/AGENT.md` | 제목·설명·태그·AI 공시 |
 | 10 | voice-producer | `.claude/agents/producers/voice-producer/AGENT.md` | Typecast 주력 / ElevenLabs 백업 |
-| 11 | asset-sourcer | `.claude/agents/producers/asset-sourcer/AGENT.md` | Runway Gen-3a Turbo (primary) / Kling 2.5-turbo Pro (backup) I2V 생성 |
+| 11 | asset-sourcer | `.claude/agents/producers/asset-sourcer/AGENT.md` | Kling 2.6 Pro (primary, fal.ai) / Veo 3.1 Fast (fallback, fal.ai 정밀 motion) I2V 생성 |
 | 12 | assembler | `.claude/agents/producers/assembler/AGENT.md` | Shotstack composite render |
 | 13 | thumbnail-designer | `.claude/agents/producers/thumbnail-designer/AGENT.md` | Nano Banana Pro 썸네일 |
 | 14 | publisher | `.claude/agents/producers/publisher/AGENT.md` | YouTube Data API v3 upload + monitor |
@@ -184,7 +184,7 @@ flowchart LR
 - **Tier 2 — `wiki/` (이 스튜디오)** — 5 카테고리 도메인-특화 노드:
   - `algorithm/` — YouTube Shorts 추천 알고리즘 + ranking 요소
   - `ypp/` — YouTube Partner Program 진입 조건 (1000구독 + 10M views/연)
-  - `render/` — Remotion v4 + Kling 2.6 Pro / Runway Gen-3 Alpha Turbo 렌더 스택
+  - `render/` — Remotion v4 + Kling 2.6 Pro (primary) / Veo 3.1 Fast (fallback) 렌더 스택
   - `kpi/` — 3초 retention / 완주율 / 평균 시청 지표 (Phase 9 `kpi_log.md` + `taste_gate_*.md`)
   - `continuity_bible/` — 색상 팔레트 + 카메라 렌즈 + 시각 스타일 prefix (D-1)
 - **Tier 3 — `.preserved/harvested/`** — shorts_naberal 승계 자산 읽기 전용 (Phase 3 `chmod -w` 적용). 수정 금지, 참조만.
@@ -235,9 +235,10 @@ KPI 측정 source. Phase 9 에서는 endpoint + field names + cadence 만 선언
 
 ### Video Generation Chain (Phase 5 VIDEO-04 + Phase 7 TEST-04)
 
-1. **Primary:** Kling 2.6 Pro ($0.07-0.14/sec) — 한국인 얼굴·신체 움직임·립싱크 내장
-2. **Backup:** Runway Gen-3 Alpha Turbo ($0.05/sec) — Kling API 장애 또는 샷 품질 실패 시
-3. **Fallback:** Ken Burns (로컬 FFmpeg pan/zoom on still image) — 양쪽 모두 3회 실패 시
+1. **Primary:** Kling 2.6 Pro ($0.35/5s, $0.07/sec) — fal.ai `kling-video/v2.6/pro/image-to-video`. 한국인 얼굴·신체 움직임·립싱크 내장. Template A (27단어, 3원칙) default.
+2. **Fallback:** Veo 3.1 Fast ($0.50/5s, $0.10/sec) — fal.ai `veo3.1/fast/image-to-video`. 정밀/세세한 motion (얼굴 micro / 손가락 / 머리카락 / 미세 light) 에서 Kling 실패 시. Phase 9.1 는 수동 `--use-veo` 플래그, auto-route 는 Phase 10 실패 패턴 축적 후 정식화.
+3. **Ken Burns:** 로컬 FFmpeg pan/zoom on still image — 양쪽 모두 3회 실패 시, `ASSETS`/`THUMBNAIL` gate 한정.
+4. **Hold (미호출):** Runway Gen-4.5 / Gen-3a Turbo — adapter 유지, production path 제외. 2026-04-20 3-way 실측에서 Kling Pareto-dominant 확인 후 경로 이탈.
 
 ### Audio (Phase 4 AUDIO-01)
 
