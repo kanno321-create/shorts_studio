@@ -1,20 +1,28 @@
-"""Kling 2.5-turbo / Pro image-to-video adapter (VIDEO-04 primary).
+"""Kling 2.6 Pro image-to-video adapter (VIDEO-04 primary).
 
-Thin wrapper around fal.ai's ``kling-video/v2.5-turbo/pro/image-to-video``
-endpoint. Responsibilities:
+2026-04-20 세션 #24 final: Kling 2.5-turbo Pro **deprecated** (사용 금지).
+**Primary I2V = Kling 2.6 Pro** (fal.ai ``kling-video/v2.6/pro/image-to-video``).
+3-way 실측 비교 (Gen-3a Turbo / Gen-4.5 / Kling 2.6 Pro) 결과 Kling 2.6 이
+Pareto-dominant: 품질 ≥ Gen-4.5 + 비용 $0.35 (42% 저렴) + latency ~70s
+(Gen-4.5 149s 대비 2배 빠름). Memory: ``project_video_stack_runway_gen4_5``
+(파일명은 legacy, 내용은 Kling 2.6 primary 로 갱신됨).
+
+Fallback: Veo 3.1 Fast (``scripts/orchestrator/api/veo_i2v.py``) — 정밀/세세한
+motion 에서 Kling 실패 시 자동 전환.
+
+Thin wrapper around fal.ai's ``kling-video/v2.6/pro/image-to-video`` endpoint.
+Responsibilities:
 
 * Enforce D-13 (anchor_frame required) and D-14 (1 Move Rule, 4-8s duration)
   by constructing :class:`I2VRequest` at the top of every public call.
-* Route through an optional :class:`CircuitBreaker` so Plan 07 can trip
-  Kling and fall over to Runway when the provider is unhealthy.
+* Route through an optional :class:`CircuitBreaker` so shorts_pipeline can trip
+  Kling and fall over to Veo 3.1 when the provider is unhealthy.
 * Return a local :class:`Path` to the downloaded MP4 clip.
 
 **Physical absence of T2V** (D-13 / VIDEO-01): this class has exactly one
 public generation method, :meth:`image_to_video`. The bottom-of-module
 assertion (and the mirror test in ``tests/phase05/test_kling_adapter.py``)
-proves the text-only sibling has never been defined. The
-``.claude/deprecated_patterns.json`` regex blocks Write/Edit attempts that
-would re-introduce it.
+proves the text-only sibling has never been defined.
 
 API key resolution order: constructor ``api_key`` -> ``$KLING_API_KEY`` ->
 ``$FAL_KEY`` (fal.ai's canonical env var; accepted as an alias). Raises
@@ -40,7 +48,7 @@ if TYPE_CHECKING:
 # child pipeline proved these produce the contracted motion quality).
 # ---------------------------------------------------------------------------
 
-FAL_ENDPOINT = "fal-ai/kling-video/v2.5-turbo/pro/image-to-video"
+FAL_ENDPOINT = "fal-ai/kling-video/v2.6/pro/image-to-video"  # 2026-04-20 세션 #24 Kling 2.6 Pro primary 확정
 
 NEG_PROMPT = (
     "static character, frozen pose, only camera movement, camera-only motion, "

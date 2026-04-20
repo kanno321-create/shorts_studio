@@ -37,22 +37,26 @@ if TYPE_CHECKING:
 # ``runway_client.py`` MODEL_REGISTRY (gen3_alpha_turbo row) per D-16.
 # ---------------------------------------------------------------------------
 
-DEFAULT_MODEL = "gen3a_turbo"  # 2026-04-20 대표님 dual-tier 결정: batch primary
-# (flagship primary = gen4.5, 복합 prompt 품질 우위이나 $0.60/5s + 129s latency;
-#  batch primary = gen3a_turbo, 품질 충분 + $0.25/5s + 21s latency = 6x throughput).
-# 모델별 valid ratios 는 VALID_RATIOS_BY_MODEL 을 source of truth 로 한다 (D-12).
+DEFAULT_MODEL = "gen4.5"  # 2026-04-20 세션 #24 final: production path 에서 호출 안 됨.
+# primary = Kling 2.6 Pro (kling_i2v.py), fallback = Veo 3.1 Fast (veo_i2v.py).
+# Runway adapter 는 코드 hold (optional flagship, 수동 호출만). 제거는 Phase 10
+# orchestrator 재설계 소관. DEFAULT_MODEL = gen4.5 (Gen-3a Turbo 는 복합 limb
+# motion 실패 실증, Gen-4.5 만 유지).
 
 # ---------------------------------------------------------------------------
 # VALID_RATIOS_BY_MODEL — per-model allowed ratios, D-12 (2026-04-20 실측).
-# Phase 10 에서 새 모델 추가 시 이 dict 에 key 만 확장; constructor kwargs 는
-# 변경하지 않는다.
+# **순서 중요**: 첫 항목이 default ratio 로 자동 선택됨. Runway API 는
+# "16:9"/"9:16" symbolic 값을 거부하고 pixel values 만 수용 (D091-DEF-01 해결).
+# Pixel values 를 앞에 배치하여 default auto-select 가 실 API 유효 값 반환.
 # ---------------------------------------------------------------------------
 VALID_RATIOS_BY_MODEL: dict[str, list[str]] = {
-    "gen3a_turbo": ["16:9", "9:16", "768:1280", "1280:768"],
+    # Gen-3a Turbo 는 deprecated path (Gen-3a Turbo 실패 실증됨) — 하지만 adapter
+    # 파일 자체는 hold. ratio 매핑만 남겨 둠 (unknown model 에러 방지).
+    "gen3a_turbo": ["768:1280", "1280:768", "16:9", "9:16"],  # pixel first (default bug fix)
     "gen4.5": ["720:1280"],
 }
 
-DEFAULT_RATIO = VALID_RATIOS_BY_MODEL[DEFAULT_MODEL][0]  # "16:9" — gen3a_turbo 첫 valid
+DEFAULT_RATIO = VALID_RATIOS_BY_MODEL[DEFAULT_MODEL][0]  # "720:1280" — gen4.5 valid
 DEFAULT_POLL_TIMEOUT_S = 600
 DEFAULT_HTTP_TIMEOUT_S = 120
 DEFAULT_OUTPUT_DIR = Path("outputs/runway")
