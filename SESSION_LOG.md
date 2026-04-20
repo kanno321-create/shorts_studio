@@ -264,3 +264,168 @@ Phase 9 (세션 #24 잔류):
 - Phase 10 진입 = HUMAN-UAT 4건 모두 PASS 후 (무변경)
 - D091-DEF-02 잔여 6항목 은 Phase 10 batch window 유지 (D-2 저수지 규율)
 - 추가 AI 작업 없음
+
+## Session #27 — 2026-04-20 (Part A 컨텍스트 단절 영구 수정 + Phase 10 Plan 작성 + OAuth scope + Mac Mini 박제)
+
+### 진행 범위 (단일 세션, 대표님 외출 중 YOLO + 귀환 후 후속 조치)
+
+대표님 개입 3번:
+1. 초반 — "개발자가 아니니 최고 품질로 AI 결정" 위임 + "컨텍스트 단절 문제 고쳐라"
+2. 중반 — "욜로모드로 계속 진행해라 외출 다녀온다" (plan-checker 2 BLOCKER + 4 WARNING 시점)
+3. 후반 — "창 띄워봐 / 우리 폴더에 있다 / 무슨뜻인지 모르겠다 x2" (manual dispatch 설명 요청)
+
+### 핵심 결정 (이번 세션)
+
+1. **컨텍스트 단절 영구 수정 구조 확립** — SessionStart hook 이 메모리/핸드오프/env keys 를 자동 주입. 텍스트 지시에 의존하지 않고 **코드로 강제** 하는 것이 답.
+2. **Phase 10 3 Locked Decision 확정** (대표님 경영자 위임):
+   - Exit Criterion: B+C 하이브리드 (Rolling 12개월 YPP + 3-stage milestone 100/300/1000 구독)
+   - D-2 Lock: 2개월 (2026-04-20 ~ 2026-06-20), 금지 경로 4종
+   - Scheduler: 하이브리드 (GH Actions 4 cron + Windows Task Scheduler + email 3-channel)
+3. **OAuth analytics scope 선행 처리** — Plan 3 Wave 0 를 세션 #27 에서 미리 완료하여 execute-phase 진입 시 Wave 0 OAuth step 생략 가능.
+4. **Mac Mini 서버 이관 계획 박제** — 현재 Windows PC (임시), 장기는 Mac Mini (상시 가동 headless). Windows Task Scheduler → macOS launchd 이관은 Phase 11 candidate.
+5. **NotebookLM 월간 업로드 합의** — Google 공식 API 미공개이므로 매달 대표님 수동 업로드. Plan 6 가 매달 1일 이메일 reminder 자동 발송.
+
+### Part A — 컨텍스트 단절 영구 수정 (commit 8172e9c, 13 files +571 lines)
+
+근본 원인 (Exploration 결과):
+1. `session_start.py` 감사 메시지만 주입, 메모리/핸드오프/API key 고지 부재
+2. `.claude/settings.json` 에 additionalDirectories 자동 로드 설정 부재
+3. 중앙 메모리 저장소 빈 디렉토리, WORK_HANDOFF 에만 텍스트 기록
+
+A1. `.claude/hooks/session_start.py` Step 4-6 추가 (+60줄):
+- Step 4: `WORK_HANDOFF.md` 첫 30줄 요약 주입
+- Step 5: `.env` key 이름 목록 + 재질문 금지 경고 주입
+- Step 6: `.claude/memory/MEMORY.md` 인덱스 전체 주입
+
+A2. `.claude/memory/` 로컬 저장소 신설 (10 파일):
+- MEMORY.md (인덱스)
+- project_video_stack_kling26 / project_claude_code_max_no_api_key / project_shorts_production_pipeline / project_tts_stack_typecast
+- feedback_i2v_prompt_principles / feedback_clean_slate_rebuild / feedback_session_evidence_first
+- reference_api_keys_location / reference_shorts_naberal_voice_setup
+
+A3. `FAILURES.md` 신규 + F-CTX-01 등록 (컨텍스트 단절 재발 방지, pre_tool_use hook 이 append-only 자동 enforce)
+
+A4. `CLAUDE.md` Session Init 섹션 업데이트 (항목 5-6 추가: `.claude/memory/` + `.env`)
+
+검증 12/12 PASS:
+- hook 출력 4128자 + WORK_HANDOFF 요약 포함 + 6 API key 이름 포함 + 9 memory 인덱스 포함
+- 기존 `scripts.publisher` import OK + pre_tool_use/session_start syntax OK
+
+### Phase 10 Plan 작성 (commit 83d2af8, 12 files +5748 lines)
+
+GSD plan-phase workflow 전수 실행:
+
+**Step 1 Initialize + Step 2 Parse args** — phase 10 인덱스 데이터 수집
+
+**Step 3.5 CONTEXT Express Path** — 대표님 delegation 으로 CONTEXT.md 직접 작성 (discuss-phase agent 호출 대신). 3 Locked Decision + 9 REQ-IDs + canonical refs + Deferred Ideas 5개 포함.
+
+**Step 5 Research** — gsd-phase-researcher spawn:
+- 1204줄, 73KB, HIGH confidence
+- 재사용 자산 7종 public API 전수 확인 (publish_lock, kst_window, oauth, harness_audit, aggregate_patterns, harness drift_scan, NotebookLM skill)
+- 8 Plan 별 "Open Questions Pre-Answered" 섹션
+- Continuous Monitoring Validation Model 신규 설계
+- Risk Register 10 건 mitigation
+
+**Step 5.5 Validation Strategy** — 10-VALIDATION.md 작성:
+- Per-Task verification map 13건
+- Wave 0 requirements 14건
+- Continuous Monitoring 6 signals 매핑 (daily/weekly/monthly + rolling)
+- Manual verifications 7건 (YPP gates + NotebookLM 월간 + SMTP + OAuth reauth)
+
+**Step 8 Planner** — gsd-planner spawn → 8 PLAN.md 생성:
+- Wave 1: 10-01 (skill_patch_counter) + 10-02 (drift_scan)
+- Wave 2: 10-03 (youtube-analytics-fetch) + 10-04 (scheduler-hybrid)
+- Wave 3: 10-05 (session-audit-rolling) + 10-06 (research-loop-notebooklm) + 10-07 (ypp-trajectory)
+- Wave 4: 10-08 (rollback-docs)
+
+**Step 10 Checker iter 1** — 2 BLOCKER + 4 WARNING + 2 INFO 발견:
+- BLOCKER #1: Plan 4 windows_tasks.ps1 주 3~4편 페이스 위반 위험 (publish_lock gating 설계 의도 주석 부재)
+- BLOCKER #2: Plan 2 gh CLI label 사전 생성 누락 (HTTP 422 fail → AUDIT-04 미작동)
+- WARNING #1-4: SC#6 traceability / Plan 5 depends_on / TODO(plan-6-alt) 주석 / harness submodule 전제 오류
+- INFO #1-2: depends_on 문구 / KPI-04 end-to-end cascade
+
+**Step 12 Revision iter 1** — 6/6 issue 전수 resolved (targeted update only, 재설계 없음)
+
+**Step 10 Checker iter 2** — VERIFICATION PASSED (regression 없음, 신규 forward-risk minor only)
+
+**Step 13 Requirements Coverage Gate** — 9/9 REQ-IDs 전수 plan frontmatter 매핑 확인
+- FAIL-04: Plans 1, 4, 8
+- KPI-01: Plans 3, 4
+- KPI-02: Plans 3, 4, 7
+- KPI-03: Plan 6
+- KPI-04: Plan 6
+- AUDIT-01: Plan 5
+- AUDIT-02: Plan 4
+- AUDIT-03: Plans 2, 4
+- AUDIT-04: Plan 2
+
+**D-2 Lock 준수** — 8 plan 전수 files_modified 에 `.claude/agents/*/SKILL.md`, `.claude/skills/*/SKILL.md`, `.claude/hooks/*.py`, `CLAUDE.md` 본문 수정 0건. 유일 shared-file 수정은 Plan 3 의 `scripts/publisher/oauth.py` SCOPES 1 entry append (허용 범위, 기존 entry byte-identical 유지).
+
+### OAuth SCOPES 확장 (commit 2fda570, Plan 3 Wave 0 선행)
+
+대표님 "창 띄워봐" 요청:
+- `scripts/publisher/oauth.py` SCOPES: 2개 → 3개 (`yt-analytics.readonly` 추가)
+- 기존 `config/youtube_token.json` 을 `.bak_pre_analytics_scope` 로 백업
+- `python -c "from scripts.publisher.oauth import get_credentials; get_credentials()"` 실행
+- 브라우저 자동 팝업 → 대표님 Google 계정 승인 → localhost callback
+- 새 token 저장 확인: 3 scopes + refresh_token 정상
+
+**효과**: Phase 10 Plan 3 Wave 0 OAuth step 이미 통과 상태로 진입 가능. Plan 3 실행 시 OAuth 재인증 생략.
+
+### Mac Mini 인프라 전환 계획 박제 (commit e4ab949)
+
+대표님 세션 #27 확언: "맥미니 셋팅 안 해놔서 구현만 해놓고, 한동안은 내가 윈도우 PC 로 너와 작업함".
+
+신규 메모리 `project_server_infrastructure_plan.md` (10번째 메모리):
+- 현재 Windows PC (임시) → 장기 Mac Mini (상시 가동 headless)
+- Windows Task Scheduler → macOS launchd plist 3종 이관 절차 8단계
+- 이관 판정 3 조건: Mac Mini OS 셋팅 + 상시 가동 + Windows 1개월+ 실적 축적
+- Phase 10 Python 스크립트는 cross-platform 으로 작성되어 재사용 가능
+
+Plan 4 objective 에 Server Migration Note 추가 + 10-CONTEXT.md Deferred Ideas 에 "Mac Mini 이관" 엔트리 추가 (Phase 11 candidate).
+
+### Git Commits (세션 #27, 5 commits, origin push 완료)
+
+```
+628e4b7 docs(handoff): 세션 #27 박제 — Part A + Phase 10 Plan 8 + OAuth + Mac Mini 메모리
+e4ab949 docs(memory): 서버 인프라 전환 계획 박제 + Plan 4/CONTEXT 에 Mac Mini migration note
+2fda570 feat(oauth): SCOPES 확장 — yt-analytics.readonly 추가 (Plan 3 Wave 0 선행)
+83d2af8 docs(phase-10): plan 8 PLAN.md + RESEARCH + VALIDATION + CONTEXT — Sustained Operations 진입 준비
+8172e9c fix(context): 세션 컨텍스트 단절 영구 수정 — memory 9종 + session_start Step 4-6 + FAILURES.md F-CTX-01
+```
+
+origin push: 969d84d..628e4b7 → main. 5 files +6394 lines 전수 동기화.
+
+### 교훈 / 재발 방지 박제
+
+1. **"AI 가 먹기만 할 뿐 제대로 주는 걸 안 읽는다" 는 착각** — 실제 근본 원인은 **Claude Code 세션 시작 메커니즘**. SessionStart hook 이 감사만 하고 메모리/핸드오프 주입 안 하면 Claude 는 읽을 수가 없음. 텍스트 지시 (CLAUDE.md Session Init) 는 부족. **코드로 강제 주입** 이 해법.
+2. **"핸드오프는 정리만 한다" 는 관행 위험** — WORK_HANDOFF 에 "메모리 4개 갱신" 이라 쓰면서 실제 메모리 파일은 0개였음 (세션 #24~#26 반복). **로컬 저장소 파일 실존** 이 박제의 본질. 텍스트 기록은 박제가 아님.
+3. **경영자 위임 시 AI 는 "최고 품질" 기준을 명확히 선언하고 근거 박제해야** — 대표님이 "개발자 아니니 결정해라" 했을 때 AI 가 임의 결정하면 다음 세션에서 "왜 이거야?" 재질문 유발. Part B 3 Locked Decision 각각에 **근거 + trade-off + 선택 이유** 가 plan 파일 + CONTEXT.md 에 동시 박제되어 있음.
+4. **"구현만 해놓고 나중에" 는 valid pattern** — 대표님 Mac Mini 이관처럼 **장기 계획 + 임시 운영 분리** 는 정상. 단 "장기 계획을 메모리로 박제" 하지 않으면 나중에 "왜 Windows 전용이지?" 재탐색 발생. `project_server_infrastructure_plan.md` 가 이 방어.
+
+### 미완료 (대표님 결정 대기)
+
+- `/gsd:execute-phase 10` 실행 시점 (오늘 / 오늘 저녁 / 내일 / 주말)
+- Plan 4 실행 시 manual dispatch:
+  - SMTP app password 생성 (Gmail/Naver 2단계 인증 → 앱 비밀번호)
+  - PowerShell 관리자 실행 → `scripts/schedule/windows_tasks.ps1` 1회
+  - GH repo Settings → Secrets 에 5개 등록
+
+### 다음 세션 진입점
+
+**A. Phase 10 execute 착수**:
+```
+/gsd:execute-phase 10
+```
+Wave 1 (Plans 01 + 02 병렬) 부터 시작. 예상 2~4 시간 AI 실 작업 + 대표님 10~15 분 manual dispatch.
+
+**B. 핸드오프 3종 참조** (본 세션에서 준비됨):
+- WORK_HANDOFF.md (세션 #27 박제, 전체 상태 요약)
+- SESSION_LOG.md (본 엔트리, 역사 박제)
+- `.planning/phases/10-sustained-operations/10-EXECUTE-PREFLIGHT.md` (execute-phase 진입 체크리스트)
+
+**C. 중장기 Phase 11 candidate**:
+- Mac Mini 서버 이관
+- auto-route Kling → Veo
+- Producer AGENT.md monthly_context wikilink (D-2 Lock 해제 후)
+
