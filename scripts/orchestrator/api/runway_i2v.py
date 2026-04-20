@@ -40,8 +40,19 @@ if TYPE_CHECKING:
 DEFAULT_MODEL = "gen3a_turbo"  # 2026-04-20 대표님 dual-tier 결정: batch primary
 # (flagship primary = gen4.5, 복합 prompt 품질 우위이나 $0.60/5s + 129s latency;
 #  batch primary = gen3a_turbo, 품질 충분 + $0.25/5s + 21s latency = 6x throughput).
-# 모델별 valid ratios 상이: gen3a_turbo ∈ {"16:9","9:16","768:1280","1280:768"}.
-DEFAULT_RATIO = "768:1280"  # 9:16 vertical Shorts format (gen3a_turbo compatible)
+# 모델별 valid ratios 는 VALID_RATIOS_BY_MODEL 을 source of truth 로 한다 (D-12).
+
+# ---------------------------------------------------------------------------
+# VALID_RATIOS_BY_MODEL — per-model allowed ratios, D-12 (2026-04-20 실측).
+# Phase 10 에서 새 모델 추가 시 이 dict 에 key 만 확장; constructor kwargs 는
+# 변경하지 않는다.
+# ---------------------------------------------------------------------------
+VALID_RATIOS_BY_MODEL: dict[str, list[str]] = {
+    "gen3a_turbo": ["16:9", "9:16", "768:1280", "1280:768"],
+    "gen4.5": ["720:1280"],
+}
+
+DEFAULT_RATIO = VALID_RATIOS_BY_MODEL[DEFAULT_MODEL][0]  # "16:9" — gen3a_turbo 첫 valid
 DEFAULT_POLL_TIMEOUT_S = 600
 DEFAULT_HTTP_TIMEOUT_S = 120
 DEFAULT_OUTPUT_DIR = Path("outputs/runway")
@@ -64,6 +75,8 @@ class RunwayI2VAdapter:
         api_key: str | None = None,
         circuit_breaker: "CircuitBreaker | None" = None,
         output_dir: Path | None = None,
+        model: str | None = None,
+        ratio: str | None = None,
     ) -> None:
         resolved = (
             api_key
@@ -78,6 +91,26 @@ class RunwayI2VAdapter:
         self._api_key = resolved
         self.circuit_breaker = circuit_breaker
         self.output_dir = output_dir or DEFAULT_OUTPUT_DIR
+
+        # D-12 model/ratio validation — fail fast on unsupported combinations
+        # so Phase 10 Gen-4.5 migration produces a clear Korean error instead
+        # of a silent 400 from the Runway API.
+        self.model = model or DEFAULT_MODEL
+        if self.model not in VALID_RATIOS_BY_MODEL:
+            raise ValueError(
+                f"RunwayI2VAdapter: 알 수 없는 model '{self.model}' — "
+                f"지원 모델: {list(VALID_RATIOS_BY_MODEL)} (대표님)"
+            )
+        valid = VALID_RATIOS_BY_MODEL[self.model]
+        if ratio is None:
+            self.ratio = valid[0]
+        elif ratio not in valid:
+            raise ValueError(
+                f"RunwayI2VAdapter: model '{self.model}' 의 유효 ratio 는 {valid}, "
+                f"받은 값: '{ratio}' (대표님)"
+            )
+        else:
+            self.ratio = ratio
 
     # ------------------------------------------------------------------
     # Public API — I2V only (D-13 physical absence of text-only mode).
@@ -110,10 +143,10 @@ class RunwayI2VAdapter:
         )
 
         kwargs: dict[str, Any] = {
-            "model": DEFAULT_MODEL,
+            "model": self.model,
             "prompt_image": req.anchor_frame,
             "prompt_text": req.prompt,
-            "ratio": DEFAULT_RATIO,
+            "ratio": self.ratio,
             "duration": req.duration_seconds,
         }
         return self._invoke_runway(kwargs)
@@ -196,4 +229,5 @@ __all__ = [
     "RunwayI2VAdapter",
     "DEFAULT_MODEL",
     "DEFAULT_RATIO",
+    "VALID_RATIOS_BY_MODEL",
 ]
