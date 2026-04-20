@@ -1,0 +1,17 @@
+{
+  "session_id": "phase11_20260421_031945",
+  "status": "FAILED",
+  "error": "Producer 'trend-collector' JSON 미준수 (대표님): Expecting value: line 1 column 1 (char 0)",
+  "video_url": null,
+  "wall_time_seconds": 149.74,
+  "gate_file_count": 0,
+  "total_cost_usd_estimate": 0.0,
+  "per_gate_cost_usd": {},
+  "per_gate_retries": {},
+  "total_retries": 0,
+  "budget_usd": 5.0,
+  "budget_breached": false,
+  "retry_cap_breached": false,
+  "state_dir": "state/phase11_20260421_031945",
+  "generated_at": "2026-04-21T03:22:24.298566"
+}
