@@ -64,3 +64,13 @@ def preserve_env():
     finally:
         os.environ.clear()
         os.environ.update(saved)
+
+
+@pytest.fixture
+def repo_root() -> Path:
+    """Absolute path to studio repo root (studios/shorts/).
+
+    Plan 11-04 (PIPELINE-04 wrapper smoke) fixture. conftest.py lives at
+    tests/phase11/; parents[2] resolves to repo root regardless of cwd.
+    """
+    return _REPO_ROOT
