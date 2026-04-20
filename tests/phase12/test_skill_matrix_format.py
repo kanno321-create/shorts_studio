@@ -82,28 +82,36 @@ def test_matrix_reciprocity_with_agent_md():
     """Plan 02 + Plan 03 완료 후 실행 — 0 drift 기대.
 
     Plan 04 단독 실행 시 drift 존재할 수 있음 (AGENT.md v1.2 migration 전).
-    이 경우 trend-collector version check → skip (Plan 02/03 대기).
+    Skip condition: 모든 migration target agent 의 AGENT.md 가 v1.2 인지 전수 확인.
+    parallel Plan 02/03 실행 중 일부만 migrated 된 race-state 도 skip 으로 처리.
     """
     drift_count, drifts = verify_reciprocity(fail_on_drift=False)
-    if drift_count > 0:
-        # Check if AGENT.md migration is complete (v1.2 bumped)
-        t = _agent_md_path("trend-collector")
-        if t is None or not t.exists():
-            pytest.skip("trend-collector AGENT.md not found — Plan 01 precondition missing")
-        text = t.read_text(encoding="utf-8")
-        # niche-classifier is a quick proxy: if it's not v1.2, Plan 02 hasn't run
-        nc = _agent_md_path("niche-classifier")
-        nc_migrated = (
-            nc is not None
-            and nc.exists()
-            and "version: 1.2" in nc.read_text(encoding="utf-8")
+    if drift_count == 0:
+        return  # PASS — full reciprocity achieved
+
+    # Check completion state: count how many producer+inspector AGENT.md files
+    # are at v1.2. If any migration target is still < v1.2, Plan 02/03 incomplete.
+    migration_targets: list[tuple[str, Path | None]] = []
+    for p in PRODUCERS:
+        migration_targets.append((p, _agent_md_path(p)))
+    for _, ins in INSPECTORS:
+        migration_targets.append((ins, _agent_md_path(ins)))
+
+    not_migrated: list[str] = []
+    for name, path in migration_targets:
+        if path is None or not path.exists():
+            not_migrated.append(f"{name}: AGENT.md missing")
+            continue
+        text = path.read_text(encoding="utf-8")
+        if "version: 1.2" not in text:
+            not_migrated.append(name)
+
+    if not_migrated:
+        pytest.skip(
+            f"AGENT.md migration incomplete — re-run after Plan 02 + Plan 03. "
+            f"{len(not_migrated)}/{len(migration_targets)} agents not yet at v1.2. "
+            f"Current drift: {drift_count}. Not migrated: {not_migrated[:5]}..."
         )
-        if not nc_migrated:
-            pytest.skip(
-                f"AGENT.md migration incomplete — re-run after Plan 02 + Plan 03. "
-                f"Current drift: {drift_count}"
-            )
-        pytest.fail(
-            f"{drift_count} drifts despite AGENT.md migration complete: {drifts[:3]}"
-        )
-    assert drift_count == 0
+    pytest.fail(
+        f"{drift_count} drifts despite all {len(migration_targets)} agents migrated: {drifts[:3]}"
+    )
