@@ -398,6 +398,11 @@ class ClaudeAgentSupervisorInvoker:
         from .state import Verdict
 
         gate_name = getattr(gate, "name", str(gate))
+        # --- Phase 12 AGENT-STD-03 (D-A4-04): compress producer_output ---
+        # Avoids Phase 11 smoke 2차 "프롬프트가 너무 깁니다" (rc=1). See
+        # :func:`_compress_producer_output` for the summary-only contract.
+        output = _compress_producer_output(output)
+        # -----------------------------------------------------------------
         user_payload = json.dumps(
             {"gate": gate_name, "producer_output": output},
             ensure_ascii=False,
@@ -470,3 +475,111 @@ def make_default_asset_sourcer(
         return nanobanana_adapter.generate_scene(prompt)
 
     return _source
+
+
+# ============================================================================
+# Phase 12 AGENT-STD-03: Supervisor producer_output compression (D-A4-01~04)
+# ============================================================================
+# Context: Phase 11 live smoke 2차 attempt saw GATE 2 supervisor CLI return
+# rc=1 with "프롬프트가 너무 깁니다" (prompt too long) when the Producer output
+# accumulated large decisions[]/evidence[] arrays plus verbose semantic_feedback
+# + raw_response prose. Sending the raw dict to Claude CLI body exceeded the
+# context budget. D-A4-04 mandates summary-only compression at the Supervisor
+# invoker entry point — the full producer_output is still preserved upstream
+# (rubric aggregation, downstream fan-out, logging) because this function is
+# invoked ONLY on the Supervisor CLI prompt path.
+
+_COMPRESS_CHAR_BUDGET = 2000  # D-A4-01 default — decisions/evidence char budget
+
+
+def _compress_producer_output(output: dict) -> dict:
+    """Compress producer_output to summary-only form for Supervisor CLI prompt.
+
+    D-A4-01 contract:
+      - Preserve: ``gate``, ``verdict``, ``error_codes[]`` (전수 — never truncated)
+      - Truncate: ``decisions[]`` OR ``evidence[]`` — severity_desc → score_asc
+        sorted when severity is present, then collected front-to-back until the
+        per-entry JSON byte budget ``_COMPRESS_CHAR_BUDGET`` is exhausted.
+        If any entries remain uncollected, add ``_truncated`` meta string.
+      - Drop: verbose prose (``raw_response``, full ``semantic_feedback``)
+      - Keep: a short ``semantic_feedback_prefix`` (first 200 chars) if the
+        raw field is a string — preserves a minimal context hint for the
+        Supervisor without the full verbose body.
+
+    Pitfall 4 mitigation (RESEARCH §Pitfalls #4): Inspector rubric-schema.json
+    uses ``evidence[]`` as the primary key while D-A4-01 wording assumes
+    ``decisions[]``. We fall back across both — whichever is a non-empty list
+    is chosen as the compression source.
+
+    Args:
+        output: Raw producer_output dict from Producer/Inspector invoker.
+
+    Returns:
+        Compressed dict with summary-only shape, suitable for the Claude CLI
+        ``--print`` body. The original ``output`` argument is not mutated.
+    """
+    compressed: dict = {
+        "gate": output.get("gate"),
+        "verdict": output.get("verdict"),
+        "error_codes": list(output.get("error_codes", [])),
+    }
+
+    # Keep short semantic_feedback prefix (drop full verbose body)
+    sf = output.get("semantic_feedback")
+    if sf and isinstance(sf, str):
+        compressed["semantic_feedback_prefix"] = sf[:200]
+
+    # Pitfall 4: decisions[] OR evidence[] 2-key fallback
+    source_key: str | None = None
+    source_list: list = []
+    for key in ("decisions", "evidence"):
+        val = output.get(key, [])
+        if isinstance(val, list) and val:
+            source_key = key
+            source_list = val
+            break
+
+    if not source_list:
+        return compressed
+
+    # severity_desc → score_asc sort when severity is present
+    sev_rank = {"critical": 0, "high": 1, "medium": 2, "low": 3}
+    has_severity = any(
+        isinstance(d, dict) and "severity" in d for d in source_list
+    )
+
+    def _sort_key(d: dict) -> tuple[int, float]:
+        s_rank = sev_rank.get(d.get("severity", "low"), 3)
+        score = d.get("score", 9999)
+        score_val = score if isinstance(score, (int, float)) else 9999
+        return (s_rank, score_val)
+
+    if has_severity:
+        sorted_source = sorted(source_list, key=_sort_key)
+    else:
+        sorted_source = list(source_list)
+
+    # char budget collection (JSON-serialised byte size per entry)
+    kept: list = []
+    char_used = 0
+    for d in sorted_source:
+        entry_size = len(json.dumps(d, ensure_ascii=False))
+        if char_used + entry_size > _COMPRESS_CHAR_BUDGET:
+            break
+        kept.append(d)
+        char_used += entry_size
+
+    # Guarantee at least 1 entry (the highest-priority one) even if it
+    # exceeds the budget alone — otherwise Supervisor loses all context.
+    if not kept and sorted_source:
+        kept.append(sorted_source[0])
+
+    assert source_key is not None  # invariant: source_list non-empty ⇒ key set
+    compressed[source_key] = kept
+    if len(kept) < len(source_list):
+        compressed["_truncated"] = (
+            f"{len(source_list) - len(kept)} more {source_key} entries truncated "
+            f"(char budget {_COMPRESS_CHAR_BUDGET} exceeded, severity-sorted)"
+        )
+
+    return compressed
