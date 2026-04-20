@@ -325,7 +325,7 @@ Plans:
   4. `<mandatory_reads>` 블록이 모든 AGENT.md 의 첫 블록에 존재 — FAILURES.md + channel_bible + 해당 에이전트 관련 스킬 참조
   5. Phase 11 에서 실패했던 trend-collector JSON 미준수 패턴 재현 불가 (regression test 추가)
   6. skill_patch_counter 는 Phase 12 의 30+ 파일 patch 를 "directive-authorized batch" 로 단일 F-D2-EXCEPTION-02 entry 처리 (중복 기록 없음 — Phase 11 AUDIT-05 idempotency 활용)
-**Plans:** 2/7 plans executed
+**Plans:** 3/7 plans executed
 
 - [x] 12-01-PLAN.md — Wave 0/1 Infrastructure + Templates + Wave 0 tests scaffold + trend-collector v1.2 승격 + VALIDATION.md flip (AGENT-STD-01/02)
 - [ ] 12-02-PLAN.md — Wave 2 Producer 12 migration (Core 5 + Support 7) + skill_patch_counter 확장 + F-D2-EXCEPTION-02 Wave 2 entry (AGENT-STD-01/02, FAIL-PROTO-02)
@@ -333,7 +333,7 @@ Plans:
 - [x] 12-04-PLAN.md — Wave 2 Skill Matrix SSOT + REQUIREMENTS §383 정정 + verify_agent_skill_matrix.py (SKILL-ROUTE-01)
 - [ ] 12-05-PLAN.md — Wave 2 FAILURES.md 500줄 rotation + Hook 확장 + _imported HARD-EXCLUDE (FAIL-PROTO-01)
 - [ ] 12-06-PLAN.md — Wave 4 Mandatory Reads prose verifier (AGENT-STD-02 soft enforcement)
-- [ ] 12-07-PLAN.md — Wave 2 Supervisor Prompt Compression + `_compress_producer_output()` + Phase 11 smoke 2차 fixture (AGENT-STD-03)
+- [x] 12-07-PLAN.md — Wave 2 Supervisor Prompt Compression + `_compress_producer_output()` + Phase 11 smoke 2차 fixture (AGENT-STD-03)
 
 ---
 
@@ -353,7 +353,7 @@ Plans:
 | 9.1. Production Engine Wiring | 7/7 | ✅ Complete | 2026-04-20 |
 | 10. Sustained Operations | 8/8 | Complete    | 2026-04-20 |
 | 11. Pipeline Real-Run Activation | 5/6 | 🟡 Complete (Deferred SC#1/SC#2) | 2026-04-21 |
-| 12. Agent Standardization | 2/7 | In Progress|  |
+| 12. Agent Standardization | 3/7 | In Progress|  |
 
 ---
 
