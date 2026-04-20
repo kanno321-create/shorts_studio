@@ -145,9 +145,57 @@ Phase 9 (세션 #24 잔류):
 | 6 | `remotion_src_raw/` 40 파일 integration | 신규 작업 scope, Phase 10 재설계 소관 |
 | 7 | `Shotstack.create_ken_burns_clip` 완전 제거 | adapter tests 연쇄, 실측 안정성 확인 필요 |
 
-### Git Commit (세션 #26)
+### 2차 작업 (동일 세션 이어서) — shorts_naberal settings port + UAT #2 재정의
+
+대표님 새 정보 2건: (1) "api key는 shorts_naberal 에 있음" (2) "현재 운영중인 주 체널은 타입캐스트다". → Phase 9.1 UAT #2 를 ElevenLabs 만 타겟으로 잡은 것 오류 확증. shorts_naberal 광범위 분석 (Explore agent medium thoroughness) 후 대표님 지시 "파이프라인은 새롭게 만든다고해도 셋팅값은 가져오는게 좋을거다, ABC 다 진행".
+
+**대표님 지시 정책 결정 박제**: `feedback_clean_slate_rebuild` 에 **§예외 확장 (세션 #26)** 추가 — "imperative 코드는 신 구축 / declarative 설정값은 포팅 허용". 3중 테스트 (재구현 비용 / 원본 불변성 / 백지 설계 불가) 모두 통과 시 포팅.
+
+### 완결 항목 (2차, 세션 #26 확장)
+
+| # | 파일/영역 | 변경 |
+|---|----------|------|
+| 12 | `memory/reference_api_keys_location.md` | **신규** — shorts_naberal/.env 레지스트리 위치 + key 이름 목록 |
+| 13 | `memory/project_tts_stack_typecast.md` | **신규** — Typecast primary + ElevenLabs fallback + Fish Audio dead code + EdgeTTS 최종 폴백 |
+| 14 | `memory/reference_shorts_naberal_voice_setup.md` | **신규** — 11 채널 voice 매트릭스 + 숨은 규약 6개 (ZWSP silence / auto_punctuation_pause / emotion_intensity 등) |
+| 15 | `memory/feedback_clean_slate_rebuild.md` | **§예외 확장 추가** — declarative config 포팅 허용 정책 박제 |
+| 16 | `memory/MEMORY.md` index | 3 신규 항목 추가 (lines ~22-24) |
+| 17 | `config/voice-presets.json` | **포팅** (shorts_naberal, 611 lines, 19KB) — Typecast 11 채널 voice matrix |
+| 18 | `config/channels.yaml` | **포팅** (shorts_naberal, 693 lines, 30KB) + PROVENANCE header 주입 |
+| 19 | `config/PROVENANCE.md` | **신규** — import 이력 + 비 이관 자산 13건 분류 + 포팅 절차 |
+| 20 | `.env.example` | **신규** — TTS/Image/Video/YouTube key 템플릿 + 금지 항목 (ANTHROPIC_API_KEY) 명시 |
+| 21 | `.planning/phases/09.1-production-engine-wiring/09.1-HUMAN-UAT.md` #2 | **재정의** — 2-a Typecast primary voice resolution + 2-b ElevenLabs fallback 2단계로 분리. 재정의 배경 + Fish Audio dead code 확증 + D091-DEF-02 #8 링크 |
+| 22 | `.planning/phases/09.1-production-engine-wiring/deferred-items.md` D091-DEF-02 | **#8 #9 #10 추가** + #3 partial resolution 마크 |
+
+### 포팅 경계 원칙 (세션 #26 박제)
+
+**포팅 허용 (declarative)**:
+- voice_id, emotion mapping, channel metadata, TTS emotion_map, model 매핑
+
+**포팅 금지 (imperative/identity)**:
+- tts_generate.py 4-tier fallback 로직
+- longform_tts.py Session-77 스키마 정규화
+- orchestrate.py Phase 47 ideation
+- channel_bibles/ 채널 identity (wiki/continuity_bible 로 신 설계 완료)
+- theme_bible 7 파일 (Morgan Freeman 톤 / Ken Burns 등, 기존 원칙 유지)
+
+**Phase 2 port backlog (D091-DEF-02 #10)**:
+- api-budgets.yaml / duo-repertoire.json / niche-profiles/ / curation/ / music-config.json
+- Phase 10 실측 후 각 항목 declarative/imperative/identity 재분류
+
+### 핵심 교훈 (2차 추가)
+
+5. **"실 운영 주 채널" 대표님 확인 없이 UAT 설계 금지** — Phase 9.1 Plan 07 (voice_discovery) 이 ElevenLabs 에만 물려 있어 UAT #2 도 ElevenLabs 만 타겟으로 작성됨. 주 채널 (Typecast) 확인 없이 작동 중인 것처럼 가정하고 fallback 만 검증하는 것은 "skip the primary" 안티패턴. 신 Phase HUMAN-UAT 작성 시 "실 production 주 경로가 맞냐" 를 첫 질문으로.
+
+6. **백지 원칙 예외 확장 필요성** — `feedback_clean_slate_rebuild` 의 원 3중 테스트는 "회계 공식 / hc_checks" 같은 알고리즘 불변성만 염두. voice_id 처럼 **외부 API 상수 + 실 운영 튜닝 데이터** 카테고리가 누락. 세션 #26 에서 해당 카테고리 명시 박제. 판정 질문: "외부 상수/튜닝 데이터 vs 로직/아이덴티티?".
+
+7. **Fish Audio dead code 확증은 shorts_studio scope 축소 근거** — shorts_naberal 에서 모든 reference_id = `PENDING_VOICE_SELECTION` 로 Tier 1 실제 미작동. shorts_studio 는 **3-tier** (Typecast→ElevenLabs→EdgeTTS) 로 단순화 (D091-DEF-02 #9). 기존 4-tier 설계 문서는 정합화 과제.
+
+### Git Commit (세션 #26) — 최종
+
 ```
-(pending) docs(memory): D091-DEF-02 #3 resolved — project_video_stack rename to kling26 + Stage 4 drift 복구
+05a00f3 docs(memory): D091-DEF-02 #3 resolved — project_video_stack rename to kling26 + Stage 4 drift 복구 (1차, 7 files)
+(pending) feat(config): shorts_naberal TTS settings port + UAT #2 Typecast primary 재정의 (2차)
 ```
 
 ### 미완료 (HUMAN-UAT 4건, 대표님 수동 only — 세션 #25 대비 무변경)

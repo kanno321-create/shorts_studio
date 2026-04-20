@@ -119,11 +119,38 @@
 
 ---
 
-## 세션 #26 Git Commits (shorts_studio) — safe memory rename
+## 세션 #26 Git Commits (shorts_studio) — 2차 batch: settings port + UAT #2 재정의
 
 ```
-(pending) docs(memory): D091-DEF-02 #3 resolved — project_video_stack rename to kling26 + Stage 4 drift 복구 (9 files)
+05a00f3 docs(memory): D091-DEF-02 #3 resolved — project_video_stack rename to kling26 + Stage 4 drift 복구 (1차, 7 files)
+(pending) feat(config): shorts_naberal TTS settings port + UAT #2 Typecast primary 재정의 (2차)
 ```
+
+## 세션 #26 2차 — shorts_naberal settings port 요약
+
+**트리거**: 대표님 새 정보 2건 → "api key는 shorts_naberal" + "주 채널은 타입캐스트"
+**정책 박제**: `feedback_clean_slate_rebuild` §예외 확장 — declarative config 포팅 허용
+
+**포팅 완료**:
+- `config/voice-presets.json` (611 lines) — 11 채널 Typecast + ElevenLabs voice matrix
+- `config/channels.yaml` (693 lines) + PROVENANCE header
+- `config/PROVENANCE.md` (신규, import 이력 + 비 이관 자산 13건 분류)
+- `.env.example` (신규, TTS/Image/Video/YouTube key + ANTHROPIC 금지 명시)
+
+**메모리 박제 3건 + 1 업데이트**:
+- `reference_api_keys_location.md` (신규)
+- `project_tts_stack_typecast.md` (신규) — Typecast primary / ElevenLabs fallback / Fish dead / EdgeTTS 폴백
+- `reference_shorts_naberal_voice_setup.md` (신규) — 11 채널 매트릭스 + 숨은 규약 6개
+- `feedback_clean_slate_rebuild.md` §예외 확장 추가
+
+**UAT #2 재정의 (Phase 9.1)**:
+- 2-a: Typecast primary voice resolution (주 채널 검증)
+- 2-b: ElevenLabs fallback Korean voice (기존 내용 유지)
+
+**D091-DEF-02 +3 항목**:
+- #8 voice_discovery.py Typecast 확장
+- #9 Fish Audio Tier 제거 → 3-tier 단순화
+- #10 Phase 2 config port backlog (api-budgets, niche-profiles 등)
 
 ## 세션 #25 Git Commits (shorts_studio) — 박제 batch 완결
 

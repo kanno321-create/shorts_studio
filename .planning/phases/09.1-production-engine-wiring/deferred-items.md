@@ -67,6 +67,16 @@ Shorts default). Update `tests/phase091/test_runway_ratios.py` matchers.
 6. **`remotion_src_raw/` 40 파일 고아 자산 integration** — Phase 9.1 scope 외, shorts_naberal 승계 자산 Tier 3 등록 검토.
 7. **`Shotstack.create_ken_burns_clip` 완전 제거** — Phase 9.1 Plan 03 에서 KenBurnsLocal 로 교체 완료. Shotstack 클라우드 의존 제거 마무리.
 
+8. **voice_discovery.py Typecast 확장** (세션 #26 추가) — 현재 `discover_korean_default_voice()` 는 ElevenLabs 전용 (`GET /v1/voices` + labels.language 필터). shorts_naberal 실 운영 주 채널이 Typecast 이므로 primary 경로 resolution 도 동일 util 로 지원 필요. 확장 시 `voice-presets.json` 11 채널 Typecast voice_name → voice_id 캐시 (`_typecast_voice_cache`) 통합.
+
+9. **Fish Audio Tier 1 제거 → 3-tier 단순화** (세션 #26 추가) — shorts_naberal 실 운영에서 Fish Audio 는 dead code 확증 (모든 reference_id = `PENDING_VOICE_SELECTION`, Tier 1 즉시 ValueError). shorts_studio 이관 시 **3-tier** (Typecast → ElevenLabs → EdgeTTS) 로 단순화 권장. Phase 9.1 pipeline 은 현재 Typecast primary + ElevenLabs fallback 2-tier 만 구현 — Fish 블록 미구현 상태이므로 실제로는 추가 작업 없음, 문서/설계만 정합화.
+
+10. **Phase 2 config port backlog** (세션 #26 추가) — 세션 #26 에서 `voice-presets.json` + `channels.yaml` 만 shorts_naberal → shorts_studio 포팅 완료 (declarative settings 예외). 잔여 후보 (`config/PROVENANCE.md` §비 이관 자산 참조): `api-budgets.yaml` / `duo-repertoire.json` / `niche-profiles/` / `curation/` / `music-config.json` 등. Phase 10 실측 데이터 축적 후 재판정 — 각 항목이 declarative/imperative/identity 3분류 어디에 속하는지 결정 후 포팅/신구축/흡수금지 선택.
+
 **Resolution target:** Phase 10 첫 batch patch window (D-2 저수지 규율에 따라 첫 1-2개월 실 실패 데이터 축적 후 일괄 처리).
+
+**세션 #26 partial resolution**:
+- #3 메모리 파일명 rename — **RESOLVED 세션 #26** (2026-04-20), 9 파일 cascade. 위 entry §3 참조.
+- #8 #9 #10 — **세션 #26 신규 추가**, Phase 10 batch window 유지.
 
 ---

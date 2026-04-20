@@ -1,0 +1,707 @@
+# ============================================================================
+# CHANNEL REGISTRY — 싱글 소스 오브 트루스
+# 새 채널 추가 시 이 파일만 수정하면 됩니다.
+# ============================================================================
+#
+# ----------------------------------------------------------------------------
+# PROVENANCE
+# ----------------------------------------------------------------------------
+# Imported from: C:/Users/PC/Desktop/shorts_naberal/config/channels.yaml
+# Imported at:   2026-04-20 (세션 #26)
+# Rationale:     declarative config (channel metadata + TTS emotion_map).
+#                feedback_clean_slate_rebuild §예외 확장 — 실 운영 튜닝 데이터
+#                재발견 비용 >> 이관 비용, voice_id 는 외부 API 상수, 백지 설계 불가.
+# Do not:        edit shorts_naberal 원본 (live production, touch 금지).
+#                이 복사본만 수정. 수정 내역은 shorts_studio SESSION_LOG 에 박제.
+# Related:       config/voice-presets.json (same port, same session)
+#                config/PROVENANCE.md (import 이력 통합)
+# ----------------------------------------------------------------------------
+
+channels:
+  humor:
+    display_name: 썰튜브
+    youtube_channel_id: ""
+    upload_schedule:
+      days: [mon, wed, fri]
+      time: "18:00"
+      timezone: "Asia/Seoul"
+    voice:
+      provider: typecast
+      voice_name: Changsu
+      tempo: 1.1
+    voice_alt:
+      - provider: typecast
+        voice_name: Sungjun
+        tempo: 1.0
+        style: "홈쇼핑 아나운서 (정중한 바보)"
+      - provider: typecast
+        voice_name: Piljae
+        tempo: 1.0
+        style: "썰/스토리텔링 특화"
+    voice_preset: narrator-male-01
+    accent_color: "#FFC947"
+    hook_style: story
+    cta_style: opinion_ask
+    tone_guide: "정중한 바보 아나운서 스타일, 격식체인데 내용이 엉뚱, 유머+썰 통합"
+    loop_layer_enabled: true   # D-47-11: 단발 콘텐츠, AVD 루프 효과 큼
+    channel_greeting: "안녕하십니까. 중요한 건 아닌데 일단 들어보십시오."
+    emotion_map:
+      hook: { emotion: "happy", intensity: 1.2 }
+      body: { emotion: "normal", intensity: 1.0 }
+      climax: { emotion: "toneup", intensity: 1.5 }
+      cta: { emotion: "happy", intensity: 1.0 }
+    transitions_pool: ["fade", "pixelate", "checkerboard"]
+    joker_terms:
+      en: ["funny office moment", "laughing crowd", "surprised reaction face", "colorful abstract background"]
+      ko: ["사무실 일상", "웃는 사람들", "놀란 표정"]
+    forbidden_cta: ["구독", "좋아요", "알림"]
+    camera_patterns: ["zoom_in", "pan_right", "zoom_out", "pan_left"]
+    hook_example: "이런 일이 있었는디유..."
+    cta_example: "이런 경험 있으면 댓글 달아주쥬"
+    narration_examples:
+      establishing: "근데 이 사건이 어떻게 시작됐냐면유..."
+      detail: "알고 보니까 이게 장난이 아닌 거여..."
+      reaction: "사람들 반응이 완전 난리가 났는디유..."
+    description_templates:
+      establishing: "{topic} 사건이 벌어진 배경과 상황을 구체적으로 설명하는 씬"
+      detail: "{topic}의 핵심 내용과 웃긴 포인트를 팩트 기반으로 전달하는 씬"
+      reaction: "{topic}에 대한 사람들의 반응과 후속 영향을 보여주는 씬"
+    design:
+      accent: "#FFC947"
+      title_bg: "rgba(0,0,0,0.7)"
+      font: Pretendard
+      watermark_text: 썰튜브
+    remotion:
+      channelName: "썰 튜 브"
+      hashtags: "#쇼츠 #유머 #레전드"
+      transitions: [fade, fade]
+      defaultAccent: "#FFD000"
+
+  politics:
+    display_name: 정치한입
+    youtube_channel_id: ""
+    upload_schedule:
+      days: [tue, thu, sat]
+      time: "18:00"
+      timezone: "Asia/Seoul"
+    voice:
+      provider: typecast
+      voice_name: Sojin
+      tempo: 1.0
+    voice_alt:
+      - provider: typecast
+        voice_name: Myungil
+        tempo: 1.0
+        style: "냉소적 남성 톤"
+    voice_preset: politics-narrator
+    accent_color: "#E63946"
+    hook_style: shock_stat
+    cta_style: opinion_ask
+    tone_guide: "풍자와 비꼼, 꽁트처럼 비꼬면서 팩트 전달, 우파 시청자가 좋아하는 냉소적 유머, 뉴스앵커 톤 금지"
+    loop_layer_enabled: true   # D-47-11: 단발 commentary
+    channel_greeting: "안녕하세요 정치한입입니다."
+    emotion_map:
+      hook: { emotion: "toneup", intensity: 1.3 }
+      body: { emotion: "normal", intensity: 1.0 }
+      climax: { emotion: "angry", intensity: 1.5 }
+      cta: { emotion: "toneup", intensity: 1.2 }
+    transitions_pool: ["fade", "zoomBlur", "clockWipe"]
+    joker_terms:
+      en: ["parliament building exterior", "press conference microphones", "protest crowd signs", "government building night"]
+      ko: ["국회의사당", "기자회견", "시위 현장"]
+    forbidden_cta: ["구독", "좋아요", "알림"]
+    camera_patterns: ["zoom_in", "pan_left", "zoom_out", "pan_right"]
+    hook_example: "아 이건 진짜 웃기지도 않는데 웃깁니다"
+    cta_example: "이래도 지지하는 사람은 댓글 한번 달아봐 궁금하다 진짜"
+    narration_examples:
+      establishing: "자 여러분 이거 한번 들어보세요 진짜 기가 막힙니다"
+      detail: "근데 진짜 웃긴 건 여기서부터입니다"
+      reaction: "사람들 반응이 진짜 볼만합니다 댓글이 난리가 났어요"
+    description_templates:
+      establishing: "{topic} 사안의 배경을 풍자적으로 비꼬면서 팩트 전달하는 씬"
+      detail: "{topic}의 핵심 쟁점을 냉소적 유머로 꼬집는 씬"
+      context: "{topic}의 맥락을 비꼼 섞어 보충하는 씬"
+      reaction: "{topic}에 대한 커뮤니티 반응과 풍자적 댓글을 보여주는 씬"
+    design:
+      accent: "#E63946"
+      title_bg: "rgba(0,0,0,0.8)"
+      font: Pretendard
+      watermark_text: 정치한입
+    remotion:
+      channelName: 시사직격
+      hashtags: "#쇼츠 #정치 #시사"
+      transitions: [fade, fade]
+      defaultAccent: "#FF2200"
+
+  trend:
+    display_name: 트렌드픽
+    youtube_channel_id: ""
+    upload_schedule:
+      days: [tue, thu, sat]
+      time: "12:00"
+      timezone: "Asia/Seoul"
+    voice:
+      provider: typecast
+      voice_name: Camila
+      tempo: 1.0
+    voice_preset: trend-narrator
+    accent_color: "#00F5D4"
+    hook_style: question
+    cta_style: follow_ask
+    tone_guide: "MZ 대화체, 빠른 템포, 밈 활용, 친구한테 카톡하듯"
+    loop_layer_enabled: true   # D-47-11: 단발 bait
+    channel_greeting: "야 이거 장난 아니라고"
+    emotion_map:
+      hook: { emotion: "toneup", intensity: 1.4 }
+      body: { emotion: "normal", intensity: 1.0 }
+      climax: { emotion: "happy", intensity: 1.5 }
+      cta: { emotion: "toneup", intensity: 1.0 }
+    transitions_pool: ["fade", "lightLeak", "rgbSplit"]
+    joker_terms:
+      en: ["smartphone screen scrolling", "social media feed icons", "trending hashtag neon", "viral content sharing"]
+      ko: ["스마트폰 화면", "SNS 피드", "트렌드"]
+    forbidden_cta: ["구독", "좋아요", "알림"]
+    camera_patterns: ["zoom_in", "pan_right", "zoom_out", "pan_left"]
+    hook_example: "이거 레전드인디 ㄹㅇ"
+    cta_example: "나만 이래? 댓글 ㄱㄱ"
+    narration_examples:
+      establishing: "일단 상황 정리해줄게"
+      detail: "근데 진짜 미친 건 이거야"
+      reaction: "반응 보면 ㄹㅇ 난리남"
+    description_templates:
+      establishing: "{topic}이 왜 화제인지 상황을 빠르게 정리하는 씬"
+      detail: "{topic}의 핵심 포인트와 디테일을 전달하는 씬"
+      reaction: "{topic}에 대한 온라인 반응과 밈을 보여주는 씬"
+    design:
+      accent: "#00F5D4"
+      title_bg: "rgba(0,0,0,0.7)"
+      font: Pretendard
+      watermark_text: 트렌드픽
+    remotion:
+      channelName: 트렌드NOW
+      hashtags: "#쇼츠 #트렌드 #MZ"
+      transitions: [fade, fade]
+      defaultAccent: "#00F5D4"
+
+  incidents:
+    display_name: 사건기록부
+    youtube_channel_id: ""
+    nlm_notebook_url: "https://notebooklm.google.com/notebook/d9aa8c99-6b27-4797-b09a-8c3e509b1e11"
+    upload_schedule:
+      days: [mon, wed, fri]
+      time: "19:00"
+      timezone: "Asia/Seoul"
+    voice:
+      provider: typecast
+      voice_name: Morgan
+      tempo: 0.95
+      model: ssfm-v30
+    voice_alt:
+      - provider: typecast
+        voice_name: Sullock Hong
+        tempo: 0.9
+        style: "설록 홍 — 범죄/미스터리"
+      - provider: typecast
+        voice_name: Jungmin
+        tempo: 0.9
+        style: "정민 — 범죄/미국경찰"
+      - provider: typecast
+        voice_name: Risan Ji
+        tempo: 0.9
+        style: "리산 지 — 웅웅거림 이슈, 대체됨"
+    voice_preset: incidents-narrator
+    accent_color: "#E53E3E"
+    hook_style: story
+    cta_style: lingering
+    tone_guide: "탐정 독백 시점. 담담하게 시작→속삭이듯 클라이맥스→여운으로 마무리. 구독 직접 언급 금지."
+    loop_layer_enabled: false   # D-47-11: 시리즈 series_link + "놓지 않았습니다" 시그니처와 충돌 회피
+    channel_greeting: "오늘의 기록."
+    emotion_map:
+      hook: { emotion: "normal", intensity: 1.0 }
+      body: { emotion: "tonedown", intensity: 0.8 }
+      climax: { emotion: "whisper", intensity: 1.5 }
+      cta: { emotion: "sad", intensity: 1.0 }
+    transitions_pool: ["fade", "glitch", "rgbSplit"]
+    joker_terms:
+      en: ["dark empty street night", "police crime scene tape", "courtroom gavel closeup", "detective board red strings", "CCTV surveillance footage", "abandoned building mystery", "foggy mountain pass", "ancient ruins aerial", "deep ocean abyss", "strange lights night sky"]
+      ko: ["어두운 골목 야간", "경찰 수사 현장", "법정 내부", "수사 보드", "폐건물 미스터리", "안개 산길", "고대 유적", "심해 심연", "밤하늘 이상한 빛"]
+    forbidden_cta: ["구독", "좋아요", "댓글", "알림", "부탁"]
+    camera_patterns: ["zoom_in", "pan_right", "zoom_out", "pan_left"]
+    hook_example: "오늘의 기록."
+    cta_example: "저는 이 기록을 아직 덮지 않았습니다."
+    narration_style: detective_pov
+    narration_examples:
+      establishing: "현장에 도착했습니다... 조용한 주택가, 아무 일도 없었던 것처럼 보이는군요."
+      detail: "이 행동이 의미하는 건 하나입니다. 극도로 둔감하거나, 극도로 계획적이었습니다."
+      reaction: "저를 가장 불안하게 만드는 증거는 따로 있습니다."
+    description_templates:
+      establishing: "{topic} 사건의 현장과 인물을 탐정 시점으로 관찰하는 씬"
+      detail: "{topic}의 핵심 증거와 추론을 제시하는 씬"
+      reaction: "{topic}의 미해결 의문과 여운을 남기는 씬"
+    design:
+      accent: "#E53E3E"
+      title_bg: "rgba(0,0,0,0.85)"
+      font: Pretendard
+      watermark_text: 사건기록부
+    remotion:
+      channelName: 사건기록부
+      hashtags: "#쇼츠 #범죄 #미스터리 #기현상 #사건기록부"
+      transitions: [fade, fade]
+      defaultAccent: "#E53E3E"
+      subtitlePosition: 0.80
+      subtitleHighlightColor: "#FFFFFF"
+      subtitleFontSize: 68
+    video_style:
+      scene_types: [context_graphic, real_footage, impact_cut]
+      edit_pattern: crosscut
+      speaker_subtitles: true
+      speaker_colors:
+        police: "#60A5FA"
+        suspect: "#F87171"
+        victim: "#FCD34D"
+        civilian: "#A78BFA"
+        judge: "#34D399"
+      graphic_bg: "#0A0A0A"
+      graphic_text: "#FFFFFF"
+      graphic_subtext: "#9CA3AF"
+      impact_color: "#FFC947"
+
+  product_review:
+    display_name: 리뷰잇
+    youtube_channel_id: ""
+    upload_schedule:
+      days: [mon, wed, fri]
+      time: "18:00"
+      timezone: "Asia/Seoul"
+    voice:
+      provider: typecast
+      voice_name: Guri
+      tempo: 1.0
+    voice_preset: product-review-narrator
+    accent_color: "#4CAF50"
+    hook_style: question
+    cta_style: opinion_ask
+    tone_guide: "솔직하고 친근한 리뷰어 톤, 장단점 균형, 결론 명확"
+    narration_style: product_reviewer
+    channel_greeting: "이거, 돈값 합니까?"
+    duration_config:
+      target: 40
+      min: 30
+      max: 60
+    emotion_map:
+      hook: { emotion: "toneup", intensity: 1.2 }
+      body: { emotion: "normal", intensity: 1.0 }
+      climax: { emotion: "happy", intensity: 1.3 }
+      cta: { emotion: "normal", intensity: 1.0 }
+    transitions_pool: ["fade", "lightLeak"]
+    joker_terms:
+      en: ["product unboxing hands", "shopping cart online", "review stars rating"]
+      ko: ["제품 언박싱", "온라인 쇼핑"]
+    forbidden_cta: ["구독", "좋아요", "알림"]
+    camera_patterns: ["zoom_in", "pan_right", "zoom_out", "pan_left"]
+    hook_example: "이거 살까 말까 고민이면 보세요"
+    cta_example: "써본 사람 솔직 후기 댓글로 남겨주세요"
+    narration_examples:
+      establishing: "먼저 이 제품이 뭔지 간단히 설명할게요"
+      detail: "실제로 써보니까 이런 점이 있었어요"
+      reaction: "다른 사용자들 후기도 확인해봤는데요"
+    description_templates:
+      establishing: "{topic}의 기본 정보와 가격대를 소개하는 씬"
+      detail: "{topic}의 장단점을 실사용 관점에서 분석하는 씬"
+      reaction: "{topic}에 대한 다른 사용자 후기와 추천 여부를 정리하는 씬"
+      pros: "{topic}의 장점을 구체적 사용 경험 기반으로 보여주는 씬"
+      cons: "{topic}의 단점과 아쉬운 점을 솔직하게 짚는 씬"
+      verdict: "{topic}에 대한 최종 결론과 추천 조건을 제시하는 씬"
+    design:
+      accent: "#4CAF50"
+      title_bg: "rgba(0,0,0,0.7)"
+      font: Pretendard
+      watermark_text: 리뷰잇
+    remotion:
+      channelName: 리뷰잇
+      hashtags: "#쇼츠 #리뷰 #추천"
+      transitions: [fade, fade]
+      defaultAccent: "#4CAF50"
+
+  incidents_jp:
+    display_name: "冴木の手帳"
+    language: ja
+    region: JP
+    youtube_channel_id: ""
+    upload_schedule:
+      days: [mon, wed, fri]
+      time: "19:00"
+      timezone: "Asia/Tokyo"
+    voice:
+      provider: voicevox
+      voice_name: ""
+      engine: nemo
+      endpoint: "http://localhost:50121"
+      tempo: 1.0
+    voice_alt:
+      - provider: elevenlabs
+        voice_name: ""
+        tempo: 1.0
+        style: "犯罪ドキュメンタリーナレーター"
+    voice_preset: incidents-jp-narrator
+    accent_color: "#DC2626"
+    hook_style: mystery
+    cta_style: lingering
+    tone_guide: >
+      探偵の独白スタイル。だ/である体を基本とし、体言止めを多用。
+      客観的で教養ある語り口。感情は抑制的に、事実の配置で感じさせる。
+      視聴者に判断を委ねる。AI的な定型表現は厳禁。
+    channel_greeting: "今日の記録。"
+    narration_style: detective_pov
+    content_scope:
+      include: [korea, usa, europe]
+      exclude: [japan]
+    narration_examples:
+      establishing: "現場に到着した。静まり返った住宅街。"
+      detail: "ここを見ると、靴跡が残っている。事前に観察しなければ分からない経路だ。"
+      reaction: "この行動が意味するのは一つ。計画的だったということだ。"
+    hook_example: "今日の記録。韓国で起きたこの事件。犯人は逮捕された後、笑っていた。"
+    cta_example: "この事件の記録は、まだ閉じていない。"
+    emotion_map:
+      hook: { emotion: "normal", intensity: 1.0 }
+      body: { emotion: "tonedown", intensity: 0.8 }
+      climax: { emotion: "whisper", intensity: 1.5 }
+      cta: { emotion: "sad", intensity: 1.0 }
+    transitions_pool: ["fade", "glitch", "rgbSplit"]
+    joker_terms:
+      en: ["dark alley night tokyo", "police investigation japan", "courtroom interior", "detective evidence board"]
+      ja: ["暗い路地", "警察捜査", "法廷", "証拠ボード"]
+    forbidden_cta: ["チャンネル登録", "いいね", "コメント"]
+    camera_patterns: ["zoom_in", "pan_right", "zoom_out", "pan_left"]
+    writing_rules:
+      sentence_style: "da_dearu"
+      body_stop: true
+      passive_voice: true
+      tense_mixing: true
+      forensic_terms: true
+      max_emotion_per_part: 2
+    banned_expressions_ja:
+      - "信じられますか"
+      - "驚くべき事実"
+      - "想像を絶する"
+      - "衝撃の真実"
+      - "まさかの展開"
+    description_templates:
+      establishing: "{topic}事件の現場と人物を探偵視点で観察するシーン"
+      detail: "{topic}の核心証拠と推論を提示するシーン"
+      reaction: "{topic}の未解決の疑問と余韻を残すシーン"
+    design:
+      accent: "#DC2626"
+      title_bg: "rgba(0,0,0,0.85)"
+      font: "Noto Sans JP"
+      font_file: "NotoSansJP-Bold.ttf"
+      watermark_text: "冴木の手帳"
+    remotion:
+      channelName: "冴木の手帳"
+      hashtags: "#ショート #ミステリー #事件 #冴木の手帳"
+      transitions: [fade, fade]
+      defaultAccent: "#DC2626"
+      subtitlePosition: 0.65
+      subtitleHighlightColor: "#FFD000"
+      subtitleFontSize: 72
+      fontFamily: "Noto Sans JP"
+      subscribeText: "チャンネル登録"
+      likeText: "高評価"
+      taglineLabels:
+        mystery: "ミステリー手帳"
+        crime: "犯罪手帳"
+        phenomena: "怪奇手帳"
+    video_style:
+      scene_types: [context_graphic, real_footage, impact_cut]
+      edit_pattern: crosscut
+      speaker_subtitles: true
+      speaker_colors:
+        police: "#60A5FA"
+        suspect: "#F87171"
+        victim: "#FCD34D"
+        civilian: "#A78BFA"
+        judge: "#34D399"
+      speaker_labels:
+        police: "警察官"
+        suspect: "容疑者"
+        victim: "被害者"
+        civilian: "市民"
+        witness: "目撃者"
+        judge: "裁判官"
+      graphic_bg: "#0A0A0A"
+      graphic_text: "#FFFFFF"
+      graphic_subtext: "#9CA3AF"
+      impact_color: "#FFC947"
+
+  # ============================================================================
+  # 신규 채널 — 프롬프트 A (다큐멘터리) + 프롬프트 B (잔소리 사물)
+  # ============================================================================
+
+  documentary:
+    display_name: "HistoryMoment"
+    language: en
+    region: GLOBAL
+    youtube_channel_id: ""
+    upload_schedule:
+      days: [mon, wed, fri]
+      time: "17:00"
+      timezone: "UTC"
+    voice:
+      provider: elevenlabs
+      voice_name: "documentary-narrator"
+      tempo: 0.9
+    voice_alt:
+      - provider: fish-audio
+        voice_name: ""
+        tempo: 0.9
+        style: "Deep male documentary narrator"
+    voice_preset: documentary-narrator
+    accent_color: "#B8860B"
+    hook_style: mystery
+    cta_style: lingering
+    tone_guide: >
+      방송국 다큐멘터리 톤. 엄숙하고 진지한 내레이션.
+      극사실주의 역사 장면 묘사. 시간순 서사, 감동 또는 긴장감 클라이맥스.
+      글로벌 영어 타겟이므로 영어 대본 기본, 한국어 자막 옵션.
+    channel_greeting: "This is the moment that changed everything."
+    visual_mode: t2i_i2v
+    content_scope:
+      include: [historical_events, mysteries, survival_stories, disasters]
+      era: "1900s-present"
+    narration_style: documentary_narrator
+    emotion_map:
+      hook: { emotion: "normal", intensity: 1.0 }
+      body: { emotion: "tonedown", intensity: 0.8 }
+      climax: { emotion: "whisper", intensity: 1.2 }
+      cta: { emotion: "normal", intensity: 1.0 }
+    transitions_pool: ["fade", "zoomBlur", "lightLeak"]
+    joker_terms:
+      en: ["historical photograph sepia", "documentary archival footage", "cinematic aerial landscape", "dramatic cloudy sky timelapse", "old newspaper headline closeup", "war memorial monument", "crash site debris field", "survivor portrait dramatic lighting"]
+      ko: ["역사 흑백 사진", "다큐 아카이브", "항공 촬영 풍경", "극적 하늘"]
+    forbidden_cta: ["subscribe", "like", "smash that bell"]
+    camera_patterns: ["slow_zoom_in", "pan_right", "aerial_descent", "dolly_forward"]
+    hook_example: "In 1971, a plane fell from 10,000 feet. Only one person survived."
+    cta_example: "History remembers. But the question remains."
+    narration_examples:
+      establishing: "The year was 1971. LANSA Flight 508 was crossing the Peruvian Amazon."
+      detail: "What happened next defied every law of survival."
+      reaction: "To this day, no one can fully explain how she lived."
+    description_templates:
+      establishing: "Setting the historical scene of {topic} with cinematic context"
+      detail: "Revealing the critical moments and turning points of {topic}"
+      reaction: "Reflecting on the lasting impact and unanswered questions of {topic}"
+    design:
+      accent: "#B8860B"
+      title_bg: "rgba(0,0,0,0.85)"
+      font: "Inter"
+      watermark_text: "MOMENTS IN HISTORY"
+    remotion:
+      channelName: "역사의 순간"
+      hashtags: "#shorts #history #documentary #mystery"
+      transitions: [fade, fade]
+      defaultAccent: "#B8860B"
+      subtitlePosition: 0.70
+      subtitleHighlightColor: "#FFD700"
+      subtitleFontSize: 72
+      fontFamily: "Inter"
+
+  object_nag:
+    display_name: "잔소리 사물"
+    language: ko
+    region: KR
+    youtube_channel_id: ""
+    upload_schedule:
+      days: [mon, tue, wed, thu, fri]
+      time: "12:00"
+      timezone: "Asia/Seoul"
+    voice:
+      provider: elevenlabs
+      voice_name: "nagging-object"
+      tempo: 1.0
+    voice_alt:
+      - provider: typecast
+        voice_name: Avong
+        tempo: 1.0
+        style: "발랄하고 짜증 섞인 톤"
+    voice_preset: object-nag-narrator
+    accent_color: "#FF6B35"
+    hook_style: complaint
+    cta_style: business_link
+    tone_guide: >
+      시니컬하지만 유용한 정보를 주는 사물. 호통치듯 꿀팁 전달.
+      화내는 피자, 짜증내는 바나나, 잔소리하는 칫솔 같은 의인화 캐릭터.
+      비위협적 유머로 건강/생활 정보 전달 → 비즈니스 트래픽 유도.
+    channel_greeting: "야! 너 지금 뭐 하는 거야!"
+    visual_mode: character_art
+    animation_mode: lip_sync
+    cta_type: business_link
+    business_config:
+      target_url: ""
+      cta_card_duration: 3
+      cta_text_template: "더 알고 싶다면 설명란 링크 확인!"
+      pinned_comment_template: "📌 {tip_topic} 더 자세한 정보 → {url}"
+    content_scope:
+      include: [health_tips, food_storage, cooking, exercise, sleep, beauty, wellness]
+      style: "anthropomorphized_object_persona"
+    narration_style: nagging_object
+    persona_config:
+      character_types: ["food", "household", "beauty", "fitness"]
+      personality_spectrum: ["sarcastic", "frustrated", "tough_love", "concerned"]
+      character_consistency: true
+    emotion_map:
+      hook: { emotion: "angry", intensity: 1.5 }
+      body: { emotion: "toneup", intensity: 1.2 }
+      climax: { emotion: "angry", intensity: 1.8 }
+      cta: { emotion: "happy", intensity: 1.0 }
+    transitions_pool: ["fade", "lightLeak"]
+    joker_terms:
+      en: ["angry cartoon food character", "frustrated fruit face", "scolding kitchen item", "cute angry object illustration"]
+      ko: ["화난 음식 캐릭터", "짜증내는 과일", "잔소리 사물"]
+    forbidden_cta: []
+    camera_patterns: ["zoom_in", "shake", "zoom_out"]
+    hook_example: "야! 내 도우 갈라지는 거 안 보이냐?"
+    cta_example: "이래도 나한테 안 미안해? 설명란 확인이나 해."
+    narration_examples:
+      establishing: "야. 나 피자 조각이야. 너 지금 나한테 뭐 하는 거야."
+      detail: "냉장고에 그냥 넣으면 어떡해! 랩이라도 씌워!"
+      reaction: "다음에도 이러면... 나 진짜 딱딱해질 거야."
+    description_templates:
+      establishing: "{topic} 관련 사물이 자기소개하며 시청자에게 호통치는 씬"
+      detail: "{topic}의 핵심 꿀팁을 잔소리 톤으로 전달하는 씬"
+      reaction: "{topic} 마무리 멘트 + 비즈니스 CTA 유도 씬"
+    design:
+      accent: "#FF6B35"
+      title_bg: "rgba(0,0,0,0.7)"
+      font: "Pretendard"
+      watermark_text: "잔소리 사물"
+    remotion:
+      channelName: "잔소리 사물"
+      hashtags: "#쇼츠 #꿀팁 #건강 #잔소리"
+      transitions: [fade, fade]
+      defaultAccent: "#FF6B35"
+      subtitlePosition: 0.75
+      subtitleHighlightColor: "#FF6B35"
+      subtitleFontSize: 88
+    duration_config:
+      target: 20
+      min: 15
+      max: 30
+
+  wildlife:
+    display_name: "WildCamera"
+    language: en
+    region: GLOBAL
+    youtube_channel_id: "UChCjZTtkNrZZmQHCRbTT0Dg"
+    youtube_handle: "@wildcameramen"
+    upload_schedule:
+      days: [mon, tue, wed, thu, fri, sat, sun]
+      time: "18:00"
+      timezone: "UTC"
+    voice:
+      provider: elevenlabs
+      voice_name: "wildlife-narrator"
+      tempo: 0.95
+    voice_alt:
+      - provider: fish-audio
+        voice_name: ""
+        tempo: 0.95
+        style: "Deep male wildlife narrator, David Attenborough style"
+    voice_preset: wildlife-narrator
+    accent_color: "#2E8B57"
+    hook_style: mystery
+    cta_style: lingering
+    tone_guide: >
+      David Attenborough 스타일 자연 다큐멘터리. 경이로움과 자연의 위엄.
+      생태학적 스토리텔링 — 단순 동물 대결이 아닌 생태계 맥락.
+      팩트 기반 나레이션 (종명, 서식지, 행동 패턴 정확).
+      AI slop 절대 금지: 불가능한 동물 상호작용, 의인화 드라마 불허.
+    loop_layer_enabled: false   # D-47-11: 다큐 톤, 루프 어색
+    channel_greeting: "In the wild, every moment is a story of survival."
+    visual_mode: t2i_i2v
+    content_scope:
+      include: [deep_sea, savanna, extreme_survival, bizarre_animals, predator_prey, migration]
+    narration_style: documentary_narrator
+    emotion_map:
+      hook: { emotion: "toneup", intensity: 1.2 }
+      body: { emotion: "normal", intensity: 1.0 }
+      climax: { emotion: "whisper", intensity: 1.3 }
+      cta: { emotion: "normal", intensity: 1.0 }
+    transitions_pool: ["fade", "zoomBlur", "lightLeak"]
+    joker_terms:
+      en: ["african savanna golden hour wildlife", "deep ocean bioluminescent creature", "arctic polar bear ice", "jungle canopy aerial", "underwater coral reef", "predator stalking prey telephoto", "bird migration formation sky", "desert fox extreme heat"]
+      ko: ["아프리카 사바나", "심해 생물", "북극곰", "정글 항공샷", "산호초"]
+    forbidden_cta: ["subscribe", "like", "smash that bell"]
+    camera_patterns: ["telephoto_zoom", "slow_pan", "aerial_descent", "underwater_drift", "macro_closeup"]
+    hook_example: "This creature has survived unchanged for 450 million years."
+    cta_example: "Nature never stops filming. Neither do we."
+    narration_examples:
+      establishing: "Off the coast of Japan, two thousand meters below the surface, something ancient stirs."
+      detail: "The giant squid's eyes — the size of dinner plates — are the largest in the animal kingdom."
+      reaction: "For centuries, sailors called it a monster. Science calls it Architeuthis dux."
+    description_templates:
+      establishing: "Setting the natural habitat of {topic} with cinematic wildlife footage"
+      detail: "Revealing the extraordinary biology and behavior of {topic}"
+      reaction: "Reflecting on the evolutionary significance and conservation of {topic}"
+    design:
+      accent: "#2E8B57"
+      title_bg: "rgba(0,0,0,0.80)"
+      font: "Inter"
+      watermark_text: "WildCamera"
+    remotion:
+      channelName: "WildCamera"
+      hashtags: "#shorts #wildlife #nature #documentary #animals"
+      transitions: [fade, fade]
+      defaultAccent: "#2E8B57"
+      subtitlePosition: 0.82
+      subtitleHighlightColor: "#4ADE80"
+      subtitleFontSize: 58
+      fontFamily: "Inter"
+
+  knowledge:
+    display_name: 지식한입
+    youtube_channel_id: ""
+    upload_schedule:
+      days: [mon, wed, fri]
+      time: "18:00"
+      timezone: "Asia/Seoul"
+    voice:
+      provider: typecast
+      voice_name: Taebaek
+      tempo: 1.0
+    voice_preset: knowledge-narrator
+    accent_color: "#3B82F6"
+    hook_style: question
+    cta_style: opinion_ask
+    tone_guide: "차분하고 신뢰감 있는 설명 톤, 예시 활용, 핵심 개념 쉽게 풀어 설명"
+    channel_greeting: "딱 한입만, 알아갑시다."
+    emotion_map:
+      hook: { emotion: "toneup", intensity: 1.1 }
+      body: { emotion: "normal", intensity: 1.0 }
+      climax: { emotion: "toneup", intensity: 1.3 }
+      cta: { emotion: "normal", intensity: 1.0 }
+    transitions_pool: ["fade", "zoomBlur"]
+    joker_terms:
+      en: ["science diagram illustration", "educational infographic", "brain neural network", "book pages turning"]
+      ko: ["과학 다이어그램", "인포그래픽", "두뇌"]
+    forbidden_cta: ["구독", "좋아요", "알림"]
+    camera_patterns: ["zoom_in", "pan_right", "zoom_out", "pan_left"]
+    hook_example: "이거 모르면 손해입니다"
+    cta_example: "더 궁금한 거 있으면 댓글로 질문해주세요"
+    narration_examples:
+      establishing: "오늘 알려드릴 내용은 이겁니다"
+      detail: "핵심은 바로 이 부분인데요"
+      reaction: "이걸 알면 이런 것도 이해할 수 있습니다"
+    description_templates:
+      establishing: "{topic}의 기본 개념과 배경을 쉽게 설명하는 씬"
+      detail: "{topic}의 핵심 원리와 예시를 구체적으로 전달하는 씬"
+      reaction: "{topic}의 실생활 활용법과 추가 정보를 정리하는 씬"
+    design:
+      accent: "#3B82F6"
+      title_bg: "rgba(0,0,0,0.7)"
+      font: Pretendard
+      watermark_text: 지식한입
+    remotion:
+      channelName: 지식한입
+      hashtags: "#쇼츠 #지식 #상식"
+      transitions: [fade, zoomBlur]
+      defaultAccent: "#3B82F6"

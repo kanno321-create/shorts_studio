@@ -1,0 +1,612 @@
+{
+  "version": "2.0",
+  "description": "Default voice presets only. Channel-specific presets are defined in .claude/skills/channel-{name}/SKILL.md per D-02 single source principle.",
+  "default_preset": "narrator-male-01",
+  "default_provider": "fish-audio",
+  "presets": {
+    "narrator-male-01": {
+      "description": "Default male narrator, 30s, natural news/info tone. Used when no --channel is specified.",
+      "fish_audio": {
+        "reference_id": "PENDING_VOICE_SELECTION",
+        "format": "mp3",
+        "mp3_bitrate": 128,
+        "speed": 1.0,
+        "default_emotion": null
+      },
+      "elevenlabs": {
+        "voice_id": "PLACEHOLDER_PENDING_USER_APPROVAL",
+        "model_id": "eleven_flash_v2_5",
+        "language_code": "ko",
+        "output_format": "mp3_44100_128"
+      },
+      "edge_tts": {
+        "voice": "ko-KR-InJoonNeural"
+      },
+      "typecast": {
+        "voice_name": "Changsu",
+        "model": "ssfm-v21",
+        "language": "kor",
+        "audio_format": "mp3",
+        "audio_tempo": 1.1,
+        "volume": 100,
+        "default_emotion": "normal",
+        "emotion_intensity": 1.0,
+        "emotion_map": {
+          "hook": "normal",
+          "body": "normal",
+          "climax": "angry",
+          "cta": "normal",
+          "conclusion": "normal"
+        }
+      }
+    },
+    "politics-narrator": {
+      "description": "Politics channel narrator (소진). Sarcastic, witty tone for political satire.",
+      "fish_audio": {
+        "reference_id": "PENDING_VOICE_SELECTION",
+        "format": "mp3",
+        "mp3_bitrate": 128,
+        "speed": 1.0,
+        "default_emotion": null
+      },
+      "elevenlabs": {
+        "voice_id": "PLACEHOLDER_PENDING_USER_APPROVAL",
+        "model_id": "eleven_flash_v2_5",
+        "language_code": "ko",
+        "output_format": "mp3_44100_128"
+      },
+      "edge_tts": {
+        "voice": "ko-KR-SunHiNeural"
+      },
+      "typecast": {
+        "voice_name": "Sojin",
+        "model": "ssfm-v30",
+        "language": "kor",
+        "audio_format": "mp3",
+        "audio_tempo": 1.0,
+        "volume": 100,
+        "default_emotion": "normal",
+        "emotion_intensity": 1.0,
+        "emotion_map": {
+          "hook": "tonedown",
+          "body": "normal",
+          "climax": "toneup",
+          "cta": "tonedown",
+          "conclusion": "tonedown"
+        }
+      }
+    },
+    "trend-narrator": {
+      "description": "Trend channel narrator (트렌드MC). Energetic, excited tone for MZ generation content.",
+      "fish_audio": {
+        "reference_id": "PENDING_VOICE_SELECTION",
+        "format": "mp3",
+        "mp3_bitrate": 128,
+        "speed": 1.05,
+        "default_emotion": "excited"
+      },
+      "elevenlabs": {
+        "voice_id": "PLACEHOLDER_PENDING_USER_APPROVAL",
+        "model_id": "eleven_flash_v2_5",
+        "language_code": "ko",
+        "output_format": "mp3_44100_128"
+      },
+      "edge_tts": {
+        "voice": "ko-KR-SunHiNeural"
+      },
+      "typecast": {
+        "voice_name": "Camila",
+        "model": "ssfm-v21",
+        "language": "kor",
+        "audio_format": "mp3",
+        "audio_tempo": 1.0,
+        "volume": 100,
+        "default_emotion": "happy",
+        "emotion_intensity": 1.0,
+        "emotion_map": {
+          "hook": "happy",
+          "body": "normal",
+          "climax": "angry",
+          "cta": "happy",
+          "conclusion": "normal"
+        },
+        "_note": "v21 only: emotions limited to normal/happy/sad/angry"
+      }
+    },
+    "sseoltube-narrator": {
+      "description": "Sseoltube channel narrator (필재). Immersive storytelling tone for real-life stories.",
+      "fish_audio": {
+        "reference_id": "PENDING_VOICE_SELECTION",
+        "format": "mp3",
+        "mp3_bitrate": 128,
+        "speed": 1.0,
+        "default_emotion": null
+      },
+      "elevenlabs": {
+        "voice_id": "PLACEHOLDER_PENDING_USER_APPROVAL",
+        "model_id": "eleven_flash_v2_5",
+        "language_code": "ko",
+        "output_format": "mp3_44100_128"
+      },
+      "edge_tts": {
+        "voice": "ko-KR-InJoonNeural"
+      },
+      "typecast": {
+        "voice_name": "Piljae",
+        "model": "ssfm-v21",
+        "language": "kor",
+        "audio_format": "mp3",
+        "audio_tempo": 1.0,
+        "volume": 100,
+        "default_emotion": "normal",
+        "emotion_intensity": 1.0,
+        "emotion_map": {
+          "hook": "normal",
+          "body": "normal",
+          "climax": "angry",
+          "cta": "normal",
+          "conclusion": "normal"
+        },
+        "_note": "v21 only: emotions limited to normal/happy/sad/angry"
+      }
+    },
+    "incidents-narrator": {
+      "description": "Incidents channel narrator (설록 홍). Detective POV, slow pacing for crime documentary gravitas.",
+      "fish_audio": {
+        "reference_id": "PENDING_VOICE_SELECTION",
+        "format": "mp3",
+        "mp3_bitrate": 128,
+        "speed": 0.9,
+        "default_emotion": null
+      },
+      "elevenlabs": {
+        "voice_id": "PLACEHOLDER_PENDING_USER_APPROVAL",
+        "model_id": "eleven_flash_v2_5",
+        "language_code": "ko",
+        "output_format": "mp3_44100_128"
+      },
+      "edge_tts": {
+        "voice": "ko-KR-InJoonNeural"
+      },
+      "typecast": {
+        "voice_name": "Morgan",
+        "model": "ssfm-v30",
+        "language": "kor",
+        "audio_format": "mp3",
+        "audio_tempo": 0.93,
+        "auto_punctuation_pause": true,
+        "pause_mark_seconds": 0.0,
+        "pause_comma_seconds": 0.25,
+        "volume": 100,
+        "default_emotion": "tonedown",
+        "emotion_intensity": 1.0,
+        "emotion_map": {
+          "hook": "normal",
+          "body": "tonedown",
+          "climax": "whisper",
+          "cta": "sad",
+          "conclusion": "tonedown"
+        }
+      }
+    },
+    "incidents-assistant": {
+      "description": "Incidents channel assistant narrator (왓슨/Guri). Questions, reactions for duo storytelling.",
+      "typecast": {
+        "voice_name": "Guri",
+        "model": "ssfm-v21",
+        "language": "kor",
+        "audio_format": "mp3",
+        "audio_tempo": 1.0,
+        "volume": 100,
+        "default_emotion": "normal",
+        "emotion_intensity": 1.0,
+        "emotion_map": {
+          "hook": "normal",
+          "body": "normal",
+          "climax": "normal",
+          "cta": "normal"
+        },
+        "auto_punctuation_pause": true,
+        "pause_comma_seconds": 0.25,
+        "pause_mark_seconds": 0.0
+      }
+    },
+    "knowledge-narrator": {
+      "description": "Knowledge channel narrator (태백). Calm, trustworthy educational tone.",
+      "fish_audio": {
+        "reference_id": "PENDING_VOICE_SELECTION",
+        "format": "mp3",
+        "mp3_bitrate": 128,
+        "speed": 1.0,
+        "default_emotion": null
+      },
+      "elevenlabs": {
+        "voice_id": "PLACEHOLDER_PENDING_USER_APPROVAL",
+        "model_id": "eleven_flash_v2_5",
+        "language_code": "ko",
+        "output_format": "mp3_44100_128"
+      },
+      "edge_tts": {
+        "voice": "ko-KR-InJoonNeural"
+      },
+      "typecast": {
+        "voice_name": "Taebaek",
+        "model": "ssfm-v30",
+        "language": "kor",
+        "audio_format": "mp3",
+        "audio_tempo": 1.0,
+        "volume": 100,
+        "default_emotion": "normal",
+        "emotion_intensity": 1.0,
+        "emotion_map": {
+          "hook": "toneup",
+          "body": "normal",
+          "climax": "normal",
+          "conclusion": "tonedown"
+        }
+      }
+    },
+    "incidents-jp-narrator": {
+      "description": "Japanese incidents channel narrator (VOICEVOX Nemo). Detective POV, だ/である体.",
+      "fish_audio": {
+        "reference_id": "PENDING_VOICE_SELECTION",
+        "format": "mp3",
+        "mp3_bitrate": 128,
+        "speed": 1.0,
+        "default_emotion": null
+      },
+      "elevenlabs": {
+        "voice_id": "PLACEHOLDER_PENDING_USER_APPROVAL",
+        "model_id": "eleven_flash_v2_5",
+        "language_code": "ja",
+        "output_format": "mp3_44100_128"
+      },
+      "edge_tts": {
+        "voice": "ja-JP-NanamiNeural"
+      },
+      "typecast": {
+        "voice_name": "",
+        "model": "voicevox-nemo",
+        "language": "ja",
+        "audio_format": "mp3",
+        "audio_tempo": 1.0,
+        "volume": 100,
+        "endpoint": "http://localhost:50121",
+        "speaker_id": 0,
+        "default_emotion": "normal",
+        "emotion_intensity": 1.0,
+        "emotion_map": {
+          "hook": "normal",
+          "body": "tonedown",
+          "climax": "whisper",
+          "cta": "sad",
+          "conclusion": "tonedown"
+        }
+      }
+    },
+    "documentary-narrator": {
+      "description": "English documentary narrator. Grave, solemn, cinematic tone for historical events. ElevenLabs primary.",
+      "fish_audio": {
+        "reference_id": "PENDING_VOICE_SELECTION",
+        "format": "mp3",
+        "mp3_bitrate": 128,
+        "speed": 0.9,
+        "default_emotion": null
+      },
+      "elevenlabs": {
+        "voice_id": "pqHfZKP75CvOlQylNhV4",
+        "model_id": "eleven_v3",
+        "language_code": "en",
+        "output_format": "mp3_44100_128",
+        "stability": 0.8,
+        "similarity_boost": 0.7,
+        "style": 0.0,
+        "_note": "Bill voice — strong, documentary-optimized. eleven_v3 model for [whisper]/[grave] audio tags. Style 0 per ElevenLabs recommendation."
+      },
+      "edge_tts": {
+        "voice": "en-US-GuyNeural"
+      },
+      "typecast": {
+        "voice_name": "",
+        "model": "",
+        "language": "eng",
+        "audio_format": "mp3",
+        "audio_tempo": 0.9,
+        "volume": 100,
+        "default_emotion": "normal",
+        "emotion_intensity": 1.0,
+        "emotion_map": {
+          "hook": "normal",
+          "body": "tonedown",
+          "climax": "whisper",
+          "cta": "normal",
+          "conclusion": "tonedown"
+        },
+        "_note": "Typecast has no English voices — ElevenLabs is primary for this channel"
+      }
+    },
+    "wildlife-narrator": {
+      "description": "English wildlife documentary narrator. David Attenborough style — British authority with natural wonder. ElevenLabs Daniel voice.",
+      "fish_audio": {
+        "reference_id": "PENDING_VOICE_SELECTION",
+        "format": "mp3",
+        "mp3_bitrate": 128,
+        "speed": 0.95,
+        "default_emotion": null
+      },
+      "elevenlabs": {
+        "voice_id": "onwK4e9ZLuTAKqWW03F9",
+        "model_id": "eleven_v3",
+        "language_code": "en",
+        "output_format": "mp3_44100_128",
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.15,
+        "_note": "Daniel voice — British Steady Broadcaster. Attenborough-style authority with natural wonder. Low stability for expressive warmth. Approved by 대표님 2026-04-16."
+      },
+      "edge_tts": {
+        "voice": "en-US-GuyNeural"
+      },
+      "typecast": {
+        "voice_name": "",
+        "model": "",
+        "language": "eng",
+        "audio_format": "mp3",
+        "audio_tempo": 0.95,
+        "volume": 100,
+        "default_emotion": "normal",
+        "emotion_intensity": 1.0,
+        "emotion_map": {
+          "hook": "toneup",
+          "body": "normal",
+          "climax": "whisper",
+          "cta": "normal",
+          "conclusion": "normal"
+        },
+        "_note": "Typecast has no English voices — ElevenLabs is primary for this channel"
+      }
+    },
+    "object-nag-narrator": {
+      "description": "Korean nagging object narrator. Scolding, energetic, sarcastic voice for talking-object shorts. ElevenLabs primary.",
+      "fish_audio": {
+        "reference_id": "PENDING_VOICE_SELECTION",
+        "format": "mp3",
+        "mp3_bitrate": 128,
+        "speed": 1.0,
+        "default_emotion": "angry"
+      },
+      "elevenlabs": {
+        "voice_id": "ODq5zmih8GrVes37Dizd",
+        "model_id": "eleven_v3",
+        "language_code": "ko",
+        "output_format": "mp3_44100_128",
+        "stability": 0.3,
+        "similarity_boost": 0.9,
+        "style": 0.0,
+        "_note": "Patrick voice — shouty/angry character specialist. eleven_v3 for [angry]/[shouting] audio tags. Korean fallback: Hyuk voice. Style 0 per ElevenLabs recommendation."
+      },
+      "edge_tts": {
+        "voice": "ko-KR-SunHiNeural"
+      },
+      "typecast": {
+        "voice_name": "Avong",
+        "model": "ssfm-v21",
+        "language": "kor",
+        "audio_format": "mp3",
+        "audio_tempo": 1.0,
+        "volume": 120,
+        "default_emotion": "angry",
+        "emotion_intensity": 1.5,
+        "emotion_map": {
+          "hook": "angry",
+          "body": "toneup",
+          "climax": "angry",
+          "cta": "happy",
+          "conclusion": "happy"
+        },
+        "_note": "Avong as Typecast fallback. Volume boosted to 120 for energetic delivery."
+      }
+    },
+    "product-review-narrator": {
+      "description": "Product review channel narrator (구리). Honest, friendly reviewer tone.",
+      "fish_audio": {
+        "reference_id": "PENDING_VOICE_SELECTION",
+        "format": "mp3",
+        "mp3_bitrate": 128,
+        "speed": 1.0,
+        "default_emotion": null
+      },
+      "elevenlabs": {
+        "voice_id": "PLACEHOLDER_PENDING_USER_APPROVAL",
+        "model_id": "eleven_flash_v2_5",
+        "language_code": "ko",
+        "output_format": "mp3_44100_128"
+      },
+      "edge_tts": {
+        "voice": "ko-KR-SunHiNeural"
+      },
+      "typecast": {
+        "voice_name": "Guri",
+        "model": "ssfm-v21",
+        "language": "kor",
+        "audio_format": "mp3",
+        "audio_tempo": 1.0,
+        "volume": 100,
+        "default_emotion": "normal",
+        "emotion_intensity": 1.0,
+        "emotion_map": {
+          "hook": "toneup",
+          "body": "normal",
+          "climax": "happy",
+          "conclusion": "normal"
+        }
+      }
+    }
+  },
+  "voice_pools": {
+    "humor": {
+      "narrator": {
+        "voice_name": "Changsu",
+        "provider": "typecast",
+        "emotion_default": "normal"
+      },
+      "sub_narrator": {
+        "voice_name": "Taebaek",
+        "provider": "typecast",
+        "emotion_default": "normal"
+      },
+      "reactor": {
+        "voice_name": "Avong",
+        "provider": "typecast",
+        "emotion_default": "happy"
+      }
+    },
+    "sseoltube": {
+      "narrator": {
+        "voice_name": "Piljae",
+        "provider": "typecast",
+        "emotion_default": "normal"
+      },
+      "sub_narrator": {
+        "voice_name": "Taebaek",
+        "provider": "typecast",
+        "emotion_default": "normal"
+      },
+      "reactor": {
+        "voice_name": "Avong",
+        "provider": "typecast",
+        "emotion_default": "happy"
+      },
+      "special": {
+        "voice_name": "Mister Gop",
+        "provider": "typecast",
+        "emotion_default": "normal"
+      }
+    },
+    "politics": {
+      "narrator": {
+        "voice_name": "Sojin",
+        "provider": "typecast",
+        "emotion_default": "normal"
+      },
+      "sub_narrator": {
+        "voice_name": "MC Kong",
+        "provider": "typecast",
+        "emotion_default": "normal"
+      }
+    },
+    "trend": {
+      "narrator": {
+        "voice_name": "Camila",
+        "provider": "typecast",
+        "emotion_default": "excited"
+      },
+      "reactor": {
+        "voice_name": "Avong",
+        "provider": "typecast",
+        "emotion_default": "happy"
+      }
+    },
+    "incidents": {
+      "narrator": {
+        "voice_name": "Morgan",
+        "provider": "typecast",
+        "emotion_default": "tonedown",
+        "auto_punctuation_pause": true,
+        "pause_comma_seconds": 0.25,
+        "pause_mark_seconds": 0.0,
+        "model": "ssfm-v30",
+        "audio_tempo": 0.97,
+        "silence_after_scale": 0.5
+      },
+      "assistant": {
+        "voice_name": "Guri",
+        "provider": "typecast",
+        "model": "ssfm-v21",
+        "emotion_default": "normal",
+        "auto_punctuation_pause": true,
+        "pause_comma_seconds": 0.25,
+        "pause_mark_seconds": 0.0,
+        "audio_tempo": 1.03,
+        "silence_after_scale": 0.5
+      }
+    },
+    "incidents_jp": {
+      "narrator": {
+        "voice_name": "nemo-0",
+        "provider": "voicevox",
+        "emotion_default": "normal"
+      }
+    },
+    "documentary": {
+      "narrator": {
+        "voice_name": "documentary-narrator",
+        "provider": "elevenlabs",
+        "emotion_default": "normal"
+      }
+    },
+    "object_nag": {
+      "narrator": {
+        "voice_name": "nagging-object",
+        "provider": "elevenlabs",
+        "emotion_default": "angry"
+      }
+    },
+    "wildlife": {
+      "narrator": {
+        "voice_name": "wildlife-narrator",
+        "provider": "elevenlabs",
+        "emotion_default": "normal"
+      }
+    },
+    "product_review": {
+      "narrator": {
+        "voice_name": "Guri",
+        "provider": "typecast",
+        "emotion_default": "normal"
+      }
+    },
+    "knowledge": {
+      "narrator": {
+        "voice_name": "Taebaek",
+        "provider": "typecast",
+        "emotion_default": "normal"
+      }
+    },
+    "audiobook": {
+      "narrator": {
+        "voice_name": "Mister Gop",
+        "provider": "typecast",
+        "emotion_default": "normal"
+      }
+    },
+    "daily": {
+      "narrator": {
+        "voice_name": "Mister Gop",
+        "provider": "typecast",
+        "emotion_default": "normal"
+      }
+    }
+  },
+  "dialogue_voices": {
+    "description": "Voice presets for multi-speaker dialogue (politics channel debates). Per D-03: max 2-3 voices. Voice IDs are from ElevenLabs public voice library. Override via ELEVENLABS_ANCHOR_VOICE_ID / ELEVENLABS_PANELIST_A_VOICE_ID / ELEVENLABS_PANELIST_B_VOICE_ID env vars if desired.",
+    "anchor": {
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "name": "Adam (ElevenLabs Public Library)",
+      "role": "Main anchor/moderator",
+      "note": "Deep male voice. Good for authoritative news anchor tone."
+    },
+    "panelist_a": {
+      "voice_id": "ErXwobaYiN019PkySvjV",
+      "name": "Antoni (ElevenLabs Public Library)",
+      "role": "First debate participant",
+      "note": "Warm male voice. Suitable for conversational debate."
+    },
+    "panelist_b": {
+      "voice_id": "VR6AewLTigWG4xSOukaG",
+      "name": "Arnold (ElevenLabs Public Library)",
+      "role": "Second debate participant",
+      "note": "Strong male voice. Provides contrast to panelist_a."
+    }
+  }
+}
