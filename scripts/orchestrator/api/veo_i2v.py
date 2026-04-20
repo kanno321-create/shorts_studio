@@ -6,7 +6,8 @@
 자동 전환.
 
 대표님 지시 (세션 #24): "정밀하고 세세한걸 만들때는 kling이 실패하면
-veo 3.1로하면된다". Memory: ``project_video_stack_runway_gen4_5`` §Stack Final.
+veo 3.1로하면된다". Memory: ``project_video_stack_kling26`` §Stack 역할 정의
+(세션 #26 rename, D091-DEF-02 #3 resolved).
 
 비용: $0.10/s (no audio, 720p/1080p) = **$0.50/5s clip**.
 Latency: 미실측, 60-120s 추정 (2026-04 fal.ai).

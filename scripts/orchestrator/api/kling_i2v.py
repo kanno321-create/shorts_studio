@@ -4,8 +4,8 @@
 **Primary I2V = Kling 2.6 Pro** (fal.ai ``kling-video/v2.6/pro/image-to-video``).
 3-way 실측 비교 (Gen-3a Turbo / Gen-4.5 / Kling 2.6 Pro) 결과 Kling 2.6 이
 Pareto-dominant: 품질 ≥ Gen-4.5 + 비용 $0.35 (42% 저렴) + latency ~70s
-(Gen-4.5 149s 대비 2배 빠름). Memory: ``project_video_stack_runway_gen4_5``
-(파일명은 legacy, 내용은 Kling 2.6 primary 로 갱신됨).
+(Gen-4.5 149s 대비 2배 빠름). Memory: ``project_video_stack_kling26``
+(세션 #26 rename, D091-DEF-02 #3 resolved).
 
 Fallback: Veo 3.1 Fast (``scripts/orchestrator/api/veo_i2v.py``) — 정밀/세세한
 motion 에서 Kling 실패 시 자동 전환.

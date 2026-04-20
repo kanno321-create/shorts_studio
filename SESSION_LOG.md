@@ -101,3 +101,65 @@ Phase 9 (세션 #24 잔류):
 - Phase 10 진입 = HUMAN-UAT 4건 모두 PASS 후
 - AI 쪽 추가 작업 없음 — 대표님 수동 검증 대기
 - Phase 10 batch window cleanup backlog 는 실 실패 데이터 축적 후 (D-2 저수지 1-2개월)
+
+## Session #26 — 2026-04-20 (safe memory rename + Stage 4 drift 복구, D091-DEF-02 #3 resolved)
+
+### 진행 범위 (단일 세션, 연속 로드)
+- 세션 #25 말미 대표님 "작업이어서 시작해라" 지시 → 세션 #25 제안 옵션 2 (safe cleanup) 실행
+- D091-DEF-02 7 cleanup items 중 **#3 (메모리 파일명 rename) 만** 선별 실행 (나머지 6개는 D-2 저수지 규율 / 실측 데이터 대기)
+- 원 scope (2 파일 touch) → 실 touch **9 파일** (cascade 발견)
+
+### 완결 항목 (D091-DEF-02 #3)
+
+| # | 파일 | 변경 |
+|---|------|------|
+| 1 | `memory/project_video_stack_kling26.md` | **신규** — 구 `project_video_stack_runway_gen4_5.md` 내용 + Rename 이력 section 추가 |
+| 2 | `memory/project_video_stack_runway_gen4_5.md` | **삭제** |
+| 3 | `memory/MEMORY.md` index line 19 | title/link/description 갱신 (구 설명 "Runway Gen-3a Turbo primary" 드리프트 동시 해결) |
+| 4 | `memory/MEMORY.md` index line 20 | `project_shorts_production_pipeline` description "Runway Gen-4.5" → "Kling 2.6 Pro I2V (+Veo 3.1 fallback)" |
+| 5 | `memory/feedback_i2v_prompt_principles.md` §Related | wikilink 갱신 |
+| 6 | `memory/project_shorts_production_pipeline.md` | **Stage 4 전면 재작** — Runway Gen-4.5 → Kling 2.6 Pro primary + Veo 3.1 fallback. frontmatter description + drift 이력 annotation + How to apply + 세션 #26 note 추가 |
+| 7 | `scripts/orchestrator/api/kling_i2v.py` docstring | memory ref 갱신 |
+| 8 | `scripts/orchestrator/api/veo_i2v.py` docstring | memory ref 갱신 |
+| 9 | `wiki/render/remotion_kling_stack.md` §Related | memory backlink 갱신 |
+| 10 | `wiki/render/i2v_prompt_engineering.md` (line 147, 169) | memory backlinks 2 loc 갱신 |
+| 11 | `.planning/phases/09.1-production-engine-wiring/deferred-items.md` #3 | **RESOLVED 세션 #26** 마크 + cascade 실 범위 기록 |
+
+### 의도적 미변경 (historical artifact 보존)
+- `SESSION_LOG.md` session #24/#25 entries — historical events, 원문 유지
+- `.planning/phases/09.1-production-engine-wiring/09.1-CONTEXT.md` — Phase 9.1 immutable CONTEXT, 원문 유지
+
+### 핵심 발견 / 교훈
+1. **"파일명 rename" scope 은 단순 2 파일 아님** — 세션 #25 교훈 재확인. 스택 교체 이후 memory description / code docstrings / wiki backlinks 에 이름이 박혀 있어 drift cascade 로 동일 규모 파급. 박제 당시 handoff 의 "2 파일 touch" 추정이 실 9 파일로 확장.
+2. **Index description drift 동반 발견** — `MEMORY.md` line 19 이 내용(Kling 2.6)과 다른 설명("Runway Gen-3a Turbo primary") 을 가지고 있었음. 이는 세션 #24 내 stack 4차 번복 중 index 가 마지막 상태로 flip 안 된 증거. rename 없이도 해결해야 했을 drift.
+3. **project_shorts_production_pipeline Stage 4 drift** — 세션 #24 오전 작성 시점엔 Runway Gen-4.5 primary 였고, 그날 저녁 Kling 2.6 으로 번복되었으나 이 메모리는 업데이트 누락. 세션 #26 에서 함께 복구.
+4. **의도적 historical 보존 기준** — "사건 발생 시점의 명명" 이 증거가치를 가지는 경우 (SESSION_LOG, phase CONTEXT) 는 rename 전파하지 않음. "현재 의미" 를 가리키는 경우 (code docstring, active wiki Related) 는 rename 전파.
+
+### D091-DEF-02 잔여 6항목 (Phase 10 batch window 유지)
+| # | 항목 | 차단 사유 |
+|---|------|----------|
+| 1 | RunwayI2VAdapter 제거 | `tests/phase04/test_runway_ratios.py` + `tests/phase05/test_runway_adapter.py` 동반 삭제 필요, regression 위험 |
+| 2 | KlingI2VAdapter `NEG_PROMPT` 재검토 | i2v_prompt_engineering 3원칙 2 와 충돌 가능 — **Phase 10 실측 품질 데이터** 필요 |
+| 4 | Wiki rename `remotion_kling_stack.md` → `remotion_i2v_stack.md` | Phase 6 tests (`test_moc_linkage.py`, `test_wiki_nodes_ready.py`, `test_agent_prompt_wiki_refs.py`) + 29 파일 touch, regression 위험 |
+| 5 | NLM `runway_prompt` field → `i2v_prompt` | scripter agent prompt template + 노트북 curator instruction 동시 갱신 필요, NLM 2 실측 대기 |
+| 6 | `remotion_src_raw/` 40 파일 integration | 신규 작업 scope, Phase 10 재설계 소관 |
+| 7 | `Shotstack.create_ken_burns_clip` 완전 제거 | adapter tests 연쇄, 실측 안정성 확인 필요 |
+
+### Git Commit (세션 #26)
+```
+(pending) docs(memory): D091-DEF-02 #3 resolved — project_video_stack rename to kling26 + Stage 4 drift 복구
+```
+
+### 미완료 (HUMAN-UAT 4건, 대표님 수동 only — 세션 #25 대비 무변경)
+Phase 9.1:
+1. UAT #1 — Kling 2.6 Pro smoke clip.mp4 재생성 + 품질 평가 ($0.39)
+2. UAT #2 — ElevenLabs 한국어 voice 계정 확인
+
+Phase 9 (세션 #24 잔류):
+3. UAT #1 — 30분 온보딩 stopwatch 실측
+4. UAT #2 — Taste Gate UX "편함" 주관 평가
+
+### 다음 세션 진입점
+- Phase 10 진입 = HUMAN-UAT 4건 모두 PASS 후 (무변경)
+- D091-DEF-02 잔여 6항목 은 Phase 10 batch window 유지 (D-2 저수지 규율)
+- 추가 AI 작업 없음

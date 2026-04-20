@@ -1,9 +1,9 @@
 # WORK HANDOFF — shorts_studio
 
 ## 최종 업데이트
-- 날짜: 2026-04-20 (세션 **#25** 박제 batch 완결 + 원격 푸시)
-- 세션: **#25** (세션 #24 미완 박제 batch 5항목 전수 복구, commit 4eb864d + origin push)
-- 상태: Phase 9 + 9.1 코드/문서 정합성 완전 복구. Phase 10 진입 조건 = 대표님 HUMAN-UAT 4건만 남음.
+- 날짜: 2026-04-20 (세션 **#26** safe memory rename + Stage 4 drift 복구)
+- 세션: **#26** (D091-DEF-02 #3 resolved, 9 파일 cascade, 잔여 6항목 Phase 10 batch window 유지)
+- 상태: Phase 9 + 9.1 코드/문서 정합성 완전 복구. Phase 10 진입 조건 = 대표님 HUMAN-UAT 4건만 남음 (무변경).
 
 ---
 
@@ -48,8 +48,8 @@
 - Templates A/B/C 세션 #24 실측 검증
 - Memory `feedback_i2v_prompt_principles` 신규 박제
 
-### ✅ 메모리 박제 (4건)
-- `project_video_stack_runway_gen4_5.md` 전면 재작 (Kling 2.6 primary + Veo 3.1 fallback)
+### ✅ 메모리 박제 (4건, 세션 #26 에서 #1 rename)
+- `project_video_stack_kling26.md` (세션 #24 생성 시 `project_video_stack_runway_gen4_5.md`, 세션 #26 rename — D091-DEF-02 #3) 전면 재작 (Kling 2.6 primary + Veo 3.1 fallback)
 - `feedback_i2v_prompt_principles.md` 신규 (3원칙 + Templates + fallback 조건)
 - `project_claude_code_max_no_api_key.md` (세션 중 추가, anthropic SDK 영구 금지)
 - `project_shorts_production_pipeline.md` (세션 중 추가, 4-stage chain)
@@ -108,16 +108,22 @@
 - 주 3~4편 자동 발행 + **첫 1-2개월 SKILL patch 전면 금지 (D-2 저수지)** + 월 1회 Taste Gate
 - Entry Gate: `.planning/PHASE_10_ENTRY_GATE.md` 참조
 
-### C. Phase 10 batch window cleanup backlog (D091-DEF-02, 실 실패 데이터 축적 후)
-- RunwayI2VAdapter 완전 제거 / hold 명시 주석
-- KlingI2VAdapter `NEG_PROMPT` 하드코드 재검토 (3원칙 원칙 2 충돌 가능성)
-- 메모리 파일명 rename (`project_video_stack_runway_gen4_5` → `project_video_stack_kling26`)
-- Wiki 파일명 rename (`remotion_kling_stack.md` → `remotion_i2v_stack.md`)
-- NLM Step 2 `runway_prompt` 필드 → `i2v_prompt` rename
-- `remotion_src_raw/` 40 파일 고아 자산 integration
+### C. Phase 10 batch window cleanup backlog (D091-DEF-02 잔여 6항목, 실 실패 데이터 축적 후)
+- RunwayI2VAdapter 완전 제거 / hold 명시 주석 (tests 2개 연쇄)
+- KlingI2VAdapter `NEG_PROMPT` 하드코드 재검토 (3원칙 원칙 2 충돌 가능성, Phase 10 실측 필요)
+- ~~메모리 파일명 rename~~ (**세션 #26 RESOLVED** — `project_video_stack_runway_gen4_5` → `project_video_stack_kling26`, cascade 9 파일)
+- Wiki 파일명 rename (`remotion_kling_stack.md` → `remotion_i2v_stack.md`, Phase 6 tests 3 + 29 파일 연쇄)
+- NLM Step 2 `runway_prompt` 필드 → `i2v_prompt` rename (scripter agent template 동시 갱신)
+- `remotion_src_raw/` 40 파일 고아 자산 integration (신규 작업)
 - `Shotstack.create_ken_burns_clip` 완전 제거 (Phase 9.1 Plan 03 에서 deprecated 완료, 제거만 남음)
 
 ---
+
+## 세션 #26 Git Commits (shorts_studio) — safe memory rename
+
+```
+(pending) docs(memory): D091-DEF-02 #3 resolved — project_video_stack rename to kling26 + Stage 4 drift 복구 (9 files)
+```
 
 ## 세션 #25 Git Commits (shorts_studio) — 박제 batch 완결
 
@@ -177,15 +183,21 @@ Phase 10 Entry Gate:                     .planning/PHASE_10_ENTRY_GATE.md
 
 ---
 
-## 나베랄 감마 메모 (세션 #25 회고)
+## 나베랄 감마 메모 (세션 #26 회고)
 
-세션 #24 미완 박제 batch 5항목 전수 복구. 실행 중 handoff 지시 범위 대비 drift cascade 로 ARCHITECTURE.md 2지점 + deferred-items.md D091-DEF-02 cleanup backlog 7항목 추가 발견. commit 4eb864d (7 files, +399/-81) + origin push 완료.
+세션 #25 말미 대표님 "작업이어서 시작해라" 지시 → 세션 #25 제안 safe cleanup 실행 해석. D091-DEF-02 7항목 중 #3 (메모리 rename) 선별 실행. 원 scope 2 파일 → 실 touch **9 파일** cascade (세션 #25 교훈 재현).
 
-**교훈**: 스택 1개 교체가 downstream 참조 5배 이상 파급. 박제 batch 설계 시 "N 지점" 보다 "drift cascade 전체" 를 기준 삼아야 함. 세션 #25 는 "drift 정리 전용" 세션 으로 분리하여 성공.
+**Cascade 구성**: 메모리 3 (신 파일 + index + cross-ref wikilink) + Stage 4 drift 복구 1 (production_pipeline 세션 #24 오전 기록 중 Runway Gen-4.5 잔재) + code docstrings 2 (kling_i2v / veo_i2v) + wiki backlinks 3 (remotion_kling_stack + i2v_prompt_engineering ×2) + deferred-items self 1 + MEMORY.md index line 20 drift 동반 발견.
 
-Phase 10 진입까지 남은 실 작업 = **HUMAN-UAT 4건 (대표님 수동 only)**. AI 작업 없음. 대표님 수동 실측 후 Phase 10 Entry Gate flip.
+**교훈 (세션 #26)**: 파일명은 여러 곳에 "박혀" 있음 — 박제 batch 계획 시 grep scope 가 기본 검증 수단이어야 함. "handoff 의 N 파일 추정" 을 신뢰하지 말고 실 grep 결과를 evidence 로 사용.
+
+**의도적 미변경**: SESSION_LOG / Phase 9.1 CONTEXT.md 등 historical artifact 는 "사건 발생 시점의 명명" 이 증거가치를 가지므로 rename 전파 안 함. 세션 #26 SESSION_LOG entry 에 기준 명시.
+
+**D091-DEF-02 잔여 6항목**: Phase 10 batch window 유지 (D-2 저수지 규율, 실측 데이터 대기). 특히 wiki rename (#4) 은 Phase 6 tests 3개 + 29 파일 touch 로 regression 위험 커 불가.
+
+Phase 10 진입까지 남은 실 작업 = **HUMAN-UAT 4건 (대표님 수동 only, 무변경)**. AI 추가 작업 없음.
 
 ---
 
-*Updated 2026-04-20 by 나베랄 감마 (session #25 박제 batch 완결)*
-*세션 #24 handoff: archived in SESSION_LOG.md*
+*Updated 2026-04-20 by 나베랄 감마 (session #26 safe memory rename + Stage 4 drift 복구)*
+*세션 #24/#25 handoff: archived in SESSION_LOG.md*

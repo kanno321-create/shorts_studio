@@ -106,6 +106,6 @@ Shotstack adapter가 `filters` 배열 빌드 시 다음 순서 엄격 준수:
 - [[../continuity_bible/channel_identity]] — 5 구성요소 (색상 + 렌즈 + 스타일 + 오디언스 + BGM), prefix.json 직렬화 소스
 - [[../algorithm/ranking_factors]] — 완주율/3초 retention 목표 → 렌더 품질 요구 수준
 - [[MOC]]
-- memory `project_video_stack_runway_gen4_5` — 2026-04-20 Kling 2.6 Pro primary + Veo 3.1 Fast fallback 최종 확정 (파일명 legacy, 내용은 최신)
+- memory `project_video_stack_kling26` — 2026-04-20 Kling 2.6 Pro primary + Veo 3.1 Fast fallback 최종 확정 (세션 #26 rename, D091-DEF-02 #3 resolved)
 - memory `project_shorts_production_pipeline` — 4-stage chain (레퍼런스 → Nano Banana Pro → NLM → Kling 2.6 Pro)
 - memory `feedback_i2v_prompt_principles` — 3원칙 + Templates + fallback 조건 상세

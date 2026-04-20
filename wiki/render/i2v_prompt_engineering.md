@@ -144,7 +144,7 @@ MP4 비교 파일: `output/prompt_template_test/{,gen45,kling26}/` — 동일 an
 **Phase 9.1 구현 상태**:
 
 - smoke CLI `scripts/smoke/phase091_stage2_to_4.py` 는 `--use-veo` 플래그로 **수동 전환**만 제공
-- auto-route (Circuit Breaker + motion-type detector) 은 Phase 10 실패 패턴 축적 후 정식화 예정 (memory `project_video_stack_runway_gen4_5` 참조)
+- auto-route (Circuit Breaker + motion-type detector) 은 Phase 10 실패 패턴 축적 후 정식화 예정 (memory `project_video_stack_kling26` 참조)
 
 ## Workflow (NLM Step 2 → Kling/Veo)
 
@@ -166,7 +166,7 @@ MP4 비교 파일: `output/prompt_template_test/{,gen45,kling26}/` — 동일 an
 ## Related
 
 - memory `feedback_i2v_prompt_principles` — 이 wiki 의 source of truth
-- memory `project_video_stack_runway_gen4_5` — 스택 전체 (Kling 2.6 primary + Veo 3.1 fallback)
+- memory `project_video_stack_kling26` — 스택 전체 (Kling 2.6 primary + Veo 3.1 fallback, 세션 #26 rename)
 - memory `project_shorts_production_pipeline` — 4-stage chain (Stage 4 motion prompt 가 이 3원칙 적용)
 - memory `project_nlm_notebooks` — Step 2 `i2v_prompt` 필드 소비처
 - [[remotion_kling_stack]] — 렌더 스택 overview + filter chain order + fallback 샷
