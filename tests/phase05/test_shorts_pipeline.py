@@ -128,40 +128,49 @@ def _fake_env(monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.setenv(var, "fake")
 
 
-def test_default_producer_invoker_raises_not_implemented(
+def test_default_producer_invoker_is_claude_agent_sdk_backed(
     tmp_path: Path, _fake_env: None
 ) -> None:
-    """The default producer_invoker rejects calls with NotImplementedError."""
+    """Phase 9.1 Plan 05 replaced NotImplementedError with Claude Agent SDK
+    defaults. ``producer_invoker`` must be a ``ClaudeAgentProducerInvoker``
+    callable so production runs hit the real SDK path; MagicMock injection
+    for tests remains unaffected (the factory is only invoked when the
+    kwarg is None).
+    """
 
     pipeline = ShortsPipeline(
         session_id="s_test", state_root=tmp_path / "state"
     )
-    with pytest.raises(NotImplementedError):
-        pipeline._default_producer_invoker("trend-collector", "TREND", {})
+    assert callable(pipeline.producer_invoker)
+    assert pipeline.producer_invoker.__class__.__name__ == "ClaudeAgentProducerInvoker"
 
 
-def test_default_supervisor_invoker_raises_not_implemented(
+def test_default_supervisor_invoker_is_claude_agent_sdk_backed(
     tmp_path: Path, _fake_env: None
 ) -> None:
-    """The default supervisor_invoker rejects calls with NotImplementedError."""
+    """Phase 9.1 Plan 05 replaced NotImplementedError with Claude Agent SDK
+    defaults. ``supervisor_invoker`` must be a ``ClaudeAgentSupervisorInvoker``
+    callable."""
 
     pipeline = ShortsPipeline(
         session_id="s_test", state_root=tmp_path / "state"
     )
-    with pytest.raises(NotImplementedError):
-        pipeline._default_supervisor_invoker(GateName.TREND, {})
+    assert callable(pipeline.supervisor_invoker)
+    assert pipeline.supervisor_invoker.__class__.__name__ == "ClaudeAgentSupervisorInvoker"
 
 
-def test_default_asset_sourcer_raises_not_implemented(
+def test_default_asset_sourcer_is_factory_closure(
     tmp_path: Path, _fake_env: None
 ) -> None:
-    """The default asset_sourcer_invoker rejects calls with NotImplementedError."""
+    """Phase 9.1 Plan 05 replaced NotImplementedError with
+    ``make_default_asset_sourcer`` closure that calls into Nano Banana."""
 
     pipeline = ShortsPipeline(
         session_id="s_test", state_root=tmp_path / "state"
     )
-    with pytest.raises(NotImplementedError):
-        pipeline._default_asset_sourcer("a prompt")
+    assert callable(pipeline.asset_sourcer_invoker)
+    # factory returns a closure named ``_source`` inside make_default_asset_sourcer.
+    assert pipeline.asset_sourcer_invoker.__name__ == "_source"
 
 
 def test_pipeline_source_has_no_forbidden_tokens() -> None:

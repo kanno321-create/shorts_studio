@@ -30,6 +30,34 @@ if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
 
+# --------------------------------------------------------------------------
+# _pipeline_fake_env — autouse (Wave 2 addition for Plan 05 pipeline wiring)
+#
+# ShortsPipeline.__init__ constructs 5 existing adapters (Kling/Runway/
+# Typecast/ElevenLabs/Shotstack) + 2 Wave 1 adapters (NanoBanana/KenBurns)
+# which each raise ValueError when their env key is absent. Phase 5/7
+# conftests set these to "fake" for the same reason; phase091 mirrors that
+# pattern so the shared fake_agent_md_dir/mock_anthropic_client tests can
+# also construct full pipelines when needed (Plan 05 test_pipeline_wiring.py).
+# --------------------------------------------------------------------------
+
+
+@pytest.fixture(autouse=True)
+def _pipeline_fake_env(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Set adapter API keys to 'fake' so ShortsPipeline(...) can construct
+    without real .env values during unit tests."""
+    for var in (
+        "KLING_API_KEY",
+        "FAL_KEY",
+        "RUNWAY_API_KEY",
+        "TYPECAST_API_KEY",
+        "ELEVENLABS_API_KEY",
+        "SHOTSTACK_API_KEY",
+        "GOOGLE_API_KEY",
+    ):
+        monkeypatch.setenv(var, "fake")
+
+
 @pytest.fixture
 def tmp_registry_path(tmp_path: Path) -> Path:
     """Return an isolated registry.json path under tmp_path/assets/characters/."""

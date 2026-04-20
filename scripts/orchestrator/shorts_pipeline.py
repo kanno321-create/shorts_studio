@@ -57,10 +57,18 @@ from .voice_first_timeline import (
 )
 
 from .api.elevenlabs import ElevenLabsAdapter
+from .api.ken_burns import KenBurnsLocalAdapter, KenBurnsUnavailable
 from .api.kling_i2v import KlingI2VAdapter
+from .api.nanobanana import NanoBananaAdapter
 from .api.runway_i2v import RunwayI2VAdapter
 from .api.shotstack import ShotstackAdapter
 from .api.typecast import TypecastAdapter
+from .character_registry import CharacterRegistry
+from .invokers import (
+    make_default_asset_sourcer,
+    make_default_producer_invoker,
+    make_default_supervisor_invoker,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -173,6 +181,8 @@ class ShortsPipeline:
         producer_invoker: Callable[[str, str, dict], dict] | None = None,
         supervisor_invoker: Callable[[GateName, dict], Verdict] | None = None,
         asset_sourcer_invoker: Callable[[str], Path] | None = None,
+        nanobanana_adapter: NanoBananaAdapter | None = None,
+        ken_burns_adapter: KenBurnsLocalAdapter | None = None,
     ) -> None:
         self.session_id = session_id
         self.state_root = Path(state_root)
@@ -184,80 +194,75 @@ class ShortsPipeline:
         self.gate_guard = GateGuard(self.checkpointer, session_id)
 
         # CircuitBreakers per external service (D-6 defaults 3 / 300).
-        self.kling_breaker = CircuitBreaker(
-            "kling", max_failures=3, cooldown_seconds=300
-        )
-        self.runway_breaker = CircuitBreaker(
-            "runway", max_failures=3, cooldown_seconds=300
-        )
-        self.typecast_breaker = CircuitBreaker(
-            "typecast", max_failures=3, cooldown_seconds=300
-        )
-        self.elevenlabs_breaker = CircuitBreaker(
-            "elevenlabs", max_failures=3, cooldown_seconds=300
-        )
-        self.shotstack_breaker = CircuitBreaker(
-            "shotstack", max_failures=3, cooldown_seconds=300
-        )
+        # 5 Phase-5 + 4 Phase-9.1 (REQ-091-01/02/04) = 9 breakers.
+        _mk_breaker = lambda n: CircuitBreaker(n, max_failures=3, cooldown_seconds=300)  # noqa: E731
+        self.kling_breaker = _mk_breaker("kling")
+        self.runway_breaker = _mk_breaker("runway")
+        self.typecast_breaker = _mk_breaker("typecast")
+        self.elevenlabs_breaker = _mk_breaker("elevenlabs")
+        self.shotstack_breaker = _mk_breaker("shotstack")
+        self.nanobanana_breaker = _mk_breaker("nanobanana")
+        self.ken_burns_breaker = _mk_breaker("ken_burns")
+        self.claude_producer_breaker = _mk_breaker("claude_producer")
+        self.claude_supervisor_breaker = _mk_breaker("claude_supervisor")
 
         # Adapters (injected for tests, constructed from env otherwise).
-        self.kling = kling_adapter or KlingI2VAdapter(
-            circuit_breaker=self.kling_breaker
-        )
-        self.runway = runway_adapter or RunwayI2VAdapter(
-            circuit_breaker=self.runway_breaker
-        )
-        self.typecast = typecast_adapter or TypecastAdapter(
-            circuit_breaker=self.typecast_breaker
-        )
-        self.elevenlabs = elevenlabs_adapter or ElevenLabsAdapter(
-            circuit_breaker=self.elevenlabs_breaker
-        )
-        self.shotstack = shotstack_adapter or ShotstackAdapter(
-            circuit_breaker=self.shotstack_breaker
-        )
+        self.kling = kling_adapter or KlingI2VAdapter(circuit_breaker=self.kling_breaker)
+        self.runway = runway_adapter or RunwayI2VAdapter(circuit_breaker=self.runway_breaker)
+        self.typecast = typecast_adapter or TypecastAdapter(circuit_breaker=self.typecast_breaker)
+        self.elevenlabs = elevenlabs_adapter or ElevenLabsAdapter(circuit_breaker=self.elevenlabs_breaker)
+        self.shotstack = shotstack_adapter or ShotstackAdapter(circuit_breaker=self.shotstack_breaker)
+        # 9.1 additions — Nano Banana + Ken-Burns. Missing API key / ffmpeg
+        # are logged and the slot is left None so mock-based test harnesses
+        # (phase05/07) still construct the pipeline; real runs raise later.
+        try:
+            self.nanobanana = nanobanana_adapter or NanoBananaAdapter(
+                circuit_breaker=self.nanobanana_breaker
+            )
+        except ValueError as err:
+            logger.warning("[pipeline] nanobanana adapter 미초기화 (대표님): %s", err)
+            self.nanobanana = nanobanana_adapter
+        try:
+            self.ken_burns = ken_burns_adapter or KenBurnsLocalAdapter(
+                circuit_breaker=self.ken_burns_breaker
+            )
+        except KenBurnsUnavailable as err:
+            logger.warning("[pipeline] ken_burns 미초기화 (대표님 ffmpeg 확인): %s", err)
+            self.ken_burns = ken_burns_adapter
 
         # Voice-first assembly primitive (Plan 05).
         self.timeline = VoiceFirstTimeline()
 
-        # Invokers — dependency-injected for testability.
-        self.producer_invoker = producer_invoker or self._default_producer_invoker
+        # Invokers — 9.1 REQ-091-01 Claude Agent SDK wiring.
+        # Tests pass MagicMock; production constructs SDK-backed defaults.
+        _agents_root = Path(".claude/agents")
+        self.producer_invoker = producer_invoker or make_default_producer_invoker(
+            agent_dir_root=_agents_root / "producers",
+            circuit_breaker=self.claude_producer_breaker,
+        )
         self.supervisor_invoker = (
-            supervisor_invoker or self._default_supervisor_invoker
+            supervisor_invoker
+            or make_default_supervisor_invoker(
+                agent_dir=_agents_root / "supervisor" / "shorts-supervisor",
+                circuit_breaker=self.claude_supervisor_breaker,
+            )
+        )
+        _registry_path = Path("assets/characters/registry.json")
+        _registry = (
+            CharacterRegistry(_registry_path).load()
+            if _registry_path.exists()
+            else None
         )
         self.asset_sourcer_invoker = (
-            asset_sourcer_invoker or self._default_asset_sourcer
+            asset_sourcer_invoker
+            or make_default_asset_sourcer(
+                nanobanana_adapter=self.nanobanana,
+                character_registry=_registry,
+            )
         )
 
         # Per-run context.
         self.ctx = GateContext(session_id=session_id)
-
-    # -------------------------------------------------------------------
-    # Default invokers — always raise, forcing tests / production to wire
-    # real implementations. Tests use MagicMock; production wires Phase 4
-    # harness spawn calls.
-    # -------------------------------------------------------------------
-
-    def _default_producer_invoker(
-        self, agent_name: str, gate: str, inputs: dict
-    ) -> dict:
-        raise NotImplementedError(
-            f"producer_invoker must be provided "
-            f"(tried {agent_name} for {gate})"
-        )
-
-    def _default_supervisor_invoker(
-        self, gate: GateName, output: dict
-    ) -> Verdict:
-        raise NotImplementedError(
-            f"supervisor_invoker must be provided (tried {gate.name})"
-        )
-
-    def _default_asset_sourcer(self, prompt: str) -> Path:
-        raise NotImplementedError(
-            f"asset_sourcer_invoker must be provided "
-            f"(fallback for prompt: {prompt[:40]})"
-        )
 
     # ===================================================================
     # Entry point
