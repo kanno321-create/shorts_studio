@@ -13,7 +13,7 @@
 - **Pipeline:** **12 GATE state machine** (IDLE + 13 operational gates — TREND → ... → MONITOR + COMPLETE) — pre_tool_use Hook이 `skip_gates=True`를 물리적으로 차단.
 - **Agents:** 총 **32명** = Producer 14 + Inspector 17 (6 categories) + Supervisor 1. 오케스트레이터 500-800줄 제약 (5166줄 드리프트 금지).
 - **Wiki:** **3-Tier** — harness/wiki (공용) / studios/shorts/wiki (도메인, 5 categories) / .preserved/harvested (shorts_naberal 승계, chmod -w 읽기 전용).
-- **External:** YouTube Data API v3 (업로드) + YouTube Analytics API v2 (KPI — Phase 10 wiring) + Kling 2.6 Pro / Runway Gen-3 Alpha Turbo / Typecast / ElevenLabs / Shotstack / NotebookLM.
+- **External:** YouTube Data API v3 (업로드) + YouTube Analytics API v2 (KPI — Phase 10 wiring) + **Runway Gen-3a Turbo (primary I2V) / Kling 2.5-turbo Pro (backup I2V)** / Nano Banana Pro (scene + thumbnail image) / Typecast / ElevenLabs / Shotstack / NotebookLM. (2026-04-20 세션 #24 재결정 — 이전 Kling primary 에서 교체).
 - **Hard constraints:** No T2V (I2V + Anchor Frame only). No Selenium upload. No K-pop raw audio (AF-13). Orchestrator 500-800 lines. 32 agents fixed (AF-10 전수 이식 금지).
 - **Repository:** `github.com/kanno321-create/shorts_studio` (Private, Phase 8 REMOTE-01 완결).
 
@@ -60,7 +60,7 @@ stateDiagram-v2
 | 5 | SCRIPT | 한국어 prose 스크립트 (Claude Sonnet 4.6 Producer). | `scripter` |
 | 6 | POLISH | 존댓말 일관성 + 리듬 교정. | `script-polisher` |
 | 7 | VOICE | Typecast 주력 / ElevenLabs v3 백업 TTS. | `voice-producer` |
-| 8 | ASSETS | Kling 2.6 Pro 주력 → Runway Gen-3 Alpha Turbo 백업. 3회 실패 시 Ken Burns. | `asset-sourcer` |
+| 8 | ASSETS | **Runway Gen-3a Turbo 주력 (`gen3a_turbo`, 768:1280, $0.25/5s)** → Kling 2.5-turbo Pro (fal.ai) 백업. 3회 실패 시 Ken Burns (로컬 FFmpeg). | `asset-sourcer` |
 | 9 | ASSEMBLY | Shotstack composite render + filter[0] Continuity Bible prefix. | `assembler` |
 | 10 | THUMBNAIL | Nano Banana Pro (Gemini 3 Pro Image) 한국어 텍스트 94-96%. 3회 실패 시 Ken Burns 스틸. | `thumbnail-designer` |
 | 11 | METADATA | SEO 타이틀·설명·태그 + AI disclosure 선언. | `metadata-seo` |
@@ -132,7 +132,7 @@ flowchart TD
 | 8 | script-polisher | `.claude/agents/producers/script-polisher/AGENT.md` | 존댓말·리듬 교정 |
 | 9 | metadata-seo | `.claude/agents/producers/metadata-seo/AGENT.md` | 제목·설명·태그·AI 공시 |
 | 10 | voice-producer | `.claude/agents/producers/voice-producer/AGENT.md` | Typecast 주력 / ElevenLabs 백업 |
-| 11 | asset-sourcer | `.claude/agents/producers/asset-sourcer/AGENT.md` | Kling 2.6 Pro / Runway Gen-3 I2V 생성 |
+| 11 | asset-sourcer | `.claude/agents/producers/asset-sourcer/AGENT.md` | Runway Gen-3a Turbo (primary) / Kling 2.5-turbo Pro (backup) I2V 생성 |
 | 12 | assembler | `.claude/agents/producers/assembler/AGENT.md` | Shotstack composite render |
 | 13 | thumbnail-designer | `.claude/agents/producers/thumbnail-designer/AGENT.md` | Nano Banana Pro 썸네일 |
 | 14 | publisher | `.claude/agents/producers/publisher/AGENT.md` | YouTube Data API v3 upload + monitor |

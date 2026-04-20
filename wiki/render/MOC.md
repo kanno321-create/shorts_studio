@@ -1,8 +1,8 @@
 ---
 category: render
-status: scaffold
+status: partial
 tags: [moc, shorts, render]
-updated: 2026-04-19
+updated: 2026-04-20
 ---
 
 # Render Stack — Map of Content
@@ -12,18 +12,18 @@ updated: 2026-04-19
 
 ## Scope
 
-Remotion v4 + Kling 2.6 Pro primary / Runway Gen-3 Alpha Turbo backup 렌더 스택. Low-Res First 파이프라인 + Shotstack 색보정.
+Remotion v4 + **Runway Gen-3a Turbo primary** / Kling 2.5-turbo Pro backup 렌더 스택. Low-Res First 파이프라인 + Shotstack 색보정. **2026-04-20 세션 #24 실측 재결정** (이전 Kling primary 에서 교체; 3-way 비교 결과 Gen-3a Turbo = $0.25/5s, 21s latency, 품질 충분; Gen-4.5 = 품질 우위이나 비용 2.4배 + 지연 6배로 기각; Kling 2.5-turbo = backup).
 
 ## Planned Nodes
 
 > Phase 6에서 채워질 노드 placeholder. 현재는 scaffold.
 
-- [ ] `kling_api_spec.md` — Kling 2.6 Pro API (HMAC 서명, 가격, rate limits)
-- [ ] `runway_fallback_policy.md` — Kling 실패 시 Runway Gen-3 Alpha Turbo 전환 조건
+- [ ] `runway_gen3a_turbo_api_spec.md` — Runway Gen-3a Turbo API (유효 모델/ratios, 가격 5 credits/s, rate limits)
+- [ ] `kling_backup_policy.md` — Runway 실패 시 Kling 2.5-turbo Pro (fal.ai) 전환 조건
 - [ ] `remotion_composition_schema.md` — Remotion v4 composition 표준 구조
 - [ ] `shotstack_color_grading.md` — 일괄 색보정 API (T14)
-- [ ] `low_res_first_pipeline.md` — 720p → AI 업스케일 2단계 (T4)
-- [x] `remotion_kling_stack.md` — Remotion v4 + Kling primary + Runway backup + Shotstack composite (Phase 6 ready)
+- [ ] `low_res_first_pipeline.md` — 768:1280 → AI 업스케일 2단계 (T4)
+- [x] `remotion_kling_stack.md` — Remotion v4 + Runway Gen-3a Turbo primary + Kling 2.5-turbo backup + Shotstack composite (2026-04-20 세션 #24 재결정 후 업데이트 예정)
 
 ## Related
 

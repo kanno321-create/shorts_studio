@@ -37,8 +37,11 @@ if TYPE_CHECKING:
 # ``runway_client.py`` MODEL_REGISTRY (gen3_alpha_turbo row) per D-16.
 # ---------------------------------------------------------------------------
 
-DEFAULT_MODEL = "gen3_alpha_turbo"
-DEFAULT_RATIO = "720:1280"  # 9:16 vertical Shorts format
+DEFAULT_MODEL = "gen3a_turbo"  # 2026-04-20 대표님 dual-tier 결정: batch primary
+# (flagship primary = gen4.5, 복합 prompt 품질 우위이나 $0.60/5s + 129s latency;
+#  batch primary = gen3a_turbo, 품질 충분 + $0.25/5s + 21s latency = 6x throughput).
+# 모델별 valid ratios 상이: gen3a_turbo ∈ {"16:9","9:16","768:1280","1280:768"}.
+DEFAULT_RATIO = "768:1280"  # 9:16 vertical Shorts format (gen3a_turbo compatible)
 DEFAULT_POLL_TIMEOUT_S = 600
 DEFAULT_HTTP_TIMEOUT_S = 120
 DEFAULT_OUTPUT_DIR = Path("outputs/runway")
