@@ -21,7 +21,8 @@
 - [x] **Phase 8: Remote + Publishing + Production Metadata** — GitHub push + YouTube API v3 + AI disclosure 자동 ON + Reused content 증명 (세션 #22 완료 2026-04-19, 8/8 plans + 8/8 REQs + 6/6 SC PASS + 3 anchors permanent + 986 + Phase 8 regression green)
 - [x] **Phase 9: Documentation + KPI Dashboard + Taste Gate** — KPI 목표 설정 + 월 1회 대표님 taste 평가 회로 가동 (세션 #23 완료 2026-04-20, 6/6 plans + 4/4 SC PASS + 2/2 REQs)
 - [x] **Phase 9.1: Production Engine Wiring** — producer/supervisor Claude SDK wiring + Nano Banana Pro adapter + CharRegistry + Ken-Burns FFmpeg 로컬 + Runway VALID_RATIOS_BY_MODEL + ElevenLabs voice 3-tier + Stage 2→4 smoke $0.29 (세션 #24 YOLO 완결 2026-04-20, 8/8 plans + 7/7 REQs + 15/15 decisions)
-- [x] **Phase 10: Sustained Operations** — 주 3~4편 자동 발행 + 첫 1~2개월 SKILL patch 전면 금지 (D-2 저수지) (completed 2026-04-20)
+- [x] **Phase 10: Sustained Operations** — 주 3~4편 자동 발행 + 첫 1~2개월 SKILL patch 전면 금지 (D-2 저수지)
+ (completed 2026-04-20)
 
 - [ ] **Phase 11: Pipeline Real-Run Activation + Script Quality Mode** — D10-PIPELINE-DEF-01 5-item backlog 해결 + 영상 1편 실 발행 + D10-SCRIPT-DEF-01 옵션 확정 (planned 2026-04-21)
 
@@ -301,14 +302,14 @@ Plans:
   4. `shorts_pipeline.py` 또는 orchestrator `__init__` 에 `load_dotenv()` 통합으로 `.env` 자동 로드 — PowerShell 추가 env 주입 없이 더블클릭 wrapper 로 실행 가능
   5. `run_pipeline.ps1` 또는 `.bat` wrapper 생성 — 관리자 권한 불필요, `.env` 자동 로드 + `--session-id $(Get-Date -Format yyyyMMdd_HHmmss)` 자동 주입 + pause (창 안 꺼짐)
   6. (선택) Phase 04/08 retrospective VERIFICATION.md 작성 — Phase 04 (33 agent filesystem invariant) + Phase 08 (smoke upload 2 evidence) 증거 체인 공식화
-**Plans:** TBD — /gsd:discuss-phase 11 + /gsd:plan-phase 11 이후 확정
+**Plans:** 6 plans (3 waves — Wave 1 parallel 3 / Wave 2 parallel 2 / Wave 3 serial 1)
 
-- [ ] 11-XX-pipeline-invoker-fix-PLAN.md — claude CLI argv/stdin 재조사 + invokers.py 수정 (PIPELINE-01)
-- [ ] 11-XX-dotenv-integration-PLAN.md — load_dotenv() 통합 + adapter graceful degrade 전면 (PIPELINE-02, PIPELINE-03)
-- [ ] 11-XX-wrapper-ux-PLAN.md — run_pipeline.ps1 wrapper + .env 자동 로드 + session-id 자동 생성 (PIPELINE-04)
-- [ ] 11-XX-full-smoke-PLAN.md — Full 0→13 GATE end-to-end smoke + 영상 1편 실 발행 (PIPELINE-01 validation + SCRIPT-01)
-- [ ] 11-XX-skill-patch-idempotency-PLAN.md — skill_patch_counter idempotency + regression test (AUDIT-05)
-- [ ] 11-XX-script-quality-decision-PLAN.md — D10-SCRIPT-DEF-01 옵션 A/B/C 확정 + (옵션 B 선택 시) NLM 2-step 호출 scripter 재설계
+- [ ] 11-01-invoker-stdin-fix-PLAN.md — _invoke_claude_cli stdin piping (PIPELINE-01) — Wave 1
+- [ ] 11-02-dotenv-loader-PLAN.md — zero-dep .env loader at package __init__ (PIPELINE-02) — Wave 1
+- [ ] 11-03-adapter-graceful-degrade-PLAN.md — 7 adapter uniform wrap via _try_adapter helper + argparse --session-id optional (PIPELINE-03 + PIPELINE-04 tie-in) — Wave 1
+- [ ] 11-04-wrapper-cmd-ps1-PLAN.md — run_pipeline.cmd + run_pipeline.ps1 double-click wrapper (PIPELINE-04) — Wave 2
+- [ ] 11-05-idempotency-counter-PLAN.md — skill_patch_counter commit-hash-set idempotency (AUDIT-05, D-22 2026-05-20 deadline) — Wave 2
+- [ ] 11-06-full-smoke-script-decision-PLAN.md — Full 0→13 GATE live smoke + SCRIPT_QUALITY_DECISION.md template + REQUIREMENTS.md D-19 amendment (PIPELINE-01 SC#1 validation + SCRIPT-01 SC#2) — Wave 3
 
 ---
 
