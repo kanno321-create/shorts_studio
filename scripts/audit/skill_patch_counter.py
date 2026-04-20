@@ -45,6 +45,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import re
 import subprocess
 import sys
@@ -54,6 +55,8 @@ from zoneinfo import ZoneInfo
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
+logger = logging.getLogger(__name__)
 
 KST = ZoneInfo("Asia/Seoul")
 D2_LOCK_START = "2026-04-20"
@@ -184,6 +187,30 @@ def write_report(
     output.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def _existing_violation_hashes(failures_text: str) -> set[str]:
+    """Parse F-D2-NN entries and return the union of commit short-hashes.
+
+    Recognized line format (matches :func:`append_failures` at L220-224)::
+
+        - `7-hex` YYYY-MM-DD — `file.ext` (subject)
+
+    Returns a set of 7-hex short hashes. Used by :func:`main` to skip
+    duplicate appends (AUDIT-05 / D-23). Format coupling with
+    ``append_failures`` is tested by
+    ``tests/phase10/test_skill_patch_counter.py::test_idempotency_skip_existing``.
+    """
+    hashes: set[str] = set()
+    # Match F-D2-NN entries (greedy body until next F-D or EOF).
+    entry_re = re.compile(r"^## F-D2-\d{2}.*?(?=^## F-|\Z)", re.MULTILINE | re.DOTALL)
+    line_re = re.compile(r"^- `([0-9a-f]{7})`")
+    for entry_match in entry_re.finditer(failures_text):
+        for line in entry_match.group(0).splitlines():
+            m = line_re.match(line)
+            if m:
+                hashes.add(m.group(1))
+    return hashes
+
+
 def append_failures(
     violations: list[dict],
     repo_root: Path,
@@ -282,7 +309,27 @@ def main(argv: list[str] | None = None) -> int:
     )
     write_report(violations, output, now, args.since, args.until)
     if violations:
-        append_failures(violations, repo_root, now)
+        # AUDIT-05 (D-23): skip append when all violations already recorded.
+        failures_path = repo_root / "FAILURES.md"
+        if failures_path.exists():
+            existing_text = failures_path.read_text(encoding="utf-8")
+            existing_hashes = _existing_violation_hashes(existing_text)
+        else:
+            existing_hashes = set()
+        new_violations = [
+            v for v in violations
+            if (v.get("hash") or "")[:7] not in existing_hashes
+        ]
+        if not new_violations:
+            logger.info(
+                "[skill_patch_counter] 신규 violation 없음 — 기존 F-D2-NN 에 %d건 "
+                "이미 기록 (대표님, 재실행 skip)",
+                len(violations),
+            )
+            # Skip FAILURES.md append; report file already written above.
+            # Preserve exit code contract: violations exist in window → rc=1.
+        else:
+            append_failures(new_violations, repo_root, now)
         return 1
     return 0
 
