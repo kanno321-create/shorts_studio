@@ -470,8 +470,8 @@ v1.0.2 밀스톤 초기화 — 2026-04-21. Phase 11 `complete_with_deferred` SC#
 ### SPC — System Prompt Compression (Claude CLI 경로 root cause fix)
 
 - [x] **SPC-01**: `invokers.py _invoke_claude_cli_once` 의 Windows cp949 ↔ UTF-8 인코딩 경로 root cause 진단 + 수정. `subprocess.Popen` 의 `text=True, encoding='utf-8', errors='replace'` 조합이 Korean text in `--append-system-prompt` argument 전달 시 10KB+ 구간에서 rc=1 유발. bash 경로는 동일 body 에 성공 → Python-specific encoding 문제. 수정안: stdin bytes 모드 또는 `encoding='utf-8', errors='strict'` + 명시적 encoding validation.
-- [ ] **SPC-02**: `shorts-supervisor` AGENT.md body 압축 (Progressive Disclosure) — 10591자 → 6000자 목표. verbose reference 블록을 `references/` 로 분리. 기존 Phase 12 AGENT-STD 검증 (`verify_agent_md_schema.py` 31/31) 재통과 필수.
-- [ ] **SPC-03**: Producer 14명 AGENT.md 평균 크기 audit — 10000자 초과 시 Progressive Disclosure 강제. 장기 drift 방지를 위해 `verify_agent_md_size.py` 신설 (pytest marker `adapter_contract` 와 유사하게 상한 enforcement).
+- [x] **SPC-02**: `shorts-supervisor` AGENT.md body 압축 (Progressive Disclosure) — 10591자 → 6000자 목표. verbose reference 블록을 `references/` 로 분리. 기존 Phase 12 AGENT-STD 검증 (`verify_agent_md_schema.py` 31/31) 재통과 필수.
+- [x] **SPC-03**: Producer 14명 AGENT.md 평균 크기 audit — 10000자 초과 시 Progressive Disclosure 강제. 장기 drift 방지를 위해 `verify_agent_md_size.py` 신설 (pytest marker `adapter_contract` 와 유사하게 상한 enforcement).
 - [x] **SPC-04**: `--system-prompt-file <path>` 옵션 조사 — Claude CLI 가 system_prompt 를 argument 가 아닌 파일 경로로 받을 수 있는지 확인. 가능 시 argv 크기 제한 회피 부가 방어선.
 - [x] **SPC-05**: `invokers.py` contract test 신설 — `tests/adapters/test_invokers_encoding_contract.py`. 10KB+ AGENT.md body + Korean text 전수 통과 검증 (mock subprocess).
 - [ ] **SPC-06**: Phase 13 live smoke 재시도 — `phase13_live_smoke.py --live --topic "해외범죄,..." --niche incidents` 실 완주 + 13 gate 전수 dispatched + evidence 5 files anchor. SPC-01~05 완결 이후 empirical 검증.

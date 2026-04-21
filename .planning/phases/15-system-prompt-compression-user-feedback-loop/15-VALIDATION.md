@@ -45,9 +45,9 @@ created: 2026-04-22
 | 15-01-01 | 01 | 0 | SPC-01 | reproducer | `pytest tests/phase15/test_encoding_repro.py` 재현 시나리오 확정 | ✅ |
 | 15-02-01 | 02 | 1 | SPC-01 | invoker fix | `pytest tests/adapters/test_invokers_encoding_contract.py` green | ✅ |
 | 15-02-02 | 02 | 1 | SPC-05 | contract | 10KB+ Korean body mock subprocess green | ✅ |
-| 15-03-01 | 03 | 2 | SPC-02 | agent split | supervisor AGENT.md ≤ 6500 chars + references/ 2 files + AGENT-STD schema 31/31 | ⬜ |
-| 15-03-02 | 03 | 2 | SPC-03 | size audit | `verify_agent_md_size.py` producer 14 + supervisor 1 ≤ CHAR_LIMIT | ⬜ |
-| 15-03-03 | 03 | 2 | SPC-04 | CLI option | Claude CLI `--append-system-prompt-file` empirical verify (non-existent file → proper error) | ⬜ |
+| 15-03-01 | 03 | 2 | SPC-02 | agent split | supervisor AGENT.md 5712 chars + references/ 2 files + AGENT-STD schema 31/31 | ✅ |
+| 15-03-02 | 03 | 2 | SPC-03 | size audit | `verify_agent_md_size.py --ceiling 18000` → 15/15 exit 0 | ✅ |
+| 15-03-03 | 03 | 2 | SPC-04 | CLI option | `tests/phase15/test_cli_flag_probe.py` 3/3 re-verified (Plan 15-01 Wave 0 probe preserved) | ✅ |
 | 15-04-00 | 04 | 3 | UFL-01/02/03 | evidence isolation | `grep -c "evidence-dir" scripts/smoke/phase13_live_smoke.py` ≥ 2 + `--help` 노출 | ⬜ |
 | 15-04-01 | 04 | 3 | UFL-01 | revision | `--revision-from SCRIPT --feedback "hook weak"` 테스트 + Phase 12 compression verdict preserve | ⬜ |
 | 15-04-02 | 04 | 3 | UFL-02 | script inject | `--revise-script path.md` 주입 + script-polisher 경로 | ⬜ |

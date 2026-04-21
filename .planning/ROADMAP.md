@@ -401,7 +401,7 @@ Plans:
 | 12. Agent Standardization | 7/7 | Complete    | 2026-04-21 |
 | 13. Live Smoke 재도전 | 6/6 | ✅ Complete | 2026-04-21 |
 | 14. API Adapter Remediation | 5/5 | ✅ Complete | 2026-04-21 |
-| 15. System Prompt Compression + UFL | 2/7 | 🔄 Executing (Wave 1 complete) | pending |
+| 15. System Prompt Compression + UFL | 3/7 | In Progress|  |
 
 ---
 
