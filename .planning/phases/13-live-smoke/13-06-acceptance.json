@@ -1,0 +1,157 @@
+{
+  "phase": "13-live-smoke",
+  "plan": "13-06",
+  "tier": "tier1_only",
+  "timestamp": "2026-04-21T16:00:06Z",
+  "all_passed": true,
+  "checks": [
+    {
+      "label": "SC#1 phase13_tier1_regression (SMOKE-01~06 Tier 1 surface)",
+      "cmd": [
+        "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "-m",
+        "pytest",
+        "tests/phase13/",
+        "--ignore=tests/phase13/test_phase13_acceptance.py",
+        "-m",
+        "not live_smoke",
+        "--tb=short",
+        "-q",
+        "--no-cov"
+      ],
+      "rc": 0,
+      "stdout_tail": ".......................................                                  [100%]\n39 passed, 5 deselected in 2.73s\n",
+      "stderr_tail": "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\requests\\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.0.post2)/charset_normalizer (3.4.3) doesn't match a supported version!\n  warnings.warn(\n"
+    },
+    {
+      "label": "SC#2 tier2_live_smoke_collected (deferred — 실 과금 대표님 승인 후)",
+      "cmd": [
+        "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "-m",
+        "pytest",
+        "tests/phase13/",
+        "-m",
+        "live_smoke",
+        "--collect-only",
+        "-q",
+        "--no-cov"
+      ],
+      "rc": 0,
+      "stdout_tail": "tests/phase13/test_live_run.py::test_smoke_runner_live_subprocess_full_e2e\ntests/phase13/test_smoke_01_producer.py::test_smoke_01_real_claude_cli_producer_call_and_anchor\ntests/phase13/test_smoke_02_supervisor.py::test_smoke_02_real_claude_cli_supervisor_rc1_zero\ntests/phase13/test_smoke_03_upload_contract.py::test_smoke_03_real_youtube_unlisted_upload_and_cleanup\ntests/phase13/test_smoke_04_readback.py::test_smoke_04_real_videos_list_readback_after_upload\n\n5/54 tests collected (49 deselected) in 0.83s\n",
+      "stderr_tail": "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\requests\\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.0.post2)/charset_normalizer (3.4.3) doesn't match a supported version!\n  warnings.warn(\n",
+      "tier2_collected_count": 5
+    },
+    {
+      "label": "SC#3 scripts_smoke_modules_import (SMOKE-01~06 infra 5 modules)",
+      "cmd": [
+        "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "-c",
+        "import importlib, sys\nmods = ['scripts.smoke.budget_counter', 'scripts.smoke.evidence_extractor', 'scripts.smoke.upload_evidence', 'scripts.smoke.provider_rates', 'scripts.smoke.phase13_live_smoke']\nfailed = []\nfor name in mods:\n    try:\n        importlib.import_module(name)\n    except Exception as e:\n        failed.append((name, type(e).__name__, str(e)))\nif failed:\n    for n, et, m in failed:\n        sys.stderr.write(f'FAIL {n}: {et}: {m}\\n')\n    sys.exit(1)\nprint(f'IMPORT_OK count={len(mods)} 대표님')\n"
+      ],
+      "rc": 0,
+      "stdout_tail": "IMPORT_OK count=5 대표님\n",
+      "stderr_tail": "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\requests\\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.0.post2)/charset_normalizer (3.4.3) doesn't match a supported version!\n  warnings.warn(\n"
+    },
+    {
+      "label": "SC#4 golden_fixtures_parseable (SMOKE-01/02/04/06 shape anchor)",
+      "cmd": [
+        "json.loads scan on tests\\phase13\\fixtures"
+      ],
+      "rc": 0,
+      "required": [
+        "sample_producer_output.json",
+        "sample_supervisor_output.json",
+        "sample_smoke_upload.json",
+        "sample_smoke_e2e.json"
+      ],
+      "missing": [],
+      "unparseable": [],
+      "stdout_tail": "fixtures=['sample_producer_output.json', 'sample_supervisor_output.json', 'sample_smoke_upload.json', 'sample_smoke_e2e.json'] missing=[] unparseable=[] 대표님 OK=True",
+      "stderr_tail": ""
+    },
+    {
+      "label": "SC#5 pytest_ini_markers_and_phase14_regression (adapter_contract 30 green)",
+      "cmd": [
+        "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "-m",
+        "pytest",
+        "-m",
+        "adapter_contract",
+        "--tb=no",
+        "-q",
+        "--no-cov"
+      ],
+      "rc": 0,
+      "stdout_tail": "..............................                                           [100%]\n30 passed, 1520 deselected in 1.83s\n",
+      "stderr_tail": "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\requests\\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.0.post2)/charset_normalizer (3.4.3) doesn't match a supported version!\n  warnings.warn(\n",
+      "markers_required": [
+        "live_smoke",
+        "adapter_contract"
+      ],
+      "markers_missing": []
+    },
+    {
+      "label": "SC#6 phase13_live_smoke_help (SMOKE-05/06 runner CLI)",
+      "cmd": [
+        "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "scripts/smoke/phase13_live_smoke.py",
+        "--help"
+      ],
+      "rc": 0,
+      "stdout_tail": "usage: phase13_live_smoke.py [-h] [--live] [--max-attempts MAX_ATTEMPTS]\n                             [--budget-cap-usd BUDGET_CAP_USD]\n                             [--session-id SESSION_ID]\n                             [--state-root STATE_ROOT] [--verbose-compression]\n                             [--log-level LOG_LEVEL]\n\nPhase 13 Live Smoke — full E2E real API smoke + evidence chain.\nphase11_full_run.py clone + Wave 0~3 wire. Default dry-run ($0). Pass --live\n로만 실 과금 진입 (대표님 승인 후).\n\noptions:\n  -h, --help            show this help message and exit\n  --live                Real API calls. Default: dry-run mode ($0 preview).\n                        Requires env: TYPECAST_API_KEY + GOOGLE_API_KEY +\n                        FAL_KEY/KLING_API_KEY. Cost bounded ≤ --budget-cap-usd\n                        (default $5.00).\n  --max-attempts MAX_ATTEMPTS\n                        Retry attempts on mid-run failure (default 2). Budget\n                        cap is cumulative across attempts (Research Open Q\n                        #2).\n  --budget-cap-usd BUDGET_CAP_USD\n                        Hard cost cap USD (default $5.00). SMOKE-05 invariant.\n                        BudgetExceededError → exit 5.\n  --session-id SESSION_ID\n                        Session identifier (default: yyyyMMdd_HHMMSS).\n  --state-root STATE_ROOT\n                        Checkpointer state directory (default: state).\n  --verbose-compression\n                        Dump raw supervisor payload pre-compression to\n                        evidence (Research Open Q #6 ad-hoc forensic mode).\n  --log-level LOG_LEVEL\n                        Python logging level (default: INFO).\n",
+      "stderr_tail": "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\requests\\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.0.post2)/charset_normalizer (3.4.3) doesn't match a supported version!\n  warnings.warn(\n",
+      "required_flags": [
+        "--live",
+        "--max-attempts",
+        "--budget-cap-usd",
+        "--verbose-compression"
+      ],
+      "missing_flags": []
+    },
+    {
+      "label": "AUDIT harness_score",
+      "cmd": [
+        "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "-m",
+        "scripts.validate.harness_audit",
+        "--threshold",
+        "80"
+      ],
+      "rc": 0,
+      "stdout_tail": "HARNESS_AUDIT_SCORE: 90\n  violations: 1\n  warnings:   0\n",
+      "stderr_tail": "VIOL: .claude\\agents\\harvest-importer\\AGENT.md: '## MUST REMEMBER' section missing (AGENT-09)\n"
+    },
+    {
+      "label": "AUDIT drift_a_class",
+      "cmd": [
+        "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "-m",
+        "scripts.audit.drift_scan",
+        "--skip-harness-import",
+        "--dry-run",
+        "--skip-github-issue"
+      ],
+      "rc": 0,
+      "stdout_tail": "{\n  \"a_grade_count\": 1,\n  \"a_grade_details\": {\n    \"t2v_code_path\": 1\n  },\n  \"total_patterns_checked\": 8,\n  \"scan_time\": \"2026-04-22T01:00:05.617794+09:00\",\n  \"dry_run\": true,\n  \"harness_loaded\": false,\n  \"mode\": \"local-only\"\n}\n",
+      "stderr_tail": "[INFO] --skip-harness-import: local-only drift scan (deprecated_patterns.json only)\n"
+    }
+  ],
+  "requirements": [
+    "SMOKE-01",
+    "SMOKE-02",
+    "SMOKE-03",
+    "SMOKE-04",
+    "SMOKE-05",
+    "SMOKE-06"
+  ],
+  "deferred": {
+    "tier2_live_smoke": "실 과금 5 tests (producer/supervisor/upload/readback/live_run) 는 대표님 승인 후 별도 live run 에서 검증",
+    "evidence_files": [
+      "producer_output_<sid>.json",
+      "supervisor_output_<sid>.json",
+      "smoke_upload_<sid>.json",
+      "budget_usage_<sid>.json",
+      "smoke_e2e_<sid>.json"
+    ]
+  }
+}

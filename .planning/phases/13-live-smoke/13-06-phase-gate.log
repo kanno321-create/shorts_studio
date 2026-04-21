@@ -1,0 +1,36 @@
+Phase 13 Acceptance (Tier 1): ALL_PASS 대표님 확인
+| Check | RC | Label |
+|-------|----|-------|
+| SC#1 phase13_tier1_regression (SMOKE-01~06 Tier 1 surface) | 0 | PASS |
+| SC#2 tier2_live_smoke_collected (deferred — 실 과금 대표님 승인 후) | 0 | PASS |
+| SC#3 scripts_smoke_modules_import (SMOKE-01~06 infra 5 modules) | 0 | PASS |
+| SC#4 golden_fixtures_parseable (SMOKE-01/02/04/06 shape anchor) | 0 | PASS |
+| SC#5 pytest_ini_markers_and_phase14_regression (adapter_contract 30 green) | 0 | PASS |
+| SC#6 phase13_live_smoke_help (SMOKE-05/06 runner CLI) | 0 | PASS |
+| AUDIT harness_score | 0 | PASS |
+| AUDIT drift_a_class | 0 | PASS |
+ARTIFACT: .planning\phases\13-live-smoke\13-06-acceptance.json
+NOTE: Tier 2 live_smoke (5 실 과금 tests) 는 본 gate 범위 외입니다. 대표님 승인 후 별도 live run 에서 evidence 5 파일 (producer_output/supervisor_output/smoke_upload/budget_usage/smoke_e2e) anchor 됩니다.
+C:\Users\PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.0.post2)/charset_normalizer (3.4.3) doesn't match a supported version!
+  warnings.warn(
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-8.4.2, pluggy-1.6.0 -- C:\Users\PC\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\PC\Desktop\naberal_group\studios\shorts
+configfile: pytest.ini
+plugins: anyio-4.10.0, dash-3.2.0, Faker-37.8.0, langsmith-0.4.28, asyncio-0.23.8, cov-7.0.0, mock-3.15.1, rerunfailures-16.1, timeout-2.4.0, respx-0.22.0
+asyncio: mode=Mode.STRICT
+collecting ... collected 10 items
+
+tests/phase13/test_phase13_acceptance.py::test_phase13_acceptance_all_passed PASSED [ 10%]
+tests/phase13/test_phase13_acceptance.py::test_phase13_acceptance_json_shape PASSED [ 20%]
+tests/phase13/test_phase13_acceptance.py::test_phase13_sc1_phase13_tier1_regression PASSED [ 30%]
+tests/phase13/test_phase13_acceptance.py::test_phase13_sc2_tier2_live_smoke_collected PASSED [ 40%]
+tests/phase13/test_phase13_acceptance.py::test_phase13_sc3_scripts_smoke_modules_import PASSED [ 50%]
+tests/phase13/test_phase13_acceptance.py::test_phase13_sc4_golden_fixtures_parseable PASSED [ 60%]
+tests/phase13/test_phase13_acceptance.py::test_phase13_sc5_pytest_ini_markers_and_phase14_regression PASSED [ 70%]
+tests/phase13/test_phase13_acceptance.py::test_phase13_sc6_live_smoke_runner_help PASSED [ 80%]
+tests/phase13/test_phase13_acceptance.py::test_phase13_harness_audit_min_80 PASSED [ 90%]
+tests/phase13/test_phase13_acceptance.py::test_phase13_drift_scan_no_a_class PASSED [100%]
+
+============================= 10 passed in 14.36s =============================
