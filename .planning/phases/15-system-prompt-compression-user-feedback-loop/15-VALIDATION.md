@@ -43,8 +43,8 @@ created: 2026-04-22
 | Task ID | Plan | Wave | Requirement | Test Type | Command | Status |
 |---------|------|------|-------------|-----------|---------|:-:|
 | 15-01-01 | 01 | 0 | SPC-01 | reproducer | `pytest tests/phase15/test_encoding_repro.py` 재현 시나리오 확정 | ✅ |
-| 15-02-01 | 02 | 1 | SPC-01 | invoker fix | `pytest tests/adapters/test_invokers_encoding_contract.py` green | ⬜ |
-| 15-02-02 | 02 | 1 | SPC-05 | contract | 10KB+ Korean body mock subprocess green | ⬜ |
+| 15-02-01 | 02 | 1 | SPC-01 | invoker fix | `pytest tests/adapters/test_invokers_encoding_contract.py` green | ✅ |
+| 15-02-02 | 02 | 1 | SPC-05 | contract | 10KB+ Korean body mock subprocess green | ✅ |
 | 15-03-01 | 03 | 2 | SPC-02 | agent split | supervisor AGENT.md ≤ 6500 chars + references/ 2 files + AGENT-STD schema 31/31 | ⬜ |
 | 15-03-02 | 03 | 2 | SPC-03 | size audit | `verify_agent_md_size.py` producer 14 + supervisor 1 ≤ CHAR_LIMIT | ⬜ |
 | 15-03-03 | 03 | 2 | SPC-04 | CLI option | Claude CLI `--append-system-prompt-file` empirical verify (non-existent file → proper error) | ⬜ |

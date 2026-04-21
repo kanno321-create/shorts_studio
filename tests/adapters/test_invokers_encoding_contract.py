@@ -178,9 +178,14 @@ class TestCleanup:
             idx = cmd.index("--append-system-prompt-file")
             paths_seen.append(cmd[idx + 1])
             proc = MagicMock()
-            proc.communicate.side_effect = subprocess.TimeoutExpired(
-                cmd=cmd[0], timeout=30,
-            )
+            # invokers.py 는 TimeoutExpired 시 proc.kill() 후 reap 으로
+            # proc.communicate() 를 한 번 더 호출합니다. 첫 호출은
+            # TimeoutExpired, 두 번째는 정상 반환하도록 side_effect 를
+            # 순차 지정 (Phase 11 선례와 동일, 대표님).
+            proc.communicate.side_effect = [
+                subprocess.TimeoutExpired(cmd=cmd[0], timeout=30),
+                ("", ""),
+            ]
             return proc
 
         with patch(

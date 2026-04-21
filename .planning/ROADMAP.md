@@ -399,6 +399,9 @@ Plans:
 | 10. Sustained Operations | 8/8 | Complete    | 2026-04-20 |
 | 11. Pipeline Real-Run Activation | 5/6 | 🟡 Complete (Deferred SC#1/SC#2) | 2026-04-21 |
 | 12. Agent Standardization | 7/7 | Complete    | 2026-04-21 |
+| 13. Live Smoke 재도전 | 6/6 | ✅ Complete | 2026-04-21 |
+| 14. API Adapter Remediation | 5/5 | ✅ Complete | 2026-04-21 |
+| 15. System Prompt Compression + UFL | 2/7 | 🔄 Executing (Wave 1 complete) | pending |
 
 ---
 
