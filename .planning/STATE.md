@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-21T10:07:15.760Z"
+last_updated: "2026-04-21T10:27:23.713Z"
 last_activity: 2026-04-21
 progress:
   total_phases: 15
   completed_phases: 12
   total_plans: 102
-  completed_plans: 100
-  percent: 98
+  completed_plans: 101
+  percent: 99
 ---
 
 # STATE — naberal-shorts-studio
@@ -33,14 +33,14 @@ progress:
 ## Current Position
 
 Phase: 14 (api-adapter-remediation) — EXECUTING
-Plan: 2 of 5
-Status: Ready to execute
-Last activity: 2026-04-21
+Plan: 3 of 5
+Status: Wave 1 complete — ready to execute Plan 14-03 (Wave 2 contract tests)
+Last activity: 2026-04-21 (Plan 14-02 Wave 1 — 15 failed → 0 failed, 742 passed, ADAPT-04 SC#1 proven)
 
 - **Milestone:** v1.0.2 Production Readiness — Live Smoke + Adapter Remediation
-- **Next Action:** `/gsd:plan-phase 13` (Phase 13 Live Smoke 재도전 — SMOKE-01~06) — Phase 14 (ADAPT-01~06) 는 독립, 병행 가능
+- **Next Action:** `/gsd:execute-phase 14` continues with Plan 14-03 (Wave 2 — Contract Tests for veo_i2v + elevenlabs + shotstack). Phase 13 (ADAPT-independent) still parallel-safe.
 - **Predecessor:** v1.0.1 milestone complete (Phases 1~12 all shipped, REQ-11 validated)
-- **Progress:** [██████████] 98%
+- **Progress:** [██████████] 99%
 
 ### Previous milestone (v1.0.1) — Completed 2026-04-21
 
@@ -54,6 +54,15 @@ Last activity: 2026-04-21
 - Verifier CLI scope = 14 producer + 17 inspector = 31 AGENT.md in scope (not plan's stated 30). harvest-importer lives at `.claude/agents/harvest-importer/` root-level outside `producers/` scan path. Plan 02/03 batch test names should reconcile to 31.
 - MockClaudeCLI adopts defensive `*args/**kwargs` signature absorbing real `_invoke_claude_cli` 6-arg vs `ClaudeAgentSupervisorInvoker._call` 4-kwarg call-site gap. Survives future real-fn signature drift.
 - trend-collector v1.2 `<mandatory_reads>` item 2 path corrected `wiki/ypp/channel_bible.md` → `wiki/continuity_bible/channel_identity.md` (Phase 6 Plan 02 D-10 canonical 5-component baseline). First migration was the right moment for drift rectification before 13 more producers inherit it.
+
+### Plan 14-02 Decisions (Wave 1 Regression Remediation — 2026-04-21)
+
+- **15 failures → 0 failures** in phase05/06/07 via 5 atomic edits + sweep log commit. 6 atomic commits: acd3906 (veo_i2v self-doc) + 623d774 (runway gen4.5) + 1973735 (line caps 360/420) + 0afef9c (MOC status regex) + 552f652 (notebooklm secondjob_naberal path) + 5cd6ef0 (14-02-wave1-sweep.log anchored). Final sweep: **742 passed, 0 failed in 633.34s**. ADAPT-04 SC#1 proven.
+- D-17 invariant reinterpreted: MOC-as-TOC never promotes to ready/complete, but scaffold→partial is legitimate Phase 9.1 progression. Canonical regex `^status:\s*(scaffold|partial)\b` adopted and shared verbatim with Plan 04 Task 14-04-03 for cross-plan drift-control consistency.
+- veo_i2v.py module-level `assert not hasattr(VeoI2VAdapter, "text_to_video")` deleted — the banned tokens in its failure message tripped the blacklist grep (self-reference paradox). Physical-absence guarantee reassigned to 3 external layers: repo blacklist grep + pre_tool_use.py deprecated_patterns.json + incoming Wave 2 contract test `tests/adapters/test_veo_i2v_contract.py::test_no_text_only_method` (Plan 14-03 scope).
+- Soft caps raised tight (elevenlabs 340→360 vs actual 350, shotstack 400→420 vs actual 414) to accommodate Phase 9.1 D-11 ken_burns DeprecationWarning + D-13 3-tier voice_id growth. ~10-line margin preserves drift control; further silent growth still caught. Per-atom commit-discipline single-file exception applied (two knobs in one invariant dict).
+- POSIX-safe verify syntax adopted throughout Task 14-02-06 acceptance: `[ "$(grep -cE '[0-9]+ failed' log)" = "0" ]` instead of bash-only `! grep`. Runs cleanly under POSIX sh + bash + zsh (14-02-PLAN Warning 3 resolution).
+- Zero deviations. Plan executed exactly as written; all 6 acceptance gates passed on first pytest run with zero re-iteration. Duration 14m12s (of which 10m33s was the sweep itself).
 
 ### Plan 14-01 Decisions (Wave 0 Foundation — 2026-04-21)
 
@@ -394,6 +403,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 12 P03 | 28min | 7 tasks | 19 files |
 | Phase 12-agent-standardization-skill-routing-failures-protocol P06 | 12min | 2 tasks | 7 files |
 | Phase 14 P01 | 6m14s | 3 tasks | 4 files |
+| Phase 14-api-adapter-remediation P02 | 14m12s | 6 tasks | 6 files |
 
 ### Plan Execution Log
 
