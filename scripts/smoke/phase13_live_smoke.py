@@ -363,6 +363,15 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="Python logging level (default: INFO).",
     )
     parser.add_argument(
+        "--evidence-dir",
+        default=None,
+        help=(
+            "evidence 저장 루트 override (대표님 격리 실행용). 미지정 시 기본 "
+            "EVIDENCE_DIR (.planning/phases/13-live-smoke/evidence) 사용. "
+            "Plan 15-06 live retry 단계에서 대표님 격리 경로로 분리 저장 가능."
+        ),
+    )
+    parser.add_argument(
         "--topic",
         default=None,
         help=(
@@ -902,6 +911,22 @@ def main(argv: list[str] | None = None) -> int:
         level=args.log_level,
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     )
+
+    # --evidence-dir 런타임 override (대표님 격리 실행용).
+    # EVIDENCE_DIR 상수를 module global 로 재바인딩하여 이후 모든 참조점
+    # (_run_dry_run / _run_live / _write_smoke_e2e_evidence / _verify_evidence_chain)
+    # 이 자동으로 override 경로 사용.
+    global EVIDENCE_DIR
+    effective_evidence_dir = (
+        Path(args.evidence_dir) if args.evidence_dir else EVIDENCE_DIR
+    )
+    effective_evidence_dir.mkdir(parents=True, exist_ok=True)
+    if args.evidence_dir:
+        logger.info(
+            "[phase13] --evidence-dir override (대표님): %s",
+            effective_evidence_dir,
+        )
+        EVIDENCE_DIR = effective_evidence_dir
 
     # --topic + --niche 동반 검증 (한 쪽만 지정 불가)
     topic_set = bool(args.topic)
