@@ -284,7 +284,13 @@ def check_sc5_pytest_ini_markers_and_phase14_regression() -> dict:
 
 
 def check_sc6_live_smoke_runner_help() -> dict:
-    """SC#6 — SMOKE-05/06 runner: phase13_live_smoke.py --help + 4 flags."""
+    """SC#6 — SMOKE-05/06 runner: phase13_live_smoke.py --help + 4 flags.
+
+    Phase 15 Plan 04 확장 후 --help 출력이 5KB+ 로 증가하여 _run 의
+    stdout_tail (2000 chars) 로는 argparse 앞쪽 flag 들을 놓침. 별도
+    subprocess 로 직접 호출하여 전체 stdout 을 검증합니다 (대표님).
+    """
+    import subprocess as _sp
     proc = _run(
         [
             sys.executable,
@@ -294,7 +300,17 @@ def check_sc6_live_smoke_runner_help() -> dict:
         "SC#6 phase13_live_smoke_help (SMOKE-05/06 runner CLI)",
         timeout=60,
     )
-    stdout = proc.get("stdout_tail", "") or ""
+    # Rerun to capture full stdout (stdout_tail truncates at 2000 chars which
+    # now drops the early argparse flags post Phase 15 Plan 04 expansion).
+    try:
+        full = _sp.run(
+            [sys.executable, "scripts/smoke/phase13_live_smoke.py", "--help"],
+            capture_output=True, text=True, encoding="utf-8",
+            errors="replace", timeout=60,
+        )
+        stdout = (full.stdout or "") + (full.stderr or "")
+    except (_sp.TimeoutExpired, OSError):
+        stdout = proc.get("stdout_tail", "") or ""
     required_flags = ["--live", "--max-attempts", "--budget-cap-usd", "--verbose-compression"]
     missing_flags = [f for f in required_flags if f not in stdout]
     proc["required_flags"] = required_flags

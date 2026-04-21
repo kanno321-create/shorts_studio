@@ -76,6 +76,23 @@ logger = logging.getLogger(__name__)
 
 
 # ===========================================================================
+# PipelinePauseSignal — UFL-03 대표님 pause-after-gate 일시중지 신호
+# ===========================================================================
+
+
+class PipelinePauseSignal(Exception):
+    """UFL-03 — 대표님 --pause-after <gate> 이후 pipeline 일시중지 신호.
+
+    GateGuard.dispatch 가 pause_after_gate 조건 만족 시 raise. Runner 가
+    catch → evidence pause_*.json 기록 + graceful exit 0 (금기 #3 준수).
+    Attr: paused_at (GateName) — 정지 직전 완료 gate.
+    """
+    def __init__(self, paused_at) -> None:
+        super().__init__(f"Pipeline paused after {paused_at.name} (대표님 UFL-03)")
+        self.paused_at = paused_at
+
+
+# ===========================================================================
 # GATE_INSPECTORS — per-gate Inspector mapping
 # ===========================================================================
 # Consumed by ``scripts/hc_checks/hc_checks.check_hc_10_inspector_coverage``
@@ -190,9 +207,9 @@ class ShortsPipeline:
         self.failures_path = Path(failures_path)
         self.max_retries = max_retries_per_gate
 
-        # Checkpointer + GateGuard (Plan 03 + Plan 04).
+        # Checkpointer (Plan 03). UFL-03: GateGuard 는 ctx 생성 후 초기화
+        # (ctx.config by-reference 전달 → pause_after_gate 런타임 반영).
         self.checkpointer = Checkpointer(self.state_root)
-        self.gate_guard = GateGuard(self.checkpointer, session_id)
 
         # CircuitBreakers per external service (D-6 defaults 3 / 300).
         # 5 Phase-5 + 4 Phase-9.1 (REQ-091-01/02/04) = 9 breakers.
@@ -259,8 +276,9 @@ class ShortsPipeline:
             )
         )
 
-        # Per-run context.
+        # Per-run context + GateGuard (UFL-03: ctx.config by-reference).
         self.ctx = GateContext(session_id=session_id)
+        self.gate_guard = GateGuard(self.checkpointer, session_id, ctx_config=self.ctx.config)
 
     # ===================================================================
     # Entry point
@@ -323,16 +341,17 @@ class ShortsPipeline:
     #     Producer (via regen loop) -> Supervisor -> GateGuard.dispatch
     # ===================================================================
 
+    def _prod_inputs(self, ctx: GateContext, **base) -> dict:
+        """UFL-01 prior_user_feedback 주입 helper (대표님 재작업 루프)."""
+        return {**base, "prior_user_feedback": ctx.config.get("prior_user_feedback")}
+
     def _run_trend(self, ctx: GateContext) -> None:
         """GATE 1 — trend-collector Producer, ins-readability Inspector."""
-
         output = self._producer_loop(
             GateName.TREND,
             lambda: self.producer_invoker(
-                "trend-collector", "TREND", {
-                    "session_id": self.session_id,
-                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
-                }
+                "trend-collector", "TREND",
+                self._prod_inputs(ctx, session_id=self.session_id),
             ),
         )
         verdict = self.supervisor_invoker(GateName.TREND, output)
@@ -341,16 +360,11 @@ class ShortsPipeline:
 
     def _run_niche(self, ctx: GateContext) -> None:
         """GATE 2 — niche-classifier Producer, ins-blueprint-compliance."""
-
         output = self._producer_loop(
             GateName.NICHE,
             lambda: self.producer_invoker(
-                "niche-classifier",
-                "NICHE",
-                {
-                    "trend_artifact": ctx.artifacts.get(GateName.TREND),
-                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
-                },
+                "niche-classifier", "NICHE",
+                self._prod_inputs(ctx, trend_artifact=ctx.artifacts.get(GateName.TREND)),
             ),
         )
         verdict = self.supervisor_invoker(GateName.NICHE, output)
@@ -359,16 +373,11 @@ class ShortsPipeline:
 
     def _run_research_nlm(self, ctx: GateContext) -> None:
         """GATE 3 — researcher Producer (NotebookLM RAG wired in Phase 6)."""
-
         output = self._producer_loop(
             GateName.RESEARCH_NLM,
             lambda: self.producer_invoker(
-                "researcher",
-                "RESEARCH_NLM",
-                {
-                    "niche_artifact": ctx.artifacts.get(GateName.NICHE),
-                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
-                },
+                "researcher", "RESEARCH_NLM",
+                self._prod_inputs(ctx, niche_artifact=ctx.artifacts.get(GateName.NICHE)),
             ),
         )
         verdict = self.supervisor_invoker(GateName.RESEARCH_NLM, output)
@@ -377,16 +386,11 @@ class ShortsPipeline:
 
     def _run_blueprint(self, ctx: GateContext) -> None:
         """GATE 4 — director Producer, blueprint-compliance + timing."""
-
         output = self._producer_loop(
             GateName.BLUEPRINT,
             lambda: self.producer_invoker(
-                "director",
-                "BLUEPRINT",
-                {
-                    "research_artifact": ctx.artifacts.get(GateName.RESEARCH_NLM),
-                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
-                },
+                "director", "BLUEPRINT",
+                self._prod_inputs(ctx, research_artifact=ctx.artifacts.get(GateName.RESEARCH_NLM)),
             ),
         )
         verdict = self.supervisor_invoker(GateName.BLUEPRINT, output)
@@ -395,16 +399,11 @@ class ShortsPipeline:
 
     def _run_script(self, ctx: GateContext) -> None:
         """GATE 5 — scripter Producer, narrative/Korean/tone/readability."""
-
         output = self._producer_loop(
             GateName.SCRIPT,
             lambda: self.producer_invoker(
-                "scripter",
-                "SCRIPT",
-                {
-                    "blueprint": ctx.artifacts.get(GateName.BLUEPRINT),
-                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
-                },
+                "scripter", "SCRIPT",
+                self._prod_inputs(ctx, blueprint=ctx.artifacts.get(GateName.BLUEPRINT)),
             ),
         )
         verdict = self.supervisor_invoker(GateName.SCRIPT, output)
@@ -413,16 +412,11 @@ class ShortsPipeline:
 
     def _run_polish(self, ctx: GateContext) -> None:
         """GATE 6 — script-polisher Producer."""
-
         output = self._producer_loop(
             GateName.POLISH,
             lambda: self.producer_invoker(
-                "script-polisher",
-                "POLISH",
-                {
-                    "script": ctx.artifacts.get(GateName.SCRIPT),
-                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
-                },
+                "script-polisher", "POLISH",
+                self._prod_inputs(ctx, script=ctx.artifacts.get(GateName.SCRIPT)),
             ),
         )
         verdict = self.supervisor_invoker(GateName.POLISH, output)
@@ -431,7 +425,6 @@ class ShortsPipeline:
 
     def _run_voice(self, ctx: GateContext) -> None:
         """GATE 7 — Typecast primary, ElevenLabs fallback (AUDIO-01 / D-10)."""
-
         scenes = self._scenes_from_artifact(ctx.artifacts.get(GateName.POLISH))
         try:
             audio_segments = self.typecast_breaker.call(
@@ -455,7 +448,6 @@ class ShortsPipeline:
 
     def _run_assets(self, ctx: GateContext) -> None:
         """GATE 8 — Kling primary, Runway backup (VIDEO-04 / D-16)."""
-
         scenes = self._scenes_from_artifact(ctx.artifacts.get(GateName.POLISH))
         video_cuts: list[VideoCut] = []
         for i, scene in enumerate(scenes):
@@ -497,7 +489,6 @@ class ShortsPipeline:
 
     def _run_assembly(self, ctx: GateContext) -> None:
         """GATE 9 — VoiceFirstTimeline + 720p Shotstack (ORCH-10 / ORCH-11)."""
-
         timeline = self.timeline.align(ctx.audio_segments, ctx.video_cuts)
         timeline = self.timeline.insert_transition_shots(timeline)
 
@@ -528,16 +519,11 @@ class ShortsPipeline:
 
     def _run_thumbnail(self, ctx: GateContext) -> None:
         """GATE 10 — thumbnail-designer Producer; eligible for Fallback."""
-
         output = self._producer_loop(
             GateName.THUMBNAIL,
             lambda: self.producer_invoker(
-                "thumbnail-designer",
-                "THUMBNAIL",
-                {
-                    "assembly": ctx.artifacts.get(GateName.ASSEMBLY),
-                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
-                },
+                "thumbnail-designer", "THUMBNAIL",
+                self._prod_inputs(ctx, assembly=ctx.artifacts.get(GateName.ASSEMBLY)),
             ),
         )
         verdict = self.supervisor_invoker(GateName.THUMBNAIL, output)
@@ -546,16 +532,11 @@ class ShortsPipeline:
 
     def _run_metadata(self, ctx: GateContext) -> None:
         """GATE 11 — metadata-seo Producer."""
-
         output = self._producer_loop(
             GateName.METADATA,
             lambda: self.producer_invoker(
-                "metadata-seo",
-                "METADATA",
-                {
-                    "script": ctx.artifacts.get(GateName.SCRIPT),
-                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
-                },
+                "metadata-seo", "METADATA",
+                self._prod_inputs(ctx, script=ctx.artifacts.get(GateName.SCRIPT)),
             ),
         )
         verdict = self.supervisor_invoker(GateName.METADATA, output)
@@ -564,18 +545,16 @@ class ShortsPipeline:
 
     def _run_upload(self, ctx: GateContext) -> None:
         """GATE 12 — publisher Producer (YouTube API wiring in Phase 8)."""
-
         output = self._producer_loop(
             GateName.UPLOAD,
             lambda: self.producer_invoker(
-                "publisher",
-                "UPLOAD",
-                {
-                    "assembly": ctx.artifacts.get(GateName.ASSEMBLY),
-                    "thumbnail": ctx.artifacts.get(GateName.THUMBNAIL),
-                    "metadata": ctx.artifacts.get(GateName.METADATA),
-                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
-                },
+                "publisher", "UPLOAD",
+                self._prod_inputs(
+                    ctx,
+                    assembly=ctx.artifacts.get(GateName.ASSEMBLY),
+                    thumbnail=ctx.artifacts.get(GateName.THUMBNAIL),
+                    metadata=ctx.artifacts.get(GateName.METADATA),
+                ),
             ),
         )
         verdict = self.supervisor_invoker(GateName.UPLOAD, output)
@@ -584,16 +563,11 @@ class ShortsPipeline:
 
     def _run_monitor(self, ctx: GateContext) -> None:
         """GATE 13 — publisher Producer in MONITOR mode (post-upload KPI)."""
-
         output = self._producer_loop(
             GateName.MONITOR,
             lambda: self.producer_invoker(
-                "publisher",
-                "MONITOR",
-                {
-                    "upload_artifact": ctx.artifacts.get(GateName.UPLOAD),
-                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
-                },
+                "publisher", "MONITOR",
+                self._prod_inputs(ctx, upload_artifact=ctx.artifacts.get(GateName.UPLOAD)),
             ),
         )
         verdict = self.supervisor_invoker(GateName.MONITOR, output)

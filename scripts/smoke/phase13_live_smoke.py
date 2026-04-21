@@ -106,6 +106,7 @@ from scripts.orchestrator.invokers import (  # noqa: E402
     make_default_producer_invoker,
     make_default_supervisor_invoker,
 )
+from scripts.orchestrator.shorts_pipeline import PipelinePauseSignal  # noqa: E402
 from scripts.smoke.phase11_full_run import (  # noqa: E402
     _check_env_readiness,
     _print_env_report,
@@ -387,6 +388,56 @@ def _apply_revision(
 
 
 # =============================================================================
+# UFL-03 — _handle_pause_signal helper (대표님 --pause-after 처리)
+# =============================================================================
+
+
+def _handle_pause_signal(
+    sig: PipelinePauseSignal,
+    ev_dir: Path,
+) -> int:
+    """UFL-03 — PipelinePauseSignal 수신 시 evidence 저장 + exit 0 반환.
+
+    대표님 --pause-after GATE 지정에 의해 GateGuard 가 raise 한 신호를
+    phase13_live_smoke runner 가 catch 하여 정상 종료로 마무리합니다.
+
+    Parameters
+    ----------
+    sig : PipelinePauseSignal
+        paused_at: GateName attribute 보유.
+    ev_dir : Path
+        evidence 디렉토리 (없으면 mkdir parents=True).
+
+    Returns
+    -------
+    int
+        항상 0 (graceful exit). 비정상 경로는 상위에서 rc=2 등으로 처리.
+    """
+    ev_dir.mkdir(parents=True, exist_ok=True)
+    ts = time.strftime("%Y%m%d_%H%M%S")
+    payload = {
+        "status": "PAUSED",
+        "paused_at": sig.paused_at.name,
+        "timestamp": ts,
+        "message": (
+            f"대표님 --pause-after {sig.paused_at.name} 수신, "
+            "일시중지합니다."
+        ),
+    }
+    out = ev_dir / f"pause_{ts}.json"
+    out.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    logger.info(
+        "[pause] evidence 저장 완료 (대표님): %s (paused_at=%s)",
+        out,
+        sig.paused_at.name,
+    )
+    return 0
+
+
+# =============================================================================
 # Constants
 # =============================================================================
 
@@ -521,6 +572,20 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
             "UFL-02 — 대표님 수동 대본 .md/.txt 경로. SCRIPT gate 에서 "
             "scripter 에이전트를 skip 하고 지정 파일 내용을 script_md 로 주입. "
             "script-polisher (POLISH gate) 는 정상 실행되어 RUB 검증 수행."
+        ),
+    )
+    parser.add_argument(
+        "--pause-after",
+        default=None,
+        choices=[
+            g.name for g in GateName
+            if g not in (GateName.IDLE, GateName.COMPLETE)
+        ],
+        help=(
+            "UFL-03 — 지정 GATE 완료 후 pipeline 일시중지 (대표님 검토용). "
+            "GateGuard.dispatch 이후 PipelinePauseSignal raise → runner "
+            "graceful exit 0 + evidence pause_*.json 기록. 재개 시 "
+            "--session-id 재사용 + --revision-from 으로 재진입 가능."
         ),
     )
     parser.add_argument(
@@ -932,6 +997,15 @@ def _run_live(args: argparse.Namespace, session_id: str) -> int:
                 )
             if getattr(args, "revision_from", None):
                 pipeline.ctx.config["revision_from_gate"] = args.revision_from.upper()
+            # UFL-03 — pause_after_gate 을 ctx.config 에 주입. GateGuard 가
+            # ctx.config 를 by-reference 로 이미 참조하므로 dispatch 시점에
+            # 자동 반영.
+            if getattr(args, "pause_after", None):
+                pipeline.ctx.config["pause_after_gate"] = args.pause_after.upper()
+                logger.info(
+                    "[phase13] UFL-03 pause-after=%s 예약 (대표님)",
+                    args.pause_after.upper(),
+                )
             pipeline.run()  # blocking — 13 gates TREND..MONITOR + COMPLETE
             last_err = None
             logger.info(
@@ -939,6 +1013,14 @@ def _run_live(args: argparse.Namespace, session_id: str) -> int:
                 attempt_count,
             )
             break
+        except PipelinePauseSignal as sig:
+            # UFL-03 — 대표님 --pause-after 정상 정지. Evidence 저장 + exit 0.
+            logger.info(
+                "[phase13] pause signal 수신 (대표님): paused_at=%s",
+                sig.paused_at.name,
+            )
+            counter.persist()
+            return _handle_pause_signal(sig, EVIDENCE_DIR)
         except BudgetExceededError as exc:
             logger.error(
                 "[phase13] 예산 상한 초과 (대표님): %s",

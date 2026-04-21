@@ -117,10 +117,19 @@ class GateGuard:
     tests and dry runs) but all other invariants still hold.
     """
 
-    def __init__(self, checkpointer: Any | None, session_id: str) -> None:
+    def __init__(
+        self,
+        checkpointer: Any | None,
+        session_id: str,
+        ctx_config: dict | None = None,
+    ) -> None:
         self.cp = checkpointer
         self.session_id = session_id
         self._dispatched: set[GateName] = set()
+        # Phase 15 UFL-03 — ctx_config 은 ShortsPipeline 이 by-reference
+        # 로 전달. 런타임에 pipeline.ctx.config["pause_after_gate"] = ...
+        # 설정 시 GateGuard 에 자동 전파.
+        self._ctx_config: dict = ctx_config if ctx_config is not None else {}
 
     @property
     def dispatched(self) -> set[GateName]:
@@ -165,6 +174,16 @@ class GateGuard:
         if self.cp is not None:
             self.cp.save(cp)
         self._dispatched.add(gate)
+
+        # Phase 15 UFL-03 — pause_after_gate 체크 (대표님 일시중지 요청).
+        # 해당 gate 완료 후 PipelinePauseSignal raise. Runner 가 잡아 evidence
+        # 저장 + graceful exit 0.
+        pause_after = self._ctx_config.get("pause_after_gate")
+        if pause_after and gate.name == pause_after:
+            # Lazy import — shorts_pipeline 이 이 모듈을 import 하므로 순환
+            # 회피.
+            from .shorts_pipeline import PipelinePauseSignal
+            raise PipelinePauseSignal(gate)
 
     def verify_all_dispatched(self) -> bool:
         """COMPLETE precondition (ORCH-04, D-4).
