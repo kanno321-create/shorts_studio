@@ -31,15 +31,15 @@ progress:
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 13 (Next — not started)
 Plan: —
-Status: Defining requirements
-Last activity: 2026-04-21 — Milestone v1.0.2 (Production Readiness) started
+Status: Defining (ROADMAP written, plans TBD)
+Last activity: 2026-04-21 — Milestone v1.0.2 ROADMAP appended (Phase 13 Live Smoke + Phase 14 Adapter Remediation)
 
 - **Milestone:** v1.0.2 Production Readiness — Live Smoke + Adapter Remediation
-- **Next Action:** Complete requirements definition (REQ-12 refinement) → gsd-roadmapper for Phase 13 (Live Smoke) + Phase 14 (Adapter Remediation)
+- **Next Action:** `/gsd:plan-phase 13` (Phase 13 Live Smoke 재도전 — SMOKE-01~06) — Phase 14 (ADAPT-01~06) 는 독립, 병행 가능
 - **Predecessor:** v1.0.1 milestone complete (Phases 1~12 all shipped, REQ-11 validated)
-- **Progress:** [          ] 0% (requirements → roadmap phase)
+- **Progress:** [          ] 0% (0/2 phases planned in v1.0.2)
 
 ### Previous milestone (v1.0.1) — Completed 2026-04-21
 - Phase 12 Plan 12-01~12-07 shipped (Agent Standardization + Skill Routing + FAILURES Protocol)

@@ -25,6 +25,8 @@
  (completed 2026-04-20)
 
 - [🟡] **Phase 11: Pipeline Real-Run Activation + Script Quality Mode** — D10-PIPELINE-DEF-01 5-에러 chain 인프라 해소 + SC#3/#4/#5 완결 + SC#1/#2 Phase 12 로 이관 (complete_with_deferred 2026-04-21, 대표님 직접 승인)
+- [ ] **Phase 13: Live Smoke 재도전** — Phase 11 SC#1/SC#2 deferred 해소: real Claude CLI producer/supervisor 호출 + YouTube 과금 환경 smoke 업로드 1회 성공 + 증거 anchor (milestone v1.0.2)
+- [ ] **Phase 14: API Adapter Remediation** — phase05/06/07 pre-existing adapter drift 15 failures (veo_i2v + elevenlabs + shotstack) 전수 청산 + adapter contract 재정의 (milestone v1.0.2)
 
 ---
 
@@ -334,6 +336,41 @@ Plans:
 - [x] 12-05-PLAN.md — Wave 2 FAILURES.md 500줄 rotation + Hook 확장 + _imported HARD-EXCLUDE (FAIL-PROTO-01)
 - [x] 12-06-PLAN.md — Wave 4 Mandatory Reads prose verifier (AGENT-STD-02 soft enforcement)
 - [x] 12-07-PLAN.md — Wave 2 Supervisor Prompt Compression + `_compress_producer_output()` + Phase 11 smoke 2차 fixture (AGENT-STD-03)
+
+---
+
+### Phase 13: Live Smoke 재도전
+
+**Status:** Next (milestone v1.0.2)
+**Goal:** Phase 11 `complete_with_deferred` 에서 유예된 SC#1 (real Claude CLI producer/supervisor 호출) + SC#2 (YouTube 과금 환경 smoke 업로드) 를 Phase 12 AGENT-STD-03 압축 (Supervisor prompt `_compress_producer_output()` 27% ratio) 적용 상태에서 실 환경으로 재도전하여, 외부 API 비용을 실제로 지출해가며 end-to-end smoke 1회를 성공시키고 증거 chain (producer_output + supervisor_output + video_id + cost ledger) 을 `.planning/phases/13-*/evidence/` 에 영구 anchoring 한다. 본 phase 완결 시 외부 수익 (Core Value) 으로 가는 기술적 마지막 gate 통과가 실증된다.
+**Depends on:** Phase 12 (AGENT-STD-03 Supervisor compression 적용), Phase 8 (publisher infrastructure — PUB-01/02/03/04/05 + smoke_test.py + OAuth), Phase 9.1 (Production Engine Wiring — invokers.py real Claude CLI path)
+**Requirements:** SMOKE-01, SMOKE-02, SMOKE-03, SMOKE-04, SMOKE-05, SMOKE-06
+**Success Criteria** (what must be TRUE):
+  1. Real Claude CLI producer 호출 1회 성공 — `ClaudeAgentProducerInvoker` 실 Anthropic API 경유 producer agent 1명+ 호출, JSON 출력 schema 준수 + producer_output 파일 `.planning/phases/13-*/evidence/producer_output_YYYYMMDD.json` anchor (Phase 11 SC#1 deferred 해소)
+  2. Real Claude CLI supervisor fan-out 1회 성공 — `ClaudeAgentSupervisorInvoker` 가 17 inspector fan-out 시도 후 rubric JSON 반환, AGENT-STD-03 압축 적용 상태에서 rc=1 "프롬프트가 너무 깁니다" 재현 0회, `supervisor_output.json` 에 `inspector_count >= 1`
+  3. YouTube 과금 환경 smoke 업로드 1회 성공 + 업로드 직후 자동 cleanup — `scripts/publisher/smoke_test.py --privacy=unlisted --cleanup` 실 API 경유, valid `video_id` 수신 + 30초 예산 내 delete 검증 + `privacy=public` 시도 시 ValueError (PUB-04 invariant 유지) (Phase 11 SC#2 deferred 해소)
+  4. `production_metadata` HTML comment 첨부 + YouTube Data API `videos.get` readback 에서 4 필수 필드 (script_seed, assets_origin, pipeline_version, checksum) 실제 존재 확인 — evidence `smoke_upload_YYYYMMDD.json` 에 raw description 저장
+  5. Budget cap $5 enforcement — run 종료 시 `budget_usage.json` 에 `total_cost_usd <= 5.00` 기록 (Anthropic token × unit price + YouTube API + Kling/Typecast/ElevenLabs 합산); 초과 시 RuntimeError + 업로드 차단
+  6. Full pipeline E2E smoke (TREND → COMPLETE) 1회 완주 — 실 API 전체 경유, 13 operational gate 전수 dispatched + 최종 MP4 생성 + 업로드 + cleanup, evidence `smoke_e2e_YYYYMMDD.json` 에 13 gate timestamps + `final_video_id` + `total_cost_usd` 필드 존재
+**Plans:** TBD — `/gsd:plan-phase 13` 로 세부 wave 결정 예정
+**UI hint:** no
+
+---
+
+### Phase 14: API Adapter Remediation
+
+**Status:** Next (milestone v1.0.2, Phase 13 와 독립 — 병행 가능)
+**Goal:** Phase 5/6/7 mock adapter 기준 (TEST-01~04 baseline) 과 Phase 9.1 production engine wiring 사이에서 발생한 pre-existing pytest failure 15건 (veo_i2v + elevenlabs + shotstack) 을 전수 청산하고, 각 adapter 의 입력/출력 schema + retry/fallback 규칙 + fault injection 지원 여부를 contract 문서로 확정하며 drift 재발을 pytest marker + CI 게이트로 구조적으로 차단한다. 본 phase 완결 시 regression suite 가 Phase 7 기준 986 + Phase 13 신규 테스트까지 포함하여 1000+ 전수 green 상태로 복원된다.
+**Depends on:** Phase 5 (API adapters kling_i2v/runway_i2v/typecast/elevenlabs/shotstack shipped — VIDEO-01/02/04/05 + ORCH-10/11), Phase 6 (NotebookLM fallback chain D-5 fault injection 계약), Phase 7 (mock adapter 계약 TEST-01~04)
+**Requirements:** ADAPT-01, ADAPT-02, ADAPT-03, ADAPT-04, ADAPT-05, ADAPT-06
+**Success Criteria** (what must be TRUE):
+  1. `pytest tests/phase05 tests/phase06 tests/phase07` 전체 0 failures (Phase 14 진입 전 15 failures baseline 에서 전수 제거) — Phase 4 244 + Phase 5 329 + Phase 6 236 + Phase 7 177 = 986/986 regression preserved
+  2. Adapter contract tests `tests/adapters/test_veo_i2v_contract.py` + `test_elevenlabs_contract.py` + `test_shotstack_contract.py` 신설 + green — 각 파일이 입력 schema / 출력 schema / retry 규칙 / fault injection 응답을 명시적으로 assert
+  3. Adapter contract 문서 `docs/adapter_contracts.md` (또는 `wiki/render/adapter_contracts.md`) 신설 — 7 adapter (kling / runway / veo_i2v / typecast / elevenlabs / shotstack / whisperx) 전수에 대해 입력/출력 schema + retry/fallback 규칙 + fault injection 지원 여부 + mock↔real 계약 차이 기록
+  4. pytest marker `@pytest.mark.adapter_contract` 도입 + `pytest -m adapter_contract` 단독 실행 시 contract test 만 격리 실행되어 CI/로컬에서 독립 게이트 가능
+  5. Full regression sweep (Phase 13 land 여부와 무관) 1000+ tests 전수 green — Phase 13 가 먼저 land 한 경우 smoke 테스트 포함, 아닐 경우 Phase 4~12 + adapter contract 만 포함. 어느 쪽이든 `pytest` 전수 exit 0
+**Plans:** TBD — `/gsd:plan-phase 14` 로 세부 wave 결정 예정
+**UI hint:** no
 
 ---
 

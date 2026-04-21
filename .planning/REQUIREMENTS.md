@@ -426,6 +426,16 @@ v1.0.2 밀스톤 초기화 — 2026-04-21. Phase 11 `complete_with_deferred` SC#
 
 ### Milestone v1.0.2 Traceability
 
+**Phase → REQ-IDs (Forward mapping)**
+
+| Phase | REQ-IDs | Count |
+|-------|---------|------:|
+| **Phase 13: Live Smoke 재도전** | SMOKE-01, SMOKE-02, SMOKE-03, SMOKE-04, SMOKE-05, SMOKE-06 | 6 |
+| **Phase 14: API Adapter Remediation** | ADAPT-01, ADAPT-02, ADAPT-03, ADAPT-04, ADAPT-05, ADAPT-06 | 6 |
+| **v1.0.2 Total** | | **12** |
+
+**REQ → Phase (Reverse mapping)**
+
 | REQ-ID | Phase |
 |--------|-------|
 | SMOKE-01 | 13 |
@@ -441,7 +451,7 @@ v1.0.2 밀스톤 초기화 — 2026-04-21. Phase 11 `complete_with_deferred` SC#
 | ADAPT-05 | 14 |
 | ADAPT-06 | 14 |
 
-**v1.0.2 Coverage**: 10 신규 REQ (SMOKE 6 + ADAPT 4, 대표님 multiSelect 확정 2026-04-21). 전체 mapping: v1.0.1 96 REQ + Phase 11 6 REQ + Phase 12 6 REQ + v1.0.2 12 REQ = **120 REQ**.
+**v1.0.2 Coverage**: 12 신규 REQ (SMOKE 6 + ADAPT 6, 대표님 multiSelect 확정 2026-04-21). 전체 mapping: v1.0.1 96 REQ + Phase 11 6 REQ + Phase 12 6 REQ + v1.0.2 12 REQ = **120 REQ** (100% mapped, 0 orphans).
 
 ---
 
