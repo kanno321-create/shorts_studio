@@ -229,6 +229,61 @@ class _PreSeededProducerInvoker:
         return self._real(agent_name, gate, inputs)
 
 
+class _PreScriptedProducerInvoker:
+    """UFL-02 — 대표님 수동 대본 주입.
+
+    SCRIPT gate 에서 scripter 에이전트 호출을 intercept 하여 파일 내용을
+    ``script_md`` 로 반환. 나머지 gate 는 real invoker 로 위임 (Phase 13
+    ``_PreSeededProducerInvoker`` chain-wrapping 패턴 승계).
+
+    Design notes:
+        - script-polisher 는 **정상 실행** (POLISH gate 유지) — 대표님 수동
+          대본도 RUB 검증을 거쳐야 하므로 POLISH 를 skip 하지 않습니다.
+        - 파일은 ``__init__`` 에서 즉시 읽어 missing 을 조기 감지
+          (FileNotFoundError raise, 금기 #3 준수 — 침묵 폴백 금지).
+        - decisions 필드에 파일 경로 기록하여 evidence trail 보존.
+
+    Attributes
+    ----------
+    _real : Callable
+        하류 gate 처리용 real producer_invoker.
+    _script_content : str
+        읽어들인 대본 텍스트 (UTF-8).
+    _script_path : str
+        로깅/decisions 용 파일 경로 문자열.
+    """
+
+    def __init__(self, real_invoker, script_path: Path) -> None:
+        self._real = real_invoker
+        # __init__ 에서 바로 읽어 missing 을 조기 감지 (금기 #3: 명시적 raise).
+        self._script_content = script_path.read_text(encoding="utf-8")
+        self._script_path = str(script_path)
+        logger.info(
+            "[pre-script] 대표님 수동 대본 로드: %s (%d chars)",
+            self._script_path,
+            len(self._script_content),
+        )
+
+    def __call__(self, agent_name: str, gate: str, inputs: dict) -> dict:
+        if gate == "SCRIPT":
+            logger.info(
+                "[pre-script] SCRIPT gate — scripter skip, 대표님 수동 대본 주입",
+            )
+            return {
+                "gate": "SCRIPT",
+                "verdict": "PASS",
+                "script_md": self._script_content,
+                "user_provided": True,
+                "seeded": True,
+                "decisions": [
+                    f"대표님 --revise-script flag: {self._script_path}",
+                ],
+                "error_codes": [],
+            }
+        # SCRIPT 이외 모든 gate — 실 Claude 에이전트 경로.
+        return self._real(agent_name, gate, inputs)
+
+
 def _build_pipeline_with_seed(
     session_id: str,
     state_root: Path,
@@ -456,6 +511,16 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
             "prior_user_feedback 으로 user_payload 에 주입하여 scripter / "
             "script-polisher 등 하류 에이전트가 재작업 방향 인지. "
             "--revision-from 과 함께 사용 권장."
+        ),
+    )
+    parser.add_argument(
+        "--revise-script",
+        default=None,
+        type=Path,
+        help=(
+            "UFL-02 — 대표님 수동 대본 .md/.txt 경로. SCRIPT gate 에서 "
+            "scripter 에이전트를 skip 하고 지정 파일 내용을 script_md 로 주입. "
+            "script-polisher (POLISH gate) 는 정상 실행되어 RUB 검증 수행."
         ),
     )
     parser.add_argument(
@@ -844,6 +909,18 @@ def _run_live(args: argparse.Namespace, session_id: str) -> int:
                 topic_keywords,
                 niche_tag,
             )
+            # UFL-02 — --revise-script 지정 시 기존 producer_invoker 를
+            # _PreScriptedProducerInvoker 로 wrap. SCRIPT gate 에서만 scripter
+            # skip, 나머지 gate 는 기존 chain (pre-seed 포함) 에 pass-through.
+            if getattr(args, "revise_script", None):
+                pipeline.producer_invoker = _PreScriptedProducerInvoker(
+                    pipeline.producer_invoker,
+                    args.revise_script,
+                )
+                logger.info(
+                    "[phase13] UFL-02 revise-script wrap 적용 (대표님): %s",
+                    args.revise_script,
+                )
             # UFL-01 — feedback / revision_from_gate 을 ctx.config 에 주입.
             # ShortsPipeline._run_<gate> 각 메서드가 ctx.config.get(
             # "prior_user_feedback") 를 producer_invoker inputs 에 전달.
