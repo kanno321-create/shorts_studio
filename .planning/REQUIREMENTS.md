@@ -417,12 +417,12 @@ v1.0.2 밀스톤 초기화 — 2026-04-21. Phase 11 `complete_with_deferred` SC#
 
 ### ADAPT — API Adapter Remediation (Phase 14)
 
-- [ ] **ADAPT-01**: veo_i2v adapter drift 청산 — 현재 pytest failure N건 (Phase 09.1 era stub→adapter 전환 잔재) 전수 녹색 전환. adapter contract test `tests/adapters/test_veo_i2v_contract.py` 신설, `scripts/api/veo_i2v.py` (존재 시) 또는 단순 non-Kling I2V fallback 검증.
-- [ ] **ADAPT-02**: elevenlabs adapter drift 청산 — elevenlabs voice generation adapter pytest failure 전수 녹색 전환. contract test `tests/adapters/test_elevenlabs_contract.py`. Typecast primary + ElevenLabs fallback 구조 (voice-producer AGENT.md 참조) 유지.
-- [ ] **ADAPT-03**: shotstack adapter drift 청산 — shotstack render adapter pytest failure 전수 녹색 전환. contract test `tests/adapters/test_shotstack_contract.py`. Phase 5 ORCH-10 영상/음성 분리 합성 경로 보존.
+- [x] **ADAPT-01**: veo_i2v adapter drift 청산 — 현재 pytest failure N건 (Phase 09.1 era stub→adapter 전환 잔재) 전수 녹색 전환. adapter contract test `tests/adapters/test_veo_i2v_contract.py` 신설, `scripts/api/veo_i2v.py` (존재 시) 또는 단순 non-Kling I2V fallback 검증.
+- [x] **ADAPT-02**: elevenlabs adapter drift 청산 — elevenlabs voice generation adapter pytest failure 전수 녹색 전환. contract test `tests/adapters/test_elevenlabs_contract.py`. Typecast primary + ElevenLabs fallback 구조 (voice-producer AGENT.md 참조) 유지.
+- [x] **ADAPT-03**: shotstack adapter drift 청산 — shotstack render adapter pytest failure 전수 녹색 전환. contract test `tests/adapters/test_shotstack_contract.py`. Phase 5 ORCH-10 영상/음성 분리 합성 경로 보존.
 - [ ] **ADAPT-04**: Full phase05/06/07 regression 0 failures — `pytest tests/phase05 tests/phase06 tests/phase07` 전체 green. Phase 7 기준 986/986 (Phase 4 244 + Phase 5 329 + Phase 6 236 + Phase 7 177) regression preserved + 15 adapter failures 제거.
 - [ ] **ADAPT-05**: Adapter contract 문서 `docs/adapter_contracts.md` (또는 `wiki/render/adapter_contracts.md`) 신설 — 각 adapter (kling / runway / veo_i2v / typecast / elevenlabs / shotstack / whisperx) 의 입력/출력 schema + retry/fallback 규칙 + fault injection 지원 여부 정리. Phase 7 mock adapter 기준 계약과 real adapter 실측 차이 문서화.
-- [ ] **ADAPT-06**: Drift 재발 방지 — (a) pytest marker `@pytest.mark.adapter_contract` 도입하여 adapter contract test 카테고리 분리, (b) CI/local `pytest -m adapter_contract` 별도 게이트 제공, (c) pre_tool_use hook 또는 validator 로 adapter 파일 수정 시 contract test 자동 요구 (optional, Phase 14 scope 내 trade-off 결정).
+- [x] **ADAPT-06**: Drift 재발 방지 — (a) pytest marker `@pytest.mark.adapter_contract` 도입하여 adapter contract test 카테고리 분리, (b) CI/local `pytest -m adapter_contract` 별도 게이트 제공, (c) pre_tool_use hook 또는 validator 로 adapter 파일 수정 시 contract test 자동 요구 (optional, Phase 14 scope 내 trade-off 결정).
 
 ### Milestone v1.0.2 Traceability
 

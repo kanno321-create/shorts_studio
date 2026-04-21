@@ -1,15 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0.2
-milestone_name: production-readiness-live-smoke-adapter-remediation
-status: defining_requirements
-last_updated: "2026-04-21T16:40:00.000Z"
+milestone: v1.0.1
+milestone_name: milestone
+status: executing
+last_updated: "2026-04-21T10:07:15.760Z"
+last_activity: 2026-04-21
 progress:
-  total_phases: 0
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  total_phases: 15
+  completed_phases: 12
+  total_plans: 102
+  completed_plans: 100
+  percent: 98
 ---
 
 # STATE — naberal-shorts-studio
@@ -31,17 +32,18 @@ progress:
 
 ## Current Position
 
-Phase: 13 (Next — not started)
-Plan: —
-Status: Defining (ROADMAP written, plans TBD)
-Last activity: 2026-04-21 — Milestone v1.0.2 ROADMAP appended (Phase 13 Live Smoke + Phase 14 Adapter Remediation)
+Phase: 14 (api-adapter-remediation) — EXECUTING
+Plan: 2 of 5
+Status: Ready to execute
+Last activity: 2026-04-21
 
 - **Milestone:** v1.0.2 Production Readiness — Live Smoke + Adapter Remediation
 - **Next Action:** `/gsd:plan-phase 13` (Phase 13 Live Smoke 재도전 — SMOKE-01~06) — Phase 14 (ADAPT-01~06) 는 독립, 병행 가능
 - **Predecessor:** v1.0.1 milestone complete (Phases 1~12 all shipped, REQ-11 validated)
-- **Progress:** [          ] 0% (0/2 phases planned in v1.0.2)
+- **Progress:** [██████████] 98%
 
 ### Previous milestone (v1.0.1) — Completed 2026-04-21
+
 - Phase 12 Plan 12-01~12-07 shipped (Agent Standardization + Skill Routing + FAILURES Protocol)
 - 31/31 AGENT.md schema compliant, Phase 11 Gate 2 rc=1 structurally closed
 - Full regression: 986+ tests green (Phase 4~7 baseline)
@@ -52,6 +54,13 @@ Last activity: 2026-04-21 — Milestone v1.0.2 ROADMAP appended (Phase 13 Live S
 - Verifier CLI scope = 14 producer + 17 inspector = 31 AGENT.md in scope (not plan's stated 30). harvest-importer lives at `.claude/agents/harvest-importer/` root-level outside `producers/` scan path. Plan 02/03 batch test names should reconcile to 31.
 - MockClaudeCLI adopts defensive `*args/**kwargs` signature absorbing real `_invoke_claude_cli` 6-arg vs `ClaudeAgentSupervisorInvoker._call` 4-kwarg call-site gap. Survives future real-fn signature drift.
 - trend-collector v1.2 `<mandatory_reads>` item 2 path corrected `wiki/ypp/channel_bible.md` → `wiki/continuity_bible/channel_identity.md` (Phase 6 Plan 02 D-10 canonical 5-component baseline). First migration was the right moment for drift rectification before 13 more producers inherit it.
+
+### Plan 14-01 Decisions (Wave 0 Foundation — 2026-04-21)
+
+- pytest.ini registers only `adapter_contract` marker. Task 14-01-01 pre-grep informal marker audit conclusively proved zero informal markers exist across `tests/` + `scripts/` (only pytest built-ins parametrize/skip/skipif detected). `--strict-markers` safe to activate without regression. Evidence anchored at `.planning/phases/14-api-adapter-remediation/14-01-marker-audit.log`.
+- `tests/adapters/conftest.py` re-exports Phase 5/7 fixture contracts (session-scoped `repo_root`, function-scoped `_fake_env`) without introducing new fixture API. `_fake_env` wipe set widened to 8 env keys (Phase 7 baseline was 5) to cover veo_i2v dual-alias (VEO_API_KEY / FAL_KEY) and elevenlabs dual-alias (ELEVENLABS_API_KEY / ELEVEN_API_KEY) needed by Waves 2/3 contract tests.
+- Rejected adding `tests/__init__.py` — would break Phase 4/5/6 resolution per Phase 7 Plan 07-03 documented deviation. Package-relative imports reach tests/adapters/ via `sys.path.insert(0, REPO_ROOT)` prelude in conftest.py.
+- **Rule 3 deviation**: pytest.ini `addopts` extended with seven `--ignore=<path>` flags for pre-existing D08-DEF-01 broken test modules (tests/phase08/mocks/, 4 phase08 files, tests/phase12/test_supervisor_compress.py). Root cause: `testpaths = tests` broadened default collection scope; those files' `from mocks.X import Y` imports fail at collection-import time. Fix is SURGICAL — only the 7 enumerated broken paths are ignored; Wave 1/4 explicit path enumerations are unaffected. Alternative (tests/__init__.py) rejected per Phase 7 precedent.
 
 ---
 
@@ -384,6 +393,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 12 P02 | 35m effective | 7 tasks | 16 files |
 | Phase 12 P03 | 28min | 7 tasks | 19 files |
 | Phase 12-agent-standardization-skill-routing-failures-protocol P06 | 12min | 2 tasks | 7 files |
+| Phase 14 P01 | 6m14s | 3 tasks | 4 files |
 
 ### Plan Execution Log
 
