@@ -86,3 +86,6 @@ scripts/experimental/
 logs/*.jsonl
 logs/*.json
 !logs/.gitkeep
+
+# Phase 14 ADAPT-06c — warn-only Hook session-scope tracking file
+.claude/hooks/_adapter_contract_touch.json

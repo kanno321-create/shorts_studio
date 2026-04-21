@@ -278,6 +278,104 @@ def backup_skill_before_write(tool_input: dict) -> None:
     shutil.copy2(fp, history_dir / f"v{stamp}.md.bak")
 
 
+# ============================================================================
+# Phase 14 ADAPT-06c — warn-only adapter contract drift check (Option B)
+# ============================================================================
+#
+# 규칙: `scripts/orchestrator/api/*.py` 파일을 Edit/Write/MultiEdit 로
+# 수정하는 경우 대응 `tests/adapters/test_*_contract.py` 가 동반 편집되었
+# 는지 검사. 동반 편집이 없어도 **차단하지 않고** stderr 에 경고만 출력.
+#
+# RESEARCH §ADAPT-06 recommendation: Option B (warn-only) 가 Option A (defer)
+# 보다 선호 — "15 lines Python 으로 구현 가능 + 작업 차단 없음". 본 블록은
+# Phase 14 Plan 04 Task 14-04-04 에서 도입. CLAUDE.md 필수사항 #1 (Hook 3종
+# 활성) 을 훼손하지 않으면서 adapter_contract drift 재발 방지.
+#
+# 기존 8 regex 차단 로직 (deprecated_patterns.json / FAILURES append-only /
+# STRUCTURE whitelist / SKILL_HISTORY backup) 은 **절대 변경하지 않음**.
+import os as _os
+
+_ADAPTER_PATTERN = re.compile(
+    r"scripts[/\\]orchestrator[/\\]api[/\\][A-Za-z_0-9]+\.py$"
+)
+_CONTRACT_PATTERN = re.compile(
+    r"tests[/\\]adapters[/\\]test_[A-Za-z_0-9]+_contract\.py$"
+)
+_TRACK_FILE = Path(".claude/hooks/_adapter_contract_touch.json")
+
+
+def _record_contract_touch(file_path: str) -> None:
+    """세션 scope 에서 contract 파일 touch 를 기록. 실패는 silent (warn-only).
+
+    `.gitignore` 에 의해 커밋에서 제외되는 session-scope ephemeral 파일.
+    """
+    try:
+        _TRACK_FILE.parent.mkdir(parents=True, exist_ok=True)
+        if _TRACK_FILE.exists():
+            try:
+                data = json.loads(_TRACK_FILE.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                data = {}
+        else:
+            data = {}
+        pid = str(_os.getppid())
+        data.setdefault(pid, [])
+        if file_path not in data[pid]:
+            data[pid].append(file_path)
+        _TRACK_FILE.write_text(json.dumps(data), encoding="utf-8")
+    except OSError:
+        # warn-only Hook — 기록 실패를 작업 차단으로 전환하지 않음
+        pass
+
+
+def _contract_touched_this_session() -> bool:
+    """현재 세션에서 contract 테스트 파일이 touch 된 이력 존재 여부."""
+    if not _TRACK_FILE.exists():
+        return False
+    try:
+        data = json.loads(_TRACK_FILE.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return False
+    pid = str(_os.getppid())
+    return bool(data.get(pid))
+
+
+def check_adapter_contract_drift(tool_name: str, tool_input: dict) -> None:
+    """Warn-only — adapter 파일 수정 시 contract 테스트 동반 편집 여부 경고.
+
+    차단하지 않음 (CLAUDE.md 필수사항 #1 Hook 3종 활성 준수 + 작업 흐름
+    보존). `print(..., file=sys.stderr)` 로만 경고 출력.
+
+    Rules:
+    - Edit/Write/MultiEdit 외 tool 은 skip.
+    - 편집 대상이 `tests/adapters/test_*_contract.py` 면 touch 기록 후
+      return (경고 없음 — 정상 동반 편집).
+    - 편집 대상이 `scripts/orchestrator/api/*.py` 이고 현재 세션에서
+      contract 파일 touch 이력이 없으면 stderr 경고 1회 출력.
+    """
+    if tool_name not in ("Edit", "Write", "MultiEdit"):
+        return
+    file_path = tool_input.get("file_path") or ""
+    if not file_path:
+        return
+    norm = file_path.replace("\\", "/")
+
+    # Contract 테스트 편집 → touch 기록 후 return
+    if _CONTRACT_PATTERN.search(norm):
+        _record_contract_touch(norm)
+        return
+
+    # Adapter 파일 편집 → 세션 내 contract 테스트 touch 여부 검사
+    if _ADAPTER_PATTERN.search(norm):
+        if not _contract_touched_this_session():
+            print(
+                f"[Phase 14 ADAPT-06c warn] adapter 파일 수정 감지: {file_path}\n"
+                f"  → 대응 tests/adapters/test_*_contract.py 를 함께 수정하세요.\n"
+                f"  (경고만 — 작업은 차단되지 않습니다.)",
+                file=sys.stderr,
+            )
+
+
 def main() -> int:
     # Hook input 읽기
     try:
@@ -294,6 +392,10 @@ def main() -> int:
     if tool_name not in ("Write", "Edit", "MultiEdit"):
         print(json.dumps({"decision": "allow"}))
         return 0
+
+    # ── Phase 14 ADAPT-06c warn-only adapter contract drift check ──
+    # 차단 로직 전체의 제일 앞에서 경고만 출력. 작업 차단 없음.
+    check_adapter_contract_drift(tool_name, tool_input)
 
     # 검사 대상 content 추출
     content_to_check = ""
