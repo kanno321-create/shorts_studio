@@ -101,6 +101,7 @@ os.environ.setdefault(
 
 # Wave 0~3 산출물 + phase11 재사용 — 단일 runner 에서 wire-up.
 from scripts.orchestrator import ShortsPipeline  # noqa: E402
+from scripts.orchestrator.gates import GateName  # noqa: E402
 from scripts.orchestrator.invokers import (  # noqa: E402
     make_default_producer_invoker,
     make_default_supervisor_invoker,
@@ -269,6 +270,68 @@ def _build_pipeline_with_seed(
     )
 
 # =============================================================================
+# UFL-01 — _apply_revision helper (대표님 재작업 peedback loop)
+# =============================================================================
+#
+# 특정 gate 부터 checkpoint 파일을 삭제하여 ShortsPipeline.run() 의 resume
+# 경로로 재실행 유도. Checkpointer.resume(session_id) 이 최고 gate_index 를
+# 반환하므로, gate_NN.json 삭제만으로 해당 지점부터 재시작.
+
+
+def _apply_revision(
+    state_root: Path,
+    session_id: str,
+    from_gate: GateName,
+) -> list[Path]:
+    """UFL-01 — Delete state/<sid>/gate_N..13.json for N >= from_gate.value.
+
+    대표님 --revision-from GATE 명령을 처리합니다. 존재하지 않는 session 은
+    조용히 빈 리스트 반환 (예외 금지). malformed filename (gate_XX.json /
+    not_a_gate.json) 은 무시 + preserve.
+
+    Parameters
+    ----------
+    state_root : Path
+        Checkpointer state root (예: ``Path("state")``).
+    session_id : str
+        Target session 이름.
+    from_gate : GateName
+        이 gate 이상의 checkpoint 를 삭제. GateName.SCRIPT (idx=5) 지정 시
+        gate_05 ~ gate_13 (9 files) 삭제.
+
+    Returns
+    -------
+    list[Path]
+        삭제된 파일 경로 list (로깅/evidence 용).
+    """
+    state_dir = state_root / session_id
+    if not state_dir.is_dir():
+        logger.info(
+            "[revision] state_dir 부재 (대표님) — 삭제 대상 없음: %s",
+            state_dir,
+        )
+        return []
+    deleted: list[Path] = []
+    for gate_file in sorted(state_dir.glob("gate_*.json")):
+        stem_parts = gate_file.stem.split("_")
+        if len(stem_parts) < 2:
+            continue  # malformed skip
+        try:
+            idx = int(stem_parts[1])
+        except ValueError:
+            continue  # gate_XX.json 등 non-numeric — skip
+        if idx >= from_gate.value:
+            gate_file.unlink()
+            logger.info(
+                "[revision] %s 삭제 (대표님 %s 이상 재작업 요청)",
+                gate_file.name,
+                from_gate.name,
+            )
+            deleted.append(gate_file)
+    return deleted
+
+
+# =============================================================================
 # Constants
 # =============================================================================
 
@@ -369,6 +432,30 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
             "evidence 저장 루트 override (대표님 격리 실행용). 미지정 시 기본 "
             "EVIDENCE_DIR (.planning/phases/13-live-smoke/evidence) 사용. "
             "Plan 15-06 live retry 단계에서 대표님 격리 경로로 분리 저장 가능."
+        ),
+    )
+    parser.add_argument(
+        "--revision-from",
+        default=None,
+        choices=[
+            g.name for g in GateName
+            if g not in (GateName.IDLE, GateName.COMPLETE)
+        ],
+        help=(
+            "UFL-01 — 기존 세션의 특정 GATE 부터 재실행 (대표님 재작업 요청). "
+            "해당 GATE 이상 idx 의 state/<sid>/gate_NN.json 파일이 삭제되어 "
+            "Checkpointer.resume 이 그 지점으로 되돌아갑니다. --session-id 와 "
+            "함께 사용해야 기존 session 을 재사용할 수 있습니다."
+        ),
+    )
+    parser.add_argument(
+        "--feedback",
+        default=None,
+        help=(
+            "UFL-01 — 대표님 피드백 텍스트. Producer invoker 가 "
+            "prior_user_feedback 으로 user_payload 에 주입하여 scripter / "
+            "script-polisher 등 하류 에이전트가 재작업 방향 인지. "
+            "--revision-from 과 함께 사용 권장."
         ),
     )
     parser.add_argument(
@@ -740,12 +827,34 @@ def _run_live(args: argparse.Namespace, session_id: str) -> int:
                 else None
             )
             niche_tag = getattr(args, "niche", None)
+            # UFL-01 — revision-from 은 pipeline 생성 전에 적용 (Checkpointer
+            # 가 resume 시 state_dir 을 스캔하므로, gate_NN.json 삭제는
+            # pipeline.run() 호출 전에 완료되어야 함).
+            if getattr(args, "revision_from", None):
+                target = GateName[args.revision_from.upper()]
+                deleted = _apply_revision(state_root, session_id, target)
+                logger.info(
+                    "[phase13] UFL-01 revision-from=%s — %d checkpoint 삭제 (대표님)",
+                    target.name,
+                    len(deleted),
+                )
             pipeline = _build_pipeline_with_seed(
                 session_id,
                 state_root,
                 topic_keywords,
                 niche_tag,
             )
+            # UFL-01 — feedback / revision_from_gate 을 ctx.config 에 주입.
+            # ShortsPipeline._run_<gate> 각 메서드가 ctx.config.get(
+            # "prior_user_feedback") 를 producer_invoker inputs 에 전달.
+            if getattr(args, "feedback", None):
+                pipeline.ctx.config["prior_user_feedback"] = args.feedback
+                logger.info(
+                    "[phase13] UFL-01 feedback 주입 (대표님, %d chars)",
+                    len(args.feedback),
+                )
+            if getattr(args, "revision_from", None):
+                pipeline.ctx.config["revision_from_gate"] = args.revision_from.upper()
             pipeline.run()  # blocking — 13 gates TREND..MONITOR + COMPLETE
             last_err = None
             logger.info(

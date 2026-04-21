@@ -372,9 +372,15 @@ class ClaudeAgentProducerInvoker:
                 f"Phase 4 AGENT.md 확인 (대표님)"
             )
         body, _ = load_agent_system_prompt(agent_dir)
-        user_payload = json.dumps(
-            {"gate": gate, "inputs": inputs}, ensure_ascii=False
-        )
+        # Phase 15 UFL-01 — inputs 에 prior_user_feedback 이 있으면
+        # user_payload 최상위 key 로 승격하여 하류 producer 에 전달.
+        # None / 미지정 은 skip (빈 값 주입 금지, 대표님).
+        inputs_copy = dict(inputs)
+        prior_feedback = inputs_copy.pop("prior_user_feedback", None)
+        user_payload_dict: dict = {"gate": gate, "inputs": inputs_copy}
+        if prior_feedback:
+            user_payload_dict["prior_user_feedback"] = prior_feedback
+        user_payload = json.dumps(user_payload_dict, ensure_ascii=False)
 
         def _call():
             return self._cli_runner(

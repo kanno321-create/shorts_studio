@@ -329,7 +329,10 @@ class ShortsPipeline:
         output = self._producer_loop(
             GateName.TREND,
             lambda: self.producer_invoker(
-                "trend-collector", "TREND", {"session_id": self.session_id}
+                "trend-collector", "TREND", {
+                    "session_id": self.session_id,
+                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
+                }
             ),
         )
         verdict = self.supervisor_invoker(GateName.TREND, output)
@@ -344,7 +347,10 @@ class ShortsPipeline:
             lambda: self.producer_invoker(
                 "niche-classifier",
                 "NICHE",
-                {"trend_artifact": ctx.artifacts.get(GateName.TREND)},
+                {
+                    "trend_artifact": ctx.artifacts.get(GateName.TREND),
+                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
+                },
             ),
         )
         verdict = self.supervisor_invoker(GateName.NICHE, output)
@@ -359,7 +365,10 @@ class ShortsPipeline:
             lambda: self.producer_invoker(
                 "researcher",
                 "RESEARCH_NLM",
-                {"niche_artifact": ctx.artifacts.get(GateName.NICHE)},
+                {
+                    "niche_artifact": ctx.artifacts.get(GateName.NICHE),
+                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
+                },
             ),
         )
         verdict = self.supervisor_invoker(GateName.RESEARCH_NLM, output)
@@ -374,7 +383,10 @@ class ShortsPipeline:
             lambda: self.producer_invoker(
                 "director",
                 "BLUEPRINT",
-                {"research_artifact": ctx.artifacts.get(GateName.RESEARCH_NLM)},
+                {
+                    "research_artifact": ctx.artifacts.get(GateName.RESEARCH_NLM),
+                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
+                },
             ),
         )
         verdict = self.supervisor_invoker(GateName.BLUEPRINT, output)
@@ -389,7 +401,10 @@ class ShortsPipeline:
             lambda: self.producer_invoker(
                 "scripter",
                 "SCRIPT",
-                {"blueprint": ctx.artifacts.get(GateName.BLUEPRINT)},
+                {
+                    "blueprint": ctx.artifacts.get(GateName.BLUEPRINT),
+                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
+                },
             ),
         )
         verdict = self.supervisor_invoker(GateName.SCRIPT, output)
@@ -404,7 +419,10 @@ class ShortsPipeline:
             lambda: self.producer_invoker(
                 "script-polisher",
                 "POLISH",
-                {"script": ctx.artifacts.get(GateName.SCRIPT)},
+                {
+                    "script": ctx.artifacts.get(GateName.SCRIPT),
+                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
+                },
             ),
         )
         verdict = self.supervisor_invoker(GateName.POLISH, output)
@@ -516,7 +534,10 @@ class ShortsPipeline:
             lambda: self.producer_invoker(
                 "thumbnail-designer",
                 "THUMBNAIL",
-                {"assembly": ctx.artifacts.get(GateName.ASSEMBLY)},
+                {
+                    "assembly": ctx.artifacts.get(GateName.ASSEMBLY),
+                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
+                },
             ),
         )
         verdict = self.supervisor_invoker(GateName.THUMBNAIL, output)
@@ -531,7 +552,10 @@ class ShortsPipeline:
             lambda: self.producer_invoker(
                 "metadata-seo",
                 "METADATA",
-                {"script": ctx.artifacts.get(GateName.SCRIPT)},
+                {
+                    "script": ctx.artifacts.get(GateName.SCRIPT),
+                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
+                },
             ),
         )
         verdict = self.supervisor_invoker(GateName.METADATA, output)
@@ -550,6 +574,7 @@ class ShortsPipeline:
                     "assembly": ctx.artifacts.get(GateName.ASSEMBLY),
                     "thumbnail": ctx.artifacts.get(GateName.THUMBNAIL),
                     "metadata": ctx.artifacts.get(GateName.METADATA),
+                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
                 },
             ),
         )
@@ -565,7 +590,10 @@ class ShortsPipeline:
             lambda: self.producer_invoker(
                 "publisher",
                 "MONITOR",
-                {"upload_artifact": ctx.artifacts.get(GateName.UPLOAD)},
+                {
+                    "upload_artifact": ctx.artifacts.get(GateName.UPLOAD),
+                    "prior_user_feedback": ctx.config.get("prior_user_feedback"),
+                },
             ),
         )
         verdict = self.supervisor_invoker(GateName.MONITOR, output)
