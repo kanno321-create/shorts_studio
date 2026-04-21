@@ -89,3 +89,6 @@ logs/*.json
 
 # Phase 14 ADAPT-06c — warn-only Hook session-scope tracking file
 .claude/hooks/_adapter_contract_touch.json
+
+# Phase 13 runtime — scheduled task lock (session-scope, regenerated per session)
+.claude/scheduled_tasks.lock

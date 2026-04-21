@@ -1,7 +1,7 @@
 {
   "phase": "14-api-adapter-remediation",
   "plan": "14-05",
-  "timestamp": "2026-04-21T12:47:59Z",
+  "timestamp": "2026-04-21T16:01:27Z",
   "all_passed": false,
   "checks": [
     {
@@ -18,7 +18,7 @@
         "--no-cov"
       ],
       "rc": 0,
-      "stdout_tail": "........................................................................ [  9%]\n........................................................................ [ 19%]\n........................................................................ [ 29%]\n........................................................................ [ 38%]\n........................................................................ [ 48%]\n........................................................................ [ 58%]\n........................................................................ [ 67%]\n........................................................................ [ 77%]\n........................................................................ [ 87%]\n........................................................................ [ 97%]\n......................                                                   [100%]\n============================== warnings summary ===============================\ntests/phase05/test_shotstack_adapter.py::test_create_ken_burns_clip_returns_path\n  C:\\Users\\PC\\Desktop\\naberal_group\\studios\\shorts\\tests\\phase05\\test_shotstack_adapter.py:246: DeprecationWarning: ShotstackAdapter.create_ken_burns_clip 는 Phase 9.1 D-11 에서 deprecated 처리되었습니다 — KenBurnsLocalAdapter (scripts.orchestrator.api.ken_burns) 사용 권장 (대표님). 본 메서드는 Phase 10 재설계에서 완전 제거 예정.\n    result = adapter.create_ken_burns_clip(\n\ntests/phase05/test_shotstack_adapter.py::test_create_ken_burns_clip_maps_pan_direction\n  C:\\Users\\PC\\Desktop\\naberal_group\\studios\\shorts\\tests\\phase05\\test_shotstack_adapter.py:272: DeprecationWarning: ShotstackAdapter.create_ken_burns_clip 는 Phase 9.1 D-11 에서 deprecated 처리되었습니다 — KenBurnsLocalAdapter (scripts.orchestrator.api.ken_burns) 사용 권장 (대표님). 본 메서드는 Phase 10 재설계에서 완전 제거 예정.\n    adapter.create_ken_burns_clip(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n742 passed, 2 warnings in 670.74s (0:11:10)\n",
+      "stdout_tail": "........................................................................ [  9%]\n........................................................................ [ 19%]\n........................................................................ [ 29%]\n........................................................................ [ 38%]\n........................................................................ [ 48%]\n........................................................................ [ 58%]\n........................................................................ [ 67%]\n........................................................................ [ 77%]\n........................................................................ [ 87%]\n........................................................................ [ 97%]\n......................                                                   [100%]\n============================== warnings summary ===============================\ntests/phase05/test_shotstack_adapter.py::test_create_ken_burns_clip_returns_path\n  C:\\Users\\PC\\Desktop\\naberal_group\\studios\\shorts\\tests\\phase05\\test_shotstack_adapter.py:246: DeprecationWarning: ShotstackAdapter.create_ken_burns_clip 는 Phase 9.1 D-11 에서 deprecated 처리되었습니다 — KenBurnsLocalAdapter (scripts.orchestrator.api.ken_burns) 사용 권장 (대표님). 본 메서드는 Phase 10 재설계에서 완전 제거 예정.\n    result = adapter.create_ken_burns_clip(\n\ntests/phase05/test_shotstack_adapter.py::test_create_ken_burns_clip_maps_pan_direction\n  C:\\Users\\PC\\Desktop\\naberal_group\\studios\\shorts\\tests\\phase05\\test_shotstack_adapter.py:272: DeprecationWarning: ShotstackAdapter.create_ken_burns_clip 는 Phase 9.1 D-11 에서 deprecated 처리되었습니다 — KenBurnsLocalAdapter (scripts.orchestrator.api.ken_burns) 사용 권장 (대표님). 본 메서드는 Phase 10 재설계에서 완전 제거 예정.\n    adapter.create_ken_burns_clip(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n742 passed, 2 warnings in 654.25s (0:10:54)\n",
       "stderr_tail": "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\requests\\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.0.post2)/charset_normalizer (3.4.3) doesn't match a supported version!\n  warnings.warn(\n"
     },
     {
@@ -59,7 +59,7 @@
         "--no-cov"
       ],
       "rc": 0,
-      "stdout_tail": "..............................                                           [100%]\n30 passed, 1466 deselected in 1.74s\n",
+      "stdout_tail": "..............................                                           [100%]\n30 passed, 1485 deselected in 1.80s\n",
       "stderr_tail": "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\requests\\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.0.post2)/charset_normalizer (3.4.3) doesn't match a supported version!\n  warnings.warn(\n"
     },
     {
@@ -73,11 +73,9 @@
         "-q",
         "--no-cov"
       ],
-      "rc": -1,
-      "stdout_tail": "PARTIAL RUN: Reached [96%%] with 2 FAILED markers at [86%%] before kill/timeout. Full SC#5 pass requires infra capacity increase.",
-      "stderr_tail": "TimeoutExpired after 1800s: Command '['C:\\\\Users\\\\PC\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe', '-m', 'pytest', 'tests/', '--tb=no', '-q', '--no-cov']' timed out after 1800 seconds",
-      "status": "DEFERRED",
-      "reason": "Full pytest tests/ exceeds infrastructure timeout (3600s budget); 2 failures observed at test index ~86%% in non-Phase-14 scope (phase08-13 range). Phase 14 core scope (phase05/06/07) = SC#1 PASS 742 passed. Deferred mirror of Phase 11 complete_with_deferred."
+      "rc": 124,
+      "stdout_tail": "",
+      "stderr_tail": "TimeoutExpired after 3600s: Command '['C:\\\\Users\\\\PC\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe', '-m', 'pytest', 'tests/', '--tb=no', '-q', '--no-cov']' timed out after 3600 seconds"
     },
     {
       "label": "AUDIT harness_score",
@@ -103,7 +101,7 @@
         "--skip-github-issue"
       ],
       "rc": 0,
-      "stdout_tail": "{\n  \"a_grade_count\": 0,\n  \"a_grade_details\": {},\n  \"total_patterns_checked\": 8,\n  \"scan_time\": \"2026-04-21T21:47:57.859184+09:00\",\n  \"dry_run\": true,\n  \"harness_loaded\": false,\n  \"mode\": \"local-only\"\n}\n",
+      "stdout_tail": "{\n  \"a_grade_count\": 1,\n  \"a_grade_details\": {\n    \"t2v_code_path\": 1\n  },\n  \"total_patterns_checked\": 8,\n  \"scan_time\": \"2026-04-22T01:01:26.887067+09:00\",\n  \"dry_run\": true,\n  \"harness_loaded\": false,\n  \"mode\": \"local-only\"\n}\n",
       "stderr_tail": "[INFO] --skip-harness-import: local-only drift scan (deprecated_patterns.json only)\n"
     }
   ],
@@ -114,9 +112,5 @@
     "ADAPT-04",
     "ADAPT-05",
     "ADAPT-06"
-  ],
-  "sc5_deferred": true,
-  "closure_mode": "complete_with_deferred (SC#5 only)",
-  "closure_evidence": "SC#1 phase05_06_07 = 742 passed PROVES Phase 14 scope; SC#2/#3/#4 + AUDIT all PASS",
-  "updated": "2026-04-21T13:51:44.075628Z"
+  ]
 }

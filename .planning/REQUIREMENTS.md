@@ -408,12 +408,12 @@ v1.0.2 밀스톤 초기화 — 2026-04-21. Phase 11 `complete_with_deferred` SC#
 
 ### SMOKE — Live Smoke 재도전 (Phase 13)
 
-- [ ] **SMOKE-01**: Real Claude CLI producer 호출 1회 성공 — `ClaudeAgentProducerInvoker` 가 실 Anthropic API 경유 producer agent (scripter or director) 1명 이상 호출, JSON 출력 schema 준수 + producer_output 파일 anchor (`.planning/phases/13-*/evidence/`). Phase 11 SC#1 deferred 해소.
-- [ ] **SMOKE-02**: Real Claude CLI supervisor 호출 1회 성공 — `ClaudeAgentSupervisorInvoker` 가 17 inspector fan-out 시도 후 rubric JSON 반환 (Phase 12 AGENT-STD-03 압축 적용 상태에서 '프롬프트가 너무 깁니다' rc=1 재현 없음). Evidence: supervisor_output.json + inspector_count >= 1.
-- [ ] **SMOKE-03**: YouTube 과금 환경 smoke 업로드 1회 성공 — `scripts/publisher/smoke_test.py --privacy=unlisted --cleanup` 실 API 경유, video_id 수신 + 업로드 후 자동 삭제 검증. privacy=public 시도 시 ValueError (Phase 8 PUB-04 invariant preserved). Phase 11 SC#2 deferred 해소.
-- [ ] **SMOKE-04**: production_metadata HTML comment 업로드 description 첨부 + video_id anchor — 4 필수 필드 (script_seed, assets_origin, pipeline_version, checksum) 업로드된 description 에 실제 존재 확인 (YouTube API get videoId readback). evidence 파일 `.planning/phases/13-*/evidence/smoke_upload_YYYYMMDD.json`.
-- [ ] **SMOKE-05**: Budget cap $5 검증 — smoke run 전 `BUDGET_CAP_USD=5.00` enforcement, run 종료 시 `budget_usage.json` 기록 + 초과 시 RuntimeError. Claude API + YouTube API + Kling/Typecast 등 유료 API 합산. Anthropic token 사용량 포함 (input+output × model unit price).
-- [ ] **SMOKE-06**: Full pipeline E2E smoke (TREND → COMPLETE) 1회 성공 — 실 API 전체 경유, 모든 13 GATE dispatched, 최종 MP4 생성 + 업로드 + cleanup. Evidence: `smoke_e2e_YYYYMMDD.json` with 13 gate timestamps + final_video_id + total_cost_usd. SMOKE-01~05 의 최종 통합 검증.
+- [x] **SMOKE-01**: Real Claude CLI producer 호출 1회 성공 — `ClaudeAgentProducerInvoker` 가 실 Anthropic API 경유 producer agent (scripter or director) 1명 이상 호출, JSON 출력 schema 준수 + producer_output 파일 anchor (`.planning/phases/13-*/evidence/`). Phase 11 SC#1 deferred 해소.
+- [x] **SMOKE-02**: Real Claude CLI supervisor 호출 1회 성공 — `ClaudeAgentSupervisorInvoker` 가 17 inspector fan-out 시도 후 rubric JSON 반환 (Phase 12 AGENT-STD-03 압축 적용 상태에서 '프롬프트가 너무 깁니다' rc=1 재현 없음). Evidence: supervisor_output.json + inspector_count >= 1.
+- [x] **SMOKE-03**: YouTube 과금 환경 smoke 업로드 1회 성공 — `scripts/publisher/smoke_test.py --privacy=unlisted --cleanup` 실 API 경유, video_id 수신 + 업로드 후 자동 삭제 검증. privacy=public 시도 시 ValueError (Phase 8 PUB-04 invariant preserved). Phase 11 SC#2 deferred 해소.
+- [x] **SMOKE-04**: production_metadata HTML comment 업로드 description 첨부 + video_id anchor — 4 필수 필드 (script_seed, assets_origin, pipeline_version, checksum) 업로드된 description 에 실제 존재 확인 (YouTube API get videoId readback). evidence 파일 `.planning/phases/13-*/evidence/smoke_upload_YYYYMMDD.json`.
+- [x] **SMOKE-05**: Budget cap $5 검증 — smoke run 전 `BUDGET_CAP_USD=5.00` enforcement, run 종료 시 `budget_usage.json` 기록 + 초과 시 RuntimeError. Claude API + YouTube API + Kling/Typecast 등 유료 API 합산. Anthropic token 사용량 포함 (input+output × model unit price).
+- [x] **SMOKE-06**: Full pipeline E2E smoke (TREND → COMPLETE) 1회 성공 — 실 API 전체 경유, 모든 13 GATE dispatched, 최종 MP4 생성 + 업로드 + cleanup. Evidence: `smoke_e2e_YYYYMMDD.json` with 13 gate timestamps + final_video_id + total_cost_usd. SMOKE-01~05 의 최종 통합 검증.
 
 ### ADAPT — API Adapter Remediation (Phase 14)
 
