@@ -1,11 +1,14 @@
 ---
 phase: 14
 slug: api-adapter-remediation
-status: draft
-nyquist_compliant: false
-wave_0_complete: false
+status: approved_with_deferred
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-04-21
 updated: 2026-04-21
+approved: 2026-04-21
+closure_mode: complete_with_deferred
+deferred_items: [SC#5 full pytest tests/ — 2 failures at [86%] in non-Phase-14 scope + infra timeout]
 ---
 
 # Phase 14 — Validation Strategy

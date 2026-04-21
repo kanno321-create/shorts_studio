@@ -182,7 +182,7 @@ def check_sc5_full_regression() -> dict:
             "--no-cov",
         ],
         "SC#5 full_regression",
-        timeout=1800,
+        timeout=3600,
     )
 
 

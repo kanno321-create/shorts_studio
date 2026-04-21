@@ -1,0 +1,11 @@
+Phase 14 Acceptance: FAIL
+| Check | RC | Label |
+|-------|----|-------|
+| SC#1 phase05_06_07_sweep | 0 | PASS |
+| SC#2 contract_files_exist | 0 | PASS |
+| SC#3 doc_exists | 0 | PASS |
+| SC#4 adapter_contract_marker_gate | 0 | PASS |
+| SC#5 full_regression | 124 | FAIL |
+| AUDIT harness_score | 0 | PASS |
+| AUDIT drift_a_class | 0 | PASS |
+ARTIFACT: .planning\phases\14-api-adapter-remediation\14-05-acceptance.json
