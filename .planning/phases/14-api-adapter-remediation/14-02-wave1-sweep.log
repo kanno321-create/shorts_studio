@@ -1,0 +1,24 @@
+C:\Users\PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.0.post2)/charset_normalizer (3.4.3) doesn't match a supported version!
+  warnings.warn(
+........................................................................ [  9%]
+........................................................................ [ 19%]
+........................................................................ [ 29%]
+........................................................................ [ 38%]
+........................................................................ [ 48%]
+........................................................................ [ 58%]
+........................................................................ [ 67%]
+........................................................................ [ 77%]
+........................................................................ [ 87%]
+........................................................................ [ 97%]
+......................                                                   [100%]
+============================== warnings summary ===============================
+tests/phase05/test_shotstack_adapter.py::test_create_ken_burns_clip_returns_path
+  C:\Users\PC\Desktop\naberal_group\studios\shorts\tests\phase05\test_shotstack_adapter.py:246: DeprecationWarning: ShotstackAdapter.create_ken_burns_clip 는 Phase 9.1 D-11 에서 deprecated 처리되었습니다 — KenBurnsLocalAdapter (scripts.orchestrator.api.ken_burns) 사용 권장 (대표님). 본 메서드는 Phase 10 재설계에서 완전 제거 예정.
+    result = adapter.create_ken_burns_clip(
+
+tests/phase05/test_shotstack_adapter.py::test_create_ken_burns_clip_maps_pan_direction
+  C:\Users\PC\Desktop\naberal_group\studios\shorts\tests\phase05\test_shotstack_adapter.py:272: DeprecationWarning: ShotstackAdapter.create_ken_burns_clip 는 Phase 9.1 D-11 에서 deprecated 처리되었습니다 — KenBurnsLocalAdapter (scripts.orchestrator.api.ken_burns) 사용 권장 (대표님). 본 메서드는 Phase 10 재설계에서 완전 제거 예정.
+    adapter.create_ken_burns_clip(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+742 passed, 2 warnings in 633.34s (0:10:33)
