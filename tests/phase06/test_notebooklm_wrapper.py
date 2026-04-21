@@ -47,9 +47,14 @@ def test_kwarg_overrides_env(monkeypatch, tmp_path: Path):
 
 
 def test_default_skill_path_is_the_2026_install():
-    """D-7 hardcoded fallback value matches the 2026-04-19 install location."""
+    """D-7 hardcoded fallback value — Phase 9 D09-DEF-02 migrated to secondjob_naberal install.
+
+    Migration authority: scripts/notebooklm/__init__.py lines 7-10 (5-notebook registry
+    consolidation 2026-04-19). Previous path was shorts_naberal; current is secondjob_naberal.
+    Source: Phase 14 RESEARCH §Bucket B B-2.
+    """
     assert str(DEFAULT_SKILL_PATH).replace("\\", "/") == (
-        "C:/Users/PC/Desktop/shorts_naberal/.claude/skills/notebooklm"
+        "C:/Users/PC/Desktop/secondjob_naberal/.claude/skills/notebooklm"
     )
 
 
