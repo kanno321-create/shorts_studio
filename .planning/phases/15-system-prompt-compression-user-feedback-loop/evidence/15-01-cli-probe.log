@@ -25,3 +25,19 @@ rc=1
 --- stderr ---
 Error: System prompt file not found: C:\tmp\nonexistent-15-01-probe-sys
 
+
+## test_append_system_prompt_file_flag
+rc=1
+--- stdout ---
+
+--- stderr ---
+Error: Append system prompt file not found: C:\tmp\nonexistent-15-01-probe
+
+
+## test_system_prompt_file_flag
+rc=1
+--- stdout ---
+
+--- stderr ---
+Error: System prompt file not found: C:\tmp\nonexistent-15-01-probe-sys
+

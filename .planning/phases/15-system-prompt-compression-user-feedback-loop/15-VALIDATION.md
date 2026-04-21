@@ -3,7 +3,7 @@ phase: 15
 slug: system-prompt-compression-user-feedback-loop
 status: draft
 nyquist_compliant: false
-wave_0_complete: false
+wave_0_complete: true
 created: 2026-04-22
 ---
 
@@ -42,7 +42,7 @@ created: 2026-04-22
 
 | Task ID | Plan | Wave | Requirement | Test Type | Command | Status |
 |---------|------|------|-------------|-----------|---------|:-:|
-| 15-01-01 | 01 | 0 | SPC-01 | reproducer | `pytest tests/phase15/test_encoding_repro.py` 재현 시나리오 확정 | ⬜ |
+| 15-01-01 | 01 | 0 | SPC-01 | reproducer | `pytest tests/phase15/test_encoding_repro.py` 재현 시나리오 확정 | ✅ |
 | 15-02-01 | 02 | 1 | SPC-01 | invoker fix | `pytest tests/adapters/test_invokers_encoding_contract.py` green | ⬜ |
 | 15-02-02 | 02 | 1 | SPC-05 | contract | 10KB+ Korean body mock subprocess green | ⬜ |
 | 15-03-01 | 03 | 2 | SPC-02 | agent split | supervisor AGENT.md ≤ 6500 chars + references/ 2 files + AGENT-STD schema 31/31 | ⬜ |
@@ -66,9 +66,9 @@ created: 2026-04-22
 
 ## Wave 0 Requirements
 
-- [ ] `tests/phase15/__init__.py` + `conftest.py` (Phase 13/14 fixture 승계)
-- [ ] `tests/phase15/test_encoding_repro.py` — SPC-01 empirical 재현
-- [ ] Claude CLI `--append-system-prompt-file` empirical verify
+- [x] `tests/phase15/__init__.py` + `conftest.py` (Phase 13/14 fixture 승계)
+- [x] `tests/phase15/test_encoding_repro.py` — SPC-01 empirical 재현
+- [x] Claude CLI `--append-system-prompt-file` empirical verify
 
 ---
 
