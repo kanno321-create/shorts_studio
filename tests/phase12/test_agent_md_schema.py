@@ -114,3 +114,102 @@ def test_producer_has_version_1_2_and_rub_06(producer):
     assert "매 호출마다 전수 읽기, 샘플링 금지" in text, (
         f"{producer} missing 샘플링 금지 literal in <mandatory_reads>"
     )
+
+
+# 17 inspectors migrated in Wave 3 (this plan, Plan 03).
+# Phase 4 maxTurns matrix authoritative:
+#   ins-factcheck=10, ins-tone-brand=5,
+#   ins-blueprint-compliance=1, ins-timing-consistency=1, ins-schema-integrity=1,
+#   나머지 12 inspectors=3 (default).
+INSPECTORS_V1_1 = [
+    ("structural", "ins-schema-integrity"),
+    ("structural", "ins-timing-consistency"),
+    ("structural", "ins-blueprint-compliance"),
+    ("content", "ins-factcheck"),
+    ("content", "ins-narrative-quality"),
+    ("content", "ins-korean-naturalness"),
+    ("style", "ins-thumbnail-hook"),
+    ("style", "ins-tone-brand"),
+    ("style", "ins-readability"),
+    ("compliance", "ins-license"),
+    ("compliance", "ins-platform-policy"),
+    ("compliance", "ins-safety"),
+    ("technical", "ins-audio-quality"),
+    ("technical", "ins-render-integrity"),
+    ("technical", "ins-subtitle-alignment"),
+    ("media", "ins-mosaic"),
+    ("media", "ins-gore"),
+]
+
+
+@pytest.mark.parametrize("category,inspector", INSPECTORS_V1_1)
+def test_inspector_has_version_1_1_and_rub_06_mirror(category, inspector):
+    """Each inspector AGENT.md: version 1.1 + RUB-06 mirror (producer_prompt
+    direction, inverse of Producer's inspector_prompt mirror) + 샘플링 금지
+    literal. Plan 03 Wave 3 acceptance."""
+    p = (
+        REPO_ROOT
+        / ".claude"
+        / "agents"
+        / "inspectors"
+        / category
+        / inspector
+        / "AGENT.md"
+    )
+    assert p.exists(), f"{category}/{inspector}/AGENT.md missing"
+    text = p.read_text(encoding="utf-8")
+    assert "version: 1.1" in text, (
+        f"{inspector} frontmatter not bumped to 1.1"
+    )
+    assert "producer_prompt 읽기 금지 (RUB-06 GAN 분리 mirror)" in text, (
+        f"{inspector} missing RUB-06 mirror in <constraints>"
+    )
+    assert "매 호출마다 전수 읽기, 샘플링 금지" in text, (
+        f"{inspector} missing 샘플링 금지 literal in <mandatory_reads>"
+    )
+
+
+# Issue #1 fix — Structural 3 matrix reciprocity regression test.
+# Plan 04 wiki/agent_skill_matrix.md marks Structural Inspector
+# `progressive-disclosure` cell = n/a. Reciprocity contract requires the
+# literal to be absent from the AGENT.md entirely.
+STRUCTURAL_3_NO_PROGRESSIVE_DISCLOSURE = [
+    "ins-schema-integrity",
+    "ins-timing-consistency",
+    "ins-blueprint-compliance",
+]
+
+
+@pytest.mark.parametrize("inspector", STRUCTURAL_3_NO_PROGRESSIVE_DISCLOSURE)
+def test_structural_inspector_no_progressive_disclosure(inspector):
+    """Plan 04 matrix marks Structural 3 progressive-disclosure = n/a.
+    AGENT.md literal presence breaks `verify_agent_skill_matrix.py
+    --fail-on-drift` reciprocity invariant. Plan 03 Issue #1 lock."""
+    p = (
+        REPO_ROOT
+        / ".claude"
+        / "agents"
+        / "inspectors"
+        / "structural"
+        / inspector
+        / "AGENT.md"
+    )
+    text = p.read_text(encoding="utf-8")
+    assert "progressive-disclosure" not in text, (
+        f"{inspector} AGENT.md has 'progressive-disclosure' literal — "
+        f"matrix SSOT (Plan 04) marks this cell n/a for Structural Inspectors. "
+        f"Reciprocity verifier will FAIL."
+    )
+
+
+def test_total_31_agents_scanned():
+    """14 producer + 17 inspector = 31 AGENT.md in scope after Wave 3.
+
+    Plan 01 SUMMARY deviation #1 reconciliation: disk reality is 31, not the
+    plan's stated 30. Plan 03 closes the 17-inspector gap (Wave 0/2 already
+    landed 1 + 13 = 14 producers).
+    """
+    targets = _collect_all_agent_mds()
+    assert len(targets) == 31, (
+        f"expected 31 (14 producer + 17 inspector), got {len(targets)}"
+    )
