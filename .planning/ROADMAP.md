@@ -26,7 +26,7 @@
 
 - [🟡] **Phase 11: Pipeline Real-Run Activation + Script Quality Mode** — D10-PIPELINE-DEF-01 5-에러 chain 인프라 해소 + SC#3/#4/#5 완결 + SC#1/#2 Phase 12 로 이관 (complete_with_deferred 2026-04-21, 대표님 직접 승인)
 - [ ] **Phase 13: Live Smoke 재도전** — Phase 11 SC#1/SC#2 deferred 해소: real Claude CLI producer/supervisor 호출 + YouTube 과금 환경 smoke 업로드 1회 성공 + 증거 anchor (milestone v1.0.2)
-- [ ] **Phase 14: API Adapter Remediation** — phase05/06/07 pre-existing adapter drift 15 failures (veo_i2v + elevenlabs + shotstack) 전수 청산 + adapter contract 재정의 (milestone v1.0.2)
+- [x] **Phase 14: API Adapter Remediation** — phase05/06/07 pre-existing adapter drift 15 failures (veo_i2v + elevenlabs + shotstack) 전수 청산 + adapter contract 재정의 (milestone v1.0.2) (completed 2026-04-21)
 
 ---
 
@@ -369,7 +369,7 @@ Plans:
   3. Adapter contract 문서 `docs/adapter_contracts.md` (또는 `wiki/render/adapter_contracts.md`) 신설 — 7 adapter (kling / runway / veo_i2v / typecast / elevenlabs / shotstack / whisperx) 전수에 대해 입력/출력 schema + retry/fallback 규칙 + fault injection 지원 여부 + mock↔real 계약 차이 기록
   4. pytest marker `@pytest.mark.adapter_contract` 도입 + `pytest -m adapter_contract` 단독 실행 시 contract test 만 격리 실행되어 CI/로컬에서 독립 게이트 가능
   5. Full regression sweep (Phase 13 land 여부와 무관) 1000+ tests 전수 green — Phase 13 가 먼저 land 한 경우 smoke 테스트 포함, 아닐 경우 Phase 4~12 + adapter contract 만 포함. 어느 쪽이든 `pytest` 전수 exit 0
-**Plans:** 4/5 plans executed
+**Plans:** 5/5 plans complete
 **UI hint:** no
 
 ---
