@@ -1,0 +1,43 @@
+# Phase 14 Plan 01 Task 01 — Informal Marker Pre-Audit
+# Generated: 2026-04-21T09:59:31Z
+# Command: grep -rE '@pytest\.mark\.([A-Za-z_][A-Za-z0-9_]*)' tests/ scripts/ | sort -u
+# Purpose: R1 mitigation — register every informal marker in pytest.ini before --strict-markers activates
+
+## Raw grep output
+
+Binary file tests/phase08/__pycache__/test_regression_986_green.cpython-311.pyc matches
+tests/phase04/test_compliance_blocks.py:@pytest.mark.parametrize("artist,title,expected", [
+tests/phase04/test_inspector_compliance.py:@pytest.mark.parametrize("name", AGENTS)
+tests/phase04/test_inspector_media.py:@pytest.mark.parametrize("slug", sorted(EXPECTED_SLUGS))
+tests/phase04/test_inspector_technical.py:@pytest.mark.parametrize("name", INSPECTOR_NAMES)
+tests/phase04/test_logicqa_schema.py:@pytest.mark.parametrize("md_path", INSPECTOR_PATHS, ids=[p.parent.name for p in INSPECTOR_PATHS])
+tests/phase04/test_maxturns_matrix.py:@pytest.mark.parametrize("md_path", _agent_md_paths(), ids=lambda p: p.parent.name)
+tests/phase06/test_moc_linkage.py:@pytest.mark.parametrize("moc_rel,node_name", MOC_CHECK_EXPECTATIONS)
+tests/phase07/test_infra_smoke.py:@pytest.mark.parametrize("name", _REQUIRED_FIXTURES)
+tests/phase07/test_mock_fixtures_bytes.py:@pytest.mark.parametrize(
+tests/phase08/test_no_selenium_anchor.py:@pytest.mark.parametrize("module_name", _FORBIDDEN_MODULES)
+tests/phase08/test_traceability_matrix.py:@pytest.mark.parametrize("req_id", PHASE8_REQS)
+tests/phase08/test_traceability_matrix.py:@pytest.mark.parametrize("sc_id", PHASE8_SCS)
+tests/phase091/test_ken_burns_real.py:@pytest.mark.skipif(shutil.which("ffmpeg") is None, reason="ffmpeg binary missing from PATH")
+tests/phase10/test_workflows_yaml.py:@pytest.mark.parametrize("name", _WORKFLOW_NAMES)
+tests/phase12/test_agent_md_schema.py:@pytest.mark.parametrize("category,inspector", INSPECTORS_V1_1)
+tests/phase12/test_agent_md_schema.py:@pytest.mark.parametrize("inspector", STRUCTURAL_3_NO_PROGRESSIVE_DISCLOSURE)
+tests/phase12/test_agent_md_schema.py:@pytest.mark.parametrize("producer", PRODUCERS_V1_2)
+tests/phase12/test_f_d2_exception_batch.py:@pytest.mark.skip(reason="Wave 0 red stub — populated by Plan 02 (first batch use)")
+tests/phase12/test_f_d2_exception_batch.py:@pytest.mark.skip(reason="Wave 0 red stub — populated by Plan 02")
+tests/phase12/test_mandatory_reads_prose.py:@pytest.mark.parametrize(
+
+## Exit status: 0
+
+## Analysis
+
+All detected markers (excluding binary .pyc match):
+- parametrize — pytest built-in
+- skip — pytest built-in
+- skipif — pytest built-in
+
+### MARKERS_TO_REGISTER
+
+(none — only built-in markers found)
+
+Rationale: The grep output shows exclusively built-in pytest markers (parametrize, skip, skipif). No informal/custom markers exist in the current tests/ or scripts/ tree. Therefore pytest.ini (Task 14-01-02) only needs to register the Phase 14 adapter_contract marker; --strict-markers activation will not retroactively break the existing green suite.
