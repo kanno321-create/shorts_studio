@@ -402,4 +402,49 @@ v1 검증 완료 후 또는 수익 발생 후 활성화.
 
 ---
 
+## Milestone v1.0.2 신규 REQ (Production Readiness — Live Smoke + Adapter Remediation)
+
+v1.0.2 밀스톤 초기화 — 2026-04-21. Phase 11 `complete_with_deferred` SC#1/SC#2 해소 (Phase 13) + phase05/06/07 pre-existing adapter drift 15 failures 청산 (Phase 14). 대표님 v1.0.2 범위 확정.
+
+### SMOKE — Live Smoke 재도전 (Phase 13)
+
+- [ ] **SMOKE-01**: Real Claude CLI producer 호출 1회 성공 — `ClaudeAgentProducerInvoker` 가 실 Anthropic API 경유 producer agent (scripter or director) 1명 이상 호출, JSON 출력 schema 준수 + producer_output 파일 anchor (`.planning/phases/13-*/evidence/`). Phase 11 SC#1 deferred 해소.
+- [ ] **SMOKE-02**: Real Claude CLI supervisor 호출 1회 성공 — `ClaudeAgentSupervisorInvoker` 가 17 inspector fan-out 시도 후 rubric JSON 반환 (Phase 12 AGENT-STD-03 압축 적용 상태에서 '프롬프트가 너무 깁니다' rc=1 재현 없음). Evidence: supervisor_output.json + inspector_count >= 1.
+- [ ] **SMOKE-03**: YouTube 과금 환경 smoke 업로드 1회 성공 — `scripts/publisher/smoke_test.py --privacy=unlisted --cleanup` 실 API 경유, video_id 수신 + 업로드 후 자동 삭제 검증. privacy=public 시도 시 ValueError (Phase 8 PUB-04 invariant preserved). Phase 11 SC#2 deferred 해소.
+- [ ] **SMOKE-04**: production_metadata HTML comment 업로드 description 첨부 + video_id anchor — 4 필수 필드 (script_seed, assets_origin, pipeline_version, checksum) 업로드된 description 에 실제 존재 확인 (YouTube API get videoId readback). evidence 파일 `.planning/phases/13-*/evidence/smoke_upload_YYYYMMDD.json`.
+- [ ] **SMOKE-05**: Budget cap $5 검증 — smoke run 전 `BUDGET_CAP_USD=5.00` enforcement, run 종료 시 `budget_usage.json` 기록 + 초과 시 RuntimeError. Claude API + YouTube API + Kling/Typecast 등 유료 API 합산. Anthropic token 사용량 포함 (input+output × model unit price).
+- [ ] **SMOKE-06**: Full pipeline E2E smoke (TREND → COMPLETE) 1회 성공 — 실 API 전체 경유, 모든 13 GATE dispatched, 최종 MP4 생성 + 업로드 + cleanup. Evidence: `smoke_e2e_YYYYMMDD.json` with 13 gate timestamps + final_video_id + total_cost_usd. SMOKE-01~05 의 최종 통합 검증.
+
+### ADAPT — API Adapter Remediation (Phase 14)
+
+- [ ] **ADAPT-01**: veo_i2v adapter drift 청산 — 현재 pytest failure N건 (Phase 09.1 era stub→adapter 전환 잔재) 전수 녹색 전환. adapter contract test `tests/adapters/test_veo_i2v_contract.py` 신설, `scripts/api/veo_i2v.py` (존재 시) 또는 단순 non-Kling I2V fallback 검증.
+- [ ] **ADAPT-02**: elevenlabs adapter drift 청산 — elevenlabs voice generation adapter pytest failure 전수 녹색 전환. contract test `tests/adapters/test_elevenlabs_contract.py`. Typecast primary + ElevenLabs fallback 구조 (voice-producer AGENT.md 참조) 유지.
+- [ ] **ADAPT-03**: shotstack adapter drift 청산 — shotstack render adapter pytest failure 전수 녹색 전환. contract test `tests/adapters/test_shotstack_contract.py`. Phase 5 ORCH-10 영상/음성 분리 합성 경로 보존.
+- [ ] **ADAPT-04**: Full phase05/06/07 regression 0 failures — `pytest tests/phase05 tests/phase06 tests/phase07` 전체 green. Phase 7 기준 986/986 (Phase 4 244 + Phase 5 329 + Phase 6 236 + Phase 7 177) regression preserved + 15 adapter failures 제거.
+- [ ] **ADAPT-05**: Adapter contract 문서 `docs/adapter_contracts.md` (또는 `wiki/render/adapter_contracts.md`) 신설 — 각 adapter (kling / runway / veo_i2v / typecast / elevenlabs / shotstack / whisperx) 의 입력/출력 schema + retry/fallback 규칙 + fault injection 지원 여부 정리. Phase 7 mock adapter 기준 계약과 real adapter 실측 차이 문서화.
+- [ ] **ADAPT-06**: Drift 재발 방지 — (a) pytest marker `@pytest.mark.adapter_contract` 도입하여 adapter contract test 카테고리 분리, (b) CI/local `pytest -m adapter_contract` 별도 게이트 제공, (c) pre_tool_use hook 또는 validator 로 adapter 파일 수정 시 contract test 자동 요구 (optional, Phase 14 scope 내 trade-off 결정).
+
+### Milestone v1.0.2 Traceability
+
+| REQ-ID | Phase |
+|--------|-------|
+| SMOKE-01 | 13 |
+| SMOKE-02 | 13 |
+| SMOKE-03 | 13 |
+| SMOKE-04 | 13 |
+| SMOKE-05 | 13 |
+| SMOKE-06 | 13 |
+| ADAPT-01 | 14 |
+| ADAPT-02 | 14 |
+| ADAPT-03 | 14 |
+| ADAPT-04 | 14 |
+| ADAPT-05 | 14 |
+| ADAPT-06 | 14 |
+
+**v1.0.2 Coverage**: 10 신규 REQ (SMOKE 6 + ADAPT 4, 대표님 multiSelect 확정 2026-04-21). 전체 mapping: v1.0.1 96 REQ + Phase 11 6 REQ + Phase 12 6 REQ + v1.0.2 12 REQ = **120 REQ**.
+
+---
+
 *Phase 12 REQ 추가: 2026-04-21 (세션 #29) — Phase 11 라이브 smoke 1차 실패로 노출된 하네스 품질 gap 해소. 대표님 직접 승인 (Option D + Phase 12 발의 양쪽 모두). /gsd:discuss-phase 12 + /gsd:plan-phase 12 로 세부 plan 결정 예정.*
+
+*Milestone v1.0.2 REQ 추가: 2026-04-21 — SMOKE 6 + ADAPT 6 (사용자 multiSelect 전체 채택). SMOKE = Phase 11 SC#1/SC#2 deferred 해소 + 실 환경 validation. ADAPT = phase05/06/07 15 failures 청산 + contract 재정의. Research skipped (brownfield remediation). /gsd:plan-phase 13 + 14 로 진행.*
