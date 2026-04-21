@@ -1,15 +1,15 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0.1
-milestone_name: milestone
-status: completed
-last_updated: "2026-04-21T07:26:46.724Z"
+milestone: v1.0.2
+milestone_name: production-readiness-live-smoke-adapter-remediation
+status: defining_requirements
+last_updated: "2026-04-21T16:40:00.000Z"
 progress:
-  total_phases: 13
-  completed_phases: 12
-  total_plans: 97
-  completed_plans: 99
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # STATE — naberal-shorts-studio
@@ -31,15 +31,21 @@ progress:
 
 ## Current Position
 
-Phase: 12 (agent-standardization-skill-routing-failures-protocol) — EXECUTING
-Plan: Not started
-Next Phase: 12 (Agent Standardization + Skill Routing + FAILURES Protocol) — 별 세션 권장. 대표님 session #29 architectural insight + supervisor prompt compression 확장 (AGENT-STD-03 NEW)
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-04-21 — Milestone v1.0.2 (Production Readiness) started
 
-- **Phase:** 12
-- **Next Action:** `/gsd:execute-phase 12` Plan 02 (Producer 14 migration using producer.md.template — prototype round-trip already proven via trend-collector v1.2). Budget: $0.00 / $5.00 cap preserved. Tests: 280/280 baseline + 16 phase12 skipped GREEN.
-- **Status:** Milestone complete
-- **Progress:** [██████████] 100%
-- **Last completed:** Phase 12 Plan 12-01 Wave 0 Foundation (5 tasks, 16 files). 5 atomic commits: e9fd3a3 (templates 2종) + 6aac44b (tests/phase12 scaffold + MockClaudeCLI) + a06dc9b (verify_agent_md_schema.py CLI) + 0ebb5e9 (trend-collector v1.1→v1.2) + 9a8db78 (12-VALIDATION.md flip + 19-row map). 244 Phase 4 + 36 Phase 11 regression intact. 2 Rule 1 deviations documented (31 AGENT.md scope vs plan's 30, channel_bible path drift). AGENT-STD-01 + AGENT-STD-02 requirements [x].
+- **Milestone:** v1.0.2 Production Readiness — Live Smoke + Adapter Remediation
+- **Next Action:** Complete requirements definition (REQ-12 refinement) → gsd-roadmapper for Phase 13 (Live Smoke) + Phase 14 (Adapter Remediation)
+- **Predecessor:** v1.0.1 milestone complete (Phases 1~12 all shipped, REQ-11 validated)
+- **Progress:** [          ] 0% (requirements → roadmap phase)
+
+### Previous milestone (v1.0.1) — Completed 2026-04-21
+- Phase 12 Plan 12-01~12-07 shipped (Agent Standardization + Skill Routing + FAILURES Protocol)
+- 31/31 AGENT.md schema compliant, Phase 11 Gate 2 rc=1 structurally closed
+- Full regression: 986+ tests green (Phase 4~7 baseline)
+- Deferred to v1.0.2: SC#1/SC#2 live smoke (Phase 13), phase05/06/07 adapter drift 15 failures (Phase 14)
 
 ### Plan 12-01 Decisions
 
