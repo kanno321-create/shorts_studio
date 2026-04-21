@@ -65,8 +65,12 @@ def test_api_adapters_under_soft_caps() -> None:
         "kling_i2v.py": 260,
         "runway_i2v.py": 240,
         "typecast.py": 400,
-        "elevenlabs.py": 340,
-        "shotstack.py": 400,
+        # Phase 9.1 D-13 — 3-tier voice_id resolution (constructor > env > module cache) intentionally grew elevenlabs.py.
+        # Phase 14 RESEARCH §Bucket A A-2 authority: raise cap 340 → 360.
+        "elevenlabs.py": 360,
+        # Phase 9.1 D-11 — ken_burns DeprecationWarning + D-19 continuity_prefix injection at filter[0] intentionally grew shotstack.py.
+        # Phase 14 RESEARCH §Bucket A A-2 authority: raise cap 400 → 420.
+        "shotstack.py": 420,
     }
     failures: list[str] = []
     for name, max_lines in caps.items():
