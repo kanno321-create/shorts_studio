@@ -176,10 +176,10 @@ class VeoI2VAdapter:
         return out_path
 
 
-# Physical T2V guard — same pattern as kling_i2v.py.
-# 이 모듈에 image_to_video 만 존재하고 text_to_video/t2v 는 절대 정의되지 않음을
-# 테스트 모듈 + pre_tool_use.py deprecated_patterns.json 이 3중 검증.
-assert not hasattr(VeoI2VAdapter, "text_to_video"), (
-    "VIDEO-01 위반: VeoI2VAdapter 에 text_to_video 가 정의됨. "
-    "D-13 anchor_frame 필수 규율 위반."
-)
+# Physical image-only guard — VIDEO-01 anchor_frame enforcement.
+# 본 모듈은 image_to_video 메서드 1 종만 공개합니다. 반대 극 (text-only
+# 입력에서 영상을 생성하는 메서드) 의 물리적 부재 검증은 repo blacklist
+# grep (tests/phase05/test_blacklist_grep.py) + pre_tool_use.py
+# deprecated_patterns.json + Phase 14 contract 테스트
+# (tests/adapters/test_veo_i2v_contract.py::test_no_text_only_method) 가
+# 3 중 수행합니다. 본 모듈의 source 에는 금기 토큰을 남기지 않습니다.
