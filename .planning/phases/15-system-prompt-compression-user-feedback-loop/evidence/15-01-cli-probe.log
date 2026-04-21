@@ -1,0 +1,27 @@
+# SPC-04 — Claude CLI flag probe (empirical, 2026-04-21, $0)
+#
+# 대표님 Phase 15 Wave 0 실측: ``--append-system-prompt-file`` +
+# ``--system-prompt-file`` 두 flag 가 Claude CLI 에 인식됨을 증명.
+# 존재하지 않는 파일 경로 전달 → 모델 호출 전 단계에서 file-not-found
+# error 반환 (비과금).
+#
+# 생성자: tests/phase15/test_cli_flag_probe.py (pytest -v --no-cov)
+# 바이너리: C:\Users\PC\AppData\Roaming\npm\claude.CMD
+# 주의: append-only 로그 — 후속 실행은 이 파일에 stdout/stderr block 을
+#       추가합니다. 최초 증거 block (아래 2개) 이 Wave 1 근거 anchor.
+
+## test_append_system_prompt_file_flag
+rc=1
+--- stdout ---
+
+--- stderr ---
+Error: Append system prompt file not found: C:\tmp\nonexistent-15-01-probe
+
+
+## test_system_prompt_file_flag
+rc=1
+--- stdout ---
+
+--- stderr ---
+Error: System prompt file not found: C:\tmp\nonexistent-15-01-probe-sys
+
