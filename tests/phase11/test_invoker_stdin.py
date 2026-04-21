@@ -2,8 +2,9 @@
 
 D-01/D-02/D-04 LOCKED decisions:
 - user_prompt MUST flow through stdin (not argv positional)
-- argv canonical form: [cli_path, --print, --append-system-prompt, body,
-  --json-schema, schema]
+- argv canonical form (Phase 15 SPC-01 fix, 2026-04-21):
+  [cli_path, --print, --append-system-prompt-file, <tempfile_path>,
+   --json-schema, schema] — body 는 argv 에 없고 UTF-8 tempfile 경유.
 - Korean-first RuntimeError messages preserved verbatim (대표님 호칭)
 - cli_runner test seam unchanged — these tests patch subprocess.Popen
   at module level (scripts.orchestrator.invokers.subprocess.Popen).
@@ -19,6 +20,14 @@ tests target ``_invoke_claude_cli_once`` directly so the stdin/argv/
 timeout/rc/stdout contract remains asserted without the retry layer
 intercepting side_effects. Retry behavior is tested separately in
 ``test_invoker_retry.py``.
+
+Phase 15 SPC-01 update (2026-04-21, Plan 15-02):
+``_invoke_claude_cli_once`` now writes system_prompt to a UTF-8 tempfile
+and passes ``--append-system-prompt-file <path>`` (not the body directly)
+to avoid rc=1 "프롬프트가 너무 깁니다" from 10KB+ Korean bodies.
+test_invoker_argv_contains_expected_flags was updated to assert the new
+post-fix argv shape. tempfile cleanup contract is pinned by
+tests/adapters/test_invokers_encoding_contract.py (SPC-05, 10 tests).
 """
 from __future__ import annotations
 
@@ -69,7 +78,17 @@ def test_invoker_uses_stdin_piping():
 
 
 def test_invoker_argv_contains_expected_flags():
-    """argv matches D-02 canonical form (no positional prompt)."""
+    """argv matches Phase 15 SPC-01 post-fix canonical form (tempfile path, not body).
+
+    대표님 Plan 15-02 (2026-04-21) 로 ``--append-system-prompt`` + body
+    argv 가 ``--append-system-prompt-file`` + UTF-8 tempfile path 로
+    교체되었습니다. body 는 argv 어느 슬롯에도 존재하지 않고, path 는 ``.md``
+    확장자 + 시스템 tempdir 의 짧은 경로로 flag 바로 뒤에 위치합니다.
+    Tempfile cleanup 은 finally 블록에서 검증
+    (tests/adapters/test_invokers_encoding_contract.py).
+    """
+    from pathlib import Path as _Path
+
     with patch("scripts.orchestrator.invokers.subprocess.Popen") as popen_cls:
         popen_cls.return_value = _make_popen_mock()
         _invoke_claude_cli(
@@ -79,12 +98,25 @@ def test_invoker_argv_contains_expected_flags():
             cli_path="/fake/claude",
         )
         argv = popen_cls.call_args.args[0]
-        assert argv == [
-            "/fake/claude",
-            "--print",
-            "--append-system-prompt", "SYS_BODY",
-            "--json-schema", '{"type":"object"}',
-        ]
+
+        # Skeleton — body 대신 --append-system-prompt-file + <path>.
+        assert argv[0] == "/fake/claude"
+        assert argv[1] == "--print"
+        assert argv[2] == "--append-system-prompt-file"
+        path_arg = argv[3]
+        # path 는 실제 tempfile — body (argv 직접 전달) 가 아님.
+        assert path_arg != "SYS_BODY", "body 가 여전히 argv 직접 전달 (대표님)"
+        assert _Path(path_arg).suffix == ".md"
+        # 파일은 이미 cleanup 됐으므로 exists() False — 정상 (finally).
+        assert argv[4] == "--json-schema"
+        assert argv[5] == '{"type":"object"}'
+        assert len(argv) == 6
+
+        # 구 flag + body 직접 전달 drift 재발 방지 guard.
+        assert "--append-system-prompt" not in argv, (
+            "구 D-02 flag (body-direct) 잔류 — SPC-01 fix regression (대표님)"
+        )
+        assert "SYS_BODY" not in argv
 
 
 def test_invoker_timeout_raises_korean_runtime_error():
