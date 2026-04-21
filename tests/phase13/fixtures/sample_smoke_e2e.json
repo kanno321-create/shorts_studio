@@ -1,0 +1,26 @@
+{
+  "session_id": "20260421_sample",
+  "status": "OK",
+  "wall_time_seconds": 487.3,
+  "gate_timestamps": {
+    "IDLE": "2026-04-21T22:30:00+09:00",
+    "TREND": "2026-04-21T22:30:15+09:00",
+    "NICHE": "2026-04-21T22:30:45+09:00",
+    "RESEARCH_NLM": "2026-04-21T22:31:10+09:00",
+    "BLUEPRINT": "2026-04-21T22:31:40+09:00",
+    "SCRIPT": "2026-04-21T22:32:30+09:00",
+    "POLISH": "2026-04-21T22:33:00+09:00",
+    "VOICE": "2026-04-21T22:33:45+09:00",
+    "ASSETS": "2026-04-21T22:36:00+09:00",
+    "ASSEMBLY": "2026-04-21T22:36:30+09:00",
+    "THUMBNAIL": "2026-04-21T22:37:00+09:00",
+    "METADATA": "2026-04-21T22:37:30+09:00",
+    "COMPLETE": "2026-04-21T22:38:07+09:00"
+  },
+  "gate_count": 13,
+  "final_video_id": "dQw4w9WgXcQ",
+  "total_cost_usd": 2.93,
+  "budget_cap_usd": 5.00,
+  "budget_breached": false,
+  "supervisor_rc1_count": 0
+}

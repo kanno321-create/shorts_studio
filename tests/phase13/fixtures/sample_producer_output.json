@@ -1,0 +1,19 @@
+{
+  "session_id": "20260421_sample",
+  "timestamp": "2026-04-21T22:30:00+09:00",
+  "producer_gates": {
+    "TREND": {
+      "niche": "k-pop",
+      "topic": "album-preview-v1",
+      "confidence": 0.92
+    },
+    "SCRIPT": {
+      "hook_ko": "이번 앨범 진짜 미쳤대요",
+      "length_sec": 48
+    },
+    "METADATA": {
+      "title_ko": "샘플 제목",
+      "tags": ["shorts", "k-pop"]
+    }
+  }
+}

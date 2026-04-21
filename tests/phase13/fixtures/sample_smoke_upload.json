@@ -1,0 +1,13 @@
+{
+  "session_id": "20260421_sample",
+  "video_id": "dQw4w9WgXcQ",
+  "description_raw": "샘플 설명\n\n<!-- production_metadata\n{\"script_seed\": \"seed123\", \"assets_origin\": \"smoke:test\", \"pipeline_version\": \"1.0.0\", \"checksum\": \"sha256:abc123def456\"}\n-->",
+  "production_metadata": {
+    "script_seed": "seed123",
+    "assets_origin": "smoke:test",
+    "pipeline_version": "1.0.0",
+    "checksum": "sha256:abc123def456"
+  },
+  "required_fields_present": true,
+  "missing_fields": []
+}

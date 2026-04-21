@@ -1,0 +1,25 @@
+{
+  "session_id": "20260421_sample",
+  "supervisor_calls": [
+    {
+      "gate": "TREND",
+      "inspector_count": 3,
+      "pre_compress_bytes": 9824,
+      "post_compress_bytes": 2373,
+      "ratio": 0.24,
+      "returncode": 0,
+      "verdict": "PASS"
+    },
+    {
+      "gate": "SCRIPT",
+      "inspector_count": 6,
+      "pre_compress_bytes": 14200,
+      "post_compress_bytes": 3100,
+      "ratio": 0.22,
+      "returncode": 0,
+      "verdict": "PASS"
+    }
+  ],
+  "rc1_count": 0,
+  "compression_ratio_avg": 0.23
+}
