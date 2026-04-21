@@ -101,13 +101,20 @@ def _run(cmd: list[str], label: str, timeout: int = 1200) -> dict:
 
 
 def check_sc1_phase13_tier1_regression() -> dict:
-    """SC#1 — SMOKE-01~06 Tier 1 surface: Phase 13 전수 pytest green (≥39 passed)."""
+    """SC#1 — SMOKE-01~06 Tier 1 surface: Phase 13 전수 pytest green (≥39 passed).
+
+    Rule 1 bug mitigation: `tests/phase13/test_phase13_acceptance.py` 는 자체적
+    으로 본 acceptance 스크립트를 subprocess 로 호출하므로 SC#1 의 pytest
+    에서 제외 — 포함 시 무한 재귀 (acceptance → pytest → acceptance → ...)
+    로 timeout 발생. 명시적 `--ignore` 로 차단.
+    """
     return _run(
         [
             sys.executable,
             "-m",
             "pytest",
             "tests/phase13/",
+            "--ignore=tests/phase13/test_phase13_acceptance.py",
             "-m",
             "not live_smoke",
             "--tb=short",
