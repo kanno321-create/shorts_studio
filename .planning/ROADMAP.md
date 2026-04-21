@@ -26,7 +26,8 @@
 
 - [🟡] **Phase 11: Pipeline Real-Run Activation + Script Quality Mode** — D10-PIPELINE-DEF-01 5-에러 chain 인프라 해소 + SC#3/#4/#5 완결 + SC#1/#2 Phase 12 로 이관 (complete_with_deferred 2026-04-21, 대표님 직접 승인)
 - [ ] **Phase 13: Live Smoke 재도전** — Phase 11 SC#1/SC#2 deferred 해소: real Claude CLI producer/supervisor 호출 + YouTube 과금 환경 smoke 업로드 1회 성공 + 증거 anchor (milestone v1.0.2)
-- [x] **Phase 14: API Adapter Remediation** — phase05/06/07 pre-existing adapter drift 15 failures (veo_i2v + elevenlabs + shotstack) 전수 청산 + adapter contract 재정의 (milestone v1.0.2) (completed 2026-04-21)
+- [x] **Phase 14: API Adapter Remediation** — phase05/06/07 pre-existing adapter drift 15 failures (veo_i2v + elevenlabs + shotstack) 전수 청산 + adapter contract 재정의 (milestone v1.0.2)
+ (completed 2026-04-21)
 
 ---
 
@@ -352,7 +353,13 @@ Plans:
   4. `production_metadata` HTML comment 첨부 + YouTube Data API `videos.get` readback 에서 4 필수 필드 (script_seed, assets_origin, pipeline_version, checksum) 실제 존재 확인 — evidence `smoke_upload_YYYYMMDD.json` 에 raw description 저장
   5. Budget cap $5 enforcement — run 종료 시 `budget_usage.json` 에 `total_cost_usd <= 5.00` 기록 (Anthropic token × unit price + YouTube API + Kling/Typecast/ElevenLabs 합산); 초과 시 RuntimeError + 업로드 차단
   6. Full pipeline E2E smoke (TREND → COMPLETE) 1회 완주 — 실 API 전체 경유, 13 operational gate 전수 dispatched + 최종 MP4 생성 + 업로드 + cleanup, evidence `smoke_e2e_YYYYMMDD.json` 에 13 gate timestamps + `final_video_id` + `total_cost_usd` 필드 존재
-**Plans:** TBD — `/gsd:plan-phase 13` 로 세부 wave 결정 예정
+**Plans:** 6 plans
+  - [ ] 13-01-PLAN.md — Wave 0 Preflight Infra (pytest.ini live_smoke marker + budget_counter.py + phase13_preflight.py + tests/phase13/ scaffold + 4 golden fixtures)
+  - [ ] 13-02-PLAN.md — Wave 1 Real Claude CLI Smoke (SMOKE-01 producer + SMOKE-02 supervisor + evidence_extractor.py)
+  - [ ] 13-03-PLAN.md — Wave 2 YouTube Upload Smoke (SMOKE-03 unlisted+cleanup + SMOKE-04 metadata readback + upload_evidence.py)
+  - [ ] 13-04-PLAN.md — Wave 3 Budget Cap Enforcement (SMOKE-05 Tier 1 enforcement + provider_rates.py SSOT)
+  - [ ] 13-05-PLAN.md — Wave 4 Full E2E Smoke (SMOKE-06 phase13_live_smoke.py runner — phase11_full_run.py clone + Wave 0~3 wire)
+  - [ ] 13-06-PLAN.md — Wave 5 Phase Gate (phase13_acceptance.py aggregator + TRACEABILITY + VALIDATION HARD-GATE flip — phase14_acceptance.py 패턴 복제)
 **UI hint:** no
 
 ---
