@@ -353,10 +353,10 @@ Plans:
   4. `production_metadata` HTML comment 첨부 + YouTube Data API `videos.get` readback 에서 4 필수 필드 (script_seed, assets_origin, pipeline_version, checksum) 실제 존재 확인 — evidence `smoke_upload_YYYYMMDD.json` 에 raw description 저장
   5. Budget cap $5 enforcement — run 종료 시 `budget_usage.json` 에 `total_cost_usd <= 5.00` 기록 (Anthropic token × unit price + YouTube API + Kling/Typecast/ElevenLabs 합산); 초과 시 RuntimeError + 업로드 차단
   6. Full pipeline E2E smoke (TREND → COMPLETE) 1회 완주 — 실 API 전체 경유, 13 operational gate 전수 dispatched + 최종 MP4 생성 + 업로드 + cleanup, evidence `smoke_e2e_YYYYMMDD.json` 에 13 gate timestamps + `final_video_id` + `total_cost_usd` 필드 존재
-**Plans:** 2/6 plans executed
+**Plans:** 3/6 plans executed
   - [x] 13-01-PLAN.md — Wave 0 Preflight Infra (pytest.ini live_smoke marker + budget_counter.py + phase13_preflight.py + tests/phase13/ scaffold + 4 golden fixtures)
   - [x] 13-02-PLAN.md — Wave 1 Real Claude CLI Smoke (SMOKE-01 producer + SMOKE-02 supervisor + evidence_extractor.py)
-  - [ ] 13-03-PLAN.md — Wave 2 YouTube Upload Smoke (SMOKE-03 unlisted+cleanup + SMOKE-04 metadata readback + upload_evidence.py)
+  - [x] 13-03-PLAN.md — Wave 2 YouTube Upload Smoke (SMOKE-03 unlisted+cleanup + SMOKE-04 metadata readback + upload_evidence.py)
   - [ ] 13-04-PLAN.md — Wave 3 Budget Cap Enforcement (SMOKE-05 Tier 1 enforcement + provider_rates.py SSOT)
   - [ ] 13-05-PLAN.md — Wave 4 Full E2E Smoke (SMOKE-06 phase13_live_smoke.py runner — phase11_full_run.py clone + Wave 0~3 wire)
   - [ ] 13-06-PLAN.md — Wave 5 Phase Gate (phase13_acceptance.py aggregator + TRACEABILITY + VALIDATION HARD-GATE flip — phase14_acceptance.py 패턴 복제)
