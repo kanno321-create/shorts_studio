@@ -38,7 +38,7 @@ created: 2026-04-22
 
 ---
 
-## Per-Task Verification Map (draft — planner 가 확정)
+## Per-Task Verification Map (revised — 14 rows)
 
 | Task ID | Plan | Wave | Requirement | Test Type | Command | Status |
 |---------|------|------|-------------|-----------|---------|:-:|
@@ -48,14 +48,19 @@ created: 2026-04-22
 | 15-03-01 | 03 | 2 | SPC-02 | agent split | supervisor AGENT.md ≤ 6500 chars + references/ 2 files + AGENT-STD schema 31/31 | ⬜ |
 | 15-03-02 | 03 | 2 | SPC-03 | size audit | `verify_agent_md_size.py` producer 14 + supervisor 1 ≤ CHAR_LIMIT | ⬜ |
 | 15-03-03 | 03 | 2 | SPC-04 | CLI option | Claude CLI `--append-system-prompt-file` empirical verify (non-existent file → proper error) | ⬜ |
-| 15-04-01 | 04 | 3 | UFL-01 | revision | `--revision-from SCRIPT --feedback "hook weak"` 테스트 | ⬜ |
+| 15-04-00 | 04 | 3 | UFL-01/02/03 | evidence isolation | `grep -c "evidence-dir" scripts/smoke/phase13_live_smoke.py` ≥ 2 + `--help` 노출 | ⬜ |
+| 15-04-01 | 04 | 3 | UFL-01 | revision | `--revision-from SCRIPT --feedback "hook weak"` 테스트 + Phase 12 compression verdict preserve | ⬜ |
 | 15-04-02 | 04 | 3 | UFL-02 | script inject | `--revise-script path.md` 주입 + script-polisher 경로 | ⬜ |
-| 15-04-03 | 04 | 3 | UFL-03 | pause | `--pause-after VOICE` 중단 + resume 확인 | ⬜ |
+| 15-04-03 | 04 | 3 | UFL-03 | pause | `--pause-after VOICE` 중단 + GateGuard ctx_config by-reference + Verdict dataclass + Phase 5/9.1 regression | ⬜ |
 | 15-05-01 | 05 | 4 | UFL-04 | rating CLI | `rate_video.py --video-id X --rating 3 --feedback "조명 어두움"` → feedback_video_quality.md append | ⬜ |
+| 15-05-02 | 05 | 4 | UFL-04 | format validator | `pytest tests/phase15/test_feedback_format.py` 4 passed + `verify_feedback_format.py` exit 0 | ⬜ |
+| 15-05-03 | 05 | 4 | UFL-04 | researcher mandatory_reads | `grep feedback_video_quality .claude/agents/producers/researcher/AGENT.md` + `verify_agent_md_schema.py --fail-on-drift` 31/31 + `verify_mandatory_reads_prose.py` 31/31 | ⬜ |
 | 15-06-01 | 06 | 5 | SPC-06 | live retry | `phase13_live_smoke.py --live --topic "해외범죄,..." --niche incidents` 13 gate 전수 dispatched + video_id + cleanup | ⬜ |
 | 15-07-01 | 07 | 6 | All SC | acceptance | `phase15_acceptance.py` ALL_PASS + 15-TRACEABILITY.md + VALIDATION flip | ⬜ |
 
 *Status: ⬜ pending · ✅ green · ❌ red*
+
+**Coverage summary**: 14 automated rows + 1 acceptance aggregator = 15 total verification anchors. Plan 15-04 splits into 4 sub-tasks (00 evidence-dir + 01 UFL-01 + 02 UFL-02 + 03 UFL-03). Plan 15-05 splits into 3 sub-tasks (01 rate_video + 02 format validator + 03 researcher mandatory_reads).
 
 ---
 
@@ -79,7 +84,7 @@ created: 2026-04-22
 
 ## Validation Sign-Off
 
-- [ ] 12 per-task verification rows 모두 automated or manual 지정
+- [ ] 14 per-task verification rows 모두 automated or manual 지정
 - [ ] Tier 1 / Tier 2 분리 준수 — 매 commit 시 실 과금 trigger 없음
 - [ ] Wave 0 requirements 충족
 - [ ] Phase 13/14 baseline 90 tests 보존 (60 phase13 + 30 phase14)
