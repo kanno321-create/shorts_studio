@@ -478,9 +478,9 @@ v1.0.2 밀스톤 초기화 — 2026-04-21. Phase 11 `complete_with_deferred` SC#
 
 ### UFL — User Feedback Loop (대표님 영상 재작업 인터페이스)
 
-- [ ] **UFL-01**: `--revision` flag 추가 — 기존 영상의 script/assets/metadata 중 하나를 대표님 피드백으로 교체 후 특정 gate 부터 재실행. 예: `phase13_live_smoke.py --live --revision-from SCRIPT --feedback "hook 이 약함, 질문형으로 변경"` → SCRIPT gate 부터 재생성, VOICE/ASSETS/ASSEMBLY 등 하류 재실행.
-- [ ] **UFL-02**: `--revise-script <path>` flag — 대표님이 수동으로 작성한 대본 파일을 주입. scripter 에이전트 skip, script-polisher 에이전트만 실행 후 VOICE gate 부터 정상 pipeline.
-- [ ] **UFL-03**: 각 gate 의 producer_output 을 대표님이 review + approve/reject 할 수 있는 checkpoint 모드 — `--pause-after <GATE>` flag. 지정 gate 완료 후 pipeline 일시중지, 대표님 signal 대기, 승인 시 재개.
+- [x] **UFL-01**: `--revision` flag 추가 — 기존 영상의 script/assets/metadata 중 하나를 대표님 피드백으로 교체 후 특정 gate 부터 재실행. 예: `phase13_live_smoke.py --live --revision-from SCRIPT --feedback "hook 이 약함, 질문형으로 변경"` → SCRIPT gate 부터 재생성, VOICE/ASSETS/ASSEMBLY 등 하류 재실행. ✅ Plan 15-04 (2026-04-21, studio@cbd3c96).
+- [x] **UFL-02**: `--revise-script <path>` flag — 대표님이 수동으로 작성한 대본 파일을 주입. scripter 에이전트 skip, script-polisher 에이전트만 실행 후 VOICE gate 부터 정상 pipeline. ✅ Plan 15-04 (2026-04-21, studio@b1ef29a).
+- [x] **UFL-03**: 각 gate 의 producer_output 을 대표님이 review + approve/reject 할 수 있는 checkpoint 모드 — `--pause-after <GATE>` flag. 지정 gate 완료 후 pipeline 일시중지, 대표님 signal 대기, 승인 시 재개. ✅ Plan 15-04 (2026-04-21, studio@b42f72d).
 - [ ] **UFL-04**: 영상 품질 평가 회로 — 업로드 후 대표님 subjective rating (1-5) 수집 CLI. `scripts/smoke/rate_video.py --video-id <id> --rating 3 --feedback "조명이 어두움"` → `.claude/memory/feedback_video_quality.md` append. 차후 영상 생성 시 이 피드백을 researcher/director 에이전트에 주입.
 
 ### Phase 15 Traceability

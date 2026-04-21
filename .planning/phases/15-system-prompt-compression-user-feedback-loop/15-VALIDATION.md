@@ -48,10 +48,10 @@ created: 2026-04-22
 | 15-03-01 | 03 | 2 | SPC-02 | agent split | supervisor AGENT.md 5712 chars + references/ 2 files + AGENT-STD schema 31/31 | ✅ |
 | 15-03-02 | 03 | 2 | SPC-03 | size audit | `verify_agent_md_size.py --ceiling 18000` → 15/15 exit 0 | ✅ |
 | 15-03-03 | 03 | 2 | SPC-04 | CLI option | `tests/phase15/test_cli_flag_probe.py` 3/3 re-verified (Plan 15-01 Wave 0 probe preserved) | ✅ |
-| 15-04-00 | 04 | 3 | UFL-01/02/03 | evidence isolation | `grep -c "evidence-dir" scripts/smoke/phase13_live_smoke.py` ≥ 2 + `--help` 노출 | ⬜ |
-| 15-04-01 | 04 | 3 | UFL-01 | revision | `--revision-from SCRIPT --feedback "hook weak"` 테스트 + Phase 12 compression verdict preserve | ⬜ |
-| 15-04-02 | 04 | 3 | UFL-02 | script inject | `--revise-script path.md` 주입 + script-polisher 경로 | ⬜ |
-| 15-04-03 | 04 | 3 | UFL-03 | pause | `--pause-after VOICE` 중단 + GateGuard ctx_config by-reference + Verdict dataclass + Phase 5/9.1 regression | ⬜ |
+| 15-04-00 | 04 | 3 | UFL-01/02/03 | evidence isolation | `grep -c "evidence-dir" scripts/smoke/phase13_live_smoke.py` ≥ 2 + `--help` 노출 | ✅ |
+| 15-04-01 | 04 | 3 | UFL-01 | revision | `--revision-from SCRIPT --feedback "hook weak"` 테스트 + Phase 12 compression verdict preserve | ✅ |
+| 15-04-02 | 04 | 3 | UFL-02 | script inject | `--revise-script path.md` 주입 + script-polisher 경로 | ✅ |
+| 15-04-03 | 04 | 3 | UFL-03 | pause | `--pause-after VOICE` 중단 + GateGuard ctx_config by-reference + Verdict dataclass + Phase 5/9.1 regression | ✅ |
 | 15-05-01 | 05 | 4 | UFL-04 | rating CLI | `rate_video.py --video-id X --rating 3 --feedback "조명 어두움"` → feedback_video_quality.md append | ⬜ |
 | 15-05-02 | 05 | 4 | UFL-04 | format validator | `pytest tests/phase15/test_feedback_format.py` 4 passed + `verify_feedback_format.py` exit 0 | ⬜ |
 | 15-05-03 | 05 | 4 | UFL-04 | researcher mandatory_reads | `grep feedback_video_quality .claude/agents/producers/researcher/AGENT.md` + `verify_agent_md_schema.py --fail-on-drift` 31/31 + `verify_mandatory_reads_prose.py` 31/31 | ⬜ |
