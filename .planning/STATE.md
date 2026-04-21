@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0.1
 milestone_name: milestone
 status: executing
-last_updated: "2026-04-21T10:51:34.539Z"
+last_updated: "2026-04-21T11:21:21.432Z"
 last_activity: 2026-04-21
 progress:
   total_phases: 15
   completed_phases: 12
   total_plans: 102
-  completed_plans: 102
+  completed_plans: 103
   percent: 100
 ---
 
@@ -33,12 +33,12 @@ progress:
 ## Current Position
 
 Phase: 14 (api-adapter-remediation) — EXECUTING
-Plan: 4 of 5
+Plan: 5 of 5
 Status: Ready to execute
 Last activity: 2026-04-21
 
 - **Milestone:** v1.0.2 Production Readiness — Live Smoke + Adapter Remediation
-- **Next Action:** `/gsd:execute-phase 14` continues with Plan 14-03 (Wave 2 — Contract Tests for veo_i2v + elevenlabs + shotstack). Phase 13 (ADAPT-independent) still parallel-safe.
+- **Next Action:** `/gsd:execute-phase 14` continues with Plan 14-05 (Wave 4 — Phase Gate: full regression + contract gate + traceability consolidation + frontmatter flip). Phase 13 (ADAPT-independent) still parallel-safe.
 - **Predecessor:** v1.0.1 milestone complete (Phases 1~12 all shipped, REQ-11 validated)
 - **Progress:** [██████████] 100%
 
@@ -54,6 +54,17 @@ Last activity: 2026-04-21
 - Verifier CLI scope = 14 producer + 17 inspector = 31 AGENT.md in scope (not plan's stated 30). harvest-importer lives at `.claude/agents/harvest-importer/` root-level outside `producers/` scan path. Plan 02/03 batch test names should reconcile to 31.
 - MockClaudeCLI adopts defensive `*args/**kwargs` signature absorbing real `_invoke_claude_cli` 6-arg vs `ClaudeAgentSupervisorInvoker._call` 4-kwarg call-site gap. Survives future real-fn signature drift.
 - trend-collector v1.2 `<mandatory_reads>` item 2 path corrected `wiki/ypp/channel_bible.md` → `wiki/continuity_bible/channel_identity.md` (Phase 6 Plan 02 D-10 canonical 5-component baseline). First migration was the right moment for drift rectification before 13 more producers inherit it.
+
+### Plan 14-04 Decisions (Wave 3 Docs + MOC + Warn-Only Hook + .gitignore — 2026-04-21)
+
+- **ADAPT-05 충족**: `wiki/render/adapter_contracts.md` 신설 (83 lines, 7 `## ` 섹션). 7 adapter × 5 column matrix (kling / runway / veo_i2v / typecast / elevenlabs / shotstack / whisperx) + 5 mock↔real delta rows + 4 retry chain bullets + production-safe defaults (D-3) + CLAUDE.md 금기 #3/#4/#5 cross-reference + 3 contract 테스트 xref + Phase 13 smoke boundary. whisperx row = "NOT YET IMPLEMENTED (Phase 15+ stub)" per 14-RESEARCH Open Q2 Option A.
+- **ADAPT-06 충족**: `.claude/hooks/pre_tool_use.py` warn-only Hook 확장 (102 lines 추가, 372→474). `scripts/orchestrator/api/*.py` Edit/Write/MultiEdit 시 세션 내 `tests/adapters/test_*_contract.py` touch 이력 無 → stderr warn + 작업 비차단. **기존 8 regex 차단 로직 (check_failures_append_only / backup_skill_before_write / check_structure_allowed / load_patterns+check_content) 전부 unchanged**. Functional test 4 로 `skip_gates=True` content 여전히 DENY 검증 — CLAUDE.md 필수사항 #1 (Hook 3종 활성) 보존.
+- **Leaf contract doc vs MOC-as-TOC status 분리 규율**: adapter_contracts.md 는 `status: ready` 로 선언 (leaf contract doc = NOT MOC-as-TOC, D-17 invariant 미적용). MOC.md 자체는 `status: partial` byte-identical 유지 — Plan 02 Task 14-02-04 canonical regex `^status:\s*(scaffold|partial)\b` 와 word-boundary 포함 완전 일치. Phase 6 `test_moc_linkage.py` 6/6 여전히 green.
+- **`.gitignore` wiring (Warning 1 resolution)**: `.claude/hooks/_adapter_contract_touch.json` session-scope ephemeral tracking file exclude 엔트리 + 주석 (2 라인, 88→91). `git check-ignore -v` 로 gitignore 효과 확인.
+- **Structural validator 7 tests green** (plan 요구 ≥6, +17%): frontmatter keys + 7 adapter listing + 4 section headers + whisperx stub label + 3 contract xref + 금기 ref + D-3 fault injection invariant. Rule 1 deviation: validator module docstring 의 "TODO 없음" 메타-선언이 grep false-positive 유발 → "미완성 표식 없음" 으로 재작성 (Plan 02 Task 14-02-01 veo_i2v.py self-reference paradox 동일 클래스).
+- **Per-artifact 4 atomic commits**: 00a87a7 (docs adapter_contracts.md) + 0591250 (test validator) + c419641 (docs MOC entry) + 4d916a9 (feat warn-only Hook + .gitignore). 각 commit 은 단일 concern 단일 파일 (Hook+.gitignore 는 단일 logical concern — tracking file wiring 단일 단위).
+- **`pytest -m adapter_contract` 30 tests green in 1.82s** (23 Wave 2 + 7 Wave 3 validator) — Plan 14-05 phase-gate ≥20 threshold 초과. Wave 1 regression `pytest tests/phase05 tests/phase06 tests/phase07` = **742 passed, 0 failed in 637.91s** (10:37) — Wave 1/2 post-landing 동일 baseline 유지, zero functional regression.
+- Duration ~13m. Plan 14-05 (Wave 4 phase-gate) unblocked.
 
 ### Plan 14-02 Decisions (Wave 1 Regression Remediation — 2026-04-21)
 
@@ -405,6 +416,7 @@ PROJECT.md § Key Decisions 참조. 10개 결정 모두 Pending 상태 — 각 P
 | Phase 14 P01 | 6m14s | 3 tasks | 4 files |
 | Phase 14-api-adapter-remediation P02 | 14m12s | 6 tasks | 6 files |
 | Phase 14 P3 | 17m | 3 tasks | 3 files |
+| Phase 14-api-adapter-remediation P04 | 13m | 4 tasks | 5 files |
 
 ### Plan Execution Log
 
