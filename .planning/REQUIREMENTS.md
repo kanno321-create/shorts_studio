@@ -385,7 +385,7 @@ v1 검증 완료 후 또는 수익 발생 후 활성화.
 ### FAIL-PROTO — FAILURES.md 500줄 rotation + directive-authorized batch
 
 - [x] **FAIL-PROTO-01**: FAILURES.md 500줄 상한 enforcement — 초과 시 `.claude/failures/_archive/YYYY-MM.md` 자동 이관. 현행 version 은 에이전트가 `<mandatory_reads>` 로 전수 읽기 가능한 크기 유지. 이관 스크립트: `scripts/audit/failures_rotate.py`. Hook: `check_failures_append_only` 수정하여 500줄 초과 커밋 차단 + rotation 안내 메시지.
-- [ ] **FAIL-PROTO-02**: Phase 12 의 30+ 파일 patch 를 skill_patch_counter 가 단일 "directive-authorized batch" entry (F-D2-EXCEPTION-02) 로 처리 — Phase 11 AUDIT-05 idempotency 활용. F-D2-EXCEPTION 계열은 대표님 직접 지시 가정하에 일괄 처리 (단일 FAILURES entry, 중복 기록 없음). Phase 11 F-D2-EXCEPTION-01 (trend-collector) 은 이 정책의 prototype.
+- [x] **FAIL-PROTO-02**: Phase 12 의 30+ 파일 patch 를 skill_patch_counter 가 단일 "directive-authorized batch" entry (F-D2-EXCEPTION-02) 로 처리 — Phase 11 AUDIT-05 idempotency 활용. F-D2-EXCEPTION 계열은 대표님 직접 지시 가정하에 일괄 처리 (단일 FAILURES entry, 중복 기록 없음). Phase 11 F-D2-EXCEPTION-01 (trend-collector) 은 이 정책의 prototype.
 
 ### Phase 12 Traceability
 

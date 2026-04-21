@@ -50,3 +50,18 @@
 **분류**: **Directive-authorized Pre-Phase10 기반 commit** — 대표님 directive 로 수동 수정. Plan `.claude/plans/snappy-pondering-snowflake.md` Risk #1 옵션 D (투명 기록) 준수. D-2 Lock 의 본질은 AI 자동 수정 억제이므로 본 entry 는 위반 기록이 아닌 **규율 검증 로그**. 추가 조치 불필요.
 
 **Lock 재평가**: Exit 조건 재검증 (2개월 경과 + FAILURES ≥ 10 + taste gate 2회) 전까지 patch 금지 유지.
+
+---
+
+## F-D2-02 — D-2 Lock 위반 감지 (2026-04-21, skill_patch_counter)
+
+**증상**: D-2 Lock 기간 (2026-04-20 ~ 2026-06-20) 중 금지 경로 commit 발생.
+
+**위반 commit 수**: 1
+
+**상세**:
+- `60e1bea` 2026-04-21T08:09:30+09:00 — `.claude/hooks/pre_tool_use.py` (feat(12-05): extend check_failures_append_only with 500줄 cap + env whitelist)
+
+**조치**: 즉시 `SKILL_HISTORY/<skill>/v*.md.bak` 에서 직전 버전 복원 → `git revert` → 본 엔트리 해결 commit 에서 reference.
+
+**Lock 재평가**: Exit 조건 재검증 (2개월 경과 + FAILURES ≥ 10 + taste gate 2회) 전까지 patch 금지 유지.

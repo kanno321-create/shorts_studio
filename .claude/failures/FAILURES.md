@@ -56,3 +56,18 @@ above schema or any existing entry once added — append-only Hook will deny.)
 - **상태**: resolved (patch 적용 완료) — Phase 12 에서 30명 전수 표준화 예정 (AGENT-STD-01/02 REQ)
 - **Follow-up**: Phase 12 의 30+ 파일 patch 는 F-D2-EXCEPTION-02 (directive-authorized batch) 단일 entry 로 처리 예정 — FAIL-PROTO-02 REQ
 - **관련**: Phase 11 Plan 11-06 / reports/phase11_smoke_phase11_20260421_031945.json / Phase 12 AGENT-STD-01, AGENT-STD-02, FAIL-PROTO-02 REQ-IDs
+
+### F-D2-EXCEPTION-02 — Wave 2 Producer batch (Phase 12 agent standardization directive-authorized batch, 2026-04-21)
+- **Tier**: B
+- **발생 세션**: 2026-04-21 세션 #29 (Phase 12 Plan 02 Wave 2)
+- **재발 횟수**: 1
+- **Trigger**: Phase 12 AGENT-STD-01 + AGENT-STD-02 + FAIL-PROTO-02 REQ 이행 — 13 Producer AGENT.md 를 Plan 01 template 기반 5-block schema (v1.2) 로 일괄 승격
+- **무엇**: 13 Producer AGENT.md 패치 (niche-classifier, researcher, director, scripter, metadata-seo, scene-planner, shot-planner, script-polisher, voice-producer, asset-sourcer, thumbnail-designer, assembler, publisher). trend-collector 는 Plan 01 Task 4 에서 별도 migration 완료 (Phase 12 합계 14/14 producer v1.2). D-2 Lock (2026-04-20 ~ 2026-06-20) 기간 중 SKILL patch 금지 원칙 대상이 아님 — 본 patch 는 AGENT.md (역할 정의) 이며 SKILL.md (학습/스킬) 와 다른 레이어. 다만 대량 (30+ 파일 경로) 패치 이므로 FAIL-PROTO-02 하에 F-D2-EXCEPTION-02 단일 batch entry 로 일괄 기록 (30+ 개별 F-D2-NN 생성 회피).
+- **Scope**: 13 AGENT.md (`.claude/agents/producers/{niche-classifier,researcher,director,scripter,metadata-seo,scene-planner,shot-planner,script-polisher,voice-producer,asset-sourcer,thumbnail-designer,assembler,publisher}/AGENT.md`)
+- **Commits**: 7 commits, marker `[plan-02]` 전수 부착 — `93a285b` (niche-classifier), `9ed8f31` (researcher), `2089449` (director+scripter+metadata-seo), `1226750` (scene-planner+shot-planner+script-polisher), `22b13bb` (voice-producer+asset-sourcer+thumbnail-designer), `172f623` (assembler+publisher), `2d1aa23` (finalize: maxTurns Phase 4 regression fix + test populate)
+- **Authorized by**: 대표님 세션 #29 (Phase 12 발의 승인, Option D "둘다" 응답 — F-D2-EXCEPTION-01 trend-collector 단일 patch + Phase 12 30+ 파일 batch 양쪽 승인)
+- **왜**: Plan 02 는 Phase 11 F-D2-EXCEPTION-01 (trend-collector JSON 미준수) 재발 차단의 구조적 인프라 확립. 13 producer 전수 `<output_format>` JSON 스키마 + 금지 패턴 5종 + `<mandatory_reads>` 전수 읽기 literal (`매 호출마다 전수 읽기, 샘플링 금지`) + RUB-06 mirror 주입 — 개별 skill 학습 patch 가 아닌 역할 정의 표준화
+- **정답**: 13 producer 모두 5-block schema (`<role>` → `<mandatory_reads>` → `<output_format>` → `<skills>` → `<constraints>`) + `version: 1.2` frontmatter + body prose (Purpose/Inputs/Outputs/Prompt/References/MUST REMEMBER) 보존. Phase 4 RUB-05 maxTurns matrix 준수 (전 producer maxTurns=3; scripter/asset-sourcer/publisher 는 finalize commit 2d1aa23 에서 Rule 1 자동 수정)
+- **검증**: (1) `py -3.11 scripts/validate/verify_agent_md_schema.py --all` → 14/14 producer PASS (17 inspector FAIL 은 Plan 12-03 scope). (2) `py -3.11 -m pytest tests/phase12/test_agent_md_schema.py -v` → 16 passed (2 collective + 14 parametrized). (3) `py -3.11 -m pytest tests/phase04/ -q` → 244 passed (Phase 4 RUB-05 matrix 회귀 0). (4) `py -3.11 -m pytest tests/phase11/ -q` → 36 passed. (5) `git log --grep='\[plan-02\]' --oneline | wc -l` → 7 (commit marker 전수 부착).
+- **상태**: resolved (Plan 02 Wave 2 완결, 2026-04-21) — Plan 12-03 에서 17 inspector 동일 패턴으로 migration 예정 시 F-D2-EXCEPTION-03 별도 entry (또는 본 entry supplement) 로 기록
+- **관련**: Plan 12-01 (`.claude/agents/producers/trend-collector/AGENT.md` v1.2 prototype, commit `0ebb5e9`) / Plan 12-04 (`wiki/agent_skill_matrix.md` reciprocity SSOT, commit `43000b8`) / F-D2-EXCEPTION-01 (Phase 11 prototype single-file patch) / Phase 12 VALIDATION.md
