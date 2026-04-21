@@ -36,8 +36,10 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import shutil
 import subprocess
+import tempfile
 from pathlib import Path
 from typing import Callable
 
@@ -125,14 +127,22 @@ def _invoke_claude_cli_once(
     cli_path: str,
     timeout_s: int = DEFAULT_TIMEOUT_S,
 ) -> str:
-    """Run ``claude --print`` via stdin piping and return stdout (single attempt).
+    """Run ``claude --print`` via tempfile ``--append-system-prompt-file`` + stdin user_prompt.
 
-    Claude CLI 2.1.112 canonical form: user_prompt flows through
-    stdin (``--input-format text`` is the default). The legacy
-    positional ``user_prompt`` argv slot was removed by the CLI —
-    attempting to pass it raises "Input must be provided either
-    through stdin or as a prompt argument when using --print"
-    (D10-PIPELINE-DEF-01 error #5, Phase 11 PIPELINE-01 D-01/D-02).
+    Phase 15 SPC-01 fix (2026-04-21): system_prompt body 를 argv 에 직접
+    전달하지 않고 UTF-8 tempfile 경유 path 로 전달하여 10KB+ Korean body 가
+    rc=1 "프롬프트가 너무 깁니다" 를 유발하는 Windows Python subprocess
+    경로 비대칭을 우회합니다. user_prompt 는 Phase 11 baseline 그대로 stdin
+    경유 유지 (D-01/D-02 invariant preserved). Cleanup 은 명시적 finally
+    블록 + OSError 명시 warn + raise 안 함 (CLAUDE.md 금기 #3 — 침묵 폴백
+    금지, warn + continue 는 명시적 이유 있는 허용).
+
+    Claude CLI 2.1.112 canonical form: user_prompt flows through stdin
+    (``--input-format text`` default). The legacy positional ``user_prompt``
+    argv slot was removed by the CLI — attempting to pass it raises "Input
+    must be provided either through stdin or as a prompt argument when
+    using --print" (D10-PIPELINE-DEF-01 error #5, Phase 11 PIPELINE-01
+    D-01/D-02).
 
     Args unchanged (D-04 test-seam preservation). Raises unchanged
     (Korean-first RuntimeError on timeout / rc!=0 / empty stdout).
@@ -149,42 +159,65 @@ def _invoke_claude_cli_once(
 
     Raises:
         RuntimeError: non-zero exit code, timeout, or stdout empty
-            (Korean-first diagnostic).
+            (Korean-first diagnostic, "대표님" 존댓말).
     """
-    cmd = [
-        cli_path,
-        "--print",
-        "--append-system-prompt", system_prompt,
-        "--json-schema", json_schema,
-    ]
-    proc = subprocess.Popen(
-        cmd,
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True,
+    # 1) Write system_prompt to UTF-8 tempfile (no BOM, LF newlines).
+    with tempfile.NamedTemporaryFile(
+        mode="w",
+        suffix=".md",
+        delete=False,
         encoding="utf-8",
-        errors="replace",
-    )
+        newline="\n",
+    ) as sys_fp:
+        sys_fp.write(system_prompt)
+        sys_prompt_path = sys_fp.name
     try:
-        stdout, stderr = proc.communicate(input=user_prompt, timeout=timeout_s)
-    except subprocess.TimeoutExpired as err:
-        # Explicit reap — prevents zombie on Windows + drains pipes.
-        proc.kill()
-        proc.communicate()
-        raise RuntimeError(
-            f"claude CLI 타임아웃 ({timeout_s}s 초과, 대표님): {err}"
-        ) from err
-    if proc.returncode != 0:
-        stderr_tail = (stderr or "")[-500:]
-        raise RuntimeError(
-            f"claude CLI 실패 (rc={proc.returncode}, 대표님): {stderr_tail}"
+        cmd = [
+            cli_path,
+            "--print",
+            "--append-system-prompt-file", sys_prompt_path,
+            "--json-schema", json_schema,
+        ]
+        proc = subprocess.Popen(
+            cmd,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
         )
-    if not stdout or not stdout.strip():
-        raise RuntimeError(
-            "claude CLI stdout 비어있음 — --json-schema 응답 미수신 (대표님)"
-        )
-    return stdout.strip()
+        try:
+            stdout, stderr = proc.communicate(
+                input=user_prompt, timeout=timeout_s,
+            )
+        except subprocess.TimeoutExpired as err:
+            # Explicit reap — prevents zombie on Windows + drains pipes.
+            proc.kill()
+            proc.communicate()
+            raise RuntimeError(
+                f"claude CLI 타임아웃 ({timeout_s}s 초과, 대표님): {err}"
+            ) from err
+        if proc.returncode != 0:
+            stderr_tail = (stderr or "")[-500:]
+            raise RuntimeError(
+                f"claude CLI 실패 (rc={proc.returncode}, 대표님): {stderr_tail}"
+            )
+        if not stdout or not stdout.strip():
+            raise RuntimeError(
+                "claude CLI stdout 비어있음 — --json-schema 응답 미수신 (대표님)"
+            )
+        return stdout.strip()
+    finally:
+        # 명시적 cleanup — CLAUDE.md 금기 #3 (침묵 폴백 금지).
+        # OSError 는 warn + continue (파일 permission/race 등 주변 사유).
+        try:
+            os.unlink(sys_prompt_path)
+        except OSError as err:
+            logger.warning(
+                "[invoker] temp system prompt 파일 삭제 실패 %s (대표님): %s",
+                sys_prompt_path, err,
+            )
 
 
 # Nudge message injected on retry when first attempt returned non-JSON
