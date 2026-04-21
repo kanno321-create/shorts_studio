@@ -116,6 +116,23 @@ human_verification:
 
 **Status:** Documented as out-of-scope. These failures pre-date Phase 12 and are NOT caused by any Phase 12 commit.
 
+Full per-phase regression sweep (2026-04-21, post-completion):
+
+| Phase    | Pass | Fail | Phase 12 Caused? |
+|----------|------|------|------------------|
+| phase04  | 244  | 0    | — (authoritative maxTurns matrix, GREEN) |
+| phase05  | 323  | 6    | No (API adapter drift from Phase 09.1 era) |
+| phase06  | 232  | 4    | No (cascade from phase05) |
+| phase07  | 172  | 5    | No (cascade + test_regression_809 chain from phase06) |
+| phase08  | 201  | 4    | No (`scripts/publisher/` + `tests/phase08/` never touched by Phase 12 — verified via `git log --since="2026-04-21" -- scripts/publisher/ tests/phase08/` → empty. Pre-existing D08-DEF-01 per STATE.md.) |
+| phase09  | 37   | 0    | — GREEN |
+| phase091 | 41   | 1    | No (`test_ratio_auto_selects_first_valid` — Runway adapter ratio logic, scripts/orchestrator/api/runway.py last touched in Phase 09.1 era, zero Phase 12 commits against it) |
+| phase10  | 118  | 1    | No (`test_state_md_frontmatter_phase_lock_false_default` — pre-existing: `phase_lock: false` field missing from STATE.md frontmatter since commit `2c16e72` BEFORE Phase 12 started, verified by `git show 2c16e72:.planning/STATE.md`) |
+| phase11  | 36   | 0    | — GREEN (Phase 12 direct regression scope) |
+| phase12  | 93 (+2 skipped) | 0 | — GREEN |
+
+**Phase 12 direct regression scope (phase04 + phase11 + phase12):** 373 passed, 0 failed.
+
 `py -3.11 -m pytest tests/phase05/ tests/phase06/ tests/phase07/` reports **15 failed, 727 passed**:
 
 | Test File                                               | Failure Source                                                                                   | Last Phase 12 Touch |
