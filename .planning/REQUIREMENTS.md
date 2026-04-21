@@ -458,3 +458,48 @@ v1.0.2 밀스톤 초기화 — 2026-04-21. Phase 11 `complete_with_deferred` SC#
 *Phase 12 REQ 추가: 2026-04-21 (세션 #29) — Phase 11 라이브 smoke 1차 실패로 노출된 하네스 품질 gap 해소. 대표님 직접 승인 (Option D + Phase 12 발의 양쪽 모두). /gsd:discuss-phase 12 + /gsd:plan-phase 12 로 세부 plan 결정 예정.*
 
 *Milestone v1.0.2 REQ 추가: 2026-04-21 — SMOKE 6 + ADAPT 6 (사용자 multiSelect 전체 채택). SMOKE = Phase 11 SC#1/SC#2 deferred 해소 + 실 환경 validation. ADAPT = phase05/06/07 15 failures 청산 + contract 재정의. Research skipped (brownfield remediation). /gsd:plan-phase 13 + 14 로 진행.*
+
+---
+
+## Phase 15 신규 REQ (SYSTEM-PROMPT-COMPRESSION + USER-FEEDBACK-LOOP)
+
+**Phase 13 live smoke 2026-04-22 attempt 에서 노출된 invokers.py → Claude CLI 경로 rc=1 문제** 의 근본 해소 + **대표님 피드백 loop 을 통한 영상 재작업/수정 인터페이스** 구축. Phase 11 SC#1 defer + Phase 12 AGENT-STD-03 compression 의 scope 밖이었던 supervisor AGENT.md body 자체 크기 + 인코딩 문제를 완결.
+
+**대표님 직접 승인 (2026-04-22)**: "어떻게해서든 내가 명령할수있는기능을 만들어야지 그렇지않으면 절대안되... 한동안은 내 피드백을 받으면서 영상을 제작 수정 재재작해야 너가 진짜 퀄리티좋은 영상을 만들수있다."
+
+### SPC — System Prompt Compression (Claude CLI 경로 root cause fix)
+
+- [ ] **SPC-01**: `invokers.py _invoke_claude_cli_once` 의 Windows cp949 ↔ UTF-8 인코딩 경로 root cause 진단 + 수정. `subprocess.Popen` 의 `text=True, encoding='utf-8', errors='replace'` 조합이 Korean text in `--append-system-prompt` argument 전달 시 10KB+ 구간에서 rc=1 유발. bash 경로는 동일 body 에 성공 → Python-specific encoding 문제. 수정안: stdin bytes 모드 또는 `encoding='utf-8', errors='strict'` + 명시적 encoding validation.
+- [ ] **SPC-02**: `shorts-supervisor` AGENT.md body 압축 (Progressive Disclosure) — 10591자 → 6000자 목표. verbose reference 블록을 `references/` 로 분리. 기존 Phase 12 AGENT-STD 검증 (`verify_agent_md_schema.py` 31/31) 재통과 필수.
+- [ ] **SPC-03**: Producer 14명 AGENT.md 평균 크기 audit — 10000자 초과 시 Progressive Disclosure 강제. 장기 drift 방지를 위해 `verify_agent_md_size.py` 신설 (pytest marker `adapter_contract` 와 유사하게 상한 enforcement).
+- [ ] **SPC-04**: `--system-prompt-file <path>` 옵션 조사 — Claude CLI 가 system_prompt 를 argument 가 아닌 파일 경로로 받을 수 있는지 확인. 가능 시 argv 크기 제한 회피 부가 방어선.
+- [ ] **SPC-05**: `invokers.py` contract test 신설 — `tests/adapters/test_invokers_encoding_contract.py`. 10KB+ AGENT.md body + Korean text 전수 통과 검증 (mock subprocess).
+- [ ] **SPC-06**: Phase 13 live smoke 재시도 — `phase13_live_smoke.py --live --topic "해외범죄,..." --niche incidents` 실 완주 + 13 gate 전수 dispatched + evidence 5 files anchor. SPC-01~05 완결 이후 empirical 검증.
+
+### UFL — User Feedback Loop (대표님 영상 재작업 인터페이스)
+
+- [ ] **UFL-01**: `--revision` flag 추가 — 기존 영상의 script/assets/metadata 중 하나를 대표님 피드백으로 교체 후 특정 gate 부터 재실행. 예: `phase13_live_smoke.py --live --revision-from SCRIPT --feedback "hook 이 약함, 질문형으로 변경"` → SCRIPT gate 부터 재생성, VOICE/ASSETS/ASSEMBLY 등 하류 재실행.
+- [ ] **UFL-02**: `--revise-script <path>` flag — 대표님이 수동으로 작성한 대본 파일을 주입. scripter 에이전트 skip, script-polisher 에이전트만 실행 후 VOICE gate 부터 정상 pipeline.
+- [ ] **UFL-03**: 각 gate 의 producer_output 을 대표님이 review + approve/reject 할 수 있는 checkpoint 모드 — `--pause-after <GATE>` flag. 지정 gate 완료 후 pipeline 일시중지, 대표님 signal 대기, 승인 시 재개.
+- [ ] **UFL-04**: 영상 품질 평가 회로 — 업로드 후 대표님 subjective rating (1-5) 수집 CLI. `scripts/smoke/rate_video.py --video-id <id> --rating 3 --feedback "조명이 어두움"` → `.claude/memory/feedback_video_quality.md` append. 차후 영상 생성 시 이 피드백을 researcher/director 에이전트에 주입.
+
+### Phase 15 Traceability
+
+| REQ-ID | Phase |
+|--------|-------|
+| SPC-01 | 15 |
+| SPC-02 | 15 |
+| SPC-03 | 15 |
+| SPC-04 | 15 |
+| SPC-05 | 15 |
+| SPC-06 | 15 |
+| UFL-01 | 15 |
+| UFL-02 | 15 |
+| UFL-03 | 15 |
+| UFL-04 | 15 |
+
+**Phase 15 Coverage**: 10 신규 REQ (SPC 6 + UFL 4). 전체 mapping: v1.0.1 96 + Phase 11 6 + Phase 12 6 + v1.0.2 12 + Phase 15 10 = **130 REQ**.
+
+---
+
+*Phase 15 REQ 추가: 2026-04-22 — Phase 13 live smoke 실 재시도에서 노출된 invokers.py encoding 경로 root cause 해소 + 대표님 피드백 loop 인터페이스 구축. 대표님 직접 승인 (Option B 채택, "어떻게해서든 내가 명령할수있는기능을 만들어야지"). /gsd:plan-phase 15 로 진행.*

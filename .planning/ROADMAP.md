@@ -28,6 +28,7 @@
 - [x] **Phase 13: Live Smoke 재도전** — Phase 11 SC#1/SC#2 deferred 해소: real Claude CLI producer/supervisor 호출 + YouTube 과금 환경 smoke 업로드 1회 성공 + 증거 anchor (milestone v1.0.2) (completed 2026-04-21)
 - [x] **Phase 14: API Adapter Remediation** — phase05/06/07 pre-existing adapter drift 15 failures (veo_i2v + elevenlabs + shotstack) 전수 청산 + adapter contract 재정의 (milestone v1.0.2)
  (completed 2026-04-21)
+- [ ] **Phase 15: System Prompt Compression + User Feedback Loop** — Phase 13 live smoke 2026-04-22 attempt 에서 노출된 `invokers.py` → Claude CLI 경로 rc=1 근본 해소 (SPC-01~06) + 대표님 피드백 loop 인터페이스 (UFL-01~04: `--revision-from` / `--revise-script` / `--pause-after` / rating CLI). 대표님 직접 승인 2026-04-22.
 
 ---
 
