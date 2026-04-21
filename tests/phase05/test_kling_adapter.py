@@ -202,7 +202,7 @@ def test_runway_valid_call_returns_path(mock_invoke, tmp_path):
     assert isinstance(result, Path)
     mock_invoke.assert_called_once()
     kwargs = mock_invoke.call_args.args[0]
-    assert kwargs["model"] == "gen3_alpha_turbo"  # D-16
+    assert kwargs["model"] == "gen4.5"  # Phase 9.1 D-12 — Runway Gen-3a Turbo failed complex-limb-motion in 세션 #24
     assert kwargs["ratio"] == "720:1280"  # 9:16 Shorts
     assert kwargs["duration"] == 6
 
