@@ -39,8 +39,24 @@ def test_moc_has_checked_box_for_node(repo_root: Path, moc_rel: str, node_name: 
 
 
 def test_moc_frontmatter_unchanged_scaffold(repo_root: Path):
-    """Sanity: MOC frontmatter status stays scaffold (not promoted to ready)."""
+    """MOC frontmatter status — scaffold OR partial allowed, ready/complete blocked.
+
+    D-17 invariant 은 "MOC-as-TOC 는 ready 로 승격되지 않는다" 이며, Phase 9.1
+    에서 production-bible-driven update 가 `scaffold → partial` 로의 정당 승격을
+    발생시켰다. 따라서 본 테스트는 (scaffold|partial) 를 허용하고 (ready|complete)
+    만 drift 로 차단한다. 출처: Phase 14 RESEARCH §Bucket B B-1.
+    """
+    import re
+
     for moc_rel, _ in MOC_CHECK_EXPECTATIONS:
         moc = repo_root / "wiki" / moc_rel
         text = moc.read_text(encoding="utf-8")
-        assert "status: scaffold" in text, f"{moc}: MOC status MUST stay scaffold (D-17 structural)"
+        assert re.search(r"^status:\s*(scaffold|partial)\b", text, re.MULTILINE), (
+            f"{moc}: MOC status MUST be 'scaffold' or 'partial' (D-17 structural, "
+            "Phase 9.1 legitimate progression). Actual text head: "
+            f"{text[:200]!r}"
+        )
+        assert not re.search(r"^status:\s*(ready|complete)\b", text, re.MULTILINE), (
+            f"{moc}: MOC status MUST NOT be 'ready' or 'complete' (D-17 invariant). "
+            "MOC-as-TOC 는 영구 half-baked 상태 유지."
+        )
