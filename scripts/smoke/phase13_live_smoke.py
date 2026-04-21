@@ -131,6 +131,144 @@ from scripts.smoke.upload_evidence import anchor_upload_evidence  # noqa: E402
 logger = logging.getLogger("smoke.phase13")
 
 # =============================================================================
+# Pre-seeded topic/niche support — 대표님 요청 주제 강제 주입
+# =============================================================================
+#
+# 기본 동작: trend-collector 에이전트가 자율적으로 트렌드 키워드를 픽업 →
+# niche-classifier 가 7 채널바이블 중 1개 매핑. 주제 선택은 에이전트에 맡김.
+#
+# --topic + --niche 플래그 사용 시: _PreSeededProducerInvoker 가 TREND/NICHE
+# 두 gate 의 producer 호출을 가로채서 대표님 지정 값을 반환. Claude CLI 호출
+# SKIP (토큰 절약). 나머지 11 gate (RESEARCH_NLM~MONITOR) 는 실 에이전트 경로.
+
+# 7 channel bible whitelist — .preserved/harvested/theme_bible_raw/*.md 기준
+_VALID_NICHE_TAGS = {
+    "documentary",
+    "humor",
+    "incidents",
+    "politics",
+    "trend",
+    "wildlife",
+}
+
+
+class _PreSeededProducerInvoker:
+    """real producer_invoker 를 wrapping 하여 TREND/NICHE gate 에 대표님 지정
+    값을 pre-seed 로 반환. 나머지 gate 는 real invoker 로 delegate.
+
+    CLAUDE.md 준수:
+        - 금기 #3 try-except 침묵 폴백 금지 — 잘못된 gate 는 real invoker 에
+          그대로 위임, 예외는 전파.
+        - 필수 #7 한국어 존댓말 — logger 메시지 전체 "대표님" + 존댓말.
+        - 필수 #8 증거 기반 — pre-seed 된 값은 logger.info 로 명시.
+
+    Attributes
+    ----------
+    _real : Callable
+        실 producer_invoker (ClaudeAgentProducerInvoker 인스턴스).
+    _topic_keywords : list[str]
+        TREND gate 에서 반환할 키워드 list. 대표님 --topic 입력값.
+    _niche_tag : str
+        NICHE gate 에서 반환할 niche_tag. _VALID_NICHE_TAGS 에 속해야 함.
+    _channel_bible_ref : str
+        채널바이블 경로. .preserved/harvested/theme_bible_raw/{niche}.md.
+    """
+
+    def __init__(
+        self,
+        real_invoker,
+        topic_keywords: list[str],
+        niche_tag: str,
+        channel_bible_ref: str,
+    ) -> None:
+        self._real = real_invoker
+        self._topic_keywords = list(topic_keywords)
+        self._niche_tag = niche_tag
+        self._channel_bible_ref = channel_bible_ref
+
+    def __call__(self, agent_name: str, gate: str, inputs: dict) -> dict:
+        if gate == "TREND":
+            logger.info(
+                "[pre-seed] TREND gate — 대표님 지정 키워드 주입 (%d 개): %s",
+                len(self._topic_keywords),
+                self._topic_keywords,
+            )
+            return {
+                "gate": "TREND",
+                "verdict": "PASS",
+                "keywords": self._topic_keywords,
+                "niche_tag": self._niche_tag,
+                "session_id": inputs.get("session_id"),
+                "seeded": True,
+                "decisions": [
+                    "대표님 --topic flag 를 통한 수동 키워드 주입 (trend-collector skip)",
+                ],
+                "error_codes": [],
+            }
+        if gate == "NICHE":
+            logger.info(
+                "[pre-seed] NICHE gate — 채널바이블 주입: niche=%s, ref=%s",
+                self._niche_tag,
+                self._channel_bible_ref,
+            )
+            return {
+                "gate": "NICHE",
+                "verdict": "PASS",
+                "niche_tag": self._niche_tag,
+                "channel_bible_ref": self._channel_bible_ref,
+                "matched_fields": ["seeded_by_user_dpyonim"],
+                "seeded": True,
+                "decisions": [
+                    f"대표님 --niche flag 를 통한 수동 채널바이블 선택: {self._niche_tag}",
+                ],
+                "error_codes": [],
+            }
+        # 나머지 11 gate (RESEARCH_NLM, BLUEPRINT, SCRIPT, POLISH, VOICE, ASSETS,
+        # ASSEMBLY, THUMBNAIL, METADATA, UPLOAD, MONITOR) 는 실 Claude 에이전트 경로.
+        return self._real(agent_name, gate, inputs)
+
+
+def _build_pipeline_with_seed(
+    session_id: str,
+    state_root: Path,
+    topic_keywords: list[str] | None,
+    niche_tag: str | None,
+) -> ShortsPipeline:
+    """Build ShortsPipeline with optional TREND/NICHE pre-seed wrapper.
+
+    대표님 --topic + --niche 플래그 사용 시 _PreSeededProducerInvoker 로 실
+    invoker 를 감싼다. 둘 다 미지정이면 phase11 의 기본 _build_pipeline 경유
+    (기존 동작 보존 — 에이전트 자율 트렌드 픽업).
+    """
+    if topic_keywords is None and niche_tag is None:
+        # 기본 경로 — 에이전트 자율. phase11 helper 그대로.
+        return _build_pipeline(session_id, state_root)
+
+    # Pre-seed 경로.
+    agents_root = Path(".claude/agents")
+    real_producer = make_default_producer_invoker(
+        agent_dir_root=agents_root / "producers",
+    )
+    channel_bible_ref = (
+        f".preserved/harvested/theme_bible_raw/{niche_tag}.md"
+    )
+    seeded_producer = _PreSeededProducerInvoker(
+        real_invoker=real_producer,
+        topic_keywords=topic_keywords or [],
+        niche_tag=niche_tag or "",
+        channel_bible_ref=channel_bible_ref,
+    )
+    supervisor_invoker = make_default_supervisor_invoker(
+        agent_dir=agents_root / "supervisor" / "shorts-supervisor",
+    )
+    return ShortsPipeline(
+        session_id=session_id,
+        state_root=state_root,
+        producer_invoker=seeded_producer,
+        supervisor_invoker=supervisor_invoker,
+    )
+
+# =============================================================================
 # Constants
 # =============================================================================
 
@@ -223,6 +361,26 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--log-level",
         default="INFO",
         help="Python logging level (default: INFO).",
+    )
+    parser.add_argument(
+        "--topic",
+        default=None,
+        help=(
+            "쉼표 구분 키워드 list 로 TREND gate pre-seed. trend-collector "
+            "에이전트 자율 픽업 대신 대표님 지정 주제 주입. 예: "
+            '--topic "외국범죄,FBI 수사,인터폴". --niche 와 반드시 동반 사용.'
+        ),
+    )
+    parser.add_argument(
+        "--niche",
+        default=None,
+        choices=sorted(_VALID_NICHE_TAGS),
+        help=(
+            "NICHE gate pre-seed. 7 채널바이블 중 1개 (incidents/documentary/"
+            "humor/politics/trend/wildlife). --topic 와 반드시 동반 사용. "
+            "선택 시 niche-classifier 에이전트 skip, 해당 채널바이블 경로가 "
+            "RESEARCH_NLM~UPLOAD 전 11 gate 에 전파."
+        ),
     )
     return parser.parse_args(argv)
 
@@ -567,7 +725,18 @@ def _run_live(args: argparse.Namespace, session_id: str) -> int:
             session_id,
         )
         try:
-            pipeline = _build_pipeline(session_id, state_root)
+            topic_keywords = (
+                [k.strip() for k in args.topic.split(",") if k.strip()]
+                if getattr(args, "topic", None)
+                else None
+            )
+            niche_tag = getattr(args, "niche", None)
+            pipeline = _build_pipeline_with_seed(
+                session_id,
+                state_root,
+                topic_keywords,
+                niche_tag,
+            )
             pipeline.run()  # blocking — 13 gates TREND..MONITOR + COMPLETE
             last_err = None
             logger.info(
@@ -734,8 +903,29 @@ def main(argv: list[str] | None = None) -> int:
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     )
 
+    # --topic + --niche 동반 검증 (한 쪽만 지정 불가)
+    topic_set = bool(args.topic)
+    niche_set = bool(args.niche)
+    if topic_set != niche_set:
+        print(
+            "Error: --topic 과 --niche 는 반드시 동시에 지정해야 합니다 (대표님). "
+            "한쪽만 지정하면 pipeline 상태 시드가 불완전합니다. "
+            f"현재: --topic={'SET' if topic_set else 'unset'}, "
+            f"--niche={'SET' if niche_set else 'unset'}.",
+            file=sys.stderr,
+        )
+        return 7
+
     session_id = args.session_id or datetime.now().strftime("%Y%m%d_%H%M%S")
     _print_banner(session_id, args.budget_cap_usd, args.live)
+
+    if args.topic and args.niche:
+        topic_preview = [k.strip() for k in args.topic.split(",") if k.strip()]
+        logger.info(
+            "[phase13] 주제 pre-seed 활성 — 대표님 지정: niche=%s, keywords=%s",
+            args.niche,
+            topic_preview,
+        )
 
     if args.verbose_compression:
         logger.info(
