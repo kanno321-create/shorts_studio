@@ -1,6 +1,6 @@
 """Phase 13 Upload Evidence — SMOKE-04 videos.list readback + production_metadata regex + evidence anchor.
 
-Wave 2/4 공용 유틸 대표님. 금기 #5 Selenium 금지 준수 —
+Wave 2/4 공용 유틸 대표님. 금기 #5 비공식 브라우저 자동화 금지 준수 —
 ``googleapiclient.discovery.build('youtube', 'v3').videos().list`` 공식 경로만 호출.
 
 계약
@@ -86,8 +86,8 @@ def anchor_upload_evidence(
     ----------
     youtube
         ``googleapiclient.discovery.build('youtube', 'v3', credentials=...)`` 결과
-        (또는 동일 contract 를 만족하는 MockYouTube). 금기 #5: Selenium 금지 —
-        본 함수는 오직 googleapiclient 공식 경로만 호출.
+        (또는 동일 contract 를 만족하는 MockYouTube). 금기 #5 (비공식 브라우저
+        자동화 금지) 준수 — 본 함수는 오직 googleapiclient 공식 경로만 호출.
     video_id
         videos.insert 가 반환한 YouTube video id.
     session_id
@@ -150,8 +150,50 @@ def anchor_upload_evidence(
     return evidence
 
 
+def validate_metadata_readback(description: str) -> dict[str, Any]:
+    """Parse description + verify 4 필드 production_metadata 존재.
+
+    Standalone validator for callers that have the raw description string
+    (e.g. after ``videos.list``) but do not need the full evidence JSON write
+    side-effect of :func:`anchor_upload_evidence`. Wave 4 E2E runner + 대표님
+    ad-hoc verification 에서 재사용.
+
+    Parameters
+    ----------
+    description
+        YouTube videos.list 의 snippet.description 원문.
+
+    Returns
+    -------
+    dict
+        4 key: ``production_metadata`` (parsed dict), ``required_fields_present``
+        (bool), ``missing_fields`` (list[str]), ``regex_matched`` (bool).
+
+    Raises
+    ------
+    ValueError
+        4 필드 중 하나라도 누락 시 즉시 실패 — caller 가 graceful degradation 을
+        원하면 :func:`_parse_production_metadata` 를 직접 호출.
+    """
+    metadata = _parse_production_metadata(description)
+    regex_matched = PRODUCTION_METADATA_REGEX.search(description) is not None
+    missing = [f for f in REQUIRED_METADATA_FIELDS if not metadata.get(f)]
+    if missing:
+        raise ValueError(
+            f"SMOKE-04 validate: production_metadata 누락 필드 {missing} 대표님 "
+            f"(regex_matched={regex_matched})"
+        )
+    return {
+        "production_metadata": metadata,
+        "required_fields_present": True,
+        "missing_fields": [],
+        "regex_matched": regex_matched,
+    }
+
+
 __all__ = [
     "PRODUCTION_METADATA_REGEX",
     "REQUIRED_METADATA_FIELDS",
     "anchor_upload_evidence",
+    "validate_metadata_readback",
 ]
