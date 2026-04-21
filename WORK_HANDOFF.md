@@ -1,9 +1,63 @@
 # WORK HANDOFF — shorts_studio
 
 ## 최종 업데이트
-- 날짜: 2026-04-21 (세션 **#28** — CLAUDE.md Perfect Navigator 재설계 + naberal_game 스튜디오 창업 + NotebookLM 6-쿼리 딥 리서치)
-- 세션: **#28** (shorts commit `e57f891` 1건 + game 신규 repo 2 commits)
-- 상태: **Phase 10 Plan 완료, execute-phase 대기 유지** — `/gsd:execute-phase 10` trigger 만 남음 (세션 #27 상태 불변). 세션 #28 은 CLAUDE.md 구조 개선 + 신 스튜디오 bootstrap 전용.
+- 날짜: 2026-04-22 (세션 **#30** — Phase 13 + Phase 14 + Phase 15 연속 실행, 해외범죄 샘플 쇼츠 1편 실제 제작 시도)
+- 세션: **#30** (commits: Phase 13 complete + Phase 14 complete + Phase 15 Wave 0~4 2/3)
+- 상태: **Phase 15 Wave 4 Task 3 + Wave 5 + Wave 6 대기** — Live smoke retry (SPC-06) 가 Claude CLI JSON non-compliance 으로 실패. 대표님 "무한루프다" 지적 + `--skip-supervisor` 경로로 선택 합의. 다음 세션 시작점 = NEXT_SESSION_START.md.
+
+---
+
+## 세션 #30 (2026-04-22) 완료 항목
+
+### ✅ Phase 13 Live Smoke 재도전 — complete_with_deferred
+- 6 plans shipped (13-01~06) + TRACEABILITY + VALIDATION flip
+- Phase 13 Tier 1: 60 tests green, Tier 2: 5 collected (live_smoke opt-in)
+- SC#1~4 + AUDIT PASS / SC#5 deferred (Tier 2 live run = empirical validation 잔여)
+- commits: `c1b9117` (plans) + `d680465` (complete)
+
+### ✅ Phase 14 API Adapter Remediation — complete_with_deferred
+- 5 plans shipped (14-01~05): pytest.ini adapter_contract + 15 failures → 0 청산 + 30 contract tests + wiki/render/adapter_contracts.md + warn-only Hook
+- SC#1~4 + AUDIT PASS / SC#5 (full pytest tests/ 1시간+ timeout, 비-scope 실패 2건) deferred
+- commits: `a1628a2` + `02f8e9f`
+
+### ✅ Phase 15 SPC + UFL Wave 0~4 (2/3) — 27 commits
+- **Wave 0 15-01**: tests/phase15 scaffold + SPC-01 reproducer + SPC-04 `--append-system-prompt-file` empirical
+- **Wave 1 15-02**: **invokers.py encoding fix** (tempfile + `--append-system-prompt-file`) — Phase 13 live smoke attempt 1 실패 원인 root cause 해소. 10 contract tests green.
+- **Wave 2 15-03**: shorts-supervisor AGENT.md 10591 → **5712 chars** (Progressive Disclosure) + references/ 2 files + `verify_agent_md_size.py` (CHAR_LIMIT 18000)
+- **Wave 3 15-04**: 5 UFL flags (`--evidence-dir` + `--revision-from` + `--feedback` + `--revise-script` + `--pause-after`) + `PipelinePauseSignal` + `GateGuard(ctx_config=...)` + ShortsPipeline ctx→gate_guard reorder + 18 tests
+- **Wave 4 15-05 Task 1+2**: `rate_video.py` CLI + `verify_feedback_format.py` + `feedback_video_quality.md` seed (UFL-04 2/3)
+
+### 🚧 Live Smoke Retry (세션 #30 직접 실행) — NEW 문제 노출
+- 1차 시도: 0.09초 rc=1 실패 (argv encoding) → Wave 1 15-02 가 해소
+- 2차 시도 (오늘): **115초, Claude CLI 실제 실행, $0** — 하지만:
+  - TREND supervisor 첫 호출: 자연어 반환 "TREND gate PASS, 다음 게이트 NICHE 로 진행합니다, 대표님" (JSON schema 미준수)
+  - JSON nudge retry 3회: stdout 비어있음 (quota/session 가능성)
+  - attempt 2: 3 retries 모두 empty stdout → FAIL
+- 결론: **encoding fix 성공 but Claude CLI JSON schema 엄수 brittle** — 새 실패 유형
+
+### 🛑 대표님 "무한루프다" 지적 + 합의 경로
+- Phase 11 defer → Phase 12 closure → Phase 13 실패 → Phase 15 fix 패턴 중단
+- 합의: **A. 수동 혼합 경로** — `--skip-supervisor` flag 1개 추가 + 대표님 대본 1개 주입 + VOICE/ASSETS/UPLOAD 실 API 실행 + 영상 1편 완성. Supervisor quality gate 는 영상 생성 후 점진 복구.
+- **Memory 박제**: `.claude/memory/feedback_infinite_loop_avoidance.md` — 다음 세션부터 자동 참조
+
+---
+
+## 다음 세션 진입점 (세션 #31)
+
+1. **NEXT_SESSION_START.md** 읽기 (본 저장소 root) — 1-page 시작 프롬프트
+2. `.claude/memory/feedback_infinite_loop_avoidance.md` 자동 적용 (MEMORY.md 로드됨)
+3. 순서: `--skip-supervisor` flag 추가 → 해외범죄 대본 1편 작성 → live run → 영상 1편
+
+---
+
+## (이전 기록 — 세션 #28 이전)
+
+### 세션 #28 (2026-04-21) — 생략
+CLAUDE.md Perfect Navigator + naberal_game bootstrap + NotebookLM deep research. 상세는 `docs/HARNESS_CHANGELOG.md` 참조.
+
+---
+
+## (아래는 이전 세션 기록, 참조용)
 
 ---
 

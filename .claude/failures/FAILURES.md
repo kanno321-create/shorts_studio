@@ -86,3 +86,18 @@ above schema or any existing entry once added — append-only Hook will deny.)
 - **검증**: (1) `py -3.11 scripts/validate/verify_agent_md_schema.py --all` → 31/31 PASS (14 producer + 17 inspector, Plan 12 SC#1 GREEN). (2) `py -3.11 -m pytest tests/phase12/test_agent_md_schema.py -v` → 37 passed (2 collective + 14 producer + 17 inspector + 3 structural-no-progressive-disclosure + 1 total-31). (3) `py -3.11 -m pytest tests/phase04/ -q` → 244 passed (Phase 4 RUB-05 matrix + GAN_CLEAN 17/17 회귀 0). (4) `py -3.11 scripts/validate/verify_agent_skill_matrix.py --fail-on-drift` → exit 0 (155/155 cells reciprocate). (5) `git log --grep='\[plan-03\]' --oneline | wc -l` → 6 (commit marker 전수 부착). (6) `git log --grep='\[plan-03\]' --name-only --pretty=format: | grep -c "AGENT.md"` → 17 (정확히 inspector scope).
 - **상태**: resolved (Plan 03 Wave 3 완결, 2026-04-21) — Phase 12 AGENT-STD-01 SC#1 + AGENT-STD-02 + FAIL-PROTO-02 SC 충족. Plan 04 matrix SSOT 와 31/31 reciprocity 완성. RUB-06 양방향 GAN 분리 mirror 구조적 보장.
 - **관련**: F-D2-EXCEPTION-02 Wave 2 (Producer 13 batch, commits `93a285b..2d1aa23`) / Plan 12-01 (template + verifier + trend-collector v1.2 prototype) / Plan 12-04 (`wiki/agent_skill_matrix.md` reciprocity SSOT) / Plan 12-06 (mandatory_reads prose validator — `매 호출마다 전수 읽기, 샘플링 금지` literal 검증 대상 17개 inspector 추가) / Phase 4 `tests/phase04/test_maxturns_matrix.py::EXPECTED_NON_DEFAULT` (authoritative source) / Phase 12 VALIDATION.md
+
+### F-LIVE-SMOKE-JSON-NONCOMPLIANCE — Claude CLI 자연어 반환 + nudge retry 빈 응답 (세션 #30, 2026-04-22)
+- **Tier**: A (Live smoke 경로 차단, 영상 생성 실패)
+- **발생 세션**: 2026-04-22 세션 #30 (Phase 13 live smoke retry 2차 시도, `overseas_crime_sample_20260422_retry`)
+- **재발 횟수**: 1 (신규)
+- **Trigger**: Phase 15 Wave 1 15-02 encoding fix 적용 후 live smoke 재시도. 대표님 "해외범죄" 샘플 쇼츠 1편 제작 목표.
+- **무엇**: TREND gate supervisor 첫 호출 (50초 소요 — CLI 실제 실행) 이 JSON schema 무시하고 자연어 반환 ("TREND gate PASS, 다음 게이트 NICHE 로 진행합니다, 대표님"). `_MAX_NUDGE_ATTEMPTS=3` retry 모두 stdout 비어있음 (`claude CLI stdout 비어있음 — --json-schema 응답 미수신`). attempt 2 의 3 retries 모두 동일 empty stdout → 총 115초 FAIL.
+- **Scope**: `scripts/orchestrator/invokers.py` supervisor 경로 + `_SUPERVISOR_JSON_SCHEMA` + Claude Code CLI 2.1.63 `--json-schema` 엄수
+- **Commits**: 없음 (실 과금 $0, no production code change this attempt). Evidence: `.planning/phases/13-live-smoke/evidence/smoke_e2e_overseas_crime_sample_20260422_retry.json` (status=FAILED, wall=115.2s, dispatched=0)
+- **Authorized by**: 대표님 세션 #30 "실제 업로드용 테스트이므로 해외 범죄 1건 제작해라 쇼츠"
+- **왜**: Phase 15 Wave 1 encoding fix 가 argv 전달 문제 해소는 성공했으나 Claude Code CLI (대화형) 의 `--json-schema` 엄수가 brittle — 특히 한국어 system prompt + long supervisor AGENT.md body 조합에서 자연어 응답 반환. Nudge retry 시 CLI 가 empty stdout 을 반환하는 패턴은 session/quota 경계에서 발생 가능.
+- **정답 (미실행, 다음 세션 예정)**: Option A "수동 혼합 경로" — 대표님 승인 — `--skip-supervisor` flag 1개 추가 (runner 에 5 lines 패치) + 대표님 수동 대본 주입 (`--revise-script`) + VOICE/ASSETS/UPLOAD 실 API 경로 보존. Supervisor quality gate 는 영상 제작 달성 후 점진 복구.
+- **검증 (미실행)**: 다음 세션 live run 시 13 gate dispatched + 최종 video_id + cleanup + budget ≤ $5 확인 후 resolved 로 flip.
+- **상태**: open (다음 세션 #31 에서 해소)
+- **관련**: Phase 11 SC#1 defer (live smoke 1차 defer 원인 — 초기 encoding bug) / Phase 12 AGENT-STD-03 `_compress_producer_output` (producer output 압축은 scope OK, 그러나 supervisor AGENT.md body / Claude CLI JSON 엄수는 scope 밖) / Phase 15 Wave 1 15-02 (encoding fix, 본 F 이후 유지) / `.claude/memory/feedback_infinite_loop_avoidance.md` (추가 Phase 발의 전 goal 재시도 우선)
