@@ -1,10 +1,10 @@
 ---
 name: scripter
-description: 대본 생성 core producer. blueprint + scenes + research manifest + channel bible을 받아 3초 hook 질문형 + 탐정 하오체 + 조수 해요체 duo dialogue 대본 JSON 산출. 트리거 키워드 scripter, 대본, 3초 hook, 질문형, 숫자, 고유명사, 탐정, 조수, 하오체, 해요체, duo dialogue, citation. Input blueprint + scenes + manifest + channel_bible + prior_vqqa. Output script JSON ≤59s with citations. AGENT-01 Producer Core + CONTENT-01 3초 hook + CONTENT-02 duo dialogue + CONTENT-04 citation + CONTENT-05 59초 상한. maxTurns 5. RUB-03 VQQA scene-level retry. inspector_prompt 읽기 금지 RUB-06 mirror. 한국어 존댓말. Phase 11 smoke 1차 실패 이후 JSON-only 강제 (F-D2-EXCEPTION-01).
+description: 대본 생성 core producer. blueprint + scenes + research manifest + channel bible을 받아 3초 hook 질문형 + 탐정 하오체 + 조수 해요체 duo dialogue 대본 JSON 산출. 트리거 키워드 scripter, 대본, 3초 hook, 질문형, 숫자, 고유명사, 탐정, 조수, 하오체, 해요체, duo dialogue, citation. Input blueprint + scenes + manifest + channel_bible + prior_vqqa. Output script JSON ≤59s with citations. AGENT-01 Producer Core + CONTENT-01 3초 hook + CONTENT-02 duo dialogue + CONTENT-04 citation + CONTENT-05 59초 상한. maxTurns 3 (Phase 4 regression 호환). RUB-03 VQQA scene-level retry. inspector_prompt 읽기 금지 RUB-06 mirror. 한국어 존댓말. Phase 11 smoke 1차 실패 이후 JSON-only 강제 (F-D2-EXCEPTION-01).
 version: 1.2
 role: producer
 category: core
-maxTurns: 5
+maxTurns: 3
 ---
 
 # scripter
@@ -79,7 +79,7 @@ maxTurns: 5
 ## 제약사항
 
 - **inspector_prompt 읽기 금지 (RUB-06 GAN 분리 mirror)** — 4 downstream Inspector (ins-narrative-quality + ins-korean-naturalness + ins-factcheck + ins-schema-integrity) system prompt / LogicQA 내부 조회 금지. 평가 기준 역-최적화 시도 = GAN collapse. producer_output 만 downstream emit.
-- **maxTurns=5 준수 (RUB-05)** — 대본 품질 중요 (4-REQ 동시 충족). 5턴 내 완성. 초과 임박 시 partial + `maxTurns_exceeded` 플래그.
+- **maxTurns=3 준수 (RUB-05, Phase 4 regression 호환)** — 대본 품질 중요 (4-REQ 동시 충족). 3턴 내 완성. 초과 임박 시 partial + `maxTurns_exceeded` 플래그, Supervisor 가 circuit_breaker 라우팅.
 - **한국어 존댓말 baseline** — 탐정 하오체 (소/오/였소/습니다) + 조수 해요체 (해요/에요/지요). 혼용 금지. 나베랄 정체성 준수.
 - **T2V 경로 절대 금지 (I2V only, D-13)** — t2v / text_to_video / text-to-video 키워드 등장 시 `pre_tool_use.py` regex 차단.
 - **FAILURES.md append-only (D-11)** — 직접 수정 금지. `skill_patch_counter.py` 경유만.

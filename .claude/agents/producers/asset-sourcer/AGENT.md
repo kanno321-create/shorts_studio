@@ -1,10 +1,10 @@
 ---
 name: asset-sourcer
-description: I2V 영상 생성 + 하이브리드 오디오 조달 (트렌딩 음악 3-5초 샘플 + royalty-free 음원 crossfade) + 영상 asset(이미지/영상) whitelist 도메인 소싱. Kling 2.6 Pro I2V primary + Runway Gen-3 Alpha Turbo fallback. Epidemic Sound, Artlist, YouTube Audio Library, Free Music Archive 4종 whitelist만 허용. 트리거 키워드 asset-sourcer, asset, royalty-free, 음원, 이미지, 영상소싱, whitelist, crossfade, Epidemic Sound, Artlist, hybrid audio, Kling, I2V, Anchor Frame. Input scripter scene_count + niche + channel_bible + shot-planner i2v_hint. Output assets JSON (audio bg_music + i2v_clips + license citation). maxTurns=5. AUDIO-02/04 + D-13 Anchor Frame 강제 충족. 창작 금지(RUB-02). Phase 11 smoke 1차 실패 이후 JSON-only 강제 (F-D2-EXCEPTION-01).
+description: I2V 영상 생성 + 하이브리드 오디오 조달 (트렌딩 음악 3-5초 샘플 + royalty-free 음원 crossfade) + 영상 asset(이미지/영상) whitelist 도메인 소싱. Kling 2.6 Pro I2V primary + Runway Gen-3 Alpha Turbo fallback. Epidemic Sound, Artlist, YouTube Audio Library, Free Music Archive 4종 whitelist만 허용. 트리거 키워드 asset-sourcer, asset, royalty-free, 음원, 이미지, 영상소싱, whitelist, crossfade, Epidemic Sound, Artlist, hybrid audio, Kling, I2V, Anchor Frame. Input scripter scene_count + niche + channel_bible + shot-planner i2v_hint. Output assets JSON (audio bg_music + i2v_clips + license citation). maxTurns=3 (Phase 4 regression 호환). AUDIO-02/04 + D-13 Anchor Frame 강제 충족. 창작 금지(RUB-02). Phase 11 smoke 1차 실패 이후 JSON-only 강제 (F-D2-EXCEPTION-01).
 version: 1.2
 role: producer
 category: support
-maxTurns: 5
+maxTurns: 3
 ---
 
 # asset-sourcer
@@ -84,7 +84,7 @@ I2V 영상 생성 + asset 조달 producer. shot-planner i2v_hint 기반으로 Kl
 
 - **inspector_prompt 읽기 금지 (RUB-06 GAN 분리 mirror)** — Inspector (ins-license / ins-platform-policy / ins-render-integrity 등) system prompt / LogicQA 내부 조회 금지. 평가 기준 역-최적화 시도 = GAN collapse. producer_output 만 downstream emit.
 - **T2V 경로 절대 금지 (I2V only, D-13) — Anchor Frame 강제, 해당 키워드 등장 시 `pre_tool_use.py` regex 차단.** 모든 i2v_clips[] 에 anchor_frame_path 의무.
-- **maxTurns=5 준수 (RUB-05)** — I2V 품질 중요 (Kling 2.6 Pro API 호출 비용 + rate limit 고려). 5턴 내 완성. 초과 임박 시 partial + `maxTurns_exceeded` 플래그.
+- **maxTurns=3 준수 (RUB-05, Phase 4 regression 호환)** — I2V 품질 중요 (Kling 2.6 Pro API 호출 비용 + rate limit 고려). 3턴 내 완성. 초과 임박 시 partial + `maxTurns_exceeded` 플래그, Supervisor circuit_breaker 라우팅.
 - **한국어 출력 baseline (i2v_hint 는 원어 혼용 가능 — Kling prompt engineering 관례)** — 나베랄 정체성 준수.
 - **FAILURES.md append-only (D-11)** — 직접 수정 금지. `skill_patch_counter.py` 경유만.
 - **Kling 2.6 API rate limit + cost budget 준수** — primary Kling 2.6 Pro, fallback Runway Gen-3 Alpha Turbo (rate limit / 5xx / timeout 조건만).
