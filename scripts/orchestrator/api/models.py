@@ -161,10 +161,178 @@ class ContinuityPrefix(BaseModel):
     bgm_mood: Literal["ambient", "tension", "uplift"] = Field(description="D-10(e): 3 presets.")
 
 
+# ============================================================================
+# Phase 16-04 — REQ-PROD-INT-04 / 06 / 09
+# VisualSpec Pydantic 모델 (zodiac-killer baseline 동일 스키마)
+# ============================================================================
+
+from typing import Optional
+
+from pydantic import PositiveInt, confloat, field_validator
+
+
+class TitleKeyword(BaseModel):
+    """VisualSpec.titleKeywords[] 엔트리 — text + HEX color."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    text: str = Field(..., min_length=1)
+    color: str
+
+    @field_validator("color")
+    @classmethod
+    def _hex_color(cls, v: str) -> str:
+        if not (
+            len(v) == 7
+            and v.startswith("#")
+            and all(c in "0123456789abcdefABCDEF" for c in v[1:])
+        ):
+            raise ValueError(f"color 는 #RRGGBB 형식: {v!r}")
+        return v
+
+
+class ClipDesign(BaseModel):
+    """VisualSpec.clips[] 엔트리 — 단일 clip design (video|image).
+
+    Pitfall 4: ``movement=None`` 은 의도적 freeze (Remotion ``_NULL_FREEZE`` sentinel).
+    Pitfall 6: ``durationInFrames`` 은 positive int 만 허용 (float 금지).
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    type: Literal["video", "image"]
+    src: str = Field(..., min_length=1)
+    durationInFrames: PositiveInt
+    transition: Literal[
+        "fade",
+        "glitch",
+        "rgb-split",
+        "zoom-blur",
+        "light-leak",
+        "clock-wipe",
+        "pixelate",
+        "checkerboard",
+    ]
+    movement: Optional[
+        Literal["zoom_in", "zoom_out", "pan_left", "pan_right"]
+    ] = None
+
+    @field_validator("durationInFrames", mode="before")
+    @classmethod
+    def _no_float(cls, v: object) -> object:
+        if isinstance(v, bool):
+            # bool is subclass of int — reject to avoid True/False leaks
+            raise ValueError("durationInFrames: bool 금지")
+        if isinstance(v, float):
+            if not v.is_integer():
+                raise ValueError(
+                    f"durationInFrames 는 positive int, float 금지 (Pitfall 6): {v}"
+                )
+            return int(v)
+        return v
+
+
+class VisualSpec(BaseModel):
+    """Phase 16-04 VisualSpec — zodiac-killer baseline 과 동일 스키마.
+
+    ``extra='forbid'`` + Literal enum + custom validators 로
+    스키마 drift 를 parse 시점에 차단 (Pitfall 5).
+    Q4 매핑: characterLeftSrc = assistant (왓슨/조수),
+    characterRightSrc = detective (Morgan/탐정). 의미 고정.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    titleLine1: str = Field(..., min_length=1, max_length=30)
+    titleLine2: str = Field(..., min_length=1, max_length=30)
+    titleKeywords: list[TitleKeyword]
+    accentColor: str
+    channelName: str = Field(..., min_length=1)
+    hashtags: str
+    fontFamily: Literal["BlackHanSans", "DoHyeon", "NotoSansKR"]
+    characterLeftSrc: str
+    characterRightSrc: str
+    subtitlePosition: confloat(ge=0.0, le=1.0)  # type: ignore[valid-type]
+    subtitleHighlightColor: str
+    subtitleFontSize: PositiveInt = Field(..., ge=24, le=128)
+    audioSrc: str = Field(..., min_length=1)
+    durationInFrames: PositiveInt
+    transitionType: Literal[
+        "fade",
+        "glitch",
+        "rgb-split",
+        "zoom-blur",
+        "light-leak",
+        "clock-wipe",
+        "pixelate",
+        "checkerboard",
+    ]
+    clips: list[ClipDesign] = Field(..., min_length=1)
+
+    @field_validator("accentColor", "subtitleHighlightColor")
+    @classmethod
+    def _hex_color(cls, v: str) -> str:
+        if not (
+            len(v) == 7
+            and v.startswith("#")
+            and all(c in "0123456789abcdefABCDEF" for c in v[1:])
+        ):
+            raise ValueError(f"색상 #RRGGBB 형식: {v!r}")
+        return v
+
+    @field_validator("characterLeftSrc")
+    @classmethod
+    def _left_is_assistant(cls, v: str) -> str:
+        """Q4: 좌측은 assistant (왓슨/조수) — character_assistant.png 로 종료."""
+        if not v.endswith("character_assistant.png"):
+            raise ValueError(
+                f"characterLeftSrc 는 character_assistant.png 로 끝나야 함 "
+                f"(Q4 좌=조수): {v!r}"
+            )
+        return v
+
+    @field_validator("characterRightSrc")
+    @classmethod
+    def _right_is_detective(cls, v: str) -> str:
+        """Q4: 우측은 detective (Morgan/탐정) — character_detective.png 로 종료."""
+        if not v.endswith("character_detective.png"):
+            raise ValueError(
+                f"characterRightSrc 는 character_detective.png 로 끝나야 함 "
+                f"(Q4 우=탐정): {v!r}"
+            )
+        return v
+
+
+class SourcesManifest(BaseModel):
+    """output/<episode>/sources/ 디렉토리 계약.
+
+    asset-sourcer 산출 + gate_guard 검증. Pitfall 5 (scene_sources ≥ 5 강제)
+    + feedback_veo_supplementary_only (veo_supplement ≤ 2).
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    character_detective: str
+    character_assistant: str
+    intro_signature: str
+    outro_signature: Optional[str] = None
+    scene_sources: list[str] = Field(..., min_length=5)
+    scene_sources_count: PositiveInt = Field(..., ge=5)
+    real_image_count: int = Field(..., ge=0)
+    veo_supplement_count: int = Field(..., ge=0, le=2)
+    signature_reuse_count: int = Field(..., ge=0, le=2)
+    real_ratio: confloat(ge=0.0, le=1.0)  # type: ignore[valid-type]
+
+
 __all__ = [
     "I2VRequest",
     "TypecastRequest",
     "ShotstackRenderRequest",
     "ContinuityPrefix",
     "HexColor",
+    # Phase 16-04
+    "TitleKeyword",
+    "ClipDesign",
+    "VisualSpec",
+    "SourcesManifest",
 ]
