@@ -2,13 +2,13 @@
 
 Total agent count (excluding harvest-importer, which is Phase 3 deprecated):
   - Inspector 17 (6 categories: structural 3 + content 3 + style 3 + compliance 3 + technical 3 + media 2)
-  - Producer 14 (Core 6 + 3단 분리 3 + Support 5)
+  - Producer 15 (Core 6 + 3단 분리 3 + Support 6 — subtitle-producer 추가 Phase 16-03)
   - Supervisor 1 (shorts-supervisor)
-  Total = 32
+  Total = 33 (Phase 16-03 amend per CONTEXT.md + CLAUDE.md forbid-9)
 
 This is the canonical count per REQUIREMENTS.md AGENT-01~05 and RESEARCH.md Open Q1.
 ROADMAP.md Phase 4 SC1 "12~20 사이" is the Phase 2 initial estimate and is reconciled
-to 32 in Plan 10 (D-9 PROJECT.md: REQUIREMENTS specificity > ROADMAP approximation).
+to 33 (Phase 16-03 amend: subtitle-producer 신규, 32→33).
 """
 from __future__ import annotations
 
@@ -19,12 +19,14 @@ AGENTS_DIR = pathlib.Path(".claude/agents")
 
 
 def test_32_agents_total_excluding_harvest() -> None:
+    """Phase 16-03 amend: 32 → 33 (subtitle-producer 신규)."""
     all_agents = [
         p for p in AGENTS_DIR.rglob("AGENT.md") if "harvest-importer" not in str(p)
     ]
-    assert len(all_agents) == 32, (
-        f"Expected 32 agents (17 inspector + 14 producer + 1 supervisor, "
-        f"excluding harvest-importer), got {len(all_agents)}.\n"
+    assert len(all_agents) == 33, (
+        f"Expected 33 agents (17 inspector + 15 producer + 1 supervisor, "
+        f"excluding harvest-importer; Phase 16-03 amend: subtitle-producer 신규), "
+        f"got {len(all_agents)}.\n"
         f"Agents: {sorted(str(p) for p in all_agents)}"
     )
 
@@ -39,12 +41,13 @@ def test_inspector_count_17() -> None:
 
 
 def test_producer_count_14() -> None:
+    """Phase 16-03 amend: Producer 14 → 15 (subtitle-producer 신규)."""
     producers = list((AGENTS_DIR / "producers").rglob("AGENT.md"))
-    assert len(producers) == 14, (
-        f"Expected 14 producers (Core 6 + 3단 분리 3 + Support 5: "
+    assert len(producers) == 15, (
+        f"Expected 15 producers (Core 6 + 3단 분리 3 + Support 6: "
         f"trend-collector, niche-classifier, researcher, director, scene-planner, "
         f"shot-planner, scripter, script-polisher, metadata-seo, voice-producer, "
-        f"asset-sourcer, assembler, thumbnail-designer, publisher), "
+        f"asset-sourcer, assembler, thumbnail-designer, publisher, subtitle-producer), "
         f"got {len(producers)}"
     )
 

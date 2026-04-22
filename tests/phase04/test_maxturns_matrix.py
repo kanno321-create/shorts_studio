@@ -109,16 +109,18 @@ def test_harvest_importer_excluded():
 
 
 # -----------------------------------------------------------------------------
-# Test 4 — total agent count sanity (32 target = 17 inspector + 14 producer + 1 supervisor)
+# Test 4 — total agent count sanity (33 target = 17 inspector + 15 producer + 1 supervisor)
+#           Phase 16-03 amend: Producer 14 → 15 (subtitle-producer 신규).
 #           During in-progress waves, count is LOWER bound.
 # -----------------------------------------------------------------------------
 def test_agent_count_sanity():
     paths = _agent_md_paths()
     total = len(paths)
-    # At least Wave 0 FOUNDATION + 17 inspectors + this plan's 6 = 23+. Upper bound 32.
-    assert total <= 32, (
-        f"Agent count {total} exceeds 32 (harvest-importer excluded). "
-        f"Target roster: 17 inspector + 14 producer + 1 supervisor = 32."
+    # Phase 16-03 amend: upper bound 33 (subtitle-producer 추가).
+    assert total <= 33, (
+        f"Agent count {total} exceeds 33 (harvest-importer excluded). "
+        f"Target roster: 17 inspector + 15 producer + 1 supervisor = 33 "
+        f"(Phase 16-03 amend: subtitle-producer 신규)."
     )
     assert total >= 17 + 5 + 1, (
         f"Agent count {total} below minimum for Wave 4 plan 04-09 completion "

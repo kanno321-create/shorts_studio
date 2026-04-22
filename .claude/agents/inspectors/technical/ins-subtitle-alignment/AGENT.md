@@ -182,7 +182,7 @@ verdict=FAIL 시 semantic_feedback 에 다음 형식으로 기술:
 3. **LogicQA 다수결 의무 (RUB-01)** — Main-Q + 5 Sub-Qs 구조 필수. 5 sub-q 중 3+ "Y" 일 때만 main_q=Y. 단일 질문 판정 금지.
 4. **maxTurns=3 준수 (RUB-05)** — 3 turn 초과 임박 시 verdict=FAIL + semantic_feedback="maxTurns_exceeded" 로 종료. Supervisor 가 circuit_breaker 라우팅.
 5. **rubric schema 준수 (RUB-04)** — 출력은 반드시 `.claude/agents/_shared/rubric-schema.json` draft-07 스키마 통과.
-6. **Phase 16-03 전환** — 실 faster-whisper large-v3 subprocess 호출은 **subtitle-producer (Plan 16-03 포팅)** 가 수행한다. 본 Inspector 프롬프트는 JSON 메타(이미 aligned 된 word.start_sec / audio_onset_sec) 를 소비만 한다. 본 Inspector 에서 faster-whisper Python binding 코드 작성 금지.
+6. **Phase 16-03 전환 (Phase 4→5 → 16-03)** — Phase 4 는 이 Inspector 의 스펙만 정의했고, 실 subprocess 호출은 원래 Phase 5 오케스트레이터 책임이었다. Phase 16-03 에서 이 책임이 **subtitle-producer (Plan 16-03 포팅, faster-whisper large-v3)** 로 공식 이관됐다. 본 Inspector 프롬프트는 JSON 메타(이미 aligned 된 word.start_sec / audio_onset_sec) 를 소비만 한다. 본 Inspector 에서 faster-whisper Python binding 코드 작성 금지.
 7. **ins-readability 영역 침범 금지** — 폰트 패밀리(Pretendard / Noto Sans KR), 컬러 대비비, 렌더링 품질은 style 카테고리 ins-readability 가 평가한다. 본 Inspector 는 alignment + 단어 수 + 폰트 크기 필드의 **범위 정합** 만 다룬다.
 8. **Supervisor 재호출 금지 (AGENT-05)** — delegation_depth ≥ 1 에서 sub-supervisor 호출 금지.
 9. **한국어 피드백 표준** — semantic_feedback 은 한국어. 영어 code-switching 금지 (단, 모델 이름 "faster-whisper" / "large-v3" 등 고유명사는 그대로 유지). 숫자 단위(ms, pt) 는 원문 유지.
