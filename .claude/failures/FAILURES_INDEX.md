@@ -34,6 +34,7 @@
 
 **Live Smoke / Pipeline Integrity (A-tier)**
 - See `F-LIVE-SMOKE-JSON-NONCOMPLIANCE` in FAILURES.md — Claude CLI 자연어 반환 + nudge retry empty stdout (Phase 13 retry, 세션 #30) — **상태: open**
+- See `F-SUPERVISOR-VERDICT-TYPE-MISMATCH` in FAILURES.md — state.Verdict Enum vs gate_guard.Verdict dataclass latent bug, skip-supervisor bypass 가 surface (세션 #31, 2026-04-22) — **상태: resolved**
 
 **Meta / Infrastructure Wiring (A-tier)**
 - See `F-META-HOOK-FAILURES-NOT-INJECTED` in FAILURES.md — 원칙 있어도 hook wiring 없으면 무의미 (세션 #30, 2026-04-22)

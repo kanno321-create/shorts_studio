@@ -15,8 +15,8 @@ from unittest.mock import MagicMock
 
 import pytest
 
+from scripts.orchestrator.gate_guard import Verdict
 from scripts.orchestrator.gates import GateName
-from scripts.orchestrator.state import Verdict
 from scripts.smoke.phase13_live_smoke import (
     _AutoPassSupervisorInvoker,
     _parse_args,
@@ -44,10 +44,14 @@ class TestSkipSupervisorFlag:
 
 
 class TestAutoPassSupervisorInvoker:
-    """`_AutoPassSupervisorInvoker` 계약 검증 — ClaudeAgentSupervisorInvoker 와 duck-typing 호환."""
+    """`_AutoPassSupervisorInvoker` 계약 검증 — gate_guard.Verdict (dataclass) 반환 호환."""
 
-    def test_returns_verdict_pass_for_any_gate(self):
-        """모든 GateName 입력에 대해 Verdict.PASS 반환."""
+    def test_returns_verdict_dataclass_with_pass_for_any_gate(self):
+        """모든 GateName 입력에 대해 gate_guard.Verdict(result='PASS') 반환.
+
+        GateGuard.dispatch 가 asdict(verdict) 를 호출하므로 dataclass 이어야 함.
+        """
+        from dataclasses import asdict
         invoker = _AutoPassSupervisorInvoker()
         for gate in [
             GateName.TREND,
@@ -65,15 +69,23 @@ class TestAutoPassSupervisorInvoker:
             GateName.MONITOR,
         ]:
             result = invoker(gate, {"verdict": "PASS", "payload": "x"})
-            assert result is Verdict.PASS, (
-                f"gate={gate.name} 에서 Verdict.PASS 가 아님: {result}"
+            assert isinstance(result, Verdict), (
+                f"gate={gate.name} 반환값이 gate_guard.Verdict 가 아님"
             )
+            assert result.result == "PASS", (
+                f"gate={gate.name} 에서 result!=PASS: {result.result}"
+            )
+            assert result.score == 100
+            # asdict() 가 예외 없이 실행되어야 GateGuard.dispatch 와 호환
+            d = asdict(result)
+            assert d["result"] == "PASS"
 
     def test_accepts_bare_string_gate(self):
         """bare string gate 도 허용 (ClaudeAgentSupervisorInvoker 와 동일 duck-typing)."""
         invoker = _AutoPassSupervisorInvoker()
         result = invoker("SCRIPT", {"verdict": "PASS"})
-        assert result is Verdict.PASS
+        assert isinstance(result, Verdict)
+        assert result.result == "PASS"
 
     def test_tracks_call_count(self):
         """호출 횟수 추적 — evidence 감사 trail 용."""
@@ -84,13 +96,10 @@ class TestAutoPassSupervisorInvoker:
         invoker(GateName.RESEARCH_NLM, {})
         assert invoker._calls == 3
 
-    def test_output_arg_is_accepted_but_not_consumed(self):
-        """output dict 이 빈 dict / 잘못된 schema 여도 PASS — auto-pass 는 validation 안 함."""
+    def test_evidence_and_semantic_feedback_fields_present(self):
+        """rubric-schema 필수 필드 (evidence, semantic_feedback) 존재 확인."""
         invoker = _AutoPassSupervisorInvoker()
-        assert invoker(GateName.SCRIPT, {}) is Verdict.PASS
-        assert invoker(GateName.SCRIPT, {"garbage": "nonsense"}) is Verdict.PASS
-        # None 은 실제 supervisor 에서도 받지 않지만, duck typing 견고성 확인.
-        # ClaudeAgentSupervisorInvoker 는 output.get(...) 을 호출하므로
-        # None 은 AttributeError 를 유발 — auto-pass 도 동일 계약이어야 하나,
-        # 우리는 output 을 touch 하지 않으므로 실제로는 통과함.
-        assert invoker(GateName.SCRIPT, None) is Verdict.PASS  # type: ignore[arg-type]
+        result = invoker(GateName.SCRIPT, {})
+        assert result.evidence == []
+        assert "auto-PASS" in result.semantic_feedback
+        assert result.inspector_name == "auto-pass-supervisor-bypass"

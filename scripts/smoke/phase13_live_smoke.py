@@ -296,16 +296,19 @@ class _AutoPassSupervisorInvoker:
 
     Quality gate 는 영상 제작 달성 후 점진 복구 (F-LIVE-SMOKE 해소 후).
 
-    Signature: ``(gate, output: dict) -> Verdict`` — 실 invoker
-    :class:`scripts.orchestrator.invokers.ClaudeAgentSupervisorInvoker`
-    와 동일한 duck-typing 계약.
+    반환 타입: :class:`scripts.orchestrator.gate_guard.Verdict` (dataclass).
+    ``GateGuard.dispatch`` 가 ``asdict(verdict)`` 를 호출하므로 dataclass
+    이어야 함. 세션 #31 session_start 에서 발견된 latent bug 회피 — 실
+    supervisor 도 현재 Enum 을 반환하지만 F-LIVE-SMOKE JSON 에러가
+    dispatch 도달 전에 먼저 터져 문제가 드러나지 않았음.
     """
 
     def __init__(self) -> None:
         self._calls = 0
 
     def __call__(self, gate, output: dict):
-        from scripts.orchestrator.state import Verdict
+        from scripts.orchestrator.gate_guard import Verdict
+
         self._calls += 1
         gate_name = getattr(gate, "name", str(gate))
         logger.info(
@@ -313,7 +316,16 @@ class _AutoPassSupervisorInvoker:
             gate_name,
             self._calls,
         )
-        return Verdict.PASS
+        return Verdict(
+            result="PASS",
+            score=100,
+            evidence=[],
+            semantic_feedback=(
+                f"--skip-supervisor auto-PASS (대표님 세션 #30 Option A). "
+                f"Gate {gate_name} quality validation 점진 복구 예정."
+            ),
+            inspector_name="auto-pass-supervisor-bypass",
+        )
 
 
 def _build_pipeline_with_seed(
