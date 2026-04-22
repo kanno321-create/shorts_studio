@@ -46,7 +46,7 @@ Whitelist 헌법: `../../harness/STRUCTURE.md` (변경 시 schema bump + 백업 
 ### 제작 (Producer 15 — Phase 16 에서 +1)
 - "쇼츠 돌려"/"영상 뽑아"/"파이프라인 실행" → `scripts/orchestrator/shorts_pipeline.py` + `shorts-supervisor`.
 - "트렌드 수집"/"니치 분류" → `trend-collector` + `niche-classifier` + `wiki/algorithm/MOC.md`.
-- "NotebookLM 리서치"/"팩트 수집" → `researcher` + `scripts/notebooklm/query.py` + `.claude/memory/feedback_notebooklm_query.md`.
+- "NotebookLM 리서치"/"팩트 수집" → `researcher` + `scripts/notebooklm/query.py` + `.claude/memory/feedback_notebooklm_query.md` + **`.claude/memory/feedback_notebooklm_paste_only.md` (🔴 paste 전용, typing 금지 — 대표님 2026-04-22 피드백)**.
 - "연출/씬/샷 기획" → `director` + `scene-planner` + `shot-planner`.
 - "대본 작성/교정" → `scripter` → `script-polisher` + `wiki/script/{NLM_2STEP_TEMPLATE,QUALITY_PATTERNS}.md`.
 - "TTS/보이스" → `voice-producer` + `.claude/memory/{project_tts_stack_typecast,reference_shorts_naberal_voice_setup}.md`.

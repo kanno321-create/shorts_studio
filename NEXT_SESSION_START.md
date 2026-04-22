@@ -1,98 +1,121 @@
-# NEXT SESSION START — 세션 #33 진입 프롬프트
+# NEXT SESSION START — 세션 #34 진입 프롬프트
 
-**작성**: 2026-04-22 세션 #32 종료 시점
-**작성자**: 대표님 지시 "핸드오프 3종만들고, 다음세션에서 지금이랑 자연스럽게 이어서 작업가능하도록 전후사정 대화를 제대로 남기고 작업을 제대로 넘겨라"
-**1-page 경계**: 이 문서는 다음 세션의 첫 30초 진입 프롬프트. 깊은 맥락은 WORK_HANDOFF.md, 대화 흐름은 SESSION_LOG.md `Session #32` 참조.
-
----
-
-## 🚨 세션 #32 충격 사건 요약 (반드시 인지)
-
-대표님이 SESSION #31 산출물 (`outputs/ffmpeg_assembly/assembled_1776844680770.mp4`) 을 보시고 "**큰일났다 이런 퀄리티로 어떻게 하노**" 라 충격받으셨습니다. 분석 결과:
-
-- **우리 영상**: 13초 720p 519kbps · 자막없음 · 자료사진 0개 · 인트로/아웃로 없음 · 캐릭터 오버레이 없음
-- **Production baseline (`shorts_naberal/output/zodiac-killer/final.mp4` 등 6편)**: **60~130초 · 1080p · 5~21Mbps · 단어단위 자막 + 인트로/아웃로 시그니처 + 캐릭터 듀오(탐정+왓슨) + 사건 자료 사진 10~15개 + Ken Burns + Remotion 합성**
-
-**본질 차이**: spec 게이트 통과 ≠ production 콘텐츠. 우리는 **architecture 자체가 빠져있는 상태**였습니다. 대표님 표현: "**이대로는 아예 시작도못하고 망하겠다**".
-
-→ 대표님 결정 = **옵션 A 즉시 도입** (Remotion + word_subtitle + intro_signature + 채널바이블 production 자산을 `.preserved/harvested/` 로 가져와 우리 ASSEMBLY 재배선).
+**작성**: 2026-04-23 세션 #33 종료 시점 (컨텍스트 포화)
+**작성 근거**: 대표님 지시 "컨텍스트 꽉참, 핸드오프 3종 만들어서 다음 세션에서 바로 수정작업할수있게 잘작성해라"
+**1-page 경계**: 30초 진입 프롬프트. 깊은 맥락은 WORK_HANDOFF.md §세션#33, 대화 흐름은 SESSION_LOG.md §Session #33.
 
 ---
 
-## 🧠 자동 주입 확인 (첫 5초)
+## 🚨 세션 #33 핵심 사건 요약
 
-세션 #33 시작 시 `session_start.py` Hook 이 다음을 자동 주입:
-
-1. 🔑 `.env` API keys (재질문 금지) — `OPENAI_API_KEY` 신규 추가됨 (gpt-image-2 안정 보관)
-2. 📋 WORK_HANDOFF.md 첫 30줄 (세션 #32 항목)
-3. 🧠 MEMORY.md index — **신규 4 메모리 자동 노출**:
-   - `feedback_no_mockup_no_empty_files` — **🔴 절대 금지**: 목업/스텁/빈 파일/placeholder 생성 (대표님 절대 규칙)
-   - `reference_production_gap_map` — production vs 우리 11 누락 컴포넌트
-   - `reference_harvested_full_index` — **🔴 옵션 A 진입 자료**: 9폴더 160파일 + 5-Step 진입 + Phase A1~A4 로드맵
-   - `project_image_stack_gpt_image2` — 정지 이미지 = gpt-image-2 primary
-4. 📛 최근 실패 (open + 최근 5)
-5. 🗺️ Navigator + CONFLICT_MAP
+1. **Phase 16 Production Integration Option A 완료** — 39 commits, 4 Plan all green, Phase 16 VERIFICATION PASSED (5/5 SC), gsd-tools `phase complete 16` 공식 종료.
+2. **첫 production smoke 시도: Ryan Waller 쇼츠** — NLM 리서치 → 대본 → TTS → 자막 → gpt-image-2 × 6 → Remotion render → `output/ryan-waller/final.mp4` **68.8 MB** 생성 성공.
+3. **🔴 대표님 판정: 실패** — 5가지 핵심 결함 지적. **원인 전수 진단 완료 + 교정 계획 수립. 교정 작업은 세션 #34 에서 수행**.
 
 ---
 
-## 🎯 단 하나의 목표 (세션 #33)
+## 🎯 세션 #34 단 하나의 목표
 
-**Phase A1 진행** — `.preserved/harvested/theme_bible_raw/incidents.md` (사건기록부 v1.0 SSOT) + `skills_raw/channel-incidents/SKILL.md` + `baseline_specs_raw/zodiac-killer/visual_spec.json` 를 흡수해 **`.claude/memory/project_channel_bibles_v1.md`** 신규 박제 + production feedback 메모리 12+ 매핑.
-
-**금지** (옵션 A 모든 단계 공통):
-- ❌ 코드 수정 (Phase A2~A4 에서, A1 은 박제만)
-- ❌ 13초 영상을 production 으로 인정
-- ❌ 자막·인트로·아웃로 누락된 영상을 production 으로 인정
-- ❌ "spec 통과 = 완료" 보고 (충격 사건 재발 방지)
-- ❌ 빈 출력 / placeholder / 목업 (CLAUDE.md 금기 #10)
-- ❌ Veo 호출 (CLAUDE.md 금기 #11) — 가이드만 Kling 응용용
-- ❌ shorts_naberal 원본 수정 (CLAUDE.md 금기 #6) — `.preserved/harvested/` read-only 잠금 완료
+**Ryan Waller v2 재제작** — 5 실패 전수 교정 + 재렌더 + baseline parity 재검증.
 
 ---
 
-## 🚀 첫 5분 행동 (Step 1 SSOT 흡수)
+## ⚡ 첫 5분 행동 (세션 #34 바로 실행)
 
-```
-1. cat .preserved/harvested/theme_bible_raw/incidents.md            # 사건기록부 v1.0 SSOT
-2. cat .preserved/harvested/skills_raw/channel-incidents/SKILL.md
-3. cat .preserved/harvested/baseline_specs_raw/zodiac-killer/visual_spec.json   # Remotion props 실제 예
-4. head -100 .preserved/harvested/baseline_specs_raw/zodiac-killer/subtitles_remotion.ass   # 자막 형식
-5. cat .preserved/harvested/skills_raw/channel-incidents-jp/SKILL.md   # 일본 채널
+```bash
+# 1. 컨텍스트 로드 (10초)
+cat NEXT_SESSION_START.md               # 이 파일
+head -150 WORK_HANDOFF.md                # 세션 #33 전체 산출
+grep -A5 "FAIL-" WORK_HANDOFF.md | head -50  # 5 실패 근본 원인
+
+# 2. 현 산출물 목록 확인 (5초)
+ls output/ryan-waller/                   # script.json / narration.mp3 / final.mp4 등
+ls output/ryan-waller/sources/           # 6 b-roll + signature + character
+
+# 3. 교정 대상 파일 5종 path 확인
+echo "FIX-1,2 TTS SSML: scripts/orchestrator/api/typecast.py L189-213"
+echo "FIX-3 조수 교체: shorts_naberal/output/zodiac-killer/sources/character_assistant.png"
+echo "FIX-4 Kling I2V: scripts/orchestrator/api/kling_i2v.py (Phase 9)"
+echo "FIX-5 왓슨 CTA: .claude/memory/feedback_watson_cta_pool.md"
 ```
 
-## 🚀 첫 1시간 행동 (Phase A1)
+---
 
-1. 신규 메모리 작성 — `.claude/memory/project_channel_bibles_v1.md` (7 채널 v1.0 핵심 추출 + cross-ref)
-2. production feedback 12+ 메모리 식별 — `incidents.md` 에 cross-reference 된 메모리 이름 (`feedback_script_tone_seupnida`, `feedback_duo_natural_dialogue`, `feedback_subtitle_semantic_grouping`, `feedback_video_clip_priority`, `feedback_outro_signature`, `feedback_series_ending_tiers`, `feedback_detective_exit_cta`, `feedback_watson_cta_pool`, `feedback_dramatization_allowed`, `feedback_info_source_distinction`, `feedback_veo_supplementary_only`, `feedback_number_split_subtitle`) 의 production 원본 위치 확인 + 우리 `.claude/memory/` 로 매핑
-3. MEMORY.md 인덱스 갱신
-4. 보고 → 대표님 Phase A2 진행 여부 결정
+## 🔴 5 실패 + 근본 원인 + 교정 방법 (기술 요약)
 
-## 🚀 향후 (Phase A2~A4, 다음 세션 이후)
-
-- Phase A2 (2~3 세션): ASSEMBLY 재배선 — `scripts/orchestrator/api/remotion_renderer.py` 신규 + shorts_pipeline ASSEMBLY 분기
-- Phase A3 (1~2 세션): word_subtitle + intro/outro signature 통합
-- Phase A4 (1~2 세션): visual_spec.json 생성 로직 + sources/ 디렉토리 구조
+| # | 증상 (대표님 지적) | 근본 원인 | 교정 |
+|---|---|---|---|
+| FAIL-1 | 대본의 "감정선/슬래시/괄호" 를 그대로 낭독 | `typecast.py:_inject_punctuation_breaks()` 가 SSML `<break time="Xs"/>` tag 삽입 → ssfm-v30 SDK 가 SSML 미지원 → literal 낭독 | 함수 호출 제거 또는 `comma_pause=0 mark_pause=0` 무력화. config 의 `auto_punctuation_pause:true` 가 이미 Typecast native pause 담당. |
+| FAIL-2 | 감정 없는 국어책 낭독 | FAIL-1 과 **동일 root cause** — SSML 오염 + 자연 pause 파괴로 emotion 파라미터 효과가 노이즈에 묻힘 | FAIL-1 수정만 하면 자동 해소 (확인 필요). 추가로 Morgan emotion 변화 실측. |
+| FAIL-3 | 조수 캐릭터가 일본판 (검은 머리 인간) | `.preserved/harvested/video_pipeline_raw/characters/` 는 `incidents_assistant_jp_a.png` (**`_jp_`** = 일본판). 한국판 웰시 코기는 episode-specific `shorts_naberal/output/zodiac-killer/sources/character_assistant.png` 에만 존재 → **harvest 누락** | `cp shorts_naberal/output/zodiac-killer/sources/character_assistant.png output/ryan-waller/sources/character_assistant.png` 후 재 harvest 계획 수립 |
+| FAIL-4 | 모든 영상이 Ken Burns pan/zoom 만 (정적 이미지) | 내가 CLAUDE.md 금기 #11 "Veo 금지" 를 "I2V 전체 금지" 로 **확대해석**. 실제로 **Kling 2.6 Pro I2V 는 허용** (금기 #11 명시). | `scripts/orchestrator/api/kling_i2v.py` 로 6 image 각각을 anchor frame 으로 Kling I2V 호출 → mp4 clips 6개. 예상 비용 $3-5, 시간 20-40분. |
+| FAIL-5 | 마지막에 탐정 CTA 만, 왓슨(웰시 코기) CTA 누락 | 대본 Aftermath 에 탐정 Pool #9 만. Bible §10 은 **탐정 CTA + 왓슨 CTA 둘 다** (duo pattern — hook 과 대칭). `feedback_watson_cta_pool.md` 에 pool 10개 이미 박제. | 대본 끝에 왓슨 CTA 1문장 추가 (예: "다음 기록도, 함께 봐요?"). TTS 재생성 시 왓슨 보이스 (Guri or Morgan emotion=urgent) 사용. |
 
 ---
 
-## ⚠️ 절대 준수 (이 세션에서 박제)
+## 📂 세션 #33 산출물 핵심 경로
 
-1. **목업·빈 파일·placeholder 금지** (CLAUDE.md 금기 #10) — 모든 산출물 production-ready 실 콘텐츠
-2. **Veo 호출 금지** (CLAUDE.md 금기 #11) — Kling 단독, VEO_PROMPT_GUIDE 는 Kling 응용 참조만
-3. **shorts_naberal 원본 수정 금지** (금기 #6) — `.preserved/harvested/` 9 폴더 160 파일 read-only 잠금됨
-4. **production baseline 충족 검증 필수** — 60~120초 + 1080p + 자막 + 인트로/아웃로 + 캐릭터 + 자료사진 ≥ 5장
-5. **대표님께 "완료" 보고 전 baseline 6편과 정량/정성 비교** — 충격 사건 재발 방지
+### Ryan Waller 쇼츠 (세션 #34 교정 대상)
+```
+output/ryan-waller/
+├── final.mp4                 (68.8 MB, 1080×1920, h264, 116s — 실패작)
+├── narration.mp3             (Typecast Morgan, 116.04s, SSML 오염)
+├── narration_timing.json
+├── script.json               (19 sentences — 왓슨 CTA 누락)
+├── visual_spec.json
+├── sources_manifest.json
+├── blueprint.json
+├── subtitles_remotion.{ass,json,srt}
+└── sources/
+    ├── intro_signature.mp4   (v4, OK)
+    ├── character_detective.png (harvest — OK, 탐정 확인)
+    ├── character_assistant.png (🔴 일본판 — 교체 필요)
+    └── broll_01~06 *.png     (gpt-image-2 정적 — Kling I2V 전환 필요)
+```
+
+### Phase 16 산출물 (완료, read-only 참조만)
+```
+.planning/phases/16-production-integration-option-a/
+├── 16-CONTEXT.md / 16-RESEARCH.md (1259줄) / 16-VALIDATION.md / 16-VERIFICATION.md (PASSED)
+├── 16-0{1,2,3,4}-PLAN.md + 16-0{1,2,3,4}-SUMMARY.md
+└── schemas/visual-spec.v1.schema.json + scene-manifest.v4.schema.json
+```
+
+### 박제된 메모리 (세션 #33)
+- `reference_signature_and_character_assets.md` (🔴 korean welsh corgi 누락 명시 추가 필요 — FAIL-3 사실 반영)
+- `feedback_detective_exit_cta.md` (탐정 pool 10 완성)
+- `feedback_notebooklm_paste_only.md` (NLM paste 원칙)
+- `project_channel_bible_incidents_v1.md` + 5 reference 채널바이블 + 12 feedback (Phase 16-01)
+- `project_channel_preset_incidents.md` (Phase 16-04)
 
 ---
 
-## 📚 깊은 맥락 (필요 시)
+## ⚠️ 세션 #34 절대 준수
 
-- **세션 #32 전체 흐름**: `SESSION_LOG.md` Session #32 entry — 대화 인용 포함
-- **세션 #32 박제 산출물**: `WORK_HANDOFF.md` 세션 #32 섹션
-- **production 격차 11 컴포넌트**: `.claude/memory/reference_production_gap_map.md`
-- **harvest 160 파일 인덱스**: `.claude/memory/reference_harvested_full_index.md`
-- **gpt-image-2 결정**: `.claude/memory/project_image_stack_gpt_image2.md`
+1. **교정 전 실증**: narration.mp3 재생해서 SSML literal 낭독 여부 ear-verify (대표님 feedback 기반 + 직접 ffmpeg 로 3-4초 sample 들어보기).
+2. **FIX-4 Kling I2V 호출 전 CLAUDE.md 금기 #4/#11 재독** — I2V only, Anchor Frame, Veo 금지. Kling 2.6 Pro 단독.
+3. **FIX-5 왓슨 CTA** 선정 시 `feedback_watson_cta_pool.md` 에서 choice. 식상한 문구 금지 (세션 #33 대표님 피드백 준수).
+4. **5 실패 박제 (feedback memories) 선행** — v2 재제작 전 5 실패 원인을 feedback 메모리로 영구 박제 (재발 방지). 세션 #33 에서는 한 것 없음.
+5. **v2 baseline parity 재검증** — v1 은 7/9 PASS (bitrate + subtitle_track 이슈). v2 는 9/9 또는 명시적 이유 있는 sub-criterion 만 불합격.
 
 ---
 
-*세션 #32 종료 — 옵션 A Phase A1 진입 대기. 다음 세션 첫 행동: 위 "첫 5분 행동" 5개 명령부터.*
+## 🗺️ 다음 단계 (세션 #34~35)
+
+### 세션 #34: 교정 + v2 재제작
+1. **5 실패 박제** — 5 feedback memories 생성 (재발 방지)
+2. **FIX-1+2**: typecast.py SSML 비활성화 + narration 재생성
+3. **FIX-3**: 웰시 코기 character_assistant.png 교체
+4. **FIX-5**: 대본 왓슨 CTA 추가 + TTS 재생성 + 자막 재생성
+5. **FIX-4**: Kling I2V × 6 clips 생성 → sources/ 교체
+6. Remotion render v2 + ffprobe + baseline parity
+7. 대표님 v2 검수 → 합격 시 upload, 불합격 시 재교정
+
+### 세션 #35+ (v2 합격 후)
+- 이 쇼츠 upload (YouTube Data API v3, unlisted smoke)
+- 2번째 사건 착수 (NLM pool #3/#5 중 선택)
+- Phase 17 계획 (incidents-jp + word_subtitle.py 빈출력 debug + Kling I2V 표준화)
+
+---
+
+*세션 #33 종료 — Ryan Waller v1 실패작 보관 (`output/ryan-waller/final.mp4` 교훈 자료로 유지). 세션 #34 = v2 재제작 집중.*

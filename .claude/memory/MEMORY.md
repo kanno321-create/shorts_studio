@@ -16,6 +16,7 @@
 - [feedback_i2v_prompt_principles](feedback_i2v_prompt_principles.md) — I2V 3원칙: Camera Lock / Anatomy Positive Persistence / Micro Verb (+ VEO_PROMPT_GUIDE 활용 규칙)
 - [feedback_clean_slate_rebuild](feedback_clean_slate_rebuild.md) — shorts_naberal 원본 수정 금지, 신 구축 원칙 + 예외 (declarative config 포팅 허용)
 - [feedback_session_evidence_first](feedback_session_evidence_first.md) — UAT 작성 전 output/ + SESSION_LOG + commit 전수 점검 의무
+- [feedback_notebooklm_paste_only](feedback_notebooklm_paste_only.md) — **🔴 NLM 입력 paste 전용** (typing 시 중간 enter 가 submit trigger, 쿼리 잘림). 추가질문도 동일. 2026-04-22 세션 #33 대표님 직접 피드백.
 
 ## Reference (외부 리소스 위치)
 - [reference_harvested_full_index](reference_harvested_full_index.md) — **🔴 옵션 A 즉시 도입 진입 자료**: `.preserved/harvested/` 9폴더 153파일 인덱스 + 다음 세션 5-Step 진입 순서 + Phase A1~A4 작업 로드맵 (2026-04-22 옵션 A 결정 후)

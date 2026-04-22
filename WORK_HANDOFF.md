@@ -1,9 +1,188 @@
 # WORK HANDOFF — shorts_studio
 
 ## 최종 업데이트
-- 날짜: 2026-04-22 (세션 **#32** — gpt-image-2 vs Nano Banana 실증 → adapter 도입 → **충격 사건 (production baseline 격차 발견)** → shorts_naberal 전수 매핑 → 옵션 A 즉시 도입 결정 → harvest 5 폴더 84 파일 추가 + read-only 잠금)
-- 세션: **#32** (uncommitted changes: 9 files modified + 신규 메모리 4 + 신규 코드 4 + harvest 84 files + 핸드오프 3종. **다음 세션 첫 commit 권고**)
-- 상태: **옵션 A Phase A1 대기** — Production 자산 harvest 완료, 채널바이블 박제 진입 준비 완료. 다음 세션 시작점 = `NEXT_SESSION_START.md`.
+- 날짜: 2026-04-23 (세션 **#33** — Phase 16 Production Integration Option A 공식 완료 + 첫 production smoke Ryan Waller 쇼츠 제작 시도 + **대표님 5 실패 판정** + 근본 원인 전수 진단)
+- 세션: **#33** (주요 commits: Phase 16 planning+execute 39 commits 박제 완료. Ryan Waller 제작 artifacts 미commit — 다음 세션 첫 commit 필요)
+- 상태: **Ryan Waller v1 실패 → v2 교정 대기**. 다음 세션 시작점 = `NEXT_SESSION_START.md`. **5 실패 근본 원인 진단 완료**, 교정 방법 명시. 세션 #34 에서 FIX 1-5 일괄 교정 + v2 재제작.
+
+---
+
+## 세션 #33 (2026-04-23) 완료 항목
+
+### ✅ Part 1: GSD Phase 16 Production Integration Option A 공식 완료
+- `/gsd:add-phase` → Phase 16 등록 (milestone v1.0.1)
+- `/gsd:research-phase 16` → `16-RESEARCH.md` (1259줄, Q1-Q4 authoritative answers + Standard Stack + Architecture Patterns + Don't Hand-Roll + Common Pitfalls + Code Examples)
+- `16-CONTEXT.md` orchestrator-constructed (대표님 전권 위임, locked decisions 전수)
+- `/gsd:plan-phase 16` → 4 Plans: 16-01 채널바이블 박제 + 16-02 Remotion renderer + 16-03 subtitle+signature+overlay + 16-04 visual_spec+sources+parity
+- `gsd-plan-checker` iter 1 **3 Major + 4 Minor** → orchestrator 수동 surgical fix (SUMMARY tasks + 32→33 amend + duration 50→60s + audio/bitrate criteria) → iter 2 **VERIFICATION PASSED**
+- `/gsd:execute-phase 16` → Wave 1 (16-01 + 16-02 병렬, 32분) → Wave 2 (16-03 + 16-04 병렬, 55분) → gsd-executor agents 4회 spawn
+- **최종: 4/4 Plan SUMMARY complete + Phase 16 VERIFICATION PASSED (5/5 SC) + gsd-tools `phase complete 16` 공식 종료** (commit `08eb1b5`)
+- 총 39 commits, 32 task, 279 Phase 16 tests green, 6 memories 박제, 1 new Producer (subtitle-producer, Producer 14→15 amend)
+
+### 🎬 Part 2: 첫 production smoke — Ryan Waller 쇼츠 제작
+대표님 "(1) 라이언 월러 — 최고점, duo 구조 완벽, CCTV 영상 블러 처리만 확인되면 최강" 선택 후:
+- NLM TOP 5 사건 pitch 쿼리 (174s, 6934 chars) — 라이언 월러 49/50 점수 1위
+- NLM Ryan Waller 상세 facts (147s, 5112 chars, 15+ citations)
+- script.json 19 sentences / 6 sections (Hook + Conflict + Misdirection + Buildup + Reveal + Aftermath)
+- Typecast TTS 19 scenes (Morgan voice `tc_6256118ea1103af69f0a87ec`) → narration.mp3 **116.04s / 1080p-ready stereo 48kHz 192kbps**
+- 자막: word_subtitle.py 빈 출력 (Phase 17 debug item) → sentence-level fallback 19 cues ASS/JSON/SRT
+- gpt-image-2 × 6 b-roll images (cinematic noir, medium quality, ~$0.20)
+- visual_spec_builder.build() → 7 clips / 3481 frames / transitionType=clock-wipe / titleLine1/2
+- **Remotion render 첫 시도 성공** — `output/ryan-waller/final.mp4` 68.8 MB, 1080×1920, h264, 116.096s, stereo 48kHz, 4.74 Mbps
+- verify_baseline_parity: 7/9 PASS (bitrate 4742<5000 + subtitle_track=0 2건 fail)
+
+### 🔴 Part 3: 대표님 판정 "일단 실패다" — 5 핵심 결함 지적
+
+대표님 원문 (2026-04-23):
+> 1. 대본을 대화만 나레이션해야되는데 감정선 및 슬래쉬 괄호 이런것도 싹다말하고있음
+> 2. 나레이션에 감정이없음 국어책읽기임. 아마도 대본의 의미를 못살리고 모두 나레이션으로 넣은듯
+> 3. 한국어버전은 상단 좌측 조수는 웰시코기임 다시 내가준 파일을 확인바람 (ref_roanoke/t1s.jpg + channel_art/community_post_intro.png)
+> 4. 그리고 모든 영상이 그냥 카메라가 천천히 움직이는거다,,,그 이미지안의 인물이 움직이게 프롬프트해야지 ㅡㅡ gpt 이미지 투 비디오 기능으로
+> 5. 마지막 탐정의 cta, 조수 강아지의 cta를 왜 빼먹노 (zodiac-killer/final.mp4 참조)
+
+대표님 추가 지시: "원인을 찾아내라" → 근본 원인 5건 전수 진단 완료.
+
+### 🔬 Part 4: 5 실패 근본 원인 진단 (증거 기반)
+
+**FAIL-1 + FAIL-2 공통 root cause** (단일 버그 2건 유발):
+- `scripts/orchestrator/api/typecast.py:189 _inject_punctuation_breaks()` 가 regex 로 text 에 **SSML `<break time="0.35s"/>` tag 를 literal 삽입**
+- Typecast SDK (`ssfm-v30`) 는 SSML 미지원 → tag 가 **낭독할 text 로 오해**
+- 증거: typecast.py L203-212 `text = re.sub(r"([,，、])(\\s+)", lambda m: f'{m.group(1)}<break time="{comma_pause}s"/>{m.group(2)}', text)`
+- 파급:
+  - FAIL-1: 대표님이 들은 "슬래시 괄호 낭독" = literal SSML tag 발음
+  - FAIL-2: "국어책 낭독" = SSML 오염이 자연 pause 파괴 + emotion 파라미터 효과가 noise 에 묻힘
+- **수정**: `_inject_punctuation_breaks` 호출 제거 또는 `comma_pause=0 mark_pause=0` 무력화. config 의 `auto_punctuation_pause:true` 가 Typecast native pause 담당.
+
+**FAIL-3 조수 캐릭터 오류** (한국판 웰시 코기 대신 일본판 인물):
+- 내가 사용: `.preserved/harvested/video_pipeline_raw/characters/incidents_assistant_jp_a.png` (**`_jp_`** = 일본판 검은 머리 인간)
+- 올바른 것: `shorts_naberal/output/zodiac-killer/sources/character_assistant.png` (웰시 코기 + 셜록 스타일 모자 + 돋보기 + 책장)
+- **근본 결함**: harvest 구조 불완전. Phase 16-03 W0-HARVEST 가 `_shared/characters/` 4개 파일만 복사. 한국판 웰시 코기는 episode-specific `sources/` 에만 존재 → **harvest 에 누락**
+- **수정**: `cp shorts_naberal/output/zodiac-killer/sources/character_assistant.png output/ryan-waller/sources/character_assistant.png` + Phase 17 에 episode-source harvest 보강
+
+**FAIL-4 정적 이미지 (Ken Burns only) → I2V motion 필요**:
+- 내가 6 gpt-image-2 정적 PNG 생성 + Remotion Ken Burns pan/zoom 만 사용
+- Production baseline 은 **Kling 2.6 Pro I2V** 로 이미지 내 인물/물체 실제 동작 생성 (intro signature 와 동일 motion 수준)
+- **근본 원인**: 내가 CLAUDE.md 금기 #11 "Veo 금지" 를 **"I2V 전체 금지" 로 확대해석**. 사실 금기 #11 은 "Kling 2.6 Pro 단독" 명시. `project_video_stack_kling26` 메모리 박제.
+- **수정**: `scripts/orchestrator/api/kling_i2v.py` (Phase 9) 로 6 image 각각 anchor frame → mp4 clip 6개. 예상 비용 $3-5, 시간 20-40분.
+
+**FAIL-5 왓슨 CTA 누락**:
+- 내 대본 Aftermath: 탐정 CTA (Pool #9 "진실은 때로, 너무 늦게 도착합니다") 만
+- 채널바이블 §10: **탐정 CTA pool 10 + 왓슨 CTA pool 10 둘 다** 박제됨
+- Hook 의 duo 패턴 (왓슨 질문 + 탐정 답변) 이 Aftermath 에도 대칭 유지 (왓슨 구독 유도 + 탐정 퇴장)
+- **근본 원인**: 내가 "CTA = 탐정만" 착각. `feedback_watson_cta_pool.md` 박제돼 있는데 무시.
+- **수정**: 왓슨 CTA 1문장 추가 (pool 에서 선택), TTS 재생성 시 왓슨 voice (Guri) 사용
+
+---
+
+## 🗺️ 세션 #34 진입 경로
+
+**첫 5분 행동**: `NEXT_SESSION_START.md` 의 "첫 5분 행동" 블록 그대로 실행.
+
+**교정 순서 (예상 1.5-2.5 시간)**:
+1. **Pre: 5 실패 박제** — `feedback_typecast_ssml_literal_read` / `feedback_harvest_missing_korean_welsh_corgi` / `feedback_kling_i2v_required_not_ken_burns` / `feedback_duo_cta_both_required` / `feedback_narration_text_only_no_meta` 5 신규 메모리 (15-20분)
+2. **FIX-1+2**: typecast.py `_inject_punctuation_breaks` 비활성화 + narration 재생성 + sample re-listen (20분)
+3. **FIX-3**: `character_assistant.png` 교체 (2분)
+4. **FIX-5**: script.json 왓슨 CTA 추가 + narration TTS 재생성 (왓슨 line 추가분만) + subtitle 재생성 (10분)
+5. **FIX-4**: Kling I2V × 6 clips 생성 (20-40분, 비용 모니터링)
+6. Remotion render v2 → `output/ryan-waller/final_v2.mp4` (8-12분)
+7. ffprobe + verify_baseline_parity 재검증 (2분)
+8. 대표님 v2 검수 → 합격 시 upload 진입, 불합격 시 재교정
+
+---
+
+## ⚠️ 세션 #34 절대 준수 (세션 #33 교훈 반영)
+
+1. **SSML 호출 금지 검증 후 TTS** — `typecast.py` 수정 후 3-4초 샘플 재생 ear-verify
+2. **웰시 코기 확정 사용** — `shorts_naberal/output/zodiac-killer/sources/character_assistant.png` (episode source, 한국판)
+3. **Kling I2V 사용 강제** — Phase 9 `kling_i2v.py` 활용, Veo 신규 호출은 0건 유지 (금기 #11)
+4. **듀오 CTA 패턴** — 탐정 pool + 왓슨 pool 둘 다 사용, 식상 반복 금지 (세션 #33 박제 규칙)
+5. **v2 baseline parity ≥ 8/9** — v1 은 7/9 (bitrate + subtitle_track 2 fail). v2 bitrate ≥ 5 Mbps (`--bitrate 6M` 또는 `--crf 18`) + subtitle_track 은 burn-in 인 경우 verifier 기준 조정 필요.
+6. **목업·빈 파일 금지** (CLAUDE.md 금기 #10) — 세션 #33 처럼 fallback empty subtitle 같은 우회 지양, 근본 원인 해결 우선.
+
+---
+
+## 📂 세션 #33 산출물 전수
+
+### ✅ Phase 16 GSD 산출 (committed 39 commits)
+- `.planning/ROADMAP.md` (Phase 16 [x] completed)
+- `.planning/STATE.md` (Phase 16 Roadmap Evolution 항목)
+- `.planning/REQUIREMENTS.md` (REQ-PROD-INT-01~14 추가)
+- `.planning/phases/16-production-integration-option-a/`:
+  - `16-CONTEXT.md` (280줄+)
+  - `16-RESEARCH.md` (1259줄)
+  - `16-VALIDATION.md` (32 task map)
+  - `16-VERIFICATION.md` (PASSED, 5/5 SC)
+  - `16-01-PLAN.md` + `16-01-SUMMARY.md` (115줄)
+  - `16-02-PLAN.md` + `16-02-SUMMARY.md` (262줄)
+  - `16-03-PLAN.md` + `16-03-SUMMARY.md`
+  - `16-04-PLAN.md` + `16-04-SUMMARY.md` (273줄, phase_final=true)
+  - `schemas/visual-spec.v1.schema.json` + `scene-manifest.v4.schema.json`
+- `remotion/` TypeScript 프로젝트 (Remotion 4.0.451, ShortsVideo + OutroCard + 7 transitions)
+- `scripts/orchestrator/api/remotion_renderer.py` (911줄)
+- `scripts/orchestrator/api/visual_spec_builder.py`
+- `scripts/orchestrator/api/subtitle_producer.py` + `scripts/orchestrator/subtitle/word_subtitle.py` (1705줄 port, ⚠️ 빈 출력 버그)
+- `scripts/validate/verify_baseline_parity.py` + `verify_visual_spec_schema.py`
+- `.claude/agents/producers/subtitle-producer/AGENT.md` (신규 Producer #15)
+- 19 신규 메모리 + 12 feedback (Phase 16-01)
+
+### 🎬 Ryan Waller 제작 artifacts (uncommitted — 세션 #34 첫 commit 대상)
+```
+output/ryan-waller/
+├── final.mp4                 (68.8 MB — v1 실패작, 교훈 자료로 보관)
+├── narration.mp3             (116.04s, SSML 오염)
+├── narration_timing.json
+├── script.json               (19 sentences, 왓슨 CTA 누락)
+├── visual_spec.json
+├── sources_manifest.json
+├── blueprint.json
+├── subtitles_remotion.{ass,json,srt}
+└── sources/ (9 파일 — 6 broll + signature + 2 char)
+
+outputs/nlm_queries/
+├── crime_top_pitch_20260422_231341.md (TOP 5 pitch)
+└── ryan_waller_facts_20260422_233250.md (상세 facts)
+
+outputs/typecast/ryan-waller/ (19 per-scene mp3)
+outputs/gpt_image2/ryan-waller/ (6 original PNGs)
+
+scripts/experiments/
+├── nlm_crime_top_pitch.py
+├── nlm_ryan_waller_facts.py
+├── generate_ryan_waller_tts.py
+├── generate_ryan_waller_subtitles.py
+├── generate_ryan_waller_subtitles_fallback.py
+├── generate_ryan_waller_images.py
+└── build_ryan_waller_visual_spec.py
+```
+
+### 🔴 박제된 메모리 (세션 #33)
+- `feedback_notebooklm_paste_only.md` (🔴 NLM paste 전용, 대표님 직접 피드백)
+- `feedback_detective_exit_cta.md` (탐정 pool 10 완성 + rotation 강제 원칙)
+
+### ⏳ 세션 #34 박제 대기 (5 실패 교훈)
+- `feedback_typecast_ssml_literal_read.md`
+- `feedback_harvest_missing_korean_welsh_corgi.md`
+- `feedback_kling_i2v_required_not_ken_burns.md`
+- `feedback_duo_cta_both_required.md`
+- `feedback_narration_text_only_no_meta.md`
+
+---
+
+## 📊 세션 #33 통계
+
+- 총 세션 소요: ~7 시간 (핸드오프 포함)
+- Commits: 39 (Phase 16) + 이번 세션 handoff commit 예정
+- 총 라인 변경: +5136 (Phase 16 산출) + Ryan Waller artifacts ~3000줄
+- NLM 쿼리: 2회 (TOP 5 + Ryan 상세)
+- Typecast TTS: 19 scenes
+- gpt-image-2: 6 images (~$0.20)
+- Remotion render: 1회 성공 (68.8 MB, 116s)
+- Test suite: Phase 16 전수 green (279 tests)
+- 대표님 피드백 박제: 2건 (paste-only + CTA rotation)
+
+---
+
+
 
 ---
 
