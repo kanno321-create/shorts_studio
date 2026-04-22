@@ -92,3 +92,10 @@ logs/*.json
 
 # Phase 13 runtime — scheduled task lock (session-scope, regenerated per session)
 .claude/scheduled_tasks.lock
+
+# Phase 16-02 — Remotion workspace (TypeScript deps + render output)
+remotion/node_modules/
+remotion/out/
+remotion/public/*
+!remotion/public/bgm/
+output/*/remotion_props.json
