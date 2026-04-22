@@ -20,7 +20,7 @@
         "required": ["index", "section_type", "duration_s", "source"],
         "properties": {
           "index": {"type": "integer", "minimum": 0},
-          "section_type": {"type": "string", "enum": ["intro", "hook", "body", "outro"]},
+          "section_type": {"type": "string", "enum": ["intro", "hook", "body", "outro", "cta"]},
           "narration_sentence": {"type": "string"},
           "duration_s": {"type": "number", "minimum": 0.1},
           "source": {
@@ -31,7 +31,8 @@
               "local_path": {"type": "string"},
               "provider": {
                 "type": "string",
-                "enum": ["veo_reuse", "serper", "gpt_image2", "kling", "runway", "nano_banana", "remotion_card"]
+                "minLength": 1,
+                "description": "조달 provider 이름. 운영 풀: veo_reuse/serper/gpt_image2/kling/runway/nano_banana/remotion_card/wikipedia/wikimedia/google_image 등. baseline 데이터와 일치하도록 open-string (Phase 17+ 에서 enum 축소 재검토)."
               },
               "description": {"type": "string"}
             }
