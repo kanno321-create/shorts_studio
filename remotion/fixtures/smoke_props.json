@@ -1,0 +1,138 @@
+{
+  "titleLine1": "50년 미제",
+  "titleLine2": "암호 살인마",
+  "titleKeywords": [
+    {
+      "text": "미제",
+      "color": "#FF2200"
+    },
+    {
+      "text": "살인마",
+      "color": "#FF2200"
+    }
+  ],
+  "accentColor": "#FF2200",
+  "channelName": "사건기록부",
+  "hashtags": "#쇼츠 #범죄 #조디악킬러 #미해결사건",
+  "fontFamily": "BlackHanSans",
+  "characterLeftSrc": "zodiac-killer/character_assistant.png",
+  "characterRightSrc": "zodiac-killer/character_detective.png",
+  "subtitlePosition": 0.8,
+  "subtitleHighlightColor": "#FFFFFF",
+  "subtitleFontSize": 68,
+  "audioSrc": "zodiac-killer/narration.mp3",
+  "durationInFrames": 3385,
+  "transitionType": "fade",
+  "clips": [
+    {
+      "type": "video",
+      "src": "zodiac-killer/intro_signature.mp4",
+      "durationInFrames": 99,
+      "transition": "fade"
+    },
+    {
+      "type": "image",
+      "src": "zodiac-killer/z340_cipher_original.jpg",
+      "durationInFrames": 132,
+      "transition": "fade",
+      "movement": "pan_right"
+    },
+    {
+      "type": "image",
+      "src": "zodiac-killer/zodiac_cipher_letter.jpg",
+      "durationInFrames": 165,
+      "transition": "fade",
+      "movement": "zoom_out"
+    },
+    {
+      "type": "image",
+      "src": "zodiac-killer/zodiac_wanted_poster.jpg",
+      "durationInFrames": 232,
+      "transition": "fade",
+      "movement": "pan_left"
+    },
+    {
+      "type": "image",
+      "src": "zodiac-killer/z340_cipher_news.jpg",
+      "durationInFrames": 298,
+      "transition": "fade",
+      "movement": "zoom_in"
+    },
+    {
+      "type": "image",
+      "src": "zodiac-killer/lake_berryessa_car_door.jpg",
+      "durationInFrames": 232,
+      "transition": "fade",
+      "movement": "pan_right"
+    },
+    {
+      "type": "image",
+      "src": "zodiac-killer/lake_berryessa_door_full.jpg",
+      "durationInFrames": 132,
+      "transition": "fade",
+      "movement": "zoom_out"
+    },
+    {
+      "type": "image",
+      "src": "zodiac-killer/paul_stine_crime_scene.jpg",
+      "durationInFrames": 265,
+      "transition": "fade",
+      "movement": "pan_left"
+    },
+    {
+      "type": "image",
+      "src": "zodiac-killer/zodiac_stine_shirt_letter.jpg",
+      "durationInFrames": 132,
+      "transition": "fade",
+      "movement": "zoom_in"
+    },
+    {
+      "type": "image",
+      "src": "zodiac-killer/arthur_leigh_allen.jpg",
+      "durationInFrames": 331,
+      "transition": "fade",
+      "movement": "pan_right"
+    },
+    {
+      "type": "image",
+      "src": "zodiac-killer/z340_decoded_popsci.jpg",
+      "durationInFrames": 165,
+      "transition": "fade",
+      "movement": "zoom_out"
+    },
+    {
+      "type": "image",
+      "src": "zodiac-killer/z340_cipher_original.jpg",
+      "durationInFrames": 165,
+      "transition": "fade",
+      "movement": "pan_left"
+    },
+    {
+      "type": "image",
+      "src": "zodiac-killer/paul_stine_scene.jpg",
+      "durationInFrames": 132,
+      "transition": "fade",
+      "movement": "zoom_in"
+    },
+    {
+      "type": "image",
+      "src": "zodiac-killer/z13_cipher.jpg",
+      "durationInFrames": 398,
+      "transition": "fade",
+      "movement": "pan_right"
+    },
+    {
+      "type": "image",
+      "src": "zodiac-killer/zodiac_cipher_letter.jpg",
+      "durationInFrames": 398,
+      "transition": "fade",
+      "movement": "zoom_out"
+    },
+    {
+      "type": "video",
+      "src": "zodiac-killer/outro_signature.mp4",
+      "durationInFrames": 99,
+      "transition": "fade"
+    }
+  ]
+}
