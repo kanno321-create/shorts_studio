@@ -1,0 +1,114 @@
+{
+  "ours": {
+    "path": "C:\\Users\\PC\\Desktop\\shorts_naberal\\output\\zodiac-killer\\final.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration_s": 112.874667,
+    "codec": "h264",
+    "fps": 30.0,
+    "bitrate_kbps": 5626,
+    "file_size_mb": 75.7,
+    "subtitle_tracks": 0,
+    "audio_channels": 2,
+    "audio_sample_rate": 48000
+  },
+  "baselines": [
+    {
+      "path": "C:\\Users\\PC\\Desktop\\shorts_naberal\\output\\zodiac-killer\\final.mp4",
+      "width": 1080,
+      "height": 1920,
+      "duration_s": 112.874667,
+      "codec": "h264",
+      "fps": 30.0,
+      "bitrate_kbps": 5626,
+      "file_size_mb": 75.7,
+      "subtitle_tracks": 0,
+      "audio_channels": 2,
+      "audio_sample_rate": 48000
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\shorts_naberal\\output\\mary-celeste\\final.mp4",
+      "width": 1080,
+      "height": 1920,
+      "duration_s": 81.450667,
+      "codec": "h264",
+      "fps": 30.0,
+      "bitrate_kbps": 5185,
+      "file_size_mb": 50.35,
+      "subtitle_tracks": 0,
+      "audio_channels": 2,
+      "audio_sample_rate": 48000
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\shorts_naberal\\output\\db-cooper\\final.mp4",
+      "width": 1080,
+      "height": 1920,
+      "duration_s": 73.557333,
+      "codec": "h264",
+      "fps": 30.0,
+      "bitrate_kbps": 4702,
+      "file_size_mb": 41.24,
+      "subtitle_tracks": 0,
+      "audio_channels": 2,
+      "audio_sample_rate": 48000
+    }
+  ],
+  "criteria": {
+    "resolution": {
+      "value": "1080x1920",
+      "target": "1080x1920",
+      "pass": true
+    },
+    "duration": {
+      "value": 112.874667,
+      "target_min": 60.0,
+      "target_max": 125.0,
+      "pass": true
+    },
+    "codec": {
+      "value": "h264",
+      "expected_set": [
+        "h264",
+        "hevc"
+      ],
+      "pass": true
+    },
+    "audio_channels": {
+      "value": 2,
+      "expected": 2,
+      "pass": true
+    },
+    "audio_sample_rate": {
+      "value": 48000,
+      "expected_min": 44100,
+      "pass": true
+    },
+    "min_video_bitrate": {
+      "value": 5626,
+      "threshold_kbps": 5000,
+      "pass": true
+    },
+    "subtitle_track_present": {
+      "value": 0,
+      "expected_min": 1,
+      "pass": false
+    },
+    "bitrate_vs_baseline": {
+      "value": 5626,
+      "baseline_avg": 5171.0,
+      "tolerance": 0.1,
+      "pass": true
+    },
+    "fps_vs_baseline": {
+      "value": 30.0,
+      "baseline_avg": 30.0,
+      "pass": true
+    }
+  },
+  "summary": {
+    "all_pass": false,
+    "fail_count": 1,
+    "criterion_count": 9
+  },
+  "episode": "zodiac-killer"
+}

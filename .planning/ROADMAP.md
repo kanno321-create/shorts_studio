@@ -29,7 +29,7 @@
 - [x] **Phase 14: API Adapter Remediation** — phase05/06/07 pre-existing adapter drift 15 failures (veo_i2v + elevenlabs + shotstack) 전수 청산 + adapter contract 재정의 (milestone v1.0.2)
  (completed 2026-04-21)
 - [ ] **Phase 15: System Prompt Compression + User Feedback Loop** — Phase 13 live smoke 2026-04-22 attempt 에서 노출된 `invokers.py` → Claude CLI 경로 rc=1 근본 해소 (SPC-01~06) + 대표님 피드백 loop 인터페이스 (UFL-01~04: `--revision-from` / `--revise-script` / `--pause-after` / rating CLI). 대표님 직접 승인 2026-04-22.
-- [ ] **Phase 16: Production Integration Option A** — 세션 #32 충격 사건 (assembled_1776844680770.mp4 13s/720p/519kbps vs production baseline 60~130s/1080p/5~21Mbps + 자막·인트로/아웃로·캐릭터·자료사진) 해소. 4 Plan (16-01 채널바이블 v1.0 박제 + feedback 메모리 매핑 / 16-02 Remotion 렌더러 + ASSEMBLY 분기 / 16-03 단어단위 자막 + 인트로/아웃로 시그니처 + 탐정·왓슨 오버레이 / 16-04 visual_spec + sources 수집 파이프). Veo=기존 자산 참조만, Kling I2V only 유지. 대표님 직접 승인 2026-04-22.
+- [x] **Phase 16: Production Integration Option A** — 세션 #32 충격 사건 (assembled_1776844680770.mp4 13s/720p/519kbps vs production baseline 60~130s/1080p/5~21Mbps + 자막·인트로/아웃로·캐릭터·자료사진) 해소. 4 Plan (16-01 채널바이블 v1.0 박제 + feedback 메모리 매핑 / 16-02 Remotion 렌더러 + ASSEMBLY 분기 / 16-03 단어단위 자막 + 인트로/아웃로 시그니처 + 탐정·왓슨 오버레이 / 16-04 visual_spec + sources 수집 파이프). Veo=기존 자산 참조만, Kling I2V only 유지. 대표님 직접 승인 2026-04-22. (completed 2026-04-22)
 
 ---
 
@@ -484,8 +484,8 @@ Plans:
 **Plans (4):**
 - [x] 16-01-PLAN.md — 채널바이블 v1.0 박제 (7채널: incidents / wildlife / humor / politics / trend / documentary + 1) + production feedback 12+ 메모리 매핑 (`feedback_script_tone_seupnida`, `feedback_duo_natural_dialogue`, `feedback_subtitle_semantic_grouping`, `feedback_video_clip_priority`, `feedback_outro_signature`, `feedback_series_ending_tiers`, `feedback_detective_exit_cta`, `feedback_watson_cta_pool`, `feedback_dramatization_allowed`, `feedback_info_source_distinction`, `feedback_veo_supplementary_only`, `feedback_number_split_subtitle`) + MEMORY.md 인덱스 갱신 [세션 #32 A1 상응, 코드 수정 없음 — 텍스트 박제만]
 - [x] 16-02-PLAN.md — Remotion 렌더러 신규 모듈 (`scripts/orchestrator/api/remotion_renderer.py` 신규) + `shorts_pipeline.py` ASSEMBLY GATE 분기 (ffmpeg → Remotion 스위치, fallback 유지) + Remotion 컴포지션 11 Cards + 7 transitions 매핑 + 회귀 테스트 (Phase 16 unit ≥ 10) [세션 #32 A2 상응]
-- [ ] 16-03-PLAN.md — 단어단위 자막 (`subtitles_remotion.ass` / `.json` 생성) + 인트로/아웃로 시그니처 재사용 (`output/_shared/signatures/incidents_intro_v4_silent_glare.mp4` 참조·복사) + 탐정(Morgan)·왓슨 캐릭터 오버레이 통합 + `ins-subtitle-alignment` 확장 또는 신규 producer 결정 [세션 #32 A3 상응]
-- [ ] 16-04-PLAN.md — `visual_spec.json` 스키마·생성 로직 + `output/<episode>/sources/` 디렉토리 구조 + 자료사진 수집 파이프 (`asset-sourcer` 확장, whitelist 재정의) + 영상:이미지 ≥ 30% 비율 강제 + baseline 검증 스크립트 [세션 #32 A4 상응]
+- [x] 16-03-PLAN.md — 단어단위 자막 (`subtitles_remotion.ass` / `.json` 생성) + 인트로/아웃로 시그니처 재사용 (`output/_shared/signatures/incidents_intro_v4_silent_glare.mp4` 참조·복사) + 탐정(Morgan)·왓슨 캐릭터 오버레이 통합 + `ins-subtitle-alignment` 확장 또는 신규 producer 결정 [세션 #32 A3 상응]
+- [x] 16-04-PLAN.md — `visual_spec.json` 스키마·생성 로직 + `output/<episode>/sources/` 디렉토리 구조 + 자료사진 수집 파이프 (`asset-sourcer` 확장, whitelist 재정의) + 영상:이미지 ≥ 30% 비율 강제 + baseline 검증 스크립트 [세션 #32 A4 상응]
 
 **Research Questions (4 — Veo 질문 제거, (a) 기존 자산 재사용 확정):**
 1. shorts_naberal Remotion 컴포지션 (11 Cards + 7 transitions) → 우리 GATE/모듈 매핑 어떻게?
