@@ -1,0 +1,72 @@
+{
+  "channel": "incidents_jp",
+  "category": "phenomena",
+  "topic": "ナスカの地上絵",
+  "topic_en": "Nazca Lines Peru",
+  "narration_style": "multi",
+  "language": "ja",
+  "sections": [
+    {
+      "section_type": "hook",
+      "speaker_id": "narrator",
+      "narration": "ペルーの砂漠のど真ん中に、全長数百メートルの絵がある。ハチドリ、クモ、サル。だが、この絵は空からしか見えない。二千年前に描かれたものだ。今日の記録。",
+      "emotion": "normal"
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "ナスカの地上絵。ペルー南部の砂漠に刻まれた巨大な絵だ。最大のものは三百七十メートル。サッカー場四つ分をつなげた大きさになる。",
+      "emotion": "tonedown"
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "assistant",
+      "narration": "ちょっと待ってください。飛行機もなかった時代に、空からしか見えない絵を、なぜ描いたんですか？",
+      "emotion": "toneup"
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "まさにそこだ。この絵を描いたナスカ文明は紀元前二百年から紀元六百年まで存在した。当然、空を飛ぶ手段なんてなかった。",
+      "emotion": "normal"
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "俺が現地の記録を見て驚いたのは、その精密さだ。一本の線だけで描かれていて、始点と終点がつながっている。数学的な設計なしには、不可能な構造だ。",
+      "emotion": "tonedown"
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "仮説は三つある。神に見せるための祭壇、地下水の流れを示した地図、それから天文カレンダー。",
+      "emotion": "normal"
+    },
+    {
+      "section_type": "cta",
+      "speaker_id": "narrator",
+      "narration": "だが、どの仮説も完全には説明できていない。二千年が経った今も、この砂漠は俺たちに答えを返していない。",
+      "emotion": "tonedown"
+    },
+    {
+      "section_type": "cta",
+      "speaker_id": "assistant",
+      "narration": "こういうミステリー、もっと気になりませんか。チャンネル登録、お願いします。",
+      "emotion": "normal"
+    }
+  ],
+  "tags": [
+    "ナスカの地上絵",
+    "古代ミステリー",
+    "ペルー",
+    "UFO",
+    "ショート",
+    "冴木の手帳",
+    "未解決事件",
+    "事件",
+    "ミステリー",
+    "真実",
+    "犯罪ドキュメンタリー",
+    "推理"
+  ]
+}

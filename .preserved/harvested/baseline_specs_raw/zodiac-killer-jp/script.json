@@ -1,0 +1,92 @@
+{
+  "channel": "incidents_jp",
+  "category": "crime",
+  "topic": "ゾディアック事件",
+  "topic_en": "Zodiac Killer",
+  "narration_style": "multi",
+  "language": "ja",
+  "total_chars": 618,
+  "estimated_duration_s": 90,
+  "title": {
+    "line1": "五十一年間 解けなかった暗号",
+    "line2": "犯人の嘲笑",
+    "accent_words": [
+      "暗号",
+      "嘲笑"
+    ],
+    "accent_color": "#DC2626"
+  },
+  "sections": [
+    {
+      "section_type": "hook",
+      "speaker_id": "narrator",
+      "narration": "1969年、カリフォルニア。ひとりの殺人鬼が現れた。名乗ったのは、ゾディアック。5人を殺し、新聞社に暗号を送りつけ、警察を嘲り続けた。今日の記録だ。",
+      "emotion": "normal"
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "最初の犯行は1968年十二月。ベニシアの湖畔の道で、17歳と16歳のカップルが撃たれた。翌年七月にはヴァレーホの駐車場でも若い男女が襲われている。だが犯人はそのあと、自ら警察に電話をかけ、「俺がやった」と告げた。",
+      "emotion": "tonedown"
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "assistant",
+      "narration": "自分から名乗り出た... なぜそんなことをするんですか？",
+      "emotion": "toneup"
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "見せつけたかったんだろう。九月にはさらに手口が変わった。レイク・ベリエッサで大学生のカップルを縛り上げ、ナイフで何度も刺している。犯人は、十字の印が描かれた黒い覆面をかぶっていた。",
+      "emotion": "toneup"
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "十月にはサンフランシスコの街中でタクシー運転手を射殺した。街灯の下、目撃者は3人。顔も見られている... だが、逮捕には至っていない。",
+      "emotion": "normal"
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "ゾディアックは4通の暗号文を新聞社に送った。最初の暗号を解いたのは教師の夫婦だった。そこにはこう書かれていた。「人を殺すのは楽しい。森で獲物を狩るより、ずっと面白い」。",
+      "emotion": "tonedown"
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "assistant",
+      "narration": "51年も解けなかった暗号がありますよね。あれには、何が書かれていたんですか？",
+      "emotion": "toneup"
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "2020年に、3人のアマチュア研究者がようやく解読した。340文字、63種類の記号。51年かけて出た答えは... 「俺を捕まえるの、楽しんでるか」。五十年越しの嘲笑だった。",
+      "emotion": "tonedown"
+    },
+    {
+      "section_type": "cta",
+      "speaker_id": "narrator",
+      "narration": "最有力の容疑者はDNA鑑定で否定されている。2020六年のいま、FBIが新たな人物を検討しているとも報じられた。だが犯人の名前は、いまだに分からない。残る暗号は2通。答えはまだ、その中に眠っているのかもしれない。",
+      "emotion": "tonedown"
+    },
+    {
+      "section_type": "cta",
+      "speaker_id": "assistant",
+      "narration": "まだ解かれていない暗号がある... 気になりませんか。チャンネル登録、お願いします。",
+      "emotion": "normal"
+    }
+  ],
+  "tags": [
+    "ゾディアック",
+    "未解決事件",
+    "冴木の手帳",
+    "ショート",
+    "ミステリー",
+    "連続殺人",
+    "暗号",
+    "FBI",
+    "犯罪ドキュメンタリー"
+  ]
+}

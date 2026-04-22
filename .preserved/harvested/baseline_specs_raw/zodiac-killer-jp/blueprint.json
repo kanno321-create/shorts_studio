@@ -1,0 +1,12 @@
+{
+  "channel": "incidents_jp",
+  "category": "crime",
+  "topic": "ゾディアック事件",
+  "topic_en": "Zodiac Killer",
+  "title_display": {
+    "line1": "五十一年間 解けなかった暗号",
+    "line2": "犯人の嘲笑",
+    "accent_words": ["暗号", "嘲笑"],
+    "accent_color": "#DC2626"
+  }
+}

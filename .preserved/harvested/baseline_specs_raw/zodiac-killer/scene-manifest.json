@@ -1,0 +1,198 @@
+{
+  "version": "v4",
+  "channel": "incidents",
+  "category": "crime",
+  "topic": "조디악 킬러",
+  "total_clips": 15,
+  "clips": [
+    {
+      "index": 0,
+      "section_type": "intro",
+      "narration_sentence": "[인트로 시그니처]",
+      "duration_s": 3,
+      "source": {
+        "type": "signature",
+        "local_path": "sources/intro_signature.mp4",
+        "provider": "veo_reuse"
+      }
+    },
+    {
+      "index": 1,
+      "section_type": "hook",
+      "narration_sentence": "이 편지에는 63개의 기호로 된 암호가 있었습니다.",
+      "duration_s": 4,
+      "source": {
+        "type": "image",
+        "local_path": "sources/z340_cipher_original.jpg",
+        "provider": "serper",
+        "description": "Z340 암호문 원본 — 63개 기호로 된 실제 암호문"
+      }
+    },
+    {
+      "index": 2,
+      "section_type": "hook",
+      "narration_sentence": "51년 만에 풀렸을 때, 메시지는 조롱이었습니다. 오늘의 기록.",
+      "duration_s": 5,
+      "source": {
+        "type": "image",
+        "local_path": "sources/zodiac_cipher_letter.jpg",
+        "provider": "serper",
+        "description": "조디악이 신문사에 보낸 자필 편지 원본"
+      }
+    },
+    {
+      "index": 3,
+      "section_type": "body",
+      "narration_sentence": "1968년 12월, 캘리포니아 베니샤의 호숫가에 주차된 차 안에서 10대 커플이 총에 맞아 사망했습니다.",
+      "duration_s": 7,
+      "source": {
+        "type": "image",
+        "local_path": "sources/zodiac_wanted_poster.jpg",
+        "provider": "serper",
+        "description": "조디악 킬러 경찰 몽타주 수배 전단 — 1960년대 수사 시작"
+      }
+    },
+    {
+      "index": 4,
+      "section_type": "body",
+      "narration_sentence": "1969년 7월에는 밸레이오에서 또 다른 커플이 총격당했고, 범인은 직접 경찰에 전화하여 자백합니다. 그리고 신문사에 암호문을 보냈습니다.",
+      "duration_s": 9,
+      "source": {
+        "type": "image",
+        "local_path": "sources/z340_cipher_news.jpg",
+        "provider": "serper",
+        "description": "Z340 암호문 관련 뉴스 보도 화면 — 신문사에 보낸 암호문"
+      }
+    },
+    {
+      "index": 5,
+      "section_type": "body",
+      "narration_sentence": "1969년 9월, 레이크 베리에사에서 검은 두건에 십자원 마크가 새겨진 남자가 소풍 중인 커플을 결박하고 칼로 찔렀습니다.",
+      "duration_s": 7,
+      "source": {
+        "type": "image",
+        "local_path": "sources/lake_berryessa_car_door.jpg",
+        "provider": "serper",
+        "description": "Lake Berryessa 차 문짝에 새겨진 십자원 마크와 날짜"
+      }
+    },
+    {
+      "index": 6,
+      "section_type": "body",
+      "narration_sentence": "차 문짝에 날짜와 기호를 새기고 사라졌습니다.",
+      "duration_s": 4,
+      "source": {
+        "type": "image",
+        "local_path": "sources/lake_berryessa_door_full.jpg",
+        "provider": "serper",
+        "description": "Lake Berryessa 차 문짝 전체 — 날짜와 십자원 기호가 새겨진 전경"
+      }
+    },
+    {
+      "index": 7,
+      "section_type": "body",
+      "narration_sentence": "1969년 10월에는 샌프란시스코 도심에서 택시 운전사 폴 스타인을 사살하고, 피 묻은 셔츠 조각을 신문사에 보냅니다.",
+      "duration_s": 8,
+      "source": {
+        "type": "image",
+        "local_path": "sources/paul_stine_crime_scene.jpg",
+        "provider": "serper",
+        "description": "택시 운전사 폴 스타인 사건 현장 사진"
+      }
+    },
+    {
+      "index": 8,
+      "section_type": "body",
+      "narration_sentence": "51년째 미해결이라고요? FBI까지 수사했는데요?",
+      "duration_s": 4,
+      "source": {
+        "type": "image",
+        "local_path": "sources/zodiac_stine_shirt_letter.jpg",
+        "provider": "serper",
+        "description": "조디악이 폴 스타인의 피 묻은 셔츠 조각과 함께 보낸 편지"
+      }
+    },
+    {
+      "index": 9,
+      "section_type": "body",
+      "narration_sentence": "4개 도시 경찰이 따로 수사하며 정보 공유가 되지 않았습니다. 20년간 최유력 용의자였던 아서 리 앨런마저 DNA와 필적 불일치로 배제되었습니다.",
+      "duration_s": 10,
+      "source": {
+        "type": "image",
+        "local_path": "sources/arthur_leigh_allen.jpg",
+        "provider": "serper",
+        "description": "최유력 용의자 아서 리 앨런 실제 사진"
+      }
+    },
+    {
+      "index": 10,
+      "section_type": "body",
+      "narration_sentence": "그런데 2020년 12월, 아마추어 3인 팀이 Z340 암호를 해독합니다.",
+      "duration_s": 5,
+      "source": {
+        "type": "image",
+        "local_path": "sources/z340_decoded_popsci.jpg",
+        "provider": "serper",
+        "description": "Z340 암호 해독 성공 기사 — 2020년 아마추어 팀의 해독 과정"
+      }
+    },
+    {
+      "index": 11,
+      "section_type": "body",
+      "narration_sentence": "해독된 메시지는 이것이었습니다. 나를 잡으려고 재미있게 놀고 있길 바란다.",
+      "duration_s": 5,
+      "source": {
+        "type": "image",
+        "local_path": "sources/z13_cipher_hq.jpg",
+        "provider": "serper",
+        "description": "Z13 암호문 고해상도 — 미해독 13글자 암호"
+      }
+    },
+    {
+      "index": 12,
+      "section_type": "body",
+      "narration_sentence": "잠깐요, 그런데 매번 다른 무기를 사용한 건 왜입니까?",
+      "duration_s": 4,
+      "source": {
+        "type": "image",
+        "local_path": "sources/paul_stine_scene.jpg",
+        "provider": "serper",
+        "description": "폴 스타인 택시 사건 현장 2 — 매번 다른 수법의 범행"
+      }
+    },
+    {
+      "index": 13,
+      "section_type": "body",
+      "narration_sentence": "수사를 교란하기 위해서입니다. 총, 칼, 매번 바꿨고, 장소도 다른 도시를 골랐습니다. Z13이라는 13글자 암호에 자신의 이름을 적었다고 주장했지만, 13글자로는 해독이 불가능합니다.",
+      "duration_s": 24,
+      "source": {
+        "type": "image",
+        "local_path": "sources/z13_cipher.jpg",
+        "provider": "serper",
+        "description": "Z13 암호문 실제 이미지 — 13글자 암호에 자신의 이름을 넣었다고 주장"
+      }
+    },
+    {
+      "index": 14,
+      "section_type": "outro",
+      "narration_sentence": "[아웃트로 시그니처]",
+      "duration_s": 3,
+      "source": {
+        "type": "signature",
+        "local_path": "sources/outro_signature.mp4",
+        "provider": "veo_reuse"
+      }
+    }
+  ],
+  "source_stats": {
+    "total": 16,
+    "real_image": 13,
+    "signature": 2,
+    "unique_sources": 14,
+    "real_ratio": 0.81,
+    "reused_sources": [
+      "z340_cipher_original.jpg (index 1, 11)",
+      "zodiac_cipher_letter.jpg (index 2, 14)"
+    ]
+  }
+}

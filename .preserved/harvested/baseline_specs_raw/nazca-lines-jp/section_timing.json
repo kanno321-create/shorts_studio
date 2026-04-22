@@ -1,0 +1,53 @@
+{
+  "silence_ms": 150,
+  "sections": [
+    {
+      "index": 0,
+      "start_ms": 0,
+      "end_ms": 14080,
+      "duration_ms": 14080
+    },
+    {
+      "index": 1,
+      "start_ms": 14230,
+      "end_ms": 25672,
+      "duration_ms": 11442
+    },
+    {
+      "index": 2,
+      "start_ms": 25822,
+      "end_ms": 32901,
+      "duration_ms": 7079
+    },
+    {
+      "index": 3,
+      "start_ms": 33051,
+      "end_ms": 43422,
+      "duration_ms": 10371
+    },
+    {
+      "index": 4,
+      "start_ms": 43572,
+      "end_ms": 55667,
+      "duration_ms": 12095
+    },
+    {
+      "index": 5,
+      "start_ms": 55817,
+      "end_ms": 64881,
+      "duration_ms": 9064
+    },
+    {
+      "index": 6,
+      "start_ms": 65031,
+      "end_ms": 73625,
+      "duration_ms": 8594
+    },
+    {
+      "index": 7,
+      "start_ms": 73775,
+      "end_ms": 79496,
+      "duration_ms": 5721
+    }
+  ]
+}

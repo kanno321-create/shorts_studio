@@ -1,0 +1,39 @@
+{
+  "topic": "로아노크 식민지 (Lost Colony of Roanoke)",
+  "channel": "incidents",
+  "category": "mystery",
+  "pipeline_type": "shorts",
+  "steps": {
+    "research": {
+      "status": "completed",
+      "completed_at": "2026-04-14T18:30:00Z",
+      "output": "source.md",
+      "sources_count": 22
+    },
+    "design": {
+      "status": "completed",
+      "completed_at": "2026-04-14T14:00:00Z",
+      "output": "visual_spec.json"
+    },
+    "sourcing": {
+      "status": "completed",
+      "completed_at": "2026-04-14T21:44:00Z",
+      "output": "scene-manifest.json",
+      "sources_count": 16,
+      "unique_sources": 16,
+      "veo_count": 2,
+      "real_image_count": 10,
+      "signature_count": 2,
+      "pexels_count": 0,
+      "stock_ratio": 0.0,
+      "all_unique": true
+    },
+    "upload": {
+      "status": "completed",
+      "video_id": "u5vNIzRVHOU",
+      "upload_time": "2026-04-14T13:45:19.727850+00:00",
+      "privacy_status": "private",
+      "youtube_url": "https://youtu.be/u5vNIzRVHOU"
+    }
+  }
+}

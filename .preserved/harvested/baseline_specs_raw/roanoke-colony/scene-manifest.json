@@ -1,0 +1,273 @@
+{
+  "version": "v5",
+  "channel": "incidents",
+  "category": "mystery",
+  "topic": "로아노크 식민지",
+  "topic_en": "Lost Colony of Roanoke",
+  "total_clips": 16,
+  "clips": [
+    {
+      "index": 0,
+      "section_index": 0,
+      "section_type": "hook",
+      "speaker_id": "narrator",
+      "narration_sentence": "[인트로 시그니처]",
+      "duration_s": 3,
+      "source": {
+        "type": "signature",
+        "local_path": "sources/intro_signature.mp4",
+        "provider": "veo_reuse",
+        "volume": 0,
+        "description": "인트로 시그니처 - 탐정 실루엣"
+      }
+    },
+    {
+      "index": 1,
+      "section_index": 0,
+      "section_type": "hook",
+      "speaker_id": "narrator",
+      "narration_sentence": "1587년, 117명의 영국인이 아메리카에 정착했습니다.",
+      "duration_s": 4,
+      "source": {
+        "type": "image",
+        "local_path": "sources/fort_raleigh.jpg",
+        "provider": "google_image",
+        "description": "Fort Raleigh National Historic Site - 로아노크 식민지가 세워졌던 실제 유적지"
+      }
+    },
+    {
+      "index": 2,
+      "section_index": 0,
+      "section_type": "hook",
+      "speaker_id": "narrator",
+      "narration_sentence": "3년 뒤 돌아왔을 때, 시체도 없고 전투 흔적도 없었습니다. 나무 기둥에 단어 하나만 남아 있었습니다... 오늘의 기록.",
+      "duration_s": 8,
+      "source": {
+        "type": "image",
+        "local_path": "sources/croatoan_carving.jpg",
+        "provider": "wikimedia",
+        "description": "CROATOAN 각인 발견 장면 19세기 판화 - 영국인들이 나무 기둥의 글자를 확인하는 모습"
+      }
+    },
+    {
+      "index": 3,
+      "section_index": 1,
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration_sentence": "총독 존 화이트가 117명을 이끌고 로아노크 섬에 식민지를 세웠습니다.",
+      "duration_s": 5,
+      "source": {
+        "type": "image",
+        "local_path": "sources/john_white_watercolor.jpg",
+        "provider": "wikimedia",
+        "description": "존 화이트가 1585년 1차 원정 시 그린 아메리카 원주민 수채화 (공개 도메인)"
+      }
+    },
+    {
+      "index": 4,
+      "section_index": 1,
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration_sentence": "8월에는 외손녀 버지니아 데어가 태어났습니다. 아메리카 최초의 영국계 아기였습니다.",
+      "duration_s": 5,
+      "source": {
+        "type": "image",
+        "local_path": "sources/virginia_dare_statue.jpg",
+        "provider": "google_image",
+        "description": "버지니아 데어 기념상 - Elizabethan Gardens, 로아노크 섬"
+      }
+    },
+    {
+      "index": 5,
+      "section_index": 1,
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration_sentence": "그런데 보급품이 바닥났고, 화이트는 3개월 안에 돌아오겠다며 영국으로 떠납니다. 위험하면 십자 표시를 남기라고 약속했습니다.",
+      "duration_s": 7,
+      "source": {
+        "type": "image",
+        "local_path": "sources/white_return_1590.jpg",
+        "provider": "wikimedia",
+        "description": "존 화이트의 귀환 판화 - The Lost Colony 역사 삽화"
+      }
+    },
+    {
+      "index": 6,
+      "section_index": 1,
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration_sentence": "하지만 스페인 무적함대가 영국을 침공하면서 모든 선박의 출항이 금지됩니다. 3개월이 3년이 되었습니다.",
+      "duration_s": 7,
+      "source": {
+        "type": "image",
+        "local_path": "sources/spanish_armada.jpg",
+        "provider": "wikimedia",
+        "description": "1588년 스페인 무적함대 vs 영국 함대 해전 유화 (공개 도메인)"
+      }
+    },
+    {
+      "index": 7,
+      "section_index": 2,
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration_sentence": "1590년 8월, 화이트가 마침내 도착했을 때 식민지는 텅 비어 있었습니다. 울타리 기둥에 CROATOAN이라는 글자만 남아 있었고, 약속한 위험 신호인 십자 표시는 없었습니다.",
+      "duration_s": 12,
+      "source": {
+        "type": "video",
+        "local_path": "sources/veo_empty_colony_croatoan.mp4",
+        "provider": "veo",
+        "volume": 0,
+        "description": "Veo 3.1 Lite - 안개 낀 빈 16세기 식민지 마을, CROATOAN 각인 클로즈업",
+        "veo_prompt": "Slow aerial tracking shot descending through dense morning fog revealing a deserted 16th-century English colonial village on a wooded island. Rough wooden palisade walls surround empty thatched-roof cottages. No people, no animals, complete silence. Camera slowly pushes toward a wooden gate post where the word CROATOAN is deeply carved in crude capital letters. Late afternoon golden light filtering through mist. Cinematic, desaturated earthy tones, documentary reconstruction style. No faces, no modern elements."
+      }
+    },
+    {
+      "index": 8,
+      "section_index": 3,
+      "section_type": "body",
+      "speaker_id": "assistant",
+      "narration_sentence": "그런데 437년이 지나서 단서가 나왔습니다. 제가 최근 연구 자료를 조사했는데요. 나무 연륜 분석 결과, 1587년은 800년간 최악의 가뭄이었습니다.",
+      "duration_s": 10,
+      "source": {
+        "type": "image",
+        "local_path": "sources/tree_rings_drought.jpg",
+        "provider": "google_image",
+        "description": "나무 연륜(수목 연대학) 단면 사진 - 800년 최악 가뭄의 과학적 증거"
+      }
+    },
+    {
+      "index": 9,
+      "section_index": 4,
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration_sentence": "중요한 발견입니다. 그리고 존 화이트의 지도를 빛에 비추자 숨겨진 요새 기호가 드러났습니다. 로아노크에서 내륙 100마일 지점이었습니다.",
+      "duration_s": 9,
+      "source": {
+        "type": "image",
+        "local_path": "sources/hinde_map_secret.jpg",
+        "provider": "google_image",
+        "description": "하인드 맵 라이트박스 분석 - 빈 패치 아래 숨겨진 붉은-파란 요새 기호 클로즈업"
+      }
+    },
+    {
+      "index": 10,
+      "section_index": 4,
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration_sentence": "결정적으로, 럼비 부족의 DNA에서 유럽인 Y염색체와 원주민 미토콘드리아가 함께 검출되었습니다.",
+      "duration_s": 7,
+      "source": {
+        "type": "image",
+        "local_path": "sources/hatteras_artifacts.jpg",
+        "provider": "google_image",
+        "description": "해터라스 섬 발굴 유물 - 16세기 유럽 인장 반지 클로즈업. 유럽인-원주민 접촉 증거"
+      }
+    },
+    {
+      "index": 11,
+      "section_index": 5,
+      "section_type": "body",
+      "speaker_id": "assistant",
+      "narration_sentence": "400년 뒤에 후손의 DNA에서 답이 나온 겁니까. 그러면 117명은 사라진 게 아니라...",
+      "duration_s": 6,
+      "source": {
+        "type": "image",
+        "local_path": "sources/hatteras_excavation.jpg",
+        "provider": "google_image",
+        "description": "해터라스 섬 고고학 발굴 현장 - 도자기 파편, 동전, 도장 등 유물 4분할 사진"
+      }
+    },
+    {
+      "index": 12,
+      "section_index": 6,
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration_sentence": "그렇습니다. 극심한 가뭄 속에서 원주민과 합류하여 최소 세 곳으로 흩어진 것입니다. CROATOAN은 위험 신호가 아니라 행선지를 알리는 메시지였습니다.",
+      "duration_s": 10,
+      "source": {
+        "type": "image",
+        "local_path": "sources/roanoke_map_routes.jpg",
+        "provider": "google_image",
+        "description": "존 화이트 지도(하인드 맵) 전체 + 비밀 요새 기호 인셋 - 3곳 이동 경로 표시"
+      }
+    },
+    {
+      "index": 13,
+      "section_index": 7,
+      "section_type": "cta",
+      "speaker_id": "narrator",
+      "narration_sentence": "화이트는 폭풍 때문에 크로아토안 섬에 가지 못했습니다. 식민지민들은 답을 남겼는데 아무도 읽으러 오지 않았습니다.",
+      "duration_s": 8,
+      "source": {
+        "type": "video",
+        "local_path": "sources/veo_sailing_ship_departure.mp4",
+        "provider": "veo",
+        "volume": 0,
+        "description": "Veo 3.1 Lite - 16세기 범선이 항구를 떠나는 장면. 화이트의 비극적 이별",
+        "veo_prompt": "Wide establishing shot of a 16th-century English wooden sailing ship slowly departing from a rocky harbor at dawn. Dramatic clouds overhead, warm golden sunrise light. The ship has worn sails catching the wind. Camera slowly dollies backward as the ship grows smaller against the vast Atlantic ocean horizon. Period-accurate vessel, no modern elements. Cinematic color grading, muted warm tones, historical documentary style. No faces visible, ship viewed from distance."
+      }
+    },
+    {
+      "index": 14,
+      "section_index": 7,
+      "section_type": "cta",
+      "speaker_id": "narrator",
+      "narration_sentence": "아메리카 최초의 영국계 아기 버지니아 데어는 어디서 어떻게 자랐을까요.",
+      "duration_s": 5,
+      "source": {
+        "type": "image",
+        "local_path": "sources/hinde_map_full.jpg",
+        "provider": "wikimedia",
+        "description": "하인드 맵 전체 (Virginea Pars) - 버지니아 데어가 자랐을 미지의 대륙 지도"
+      }
+    },
+    {
+      "index": 15,
+      "section_index": 7,
+      "section_type": "cta",
+      "narration_sentence": "[아웃트로 시그니처]",
+      "speaker_id": "narrator",
+      "duration_s": 3,
+      "source": {
+        "type": "signature",
+        "local_path": "sources/outro_signature.mp4",
+        "provider": "veo_reuse",
+        "volume": 0,
+        "description": "아웃트로 시그니처 - 탐정이 뒤돌아서 걸어가는 장면"
+      }
+    }
+  ],
+  "character_assets": {
+    "detective": {
+      "local_path": "sources/character_detective.png",
+      "speaker_id": "narrator",
+      "description": "탐정 캐릭터 일러스트 (Morgan)"
+    },
+    "assistant": {
+      "local_path": "sources/character_assistant.png",
+      "speaker_id": "assistant",
+      "description": "조수 캐릭터 일러스트 (Guri)"
+    }
+  },
+  "source_stats": {
+    "total": 16,
+    "real_image": 10,
+    "veo_generated": 2,
+    "signature_reuse": 2,
+    "character_assets": 2,
+    "unique_sources": 16,
+    "pexels_count": 0,
+    "stock_ratio": 0.0,
+    "real_ratio": 0.83,
+    "all_unique": true,
+    "reuse_details": {}
+  },
+  "quality_notes": {
+    "unique_enforcement": "16개 클립 모두 서로 다른 소스 사용. 반복 0건",
+    "veo_volume_zero": "모든 Veo/signature 영상에 volume=0 설정 (나레이션 덮음 방지)",
+    "pexels_ban": "Pexels 0건 (완전 금지 준수)",
+    "content_matching": "각 문장별로 나레이션 내용에 맞는 개별 이미지/영상 매칭",
+    "resolution_check": "모든 이미지 400px 이상 확인 완료",
+    "veo_model": "veo-3.1-lite-generate-preview (비용 최적)"
+  }
+}

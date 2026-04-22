@@ -1,0 +1,12 @@
+{
+  "channel": "incidents_jp",
+  "category": "mystery",
+  "topic": "ロアノーク植民地",
+  "topic_en": "Lost Colony of Roanoke",
+  "title_display": {
+    "line1": "百十七人が一夜で消えた",
+    "line2": "残された一語",
+    "accent_words": ["消えた", "一語"],
+    "accent_color": "#FFD000"
+  }
+}

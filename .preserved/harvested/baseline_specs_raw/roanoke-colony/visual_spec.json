@@ -1,0 +1,2040 @@
+{
+  "titleLine1": "미국 최초",
+  "titleLine2": "117명 실종",
+  "titleKeywords": [
+    {
+      "text": "최초",
+      "color": "#FFD000"
+    },
+    {
+      "text": "실종",
+      "color": "#FFD000"
+    }
+  ],
+  "accentColor": "#FFD000",
+  "channelName": "사건기록부",
+  "hashtags": "#쇼츠 #미스터리 #로아노크 #실종",
+  "fontFamily": "BlackHanSans",
+  "characterLeftSrc": "roanoke-colony/character_assistant.png",
+  "characterRightSrc": "roanoke-colony/character_detective.png",
+  "subtitlePosition": 0.8,
+  "subtitleHighlightColor": "#FFFFFF",
+  "subtitleFontSize": 68,
+  "audioSrc": "roanoke-colony/narration.mp3",
+  "durationInFrames": 3624,
+  "transitionType": "fade",
+  "clips": [
+    {
+      "type": "video",
+      "src": "roanoke-colony/intro_signature.mp4",
+      "durationInFrames": 106,
+      "transition": "fade"
+    },
+    {
+      "type": "image",
+      "src": "roanoke-colony/fort_raleigh.jpg",
+      "durationInFrames": 141,
+      "movement": "zoom_out",
+      "transition": "fade"
+    },
+    {
+      "type": "image",
+      "src": "roanoke-colony/croatoan_carving.jpg",
+      "durationInFrames": 282,
+      "movement": "pan_left",
+      "transition": "fade"
+    },
+    {
+      "type": "image",
+      "src": "roanoke-colony/john_white_watercolor.jpg",
+      "durationInFrames": 177,
+      "movement": "pan_right",
+      "transition": "fade"
+    },
+    {
+      "type": "image",
+      "src": "roanoke-colony/virginia_dare_statue.jpg",
+      "durationInFrames": 177,
+      "movement": "zoom_in",
+      "transition": "fade"
+    },
+    {
+      "type": "image",
+      "src": "roanoke-colony/white_return_1590.jpg",
+      "durationInFrames": 247,
+      "movement": "zoom_out",
+      "transition": "fade"
+    },
+    {
+      "type": "image",
+      "src": "roanoke-colony/spanish_armada.jpg",
+      "durationInFrames": 247,
+      "movement": "pan_left",
+      "transition": "fade"
+    },
+    {
+      "type": "video",
+      "src": "roanoke-colony/veo_empty_colony_croatoan.mp4",
+      "durationInFrames": 424,
+      "transition": "fade"
+    },
+    {
+      "type": "image",
+      "src": "roanoke-colony/tree_rings_drought.jpg",
+      "durationInFrames": 353,
+      "movement": "zoom_in",
+      "transition": "fade"
+    },
+    {
+      "type": "image",
+      "src": "roanoke-colony/hinde_map_secret.jpg",
+      "durationInFrames": 318,
+      "movement": "zoom_out",
+      "transition": "fade"
+    },
+    {
+      "type": "image",
+      "src": "roanoke-colony/hatteras_artifacts.jpg",
+      "durationInFrames": 247,
+      "movement": "pan_left",
+      "transition": "fade"
+    },
+    {
+      "type": "image",
+      "src": "roanoke-colony/hatteras_excavation.jpg",
+      "durationInFrames": 212,
+      "movement": "pan_right",
+      "transition": "fade"
+    },
+    {
+      "type": "image",
+      "src": "roanoke-colony/roanoke_map_routes.jpg",
+      "durationInFrames": 353,
+      "movement": "zoom_in",
+      "transition": "fade"
+    },
+    {
+      "type": "video",
+      "src": "roanoke-colony/veo_sailing_ship_departure.mp4",
+      "durationInFrames": 282,
+      "transition": "fade"
+    },
+    {
+      "type": "image",
+      "src": "roanoke-colony/hinde_map_full.jpg",
+      "durationInFrames": 177,
+      "movement": "pan_left",
+      "transition": "fade"
+    },
+    {
+      "type": "video",
+      "src": "roanoke-colony/outro_signature.mp4",
+      "durationInFrames": 106,
+      "transition": "fade"
+    }
+  ],
+  "subtitles": [
+    {
+      "startMs": 0,
+      "endMs": 1200,
+      "words": [
+        "1587년,"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 1200,
+      "endMs": 2480,
+      "words": [
+        "117명의",
+        "영국인이",
+        "아메리카에"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 2480,
+      "endMs": 2900,
+      "words": [
+        "117명의",
+        "영국인이",
+        "아메리카에"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 2900,
+      "endMs": 3480,
+      "words": [
+        "117명의",
+        "영국인이",
+        "아메리카에"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 3480,
+      "endMs": 4059,
+      "words": [
+        "정착했습니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 4680,
+      "endMs": 5120,
+      "words": [
+        "3년",
+        "뒤",
+        "돌아왔을"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 5120,
+      "endMs": 5260,
+      "words": [
+        "3년",
+        "뒤",
+        "돌아왔을"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 5260,
+      "endMs": 5700,
+      "words": [
+        "3년",
+        "뒤",
+        "돌아왔을"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 5700,
+      "endMs": 5900,
+      "words": [
+        "때",
+        "시체도",
+        "없고"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 5900,
+      "endMs": 6780,
+      "words": [
+        "때",
+        "시체도",
+        "없고"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 6780,
+      "endMs": 7040,
+      "words": [
+        "때",
+        "시체도",
+        "없고"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 7040,
+      "endMs": 7640,
+      "words": [
+        "전투",
+        "흔적도",
+        "없었습니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 7640,
+      "endMs": 7960,
+      "words": [
+        "전투",
+        "흔적도",
+        "없었습니다."
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 7960,
+      "endMs": 8320,
+      "words": [
+        "전투",
+        "흔적도",
+        "없었습니다."
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 8960,
+      "endMs": 9380,
+      "words": [
+        "나무",
+        "기둥에",
+        "단어",
+        "하나만"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 9380,
+      "endMs": 9720,
+      "words": [
+        "나무",
+        "기둥에",
+        "단어",
+        "하나만"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 9720,
+      "endMs": 10360,
+      "words": [
+        "나무",
+        "기둥에",
+        "단어",
+        "하나만"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 10360,
+      "endMs": 10720,
+      "words": [
+        "나무",
+        "기둥에",
+        "단어",
+        "하나만"
+      ],
+      "highlightIndex": 3
+    },
+    {
+      "startMs": 10720,
+      "endMs": 10980,
+      "words": [
+        "남아",
+        "있었습니다"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 10980,
+      "endMs": 11240,
+      "words": [
+        "남아",
+        "있었습니다"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 11960,
+      "endMs": 12640,
+      "words": [
+        "오늘의",
+        "기록,",
+        "총독",
+        "존"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 12640,
+      "endMs": 13040,
+      "words": [
+        "오늘의",
+        "기록,",
+        "총독",
+        "존"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 13040,
+      "endMs": 13660,
+      "words": [
+        "오늘의",
+        "기록,",
+        "총독",
+        "존"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 13660,
+      "endMs": 13780,
+      "words": [
+        "오늘의",
+        "기록,",
+        "총독",
+        "존"
+      ],
+      "highlightIndex": 3
+    },
+    {
+      "startMs": 13780,
+      "endMs": 14180,
+      "words": [
+        "화이트가",
+        "117명을"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 14180,
+      "endMs": 15100,
+      "words": [
+        "화이트가",
+        "117명을"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 15100,
+      "endMs": 15500,
+      "words": [
+        "이끌고",
+        "로아노크",
+        "섬에"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 15500,
+      "endMs": 16120,
+      "words": [
+        "이끌고",
+        "로아노크",
+        "섬에"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 16120,
+      "endMs": 16740,
+      "words": [
+        "이끌고",
+        "로아노크",
+        "섬에"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 16740,
+      "endMs": 17240,
+      "words": [
+        "식민지를",
+        "세웠습니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 17240,
+      "endMs": 17780,
+      "words": [
+        "식민지를",
+        "세웠습니다."
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 18660,
+      "endMs": 19180,
+      "words": [
+        "8월에는",
+        "외손녀",
+        "버지니아"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 19180,
+      "endMs": 19780,
+      "words": [
+        "8월에는",
+        "외손녀",
+        "버지니아"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 19780,
+      "endMs": 20840,
+      "words": [
+        "8월에는",
+        "외손녀",
+        "버지니아"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 20840,
+      "endMs": 21100,
+      "words": [
+        "데어가",
+        "태어났습니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 21100,
+      "endMs": 21820,
+      "words": [
+        "데어가",
+        "태어났습니다."
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 21820,
+      "endMs": 22740,
+      "words": [
+        "아메리카",
+        "최초의",
+        "영국계"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 22740,
+      "endMs": 23180,
+      "words": [
+        "아메리카",
+        "최초의",
+        "영국계"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 23180,
+      "endMs": 23540,
+      "words": [
+        "아메리카",
+        "최초의",
+        "영국계"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 23540,
+      "endMs": 23900,
+      "words": [
+        "아기였습니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 23900,
+      "endMs": 24900,
+      "words": [
+        "그런데",
+        "보급품이"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 24900,
+      "endMs": 25960,
+      "words": [
+        "그런데",
+        "보급품이"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 25960,
+      "endMs": 26540,
+      "words": [
+        "바닥났고"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 26540,
+      "endMs": 27520,
+      "words": [
+        "화이트는",
+        "3개월",
+        "안에"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 27520,
+      "endMs": 28100,
+      "words": [
+        "화이트는",
+        "3개월",
+        "안에"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 28100,
+      "endMs": 28240,
+      "words": [
+        "화이트는",
+        "3개월",
+        "안에"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 28240,
+      "endMs": 29020,
+      "words": [
+        "돌아오겠다며"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 29020,
+      "endMs": 29620,
+      "words": [
+        "영국으로",
+        "떠납니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 29620,
+      "endMs": 30300,
+      "words": [
+        "영국으로",
+        "떠납니다."
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 30300,
+      "endMs": 31260,
+      "words": [
+        "위험하면"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 31260,
+      "endMs": 31600,
+      "words": [
+        "십자",
+        "표시를",
+        "남기라고"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 31600,
+      "endMs": 31960,
+      "words": [
+        "십자",
+        "표시를",
+        "남기라고"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 31960,
+      "endMs": 32380,
+      "words": [
+        "십자",
+        "표시를",
+        "남기라고"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 32380,
+      "endMs": 32920,
+      "words": [
+        "약속했습니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 34160,
+      "endMs": 34560,
+      "words": [
+        "하지만",
+        "스페인",
+        "무적함대가"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 34560,
+      "endMs": 34960,
+      "words": [
+        "하지만",
+        "스페인",
+        "무적함대가"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 34960,
+      "endMs": 35360,
+      "words": [
+        "하지만",
+        "스페인",
+        "무적함대가"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 35360,
+      "endMs": 35780,
+      "words": [
+        "영국을",
+        "침공하면서"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 35780,
+      "endMs": 36260,
+      "words": [
+        "영국을",
+        "침공하면서"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 36260,
+      "endMs": 37280,
+      "words": [
+        "모든",
+        "선박의",
+        "출항이"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 37280,
+      "endMs": 37720,
+      "words": [
+        "모든",
+        "선박의",
+        "출항이"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 37720,
+      "endMs": 38060,
+      "words": [
+        "모든",
+        "선박의",
+        "출항이"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 38060,
+      "endMs": 38660,
+      "words": [
+        "금지됩니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 39140,
+      "endMs": 39780,
+      "words": [
+        "3개월이",
+        "3년이"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 39780,
+      "endMs": 40280,
+      "words": [
+        "3개월이",
+        "3년이"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 40280,
+      "endMs": 40580,
+      "words": [
+        "되었습니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 41460,
+      "endMs": 42240,
+      "words": [
+        "1590년",
+        "8월,",
+        "화이트가"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 42240,
+      "endMs": 42700,
+      "words": [
+        "1590년",
+        "8월,",
+        "화이트가"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 42700,
+      "endMs": 43580,
+      "words": [
+        "1590년",
+        "8월,",
+        "화이트가"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 43580,
+      "endMs": 43960,
+      "words": [
+        "마침내",
+        "도착했을"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 43960,
+      "endMs": 44540,
+      "words": [
+        "마침내",
+        "도착했을"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 44540,
+      "endMs": 44720,
+      "words": [
+        "때",
+        "식민지는",
+        "텅",
+        "비어"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 44720,
+      "endMs": 45180,
+      "words": [
+        "때",
+        "식민지는",
+        "텅",
+        "비어"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 45180,
+      "endMs": 45480,
+      "words": [
+        "때",
+        "식민지는",
+        "텅",
+        "비어"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 45480,
+      "endMs": 45720,
+      "words": [
+        "때",
+        "식민지는",
+        "텅",
+        "비어"
+      ],
+      "highlightIndex": 3
+    },
+    {
+      "startMs": 45720,
+      "endMs": 46160,
+      "words": [
+        "있었습니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 47000,
+      "endMs": 47520,
+      "words": [
+        "울타리",
+        "기둥에"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 47520,
+      "endMs": 47840,
+      "words": [
+        "울타리",
+        "기둥에"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 47840,
+      "endMs": 49080,
+      "words": [
+        "CROATOAN이라는",
+        "글자만"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 49080,
+      "endMs": 49680,
+      "words": [
+        "CROATOAN이라는",
+        "글자만"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 49680,
+      "endMs": 50010,
+      "words": [
+        "남아",
+        "있었고"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 50010,
+      "endMs": 50340,
+      "words": [
+        "남아",
+        "있었고"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 50340,
+      "endMs": 51260,
+      "words": [
+        "약속한",
+        "위험",
+        "신호인",
+        "십자"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 51260,
+      "endMs": 51500,
+      "words": [
+        "약속한",
+        "위험",
+        "신호인",
+        "십자"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 51500,
+      "endMs": 51900,
+      "words": [
+        "약속한",
+        "위험",
+        "신호인",
+        "십자"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 51900,
+      "endMs": 52580,
+      "words": [
+        "약속한",
+        "위험",
+        "신호인",
+        "십자"
+      ],
+      "highlightIndex": 3
+    },
+    {
+      "startMs": 52580,
+      "endMs": 52960,
+      "words": [
+        "표시는",
+        "없었습니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 52960,
+      "endMs": 53440,
+      "words": [
+        "표시는",
+        "없었습니다."
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 53900,
+      "endMs": 54540,
+      "words": [
+        "그런데",
+        "437년이"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 54540,
+      "endMs": 55880,
+      "words": [
+        "그런데",
+        "437년이"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 55880,
+      "endMs": 56280,
+      "words": [
+        "지나서",
+        "단서가",
+        "나왔습니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 56280,
+      "endMs": 56700,
+      "words": [
+        "지나서",
+        "단서가",
+        "나왔습니다."
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 56700,
+      "endMs": 57320,
+      "words": [
+        "지나서",
+        "단서가",
+        "나왔습니다."
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 57700,
+      "endMs": 58080,
+      "words": [
+        "제가",
+        "최근",
+        "연구",
+        "자료를"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 58080,
+      "endMs": 58420,
+      "words": [
+        "제가",
+        "최근",
+        "연구",
+        "자료를"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 58420,
+      "endMs": 58770,
+      "words": [
+        "제가",
+        "최근",
+        "연구",
+        "자료를"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 58770,
+      "endMs": 59120,
+      "words": [
+        "제가",
+        "최근",
+        "연구",
+        "자료를"
+      ],
+      "highlightIndex": 3
+    },
+    {
+      "startMs": 59120,
+      "endMs": 59880,
+      "words": [
+        "조사했는데요."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 60480,
+      "endMs": 60800,
+      "words": [
+        "나무",
+        "연륜",
+        "분석",
+        "결과"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 60800,
+      "endMs": 61100,
+      "words": [
+        "나무",
+        "연륜",
+        "분석",
+        "결과"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 61100,
+      "endMs": 61420,
+      "words": [
+        "나무",
+        "연륜",
+        "분석",
+        "결과"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 61420,
+      "endMs": 61640,
+      "words": [
+        "나무",
+        "연륜",
+        "분석",
+        "결과"
+      ],
+      "highlightIndex": 3
+    },
+    {
+      "startMs": 61640,
+      "endMs": 63120,
+      "words": [
+        "1587년은",
+        "800년간"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 63120,
+      "endMs": 63800,
+      "words": [
+        "1587년은",
+        "800년간"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 63800,
+      "endMs": 64379,
+      "words": [
+        "최악의",
+        "가뭄이었습니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 64379,
+      "endMs": 65120,
+      "words": [
+        "최악의",
+        "가뭄이었습니다."
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 65620,
+      "endMs": 66120,
+      "words": [
+        "중요한",
+        "발견입니다,",
+        "그리고"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 66120,
+      "endMs": 67220,
+      "words": [
+        "중요한",
+        "발견입니다,",
+        "그리고"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 67220,
+      "endMs": 67940,
+      "words": [
+        "중요한",
+        "발견입니다,",
+        "그리고"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 67940,
+      "endMs": 68220,
+      "words": [
+        "존",
+        "화이트의",
+        "지도를"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 68220,
+      "endMs": 68600,
+      "words": [
+        "존",
+        "화이트의",
+        "지도를"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 68600,
+      "endMs": 68980,
+      "words": [
+        "존",
+        "화이트의",
+        "지도를"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 68980,
+      "endMs": 69420,
+      "words": [
+        "빛에",
+        "비추자",
+        "숨겨진",
+        "요새"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 69420,
+      "endMs": 69880,
+      "words": [
+        "빛에",
+        "비추자",
+        "숨겨진",
+        "요새"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 69880,
+      "endMs": 70860,
+      "words": [
+        "빛에",
+        "비추자",
+        "숨겨진",
+        "요새"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 70860,
+      "endMs": 71120,
+      "words": [
+        "빛에",
+        "비추자",
+        "숨겨진",
+        "요새"
+      ],
+      "highlightIndex": 3
+    },
+    {
+      "startMs": 71120,
+      "endMs": 71500,
+      "words": [
+        "기호가",
+        "드러났습니다,"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 71500,
+      "endMs": 72100,
+      "words": [
+        "기호가",
+        "드러났습니다,"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 72780,
+      "endMs": 73660,
+      "words": [
+        "로아노크에서"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 73660,
+      "endMs": 74040,
+      "words": [
+        "내륙",
+        "100마일"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 74040,
+      "endMs": 74440,
+      "words": [
+        "내륙",
+        "100마일"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 74440,
+      "endMs": 75120,
+      "words": [
+        "지점이었습니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 75740,
+      "endMs": 76280,
+      "words": [
+        "결정적으로",
+        "럼비"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 76280,
+      "endMs": 77360,
+      "words": [
+        "결정적으로",
+        "럼비"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 77360,
+      "endMs": 77720,
+      "words": [
+        "부족의",
+        "DNA에서"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 77720,
+      "endMs": 78340,
+      "words": [
+        "부족의",
+        "DNA에서"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 78340,
+      "endMs": 78920,
+      "words": [
+        "유럽인",
+        "Y염색체와",
+        "원주민"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 78920,
+      "endMs": 79720,
+      "words": [
+        "유럽인",
+        "Y염색체와",
+        "원주민"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 79720,
+      "endMs": 80420,
+      "words": [
+        "유럽인",
+        "Y염색체와",
+        "원주민"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 80420,
+      "endMs": 81240,
+      "words": [
+        "미토콘드리아가"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 81240,
+      "endMs": 81660,
+      "words": [
+        "함께",
+        "검출되었습니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 81660,
+      "endMs": 82400,
+      "words": [
+        "함께",
+        "검출되었습니다."
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 82400,
+      "endMs": 83720,
+      "words": [
+        "400년",
+        "뒤에"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 83720,
+      "endMs": 83980,
+      "words": [
+        "400년",
+        "뒤에"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 83980,
+      "endMs": 84560,
+      "words": [
+        "후손의",
+        "DNA에서"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 84560,
+      "endMs": 85240,
+      "words": [
+        "후손의",
+        "DNA에서"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 85240,
+      "endMs": 85600,
+      "words": [
+        "답이",
+        "나온",
+        "겁니까?"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 85600,
+      "endMs": 85800,
+      "words": [
+        "답이",
+        "나온",
+        "겁니까?"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 85800,
+      "endMs": 86220,
+      "words": [
+        "답이",
+        "나온",
+        "겁니까?"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 86580,
+      "endMs": 87040,
+      "words": [
+        "그러면"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 87040,
+      "endMs": 87980,
+      "words": [
+        "117명은",
+        "사라진",
+        "게",
+        "아니라?"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 87980,
+      "endMs": 88360,
+      "words": [
+        "117명은",
+        "사라진",
+        "게",
+        "아니라?"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 88360,
+      "endMs": 88480,
+      "words": [
+        "117명은",
+        "사라진",
+        "게",
+        "아니라?"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 88480,
+      "endMs": 88740,
+      "words": [
+        "117명은",
+        "사라진",
+        "게",
+        "아니라?"
+      ],
+      "highlightIndex": 3
+    },
+    {
+      "startMs": 89600,
+      "endMs": 91060,
+      "words": [
+        "그렇습니다,",
+        "극심한",
+        "가뭄"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 91060,
+      "endMs": 91840,
+      "words": [
+        "그렇습니다,",
+        "극심한",
+        "가뭄"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 91840,
+      "endMs": 92140,
+      "words": [
+        "그렇습니다,",
+        "극심한",
+        "가뭄"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 92140,
+      "endMs": 92480,
+      "words": [
+        "속에서",
+        "원주민과",
+        "합류하여"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 92480,
+      "endMs": 93380,
+      "words": [
+        "속에서",
+        "원주민과",
+        "합류하여"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 93380,
+      "endMs": 93840,
+      "words": [
+        "속에서",
+        "원주민과",
+        "합류하여"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 93840,
+      "endMs": 94360,
+      "words": [
+        "최소",
+        "세",
+        "곳으로",
+        "흩어진",
+        "것입니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 94360,
+      "endMs": 94540,
+      "words": [
+        "최소",
+        "세",
+        "곳으로",
+        "흩어진",
+        "것입니다."
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 94540,
+      "endMs": 94920,
+      "words": [
+        "최소",
+        "세",
+        "곳으로",
+        "흩어진",
+        "것입니다."
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 94920,
+      "endMs": 95260,
+      "words": [
+        "최소",
+        "세",
+        "곳으로",
+        "흩어진",
+        "것입니다."
+      ],
+      "highlightIndex": 3
+    },
+    {
+      "startMs": 95260,
+      "endMs": 95620,
+      "words": [
+        "최소",
+        "세",
+        "곳으로",
+        "흩어진",
+        "것입니다."
+      ],
+      "highlightIndex": 4
+    },
+    {
+      "startMs": 96960,
+      "endMs": 97840,
+      "words": [
+        "CROATOAN은",
+        "위험"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 97840,
+      "endMs": 98600,
+      "words": [
+        "CROATOAN은",
+        "위험"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 98600,
+      "endMs": 98920,
+      "words": [
+        "신호가",
+        "아니라",
+        "행선지를"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 98920,
+      "endMs": 99120,
+      "words": [
+        "신호가",
+        "아니라",
+        "행선지를"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 99120,
+      "endMs": 100240,
+      "words": [
+        "신호가",
+        "아니라",
+        "행선지를"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 100240,
+      "endMs": 100580,
+      "words": [
+        "알리는",
+        "메시지였습니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 100580,
+      "endMs": 101200,
+      "words": [
+        "알리는",
+        "메시지였습니다."
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 101980,
+      "endMs": 102420,
+      "words": [
+        "화이트는",
+        "폭풍",
+        "때문에"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 102420,
+      "endMs": 102780,
+      "words": [
+        "화이트는",
+        "폭풍",
+        "때문에"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 102780,
+      "endMs": 103000,
+      "words": [
+        "화이트는",
+        "폭풍",
+        "때문에"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 103000,
+      "endMs": 103530,
+      "words": [
+        "크로아토안",
+        "섬에"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 103530,
+      "endMs": 104060,
+      "words": [
+        "크로아토안",
+        "섬에"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 104060,
+      "endMs": 104240,
+      "words": [
+        "가지",
+        "못했습니다,"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 104240,
+      "endMs": 104740,
+      "words": [
+        "가지",
+        "못했습니다,"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 105580,
+      "endMs": 106380,
+      "words": [
+        "식민지민들은",
+        "답을"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 106380,
+      "endMs": 106700,
+      "words": [
+        "식민지민들은",
+        "답을"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 106700,
+      "endMs": 107200,
+      "words": [
+        "남겼는데"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 107200,
+      "endMs": 108040,
+      "words": [
+        "아무도",
+        "읽으러",
+        "오지"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 108040,
+      "endMs": 108360,
+      "words": [
+        "아무도",
+        "읽으러",
+        "오지"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 108360,
+      "endMs": 108560,
+      "words": [
+        "아무도",
+        "읽으러",
+        "오지"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 108560,
+      "endMs": 108980,
+      "words": [
+        "않았습니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 109280,
+      "endMs": 109940,
+      "words": [
+        "아메리카",
+        "최초의",
+        "영국계",
+        "아기"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 109940,
+      "endMs": 110340,
+      "words": [
+        "아메리카",
+        "최초의",
+        "영국계",
+        "아기"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 110340,
+      "endMs": 110760,
+      "words": [
+        "아메리카",
+        "최초의",
+        "영국계",
+        "아기"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 110760,
+      "endMs": 111040,
+      "words": [
+        "아메리카",
+        "최초의",
+        "영국계",
+        "아기"
+      ],
+      "highlightIndex": 3
+    },
+    {
+      "startMs": 111040,
+      "endMs": 111500,
+      "words": [
+        "버지니아"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 111500,
+      "endMs": 112380,
+      "words": [
+        "데어는",
+        "어디서",
+        "어떻게",
+        "자랐을까요,"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 112380,
+      "endMs": 112620,
+      "words": [
+        "데어는",
+        "어디서",
+        "어떻게",
+        "자랐을까요,"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 112620,
+      "endMs": 112840,
+      "words": [
+        "데어는",
+        "어디서",
+        "어떻게",
+        "자랐을까요,"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 112840,
+      "endMs": 113760,
+      "words": [
+        "데어는",
+        "어디서",
+        "어떻게",
+        "자랐을까요,"
+      ],
+      "highlightIndex": 3
+    },
+    {
+      "startMs": 113760,
+      "endMs": 114600,
+      "words": [
+        "그럼",
+        "다음",
+        "사건현장으로"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 114600,
+      "endMs": 115240,
+      "words": [
+        "그럼",
+        "다음",
+        "사건현장으로"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 115240,
+      "endMs": 116040,
+      "words": [
+        "그럼",
+        "다음",
+        "사건현장으로"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 116040,
+      "endMs": 116400,
+      "words": [
+        "가보겠습니다."
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 117060,
+      "endMs": 117380,
+      "words": [
+        "더",
+        "많은",
+        "미스터리가"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 117380,
+      "endMs": 117660,
+      "words": [
+        "더",
+        "많은",
+        "미스터리가"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 117660,
+      "endMs": 118220,
+      "words": [
+        "더",
+        "많은",
+        "미스터리가"
+      ],
+      "highlightIndex": 2
+    },
+    {
+      "startMs": 118220,
+      "endMs": 118900,
+      "words": [
+        "궁금하시다면",
+        "구독을"
+      ],
+      "highlightIndex": 0
+    },
+    {
+      "startMs": 118900,
+      "endMs": 119540,
+      "words": [
+        "궁금하시다면",
+        "구독을"
+      ],
+      "highlightIndex": 1
+    },
+    {
+      "startMs": 119540,
+      "endMs": 120140,
+      "words": [
+        "눌러주세요"
+      ],
+      "highlightIndex": 0
+    }
+  ]
+}

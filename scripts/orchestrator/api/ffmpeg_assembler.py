@@ -172,23 +172,26 @@ class FFmpegAssembler:
             encoding="utf-8",
         )
         audio_concat = tmp_video_dir / "audio_concat.aac"
+        # 2026-04-22 fix: enforce stereo 48kHz (YouTube Shorts 권장 — 기존 mono 44.1kHz)
         _run_ffmpeg(
             [
                 "-f", "concat", "-safe", "0",
                 "-i", str(audio_concat_list),
                 "-c:a", "aac", "-b:a", "192k",
+                "-ac", "2", "-ar", "48000",
                 "-y", str(audio_concat),
             ],
             timeout_s=DEFAULT_SUBPROCESS_TIMEOUT_S,
         )
 
         # Step 4 — merge video + audio → final mp4.
+        # 2026-04-22 fix: stream-copy both tracks (audio_concat 이미 stereo/48k AAC).
         out_path = self.output_dir / f"assembled_{int(time.time() * 1000)}.mp4"
         _run_ffmpeg(
             [
                 "-i", str(video_concat),
                 "-i", str(audio_concat),
-                "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
+                "-c:v", "copy", "-c:a", "copy",
                 "-shortest", "-movflags", "+faststart",
                 "-y", str(out_path),
             ],
@@ -263,13 +266,22 @@ def _transcode_clip(
         f"pad={width}:{height}:(ow-iw)/2:(oh-ih)/2:color=black,"
         f"fps={fps}"
     )
+    # 2026-04-22 fix: enforce YouTube Shorts quality (8M bitrate + medium preset).
+    # Previous default (no -b:v + veryfast) produced ~419kbps — way below
+    # YouTube's recommended 8Mbps for 1080p vertical → blocky output.
     _run_ffmpeg(
         [
             "-i", str(src),
             "-vf", vf,
             "-an",  # drop any input audio (we overlay later)
             "-c:v", "libx264", "-pix_fmt", "yuv420p",
-            "-preset", "veryfast",
+            "-preset", "medium",
+            "-crf", "18",          # near-visually-lossless
+            "-b:v", "8M",
+            "-maxrate", "12M",
+            "-bufsize", "16M",
+            "-profile:v", "high",
+            "-level", "4.2",
             "-y", str(dst),
         ],
         timeout_s=timeout_s,

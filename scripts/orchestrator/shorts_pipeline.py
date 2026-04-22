@@ -537,8 +537,10 @@ class ShortsPipeline:
             )
         else:
             # 로컬 ffmpeg — breaker 경로 우회 (subprocess 에 rate limit 없음)
+            # 2026-04-22 fix: 로컬 경로는 upscale NOOP 이므로 직접 fhd (1080×1920)
+            # 출력. Shotstack 경로의 hd→upscale 전략과 분리.
             render_result = renderer.render(
-                timeline, resolution="hd", aspect_ratio="9:16"
+                timeline, resolution="fhd", aspect_ratio="9:16"
             )
 
         render_url = (render_result or {}).get("url", "")

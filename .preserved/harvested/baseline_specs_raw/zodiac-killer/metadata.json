@@ -1,0 +1,27 @@
+{
+  "topic": "조디악 킬러 (Zodiac Killer)",
+  "channel": "incidents",
+  "category": "crime",
+  "pipeline_type": "shorts",
+  "created_at": "2026-04-14T12:00:00Z",
+  "steps": {
+    "research": {
+      "status": "completed",
+      "completed_at": "2026-04-14T12:05:00Z",
+      "output": "source.md",
+      "sources_count": 18
+    },
+    "design": {
+      "status": "completed",
+      "completed_at": "2026-04-14T14:00:00Z",
+      "output": "visual_spec.json"
+    },
+    "upload": {
+      "status": "completed",
+      "video_id": "pJ6iYNjjS4Y",
+      "upload_time": "2026-04-14T13:43:31.307078+00:00",
+      "privacy_status": "private",
+      "youtube_url": "https://youtu.be/pJ6iYNjjS4Y"
+    }
+  }
+}

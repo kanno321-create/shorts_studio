@@ -1,0 +1,13 @@
+{
+  "titleLine1": "2000年前の砂漠に",
+  "titleLine2": "空の絵",
+  "titleKeywords": [{ "text": "空の", "color": "#FFD000" }],
+  "channelName": "冴木の手帳",
+  "accentColor": "#FFD000",
+  "hashtags": "#ショート #怪奇 #ナスカの地上絵 #ミステリー",
+  "fontFamily": "Noto Sans JP",
+  "subtitlePosition": 0.65,
+  "subtitleHighlightColor": "#FFD000",
+  "subtitleFontSize": 72,
+  "transitions": "fade"
+}

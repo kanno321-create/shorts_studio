@@ -1,0 +1,76 @@
+[Script Info]
+Title: JA Subtitles
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,M PLUS Rounded 1c,72,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,3,0,2,40,40,350,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.99,Default,,0,0,0,,1587年、117人が
+Dialogue: 0,0:00:01.99,0:00:04.17,Default,,0,0,0,,ロアノーク島に渡った。3
+Dialogue: 0,0:00:04.17,0:00:05.80,Default,,0,0,0,,年後に戻ると、誰も
+Dialogue: 0,0:00:05.80,0:00:07.98,Default,,0,0,0,,いなかった。柵に刻まれて
+Dialogue: 0,0:00:07.98,0:00:08.70,Default,,0,0,0,,いたのは
+Dialogue: 0,0:00:08.70,0:00:10.52,Default,,0,0,0,,CROATOANの1
+Dialogue: 0,0:00:10.52,0:00:12.33,Default,,0,0,0,,語だけだった。今日の
+Dialogue: 0,0:00:12.33,0:00:13.06,Default,,0,0,0,,記録だ。
+Dialogue: 0,0:00:13.76,0:00:15.58,Default,,0,0,0,,総督ジョン・ホワイトが
+Dialogue: 0,0:00:15.58,0:00:17.56,Default,,0,0,0,,117人を率いて植民地を
+Dialogue: 0,0:00:17.56,0:00:19.22,Default,,0,0,0,,築いた。八月には孫娘
+Dialogue: 0,0:00:19.22,0:00:20.70,Default,,0,0,0,,バージニア・デアが
+Dialogue: 0,0:00:20.70,0:00:22.69,Default,,0,0,0,,生まれている。アメリカで
+Dialogue: 0,0:00:22.69,0:00:23.85,Default,,0,0,0,,初めて誕生した
+Dialogue: 0,0:00:23.85,0:00:24.84,Default,,0,0,0,,イギリス人の
+Dialogue: 0,0:00:24.84,0:00:26.83,Default,,0,0,0,,赤ん坊だった。ホワイトは
+Dialogue: 0,0:00:26.83,0:00:28.65,Default,,0,0,0,,補給のためにイギリスへ
+Dialogue: 0,0:00:28.65,0:00:30.47,Default,,0,0,0,,戻ったが、スペイン無敵
+Dialogue: 0,0:00:30.47,0:00:32.45,Default,,0,0,0,,艦隊の侵攻で出航禁止令が
+Dialogue: 0,0:00:32.45,0:00:34.44,Default,,0,0,0,,出され、3年間戻ることが
+Dialogue: 0,0:00:34.44,0:00:35.59,Default,,0,0,0,,できなかった。
+Dialogue: 0,0:00:35.74,0:00:37.92,Default,,0,0,0,,1590年八月、ようやく
+Dialogue: 0,0:00:37.92,0:00:39.92,Default,,0,0,0,,島に帰還した。だが植民
+Dialogue: 0,0:00:39.92,0:00:41.91,Default,,0,0,0,,地は空だった。柵の柱に
+Dialogue: 0,0:00:41.91,0:00:43.91,Default,,0,0,0,,CROATOANという
+Dialogue: 0,0:00:43.91,0:00:45.72,Default,,0,0,0,,文字が刻まれており、
+Dialogue: 0,0:00:45.72,0:00:47.18,Default,,0,0,0,,危険を示す十字の
+Dialogue: 0,0:00:47.18,0:00:49.17,Default,,0,0,0,,印はどこにもなかった。
+Dialogue: 0,0:00:49.32,0:00:51.06,Default,,0,0,0,,437年経って、
+Dialogue: 0,0:00:51.06,0:00:52.14,Default,,0,0,0,,手がかりは
+Dialogue: 0,0:00:52.14,0:00:54.31,Default,,0,0,0,,見つかったんですか。
+Dialogue: 0,0:00:54.46,0:00:55.99,Default,,0,0,0,,年輪分析で800年間
+Dialogue: 0,0:00:55.99,0:00:57.82,Default,,0,0,0,,最悪の干ばつだったことが
+Dialogue: 0,0:00:57.82,0:00:59.66,Default,,0,0,0,,判明している。ホワイトの
+Dialogue: 0,0:00:59.66,0:01:01.34,Default,,0,0,0,,地図をライトボックスに
+Dialogue: 0,0:01:01.34,0:01:03.02,Default,,0,0,0,,透かすと、隠されていた
+Dialogue: 0,0:01:03.02,0:01:03.79,Default,,0,0,0,,要塞記号が
+Dialogue: 0,0:01:03.79,0:01:05.32,Default,,0,0,0,,浮かび上がった。内陸
+Dialogue: 0,0:01:05.32,0:01:07.00,Default,,0,0,0,,100マイルの地点だ。
+Dialogue: 0,0:01:07.00,0:01:08.37,Default,,0,0,0,,さらにランビー族の
+Dialogue: 0,0:01:08.37,0:01:10.21,Default,,0,0,0,,DNAからヨーロッパ系の
+Dialogue: 0,0:01:10.21,0:01:11.74,Default,,0,0,0,,Y染色体が検出されて
+Dialogue: 0,0:01:11.74,0:01:12.20,Default,,0,0,0,,いる。
+Dialogue: 0,0:01:12.35,0:01:13.90,Default,,0,0,0,,つまり、消えたのでは
+Dialogue: 0,0:01:13.90,0:01:14.83,Default,,0,0,0,,なく...。
+Dialogue: 0,0:01:14.98,0:01:16.84,Default,,0,0,0,,干ばつの中で先住民と合流
+Dialogue: 0,0:01:16.84,0:01:18.55,Default,,0,0,0,,し、少なくとも3か所に
+Dialogue: 0,0:01:18.55,0:01:20.41,Default,,0,0,0,,散ったと考えられている。
+Dialogue: 0,0:01:20.41,0:01:22.12,Default,,0,0,0,,CROATOANは危険
+Dialogue: 0,0:01:22.12,0:01:23.82,Default,,0,0,0,,信号ではなく、行き先を
+Dialogue: 0,0:01:23.82,0:01:25.53,Default,,0,0,0,,示すメッセージだった。
+Dialogue: 0,0:01:25.68,0:01:27.68,Default,,0,0,0,,ホワイトは嵐に阻まれ、
+Dialogue: 0,0:01:27.68,0:01:28.41,Default,,0,0,0,,その島に
+Dialogue: 0,0:01:28.41,0:01:30.23,Default,,0,0,0,,たどり着けなかった。
+Dialogue: 0,0:01:30.23,0:01:32.23,Default,,0,0,0,,答えを刻んだのに、誰も
+Dialogue: 0,0:01:32.23,0:01:33.87,Default,,0,0,0,,読みに来なかった。
+Dialogue: 0,0:01:33.87,0:01:36.05,Default,,0,0,0,,バージニア・デアがどこで
+Dialogue: 0,0:01:36.05,0:01:36.42,Default,,0,0,0,,どう
+Dialogue: 0,0:01:36.42,0:01:38.60,Default,,0,0,0,,育ったのか、それは誰にも
+Dialogue: 0,0:01:38.60,0:01:40.78,Default,,0,0,0,,わからない。次の記録で。
+Dialogue: 0,0:01:40.93,0:01:42.48,Default,,0,0,0,,こういうミステリー、
+Dialogue: 0,0:01:42.48,0:01:44.33,Default,,0,0,0,,もっと気になりませんか。
+Dialogue: 0,0:01:44.33,0:01:46.03,Default,,0,0,0,,チャンネル登録、お願い
+Dialogue: 0,0:01:46.03,0:01:46.65,Default,,0,0,0,,します。

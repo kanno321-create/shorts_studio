@@ -1,0 +1,97 @@
+{
+  "total_duration_ms": 106657,
+  "total_duration_s": 106.66,
+  "section_count": 9,
+  "sections": [
+    {
+      "index": 0,
+      "type": "hook",
+      "speaker": "narrator",
+      "start_ms": 0,
+      "end_ms": 13061,
+      "duration_ms": 13061,
+      "gap_after_ms": 700,
+      "text": "千五百八十七年、百十七人がロアノーク島に渡った。三年後に戻ると、誰もいなかった。柵に刻まれていたのはCROATOANの一語だけだった。今日の記録だ。"
+    },
+    {
+      "index": 1,
+      "type": "body",
+      "speaker": "narrator",
+      "start_ms": 13761,
+      "end_ms": 35599,
+      "duration_ms": 21838,
+      "gap_after_ms": 150,
+      "text": "総督ジョン・ホワイトが百十七人を率いて植民地を築いた。八月には孫娘バージニア・デアが生まれている。アメリカで初めて誕生したイギリス人の赤ん坊だった。ホワイトは補給のためにイギリスへ戻ったが、スペイン無敵艦隊の侵攻で出航禁止令が出され、三年間戻ることができなかった。"
+    },
+    {
+      "index": 2,
+      "type": "body",
+      "speaker": "narrator",
+      "start_ms": 35749,
+      "end_ms": 49176,
+      "duration_ms": 13427,
+      "gap_after_ms": 150,
+      "text": "千五百九十年八月、ようやく島に帰還した。だが植民地は空だった。柵の柱にCROATOANという文字が刻まれており、危険を示す十字の印はどこにもなかった。"
+    },
+    {
+      "index": 3,
+      "type": "body",
+      "speaker": "assistant",
+      "start_ms": 49326,
+      "end_ms": 54315,
+      "duration_ms": 4989,
+      "gap_after_ms": 150,
+      "text": "四百三十七年経って、手がかりは見つかったんですか。"
+    },
+    {
+      "index": 4,
+      "type": "body",
+      "speaker": "narrator",
+      "start_ms": 54465,
+      "end_ms": 72202,
+      "duration_ms": 17737,
+      "gap_after_ms": 150,
+      "text": "年輪分析で八百年間最悪の干ばつだったことが判明している。ホワイトの地図をライトボックスに透かすと、隠されていた要塞記号が浮かび上がった。内陸百マイルの地点だ。さらにランビー族のDNAからヨーロッパ系のY染色体が検出されている。"
+    },
+    {
+      "index": 5,
+      "type": "body",
+      "speaker": "assistant",
+      "start_ms": 72352,
+      "end_ms": 74834,
+      "duration_ms": 2482,
+      "gap_after_ms": 150,
+      "text": "つまり、消えたのではなく...。"
+    },
+    {
+      "index": 6,
+      "type": "body",
+      "speaker": "narrator",
+      "start_ms": 74984,
+      "end_ms": 85537,
+      "duration_ms": 10553,
+      "gap_after_ms": 150,
+      "text": "干ばつの中で先住民と合流し、少なくとも三か所に散ったと考えられている。CROATOANは危険信号ではなく、行き先を示すメッセージだった。"
+    },
+    {
+      "index": 7,
+      "type": "cta",
+      "speaker": "narrator",
+      "start_ms": 85687,
+      "end_ms": 100786,
+      "duration_ms": 15099,
+      "gap_after_ms": 150,
+      "text": "ホワイトは嵐に阻まれ、その島にたどり着けなかった。答えを刻んだのに、誰も読みに来なかった。バージニア・デアがどこでどう育ったのか、それは誰にもわからない。次の記録で。"
+    },
+    {
+      "index": 8,
+      "type": "cta",
+      "speaker": "assistant",
+      "start_ms": 100936,
+      "end_ms": 106657,
+      "duration_ms": 5721,
+      "gap_after_ms": 150,
+      "text": "こういうミステリー、もっと気になりませんか。チャンネル登録、お願いします。"
+    }
+  ]
+}

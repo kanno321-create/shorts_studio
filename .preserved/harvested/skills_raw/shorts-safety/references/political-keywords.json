@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-03-27",
+  "note": "Initial Korean political keyword list. Update based on false positives/negatives during operation.",
+  "categories": {
+    "parties": [
+      "더불어민주당", "민주당", "국민의힘", "개혁신당", "진보당",
+      "조국혁신당", "새로운미래", "기본소득당"
+    ],
+    "political_figures": [
+      "대통령", "국회의원", "장관", "총리", "당대표", "원내대표",
+      "비서실장", "수석"
+    ],
+    "political_events": [
+      "탄핵", "국정조사", "청문회", "선거", "투표", "개표",
+      "대선", "총선", "지방선거", "보궐선거", "계엄"
+    ],
+    "political_terms": [
+      "좌파", "우파", "진보", "보수", "여당", "야당",
+      "친문", "친윤", "비명", "친명", "친이", "친박"
+    ],
+    "institutions_political_context": [
+      "청와대", "용산", "국회", "헌법재판소", "검찰",
+      "공수처", "감사원", "선관위"
+    ],
+    "sensitive_topics": [
+      "빨갱이", "종북", "일베", "극우", "극좌",
+      "사드", "위안부", "독도", "야스쿠니"
+    ]
+  }
+}

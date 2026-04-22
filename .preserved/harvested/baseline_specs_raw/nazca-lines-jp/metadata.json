@@ -1,0 +1,23 @@
+{
+  "topic": "ナスカの地上絵",
+  "channel": "incidents_jp",
+  "category": "phenomena",
+  "pipeline_type": "shorts",
+  "language": "ja",
+  "created_at": "2026-04-13T22:45:00Z",
+  "steps": {
+    "research": {
+      "status": "completed"
+    },
+    "render": {
+      "status": "completed"
+    },
+    "upload": {
+      "status": "completed",
+      "video_id": "C4JbVKrhibk",
+      "upload_time": "2026-04-14T14:05:51.259848+00:00",
+      "privacy_status": "private",
+      "youtube_url": "https://youtu.be/C4JbVKrhibk"
+    }
+  }
+}

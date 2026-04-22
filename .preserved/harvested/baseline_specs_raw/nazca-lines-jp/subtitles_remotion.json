@@ -1,0 +1,370 @@
+[
+  {
+    "startMs": 0,
+    "endMs": 1444,
+    "words": [
+      "ペルーの砂漠のど"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 1444,
+    "endMs": 3429,
+    "words": [
+      "真ん中に、全長数100"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 3429,
+    "endMs": 5234,
+    "words": [
+      "メートルの絵がある。"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 5234,
+    "endMs": 6678,
+    "words": [
+      "ハチドリ、クモ、"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 6678,
+    "endMs": 8484,
+    "words": [
+      "サル。だが、この絵は"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 8484,
+    "endMs": 10289,
+    "words": [
+      "空からしか見えない。"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 10289,
+    "endMs": 12274,
+    "words": [
+      "2000年前に描かれた"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 12274,
+    "endMs": 14080,
+    "words": [
+      "ものだ。今日の記録。"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 14230,
+    "endMs": 16293,
+    "words": [
+      "ナスカの地上絵。ペルー"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 16293,
+    "endMs": 17418,
+    "words": [
+      "南部の砂漠に"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 17418,
+    "endMs": 19294,
+    "words": [
+      "刻まれた巨大な絵だ。"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 19294,
+    "endMs": 20982,
+    "words": [
+      "最大のものは370"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 20982,
+    "endMs": 23233,
+    "words": [
+      "メートル。サッカー場4つ"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 23233,
+    "endMs": 25109,
+    "words": [
+      "分をつなげた大きさに"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 25109,
+    "endMs": 25671,
+    "words": [
+      "なる。"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 25822,
+    "endMs": 27668,
+    "words": [
+      "ちょっと待ってください。"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 27668,
+    "endMs": 29515,
+    "words": [
+      "飛行機もなかった時代に、"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 29515,
+    "endMs": 31362,
+    "words": [
+      "空からしか見えない絵を、"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 31362,
+    "endMs": 32901,
+    "words": [
+      "なぜ描いたんですか？"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 33051,
+    "endMs": 34984,
+    "words": [
+      "まさにそこだ。この絵を"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 34984,
+    "endMs": 37093,
+    "words": [
+      "描いたナスカ文明は紀元前"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 37093,
+    "endMs": 39027,
+    "words": [
+      "200年から紀元600"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 39027,
+    "endMs": 40961,
+    "words": [
+      "年まで存在した。当然、"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 40961,
+    "endMs": 42543,
+    "words": [
+      "空を飛ぶ手段なんて"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 42543,
+    "endMs": 43421,
+    "words": [
+      "なかった。"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 43572,
+    "endMs": 45299,
+    "words": [
+      "俺が現地の記録を見て"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 45299,
+    "endMs": 46682,
+    "words": [
+      "驚いたのは、その"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 46682,
+    "endMs": 48755,
+    "words": [
+      "精密さだ。1本の線だけで"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 48755,
+    "endMs": 50483,
+    "words": [
+      "描かれていて、始点と"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 50483,
+    "endMs": 52384,
+    "words": [
+      "終点がつながっている。"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 52384,
+    "endMs": 54284,
+    "words": [
+      "数学的な設計なしには、"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 54284,
+    "endMs": 55667,
+    "words": [
+      "不可能な構造だ。"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 55817,
+    "endMs": 57877,
+    "words": [
+      "仮説は3つある。神に"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 57877,
+    "endMs": 59731,
+    "words": [
+      "見せるための祭壇、"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 59731,
+    "endMs": 61791,
+    "words": [
+      "地下水の流れを示した"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 61791,
+    "endMs": 63645,
+    "words": [
+      "地図、それから天文"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 63645,
+    "endMs": 64881,
+    "words": [
+      "カレンダー。"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 65031,
+    "endMs": 67014,
+    "words": [
+      "だが、どの仮説も完全には"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 67014,
+    "endMs": 68501,
+    "words": [
+      "説明できていない。"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 68501,
+    "endMs": 70484,
+    "words": [
+      "2000年が経った今も、"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 70484,
+    "endMs": 72468,
+    "words": [
+      "この砂漠は俺たちに答えを"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 72468,
+    "endMs": 73624,
+    "words": [
+      "返していない。"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 73775,
+    "endMs": 75321,
+    "words": [
+      "こういうミステリー、"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 75321,
+    "endMs": 77176,
+    "words": [
+      "もっと気になりませんか。"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 77176,
+    "endMs": 78877,
+    "words": [
+      "チャンネル登録、お願い"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 78877,
+    "endMs": 79495,
+    "words": [
+      "します。"
+    ],
+    "highlightIndex": 0
+  }
+]

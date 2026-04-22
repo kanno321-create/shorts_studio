@@ -1,0 +1,14 @@
+{
+  "channel": "incidents",
+  "category": "phenomena",
+  "topic": "나스카 라인",
+  "topic_en": "Nazca Lines Peru",
+  "title_display": {
+    "line1": "2천 년 전 사막에",
+    "line2": "하늘의 그림",
+    "accent_words": ["하늘의"],
+    "accent_color": "#FFD000"
+  },
+  "structure": "현상소개→규모→의문→가설→미해결",
+  "series": null
+}

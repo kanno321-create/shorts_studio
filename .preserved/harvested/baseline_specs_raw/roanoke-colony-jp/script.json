@@ -1,0 +1,86 @@
+{
+  "channel": "incidents_jp",
+  "category": "mystery",
+  "topic": "ロアノーク植民地",
+  "topic_en": "Lost Colony of Roanoke",
+  "narration_style": "multi",
+  "language": "ja",
+  "total_chars": 615,
+  "estimated_duration_s": 90.4,
+  "title": {
+    "line1": "百十七人が一夜で消えた",
+    "line2": "残された一語",
+    "accent_words": [
+      "消えた",
+      "一語"
+    ],
+    "accent_color": "#FFD000"
+  },
+  "tags": [
+    "ロアノーク",
+    "失踪",
+    "冴木の手帳",
+    "ショート",
+    "ミステリー",
+    "CROATOAN",
+    "植民地",
+    "アメリカ史",
+    "未解決事件"
+  ],
+  "sections": [
+    {
+      "type": "hook",
+      "speaker": "narrator",
+      "emotion": "normal",
+      "narration": "1587年、117人がロアノーク島に渡った。3年後に戻ると、誰もいなかった。柵に刻まれていたのはCROATOANの1語だけだった。今日の記録だ。"
+    },
+    {
+      "type": "body",
+      "speaker": "narrator",
+      "emotion": "tonedown",
+      "narration": "総督ジョン・ホワイトが117人を率いて植民地を築いた。八月には孫娘バージニア・デアが生まれている。アメリカで初めて誕生したイギリス人の赤ん坊だった。ホワイトは補給のためにイギリスへ戻ったが、スペイン無敵艦隊の侵攻で出航禁止令が出され、3年間戻ることができなかった。"
+    },
+    {
+      "type": "body",
+      "speaker": "narrator",
+      "emotion": "normal",
+      "narration": "1590年八月、ようやく島に帰還した。だが植民地は空だった。柵の柱にCROATOANという文字が刻まれており、危険を示す十字の印はどこにもなかった。"
+    },
+    {
+      "type": "body",
+      "speaker": "assistant",
+      "emotion": "toneup",
+      "narration": "437年経って、手がかりは見つかったんですか。"
+    },
+    {
+      "type": "body",
+      "speaker": "narrator",
+      "emotion": "tonedown",
+      "narration": "年輪分析で800年間最悪の干ばつだったことが判明している。ホワイトの地図をライトボックスに透かすと、隠されていた要塞記号が浮かび上がった。内陸100マイルの地点だ。さらにランビー族のDNAからヨーロッパ系のY染色体が検出されている。"
+    },
+    {
+      "type": "body",
+      "speaker": "assistant",
+      "emotion": "normal",
+      "narration": "つまり、消えたのではなく...。"
+    },
+    {
+      "type": "body",
+      "speaker": "narrator",
+      "emotion": "tonedown",
+      "narration": "干ばつの中で先住民と合流し、少なくとも3か所に散ったと考えられている。CROATOANは危険信号ではなく、行き先を示すメッセージだった。"
+    },
+    {
+      "type": "cta",
+      "speaker": "narrator",
+      "emotion": "tonedown",
+      "narration": "ホワイトは嵐に阻まれ、その島にたどり着けなかった。答えを刻んだのに、誰も読みに来なかった。バージニア・デアがどこでどう育ったのか、それは誰にもわからない。次の記録で。"
+    },
+    {
+      "type": "cta",
+      "speaker": "assistant",
+      "emotion": "normal",
+      "narration": "こういうミステリー、もっと気になりませんか。チャンネル登録、お願いします。"
+    }
+  ]
+}

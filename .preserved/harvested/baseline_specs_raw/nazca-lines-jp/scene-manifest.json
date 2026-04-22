@@ -1,0 +1,73 @@
+{
+  "version": "v4",
+  "channel": "incidents",
+  "category": "phenomena",
+  "topic": "나스카 라인",
+  "total_clips": 9,
+  "clips": [
+    {
+      "index": 0,
+      "section_type": "intro",
+      "narration_sentence": "[인트로 시그니처]",
+      "duration_s": 3,
+      "source": { "type": "signature", "local_path": "sources/intro_signature.mp4", "provider": "veo_reuse" }
+    },
+    {
+      "index": 1,
+      "section_type": "hook",
+      "narration_sentence": "페루 사막 한가운데, 길이 수백 미터짜리 그림들이 있습니다.",
+      "duration_s": 9,
+      "source": { "type": "image", "local_path": "sources/wiki_ko_2.jpg", "provider": "wikipedia", "description": "콘도르/벌새 지상화 항공 사진" }
+    },
+    {
+      "index": 2,
+      "section_type": "body",
+      "narration_sentence": "나스카 라인. 가장 큰 것은 370미터.",
+      "duration_s": 8,
+      "source": { "type": "image", "local_path": "sources/wiki_5.jpg", "provider": "wikipedia", "description": "나스카 사막 위성 전경 — 직선과 지상화 전체" }
+    },
+    {
+      "index": 3,
+      "section_type": "body",
+      "narration_sentence": "비행기도 없던 시대에 하늘에서만 보이는 그림을 왜 그린 겁니까?",
+      "duration_s": 5,
+      "source": { "type": "image", "local_path": "sources/wiki_0.jpg", "provider": "wikipedia", "description": "원숭이 지상화 항공 클로즈업 — 소용돌이 꼬리" }
+    },
+    {
+      "index": 4,
+      "section_type": "body",
+      "narration_sentence": "나스카 문명은 기원전 200년부터 기원후 600년까지 존재했습니다.",
+      "duration_s": 8,
+      "source": { "type": "image", "local_path": "sources/wiki_6.jpg", "provider": "wikipedia", "description": "나스카 사막 위성 클로즈업 — 직선 패턴" }
+    },
+    {
+      "index": 5,
+      "section_type": "body",
+      "narration_sentence": "그림의 정밀도가 소름 돋습니다. 단 하나의 선으로 그려져 있고...",
+      "duration_s": 10,
+      "source": { "type": "image", "local_path": "sources/wiki_0.jpg", "provider": "wikipedia", "description": "원숭이 지상화 — 한 줄 연결 구조 강조" }
+    },
+    {
+      "index": 6,
+      "section_type": "body",
+      "narration_sentence": "가설은 세 가지입니다. 제단, 지도, 천문 달력.",
+      "duration_s": 7,
+      "source": { "type": "image", "local_path": "sources/wiki_5.jpg", "provider": "wikipedia", "description": "나스카 사막 위성 전경 — 가설 설명 장면" }
+    },
+    {
+      "index": 7,
+      "section_type": "cta",
+      "narration_sentence": "2천 년이 지난 지금도, 이 사막은 우리에게 답을 주지 않고 있습니다.",
+      "duration_s": 12,
+      "source": { "type": "image", "local_path": "sources/wiki_ko_2.jpg", "provider": "wikipedia", "description": "콘도르 지상화 — 마무리 장면" }
+    },
+    {
+      "index": 8,
+      "section_type": "outro",
+      "narration_sentence": "[아웃트로 시그니처]",
+      "duration_s": 3,
+      "source": { "type": "signature", "local_path": "sources/outro_signature.mp4", "provider": "veo_reuse" }
+    }
+  ],
+  "source_stats": { "total": 9, "real_image": 5, "signature": 2, "unique_sources": 5, "real_ratio": 0.71 }
+}

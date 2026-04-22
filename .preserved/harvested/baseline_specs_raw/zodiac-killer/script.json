@@ -1,0 +1,107 @@
+{
+  "channel": "incidents",
+  "category": "crime",
+  "topic": "조디악 킬러",
+  "topic_en": "Zodiac Killer",
+  "narration_style": "multi",
+  "total_chars": 870,
+  "estimated_duration_s": 102,
+  "title": {
+    "line1": "50년 미제",
+    "line2": "암호 살인마",
+    "accent_color": "#FF2200",
+    "accent_words": [
+      "미제",
+      "살인마"
+    ]
+  },
+  "series": null,
+  "sections": [
+    {
+      "section_type": "hook",
+      "speaker_id": "narrator",
+      "narration": "이 암호에는 63개의 기호가 쓰여 있습니다. 51년 동안 아무도 풀지 못했습니다. 풀렸을 때, 메시지는 조롱이었습니다... 오늘의 기록.",
+      "emotion": "normal",
+      "visual_directing": "Z340 암호문 원본 클로즈업 → 인트로 시그니처(탐정 실루엣)",
+      "silence_after_ms": 700
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "1968년 12월, 캘리포니아 호숫가입니다. 주차된 차 안에서 10대 커플이 총에 맞아 숨졌습니다. 이듬해 7월, 밸레이오에서 또 다른 커플이 총격당했고 범인은 직접 경찰에 전화하여 자백합니다. 그리고 신문사에 암호문을 보냈습니다. 9월에는 레이크 베리에사에서 검은 두건에 십자원 마크를 새긴 남자가 소풍 중인 커플을 칼로 찔렀습니다. 차 문짝에 날짜와 기호까지 남겼습니다.",
+      "emotion": "tonedown",
+      "visual_directing": "1960년대 캘리포니아 밤 호숫가 (Veo) → 조디악 자필 편지 원본 → Lake Berryessa 차 문짝 기호 실제 사진",
+      "silence_after_ms": 300
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "그리고 10월에는 샌프란시스코 도심에서 택시 운전사를 사살하고, 피 묻은 셔츠 조각을 신문사에 보냅니다. 목격자 3명이 가로등 아래에서 범인의 얼굴을 봤는데도 잡히지 않았습니다.",
+      "emotion": "normal",
+      "visual_directing": "Paul Stine 범행 현장 실제 사진 → 조디악 수배 전단",
+      "silence_after_ms": 400
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "assistant",
+      "narration": "4건의 범행에 총, 칼, 다 다릅니다. 도시도 매번 바뀌었습니다. 왜 잡지 못한 겁니까?",
+      "emotion": "normal",
+      "visual_directing": "조수 캐릭터 리액션",
+      "silence_after_ms": 200
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "바로 그 점입니다. 4개 도시 경찰이 따로 수사하면서 정보가 공유되지 않았습니다. 의도적으로 패턴을 바꿔 수사를 교란한 것입니다. 20년간 최유력 용의자였던 아서 리 앨런도 DNA와 필적이 모두 불일치하여 배제되었습니다.",
+      "emotion": "tonedown",
+      "visual_directing": "Arthur Leigh Allen 실제 사진 → DNA 분석 그래픽",
+      "silence_after_ms": 300
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "assistant",
+      "narration": "그런데 2020년에 암호가 풀렸다고 들었습니다. 해독한 사람들은 전문가가 아니었다면서요?",
+      "emotion": "toneup",
+      "visual_directing": "Z340 해독 과정 비주얼",
+      "silence_after_ms": 200
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "그렇습니다. 미국 개발자, 호주 수학자, 벨기에 암호 전문가. 아마추어 3명이 51년 만에 Z340을 해독했습니다. 해독된 메시지는 이것이었습니다. 나를 잡으려고 재미있게 놀고 있길 바란다. 50년이 지나도 경찰을 조롱하고 있었던 겁니다.",
+      "emotion": "normal",
+      "visual_directing": "해독 메시지 텍스트 오버레이 → Z13 암호문 클로즈업",
+      "silence_after_ms": 500
+    },
+    {
+      "section_type": "cta",
+      "speaker_id": "narrator",
+      "narration": "조디악은 37명을 죽였다고 주장했습니다. 확인된 피해자는 5명. 나머지 32명은 정말 존재하는 걸까요. 그럼, 다음 사건현장으로 가보겠습니다.",
+      "emotion": "tonedown",
+      "visual_directing": "조디악 자필 편지 실제 이미지 → 아웃트로 시그니처(탐정 뒤돌아 걸어감)",
+      "silence_after_ms": 300
+    },
+    {
+      "section_type": "cta",
+      "speaker_id": "assistant",
+      "narration": "더 많은 사건이 궁금하시다면, 구독을 눌러주세요.",
+      "emotion": "normal",
+      "visual_directing": "채널 로고 + 구독 버튼",
+      "silence_after_ms": 0
+    }
+  ],
+  "tags": [
+    "조디악킬러",
+    "미국미제",
+    "연쇄살인",
+    "암호편지",
+    "1960년대",
+    "FBI",
+    "쇼츠",
+    "사건기록부",
+    "트루크라임",
+    "미스터리",
+    "미해결사건",
+    "범죄다큐"
+  ]
+}

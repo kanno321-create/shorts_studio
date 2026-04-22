@@ -1,0 +1,19 @@
+{
+  "topic": "나스카 라인",
+  "channel": "incidents",
+  "category": "phenomena",
+  "created_at": "2026-04-13T19:33:00Z",
+  "steps": {
+    "safety_check": {
+      "auto_publish_blocked": false,
+      "flags": []
+    },
+    "upload": {
+      "status": "completed",
+      "video_id": "1rlLF0zgw08",
+      "upload_time": "2026-04-13T10:36:05.267351+00:00",
+      "privacy_status": "private",
+      "youtube_url": "https://youtube.com/shorts/1rlLF0zgw08"
+    }
+  }
+}

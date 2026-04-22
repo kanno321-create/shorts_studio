@@ -1,0 +1,17 @@
+{
+  "titleLine1": "2천 년 전 사막에",
+  "titleLine2": "하늘의 그림",
+  "titleKeywords": [
+    { "text": "하늘의", "color": "#FFD000" }
+  ],
+  "channelName": "사건기록부",
+  "accentColor": "#FFD000",
+  "hashtags": "#쇼츠 #기현상 #나스카라인 #미스터리",
+  "fontFamily": "DoHyeon",
+  "titleFontFamily": "BlackHanSans",
+  "subtitlePosition": 0.65,
+  "subtitleHighlightColor": "#FFD000",
+  "subtitleFontSize": 88,
+  "transitions": "fade",
+  "bgm": null
+}

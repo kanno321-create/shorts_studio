@@ -1,0 +1,146 @@
+{
+  "channel": "incidents",
+  "category": "mystery",
+  "topic": "로아노크 식민지",
+  "topic_en": "Lost Colony of Roanoke",
+  "title_display": {
+    "line1": "미국 최초의 미스터리",
+    "line2": "117명이 사라졌다",
+    "accent_words": ["117명", "사라졌다"],
+    "accent_color": "#FFD000"
+  },
+  "structure": "사건전→사건→사건detail→사건후→평가→공포심",
+  "narrative_structure": {
+    "hook": "실종 선언형 — 1587년, 117명이 아메리카 대륙에서 통째로 사라졌습니다. 시체도 없고, 전투 흔적도 없고, 나무 기둥에 단어 하나만 남았습니다. 오늘의 기록.",
+    "act1_사건전": "1587년 영국. 월터 롤리 경의 후원으로 존 화이트가 115~121명(남녀노소)을 이끌고 로아노크 섬에 2차 식민지를 세운다. 8월 18일 외손녀 버지니아 데어가 태어난다 — 아메리카 최초의 영국계 아기. 8월 27일 화이트는 보급품을 가져오겠다며 '3개월 안에 돌아오겠다'고 약속하고 영국으로 떠난다.",
+    "act2_사건": "1588년 스페인 무적함대가 영국을 침공한다. 엘리자베스 여왕이 선박 출항 금지령을 내리고, 화이트는 돌아갈 수 없게 된다. 3개월 약속이 3년이 된다. 1590년 8월 18일 — 버지니아 데어의 세 번째 생일에 화이트가 마침내 도착한다. 식민지는 텅 비어 있다. 사람도, 시체도, 전투 흔적도 없다. 울타리 기둥에 단정한 대문자로 'CROATOAN'이 새겨져 있고, 해안가 나무에 'CRO' 세 글자가 있다. 화이트는 떠나기 전 약속했다 — 이동하면 목적지를 새기고, 위험하면 십자 표시를 추가하라고. 십자 표시는 없었다.",
+    "act3_사건후": "유력 가설 3가지를 추적한다. (1) 800년 최악의 가뭄: 윌리엄앤메리 대학 나무 연륜 분석 결과 1587년은 해당 지역 800년간 최악의 3년 가뭄 절정이었다. (2) 하인드 맵의 비밀: 2012년 영국 박물관이 존 화이트의 지도를 라이트박스로 재분석하자, 빈 패치 아래에 숨겨진 붉은-파란 요새 기호가 나타났다 — 로아노크에서 내륙 100마일, 버티 카운티. 적에게 지도가 넘어갈 경우를 대비한 군사 기밀이었다. (3) DNA 증거: 럼비 부족 가계에서 유럽인 Y염색체 + 원주민 미토콘드리아 DNA 혼합이 확인되었다. 해터라스 섬 발굴에서는 16세기 유럽 도자기와 원주민 유물이 함께 출토되었다.",
+    "act4_평가": "437년간 미해결. 그러나 증거는 하나의 결론을 가리킨다 — 식민지민들은 '사라진' 게 아니라 원주민과 '합류'했다. 여러 그룹으로 분산하여 크로아토안 섬, 초완 강 내륙, 체서피크 만 등 최소 3곳에서 원주민 공동체에 녹아들었다. 'CROATOAN'은 위험 신호가 아니라 행선지를 알려주는 메시지였다.",
+    "공포심": "화이트는 폭풍 때문에 크로아토안 섬에 가지 못했다. 식민지민들은 답을 남겼는데, 아무도 읽으러 오지 않았다. 그리고 아메리카 최초의 영국계 아기 버지니아 데어... 태어난 지 9일 만에 외할아버지와 이별한 그 아이는 어디서 어떻게 자랐을까."
+  },
+  "scripter_contract": {
+    "tone": "탐정 독백 + 조수 질문 (듀오 내레이션)",
+    "pov": "1인칭 탐정 시점, 현장 관찰→증거 분석→추론 흐름",
+    "emotion_map": {
+      "hook": "normal",
+      "act1_사건전": "tonedown",
+      "act2_사건": "toneup",
+      "act3_사건후": "normal",
+      "act4_평가": "tonedown",
+      "공포심": "tonedown"
+    },
+    "length_target": 620,
+    "char_per_sec": 6.9,
+    "duration_target_sec": "90-130",
+    "min_emotions": 3,
+    "emotion_jump_max": 1,
+    "ending_style": "습니다/입니다/였죠",
+    "forbidden": ["믿으시겠습니까", "놀라운 사실이 하나 더 있습니다", "상상할 수 없는", "어요체"],
+    "duo_config": {
+      "main_speaker": "Morgan (고독한 탐정, 남성)",
+      "sub_speaker": "Guri (여성 조수)",
+      "sub_speaker_max_sections": 3,
+      "sub_speaker_repertoire_primary": {
+        "id": "R06",
+        "name": "핵심 요약 질문",
+        "placement": "act2_사건 직후 (CROATOAN 발견 직후)",
+        "example": "정리하면, 117명이 흔적도 없이 사라졌는데 시체도 전투 흔적도 없다는 건데... 그게 가능합니까?"
+      },
+      "sub_speaker_repertoire_secondary": {
+        "id": "R12",
+        "name": "소름 반응",
+        "placement": "act3_사건후 (DNA 증거 이후)",
+        "example": "400년 뒤에 후손의 DNA에서 답이 나왔다니... 소름이 돋습니다."
+      }
+    },
+    "catchphrase_start": "오늘의 기록.",
+    "catchphrase_end": "질문형 마무리 — 시청자에게 여운을 남기는 열린 질문",
+    "connector_frequency": "3-4문장에 1회 연결재 삽입",
+    "narration_style_rules": [
+      "서사체 필수 — 체언 종결 단문 2개 연속 금지",
+      "관형절로 정보 조각 묶기",
+      "연결 형태소(-고, -며, -자마자)로 문장 이어붙이기",
+      "형사톤 형용사 허용 (incidents 채널)",
+      "정보 출처 화법 구분: 직접 관찰=단정형, 수사자료=사실형, 추론=추론형"
+    ]
+  },
+  "voice_hint": {
+    "main": {
+      "preset": "incidents-narrator",
+      "voice_name": "Morgan",
+      "provider": "typecast",
+      "model": "ssfm-v30",
+      "tempo": 0.93,
+      "default_emotion": "tonedown"
+    },
+    "assistant": {
+      "preset": "product-review-narrator",
+      "voice_name": "Guri",
+      "provider": "typecast",
+      "model": "ssfm-v21",
+      "default_emotion": "normal"
+    }
+  },
+  "series": null,
+  "source_strategy": {
+    "real_image_target": 6,
+    "real_image_sources": [
+      "존 화이트 수채화 (영국 박물관 소장, 공개 도메인) — 원주민/자연 기록",
+      "하인드 맵 (Virginea Pars) 원본 + 라이트박스 비밀 요새 기호 사진",
+      "Fort Raleigh National Historic Site 사진 (NPS)",
+      "해터라스 섬/Site X 고고학 발굴 현장 사진",
+      "로아노크 섬 항공/풍경 사진",
+      "나무 연륜 단면 사진 (가뭄 증거)"
+    ],
+    "veo_supplement": 2,
+    "veo_scenes": [
+      "안개 낀 16세기 빈 식민지 마을 — 텅 빈 오두막, 울타리 기둥에 CROATOAN 각인",
+      "1587년 범선이 영국 항구를 떠나는 장면 — 존 화이트 시점"
+    ],
+    "signature_reuse": 2,
+    "signature_scenes": [
+      "인트로: 탐정 실루엣 시그니처",
+      "아웃트로: 탐정 뒤돌아서 걸어가는 시그니처"
+    ],
+    "note": "Veo는 3.0 Fast 또는 Kling v2-master Pro만 사용 (비용 절감). 실제 자료 최우선."
+  },
+  "visual_highlights": [
+    {
+      "moment": "CROATOAN 각인",
+      "description": "나무 기둥에 대문자로 새겨진 CROATOAN — 유일한 단서",
+      "source_type": "veo + 텍스트 오버레이"
+    },
+    {
+      "moment": "존 화이트 수채화",
+      "description": "1585년 1차 원정 시 그린 아메리카 원주민/자연 수채화 — 최초의 유럽인 화가 기록",
+      "source_type": "실제 이미지 (공개 도메인)"
+    },
+    {
+      "moment": "하인드 맵 비밀",
+      "description": "빈 패치 아래 숨겨진 붉은-파란 요새 기호 — 라이트박스로 발견",
+      "source_type": "실제 이미지 (FCF/NBC News)"
+    },
+    {
+      "moment": "빈 식민지",
+      "description": "1590년 화이트가 본 텅 빈 로아노크 — 사람 없이 가재도구만 남은 마을",
+      "source_type": "veo (cinematic recreation)"
+    }
+  ],
+  "key_facts_from_source": {
+    "population": "115~121명 (남녀노소)",
+    "white_absence": "3년 (1587.8~1590.8)",
+    "drought": "800년간 최악의 3년 가뭄 (1587년 절정)",
+    "mystery_duration": "437년 미해결 (1587~2026)",
+    "croatoan_distance": "로아노크에서 남쪽 약 50마일",
+    "inland_fort_distance": "로아노크에서 내륙 약 100마일 (버티 카운티)",
+    "virginia_dare": "1587.8.18 출생 — 아메리카 최초 영국계 아기",
+    "dna_evidence": "럼비 부족에서 유럽인 Y염색체 + 원주민 미토콘드리아 DNA 혼합 확인",
+    "archaeological_2024": "해터라스 섬에서 1500년대 알곤킨 도자기 + 영국산 구리 와이어 반지 출토"
+  },
+  "metadata": {
+    "created": "2026-04-14",
+    "planner_version": "v1.0",
+    "source_file": "output/roanoke-colony/source.md",
+    "source_count": 18
+  }
+}

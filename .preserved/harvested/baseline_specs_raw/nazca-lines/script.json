@@ -1,0 +1,89 @@
+{
+  "channel": "incidents",
+  "category": "phenomena",
+  "topic": "나스카 라인",
+  "topic_en": "Nazca Lines Peru",
+  "narration_style": "multi",
+  "total_chars": 490,
+  "estimated_duration_s": 68,
+  "sections": [
+    {
+      "section_type": "hook",
+      "speaker_id": "narrator",
+      "narration": "페루 사막 한가운데, 길이 수백 미터짜리 그림들이 있습니다. 벌새, 거미, 원숭이. 그런데 이 그림은 하늘에서만 보입니다. 2천 년 전에. 오늘의 기록.",
+      "emotion": "normal",
+      "visual_directing": "나스카 라인 항공 사진 — 벌새 지상화",
+      "silence_after_ms": 700
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "나스카 라인. 페루 남부 사막에 새겨진 거대한 지상화입니다. 가장 큰 것은 370미터. 축구장 네 개를 이어붙인 크기입니다.",
+      "emotion": "tonedown",
+      "visual_directing": "나스카 라인 전체 항공 사진, 축척 비교",
+      "silence_after_ms": 300
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "assistant",
+      "narration": "잠깐요, 비행기도 없던 시대에 하늘에서만 보이는 그림을 왜 그린 겁니까?",
+      "emotion": "toneup",
+      "visual_directing": "거미 지상화 클로즈업",
+      "silence_after_ms": 200
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "바로 그겁니다. 이 그림을 그린 나스카 문명은 기원전 200년부터 기원후 600년까지 존재했습니다. 당연히 하늘을 날 수단이 없었습니다.",
+      "emotion": "normal",
+      "visual_directing": "나스카 문명 도자기, 유적 사진",
+      "silence_after_ms": 400
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "제가 현장을 살펴봤더니, 그림의 정밀도가 소름 돋습니다. 단 하나의 선으로 그려져 있고, 시작점과 끝점이 연결됩니다. 수학적 설계 없이는 불가능한 구조입니다.",
+      "emotion": "tonedown",
+      "visual_directing": "원숭이 지상화 — 한 줄로 연결된 선",
+      "silence_after_ms": 400
+    },
+    {
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration": "가설은 세 가지입니다. 신에게 보여주기 위한 제단, 지하수 흐름을 표시한 지도, 혹은 천문 달력.",
+      "emotion": "normal",
+      "visual_directing": "나스카 라인 위성 사진, 팬아메리칸 하이웨이",
+      "silence_after_ms": 300
+    },
+    {
+      "section_type": "cta",
+      "speaker_id": "narrator",
+      "narration": "하지만 어떤 가설도 완벽하게 설명하지 못합니다. 2천 년이 지난 지금도, 이 사막은 우리에게 답을 주지 않고 있습니다.",
+      "emotion": "tonedown",
+      "visual_directing": "석양의 나스카 사막 전경",
+      "silence_after_ms": 400
+    },
+    {
+      "section_type": "cta",
+      "speaker_id": "assistant",
+      "narration": "더 많은 미스터리가 궁금하시다면, 구독을 눌러주세요.",
+      "emotion": "normal",
+      "visual_directing": "채널 로고",
+      "silence_after_ms": 0
+    }
+  ],
+  "tags": [
+    "나스카라인",
+    "고대미스터리",
+    "페루",
+    "지상화",
+    "UFO",
+    "문명미스터리",
+    "쇼츠",
+    "사건기록부",
+    "트루크라임",
+    "미스터리",
+    "미해결사건",
+    "범죄다큐"
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "channel": "incidents",
+  "category": "crime",
+  "topic": "조디악 킬러",
+  "topic_en": "Zodiac Killer",
+  "title_display": {
+    "line1": "50년간 잡히지 않은",
+    "line2": "암호 살인마",
+    "accent_words": ["암호", "살인마"],
+    "accent_color": "#FF2200"
+  },
+  "structure": "사건전→사건→사건detail→사건후→평가→공포심",
+  "narrative_structure": {
+    "hook": "증거 제시형 — 이 편지에는 암호가 적혀 있었습니다. 51년 동안 아무도 풀지 못했습니다. 풀렸을 때, 메시지는 조롱이었습니다. 오늘의 기록.",
+    "act1_사건전": "1968년 12월 캘리포니아 베니샤. 호숫가에 주차한 10대 커플이 총에 맞는다. 6개월 뒤 또 다른 커플. 범인은 직접 경찰에 전화하여 자백한다. 그리고 신문사에 암호문을 보낸다 — 나를 잡아보라고.",
+    "act2_사건": "Lake Berryessa, 1969년 9월. 검은 두건에 십자원 마크가 새겨진 남자가 피크닉 중인 커플에게 접근한다. 총이 아니라 칼이었다. 차 문짝에 날짜와 기호를 새기고 사라진다. 한 달 뒤, 샌프란시스코 도심에서 택시 운전사를 머리에 쏘고 피 묻은 셔츠 조각을 신문사에 보낸다.",
+    "act3_사건후": "4개 도시 경찰이 각자 수사했다. 20년간 최유력 용의자 Arthur Leigh Allen — 정황 증거가 산더미처럼 쌓였으나 DNA와 필적 감정이 모두 불일치. 배제. 2020년, 51년 만에 Z340 암호가 풀렸다. 미국인, 호주인, 벨기에인 3명의 아마추어가 해독했다. 메시지: '나를 잡으려고 재미있게 놀고 있길 바란다.'",
+    "act4_평가": "관할권 분산, 매번 다른 무기와 패턴, 부분적 DNA. 범인은 의도적으로 수사를 교란했다. Z13 암호에 '내 이름은...'이라 썼지만, 13글자로는 해독이 불가능하다. 범인의 이름은 여전히 13글자의 암호 속에 잠들어 있다.",
+    "공포심": "조디악은 편지에 썼다 — 내가 죽인 사람들은 천국에서 내 노예가 될 것이라고. 그리고 자신이 37명을 죽였다고 주장했다. 확인된 피해자는 5명. 나머지 32명은... 정말 존재하는 걸까."
+  },
+  "scripter_contract": {
+    "tone": "탐정 독백 + 조수 질문 (듀오 내레이션)",
+    "pov": "1인칭 탐정 시점, 현장 관찰→증거 분석→추론 흐름",
+    "emotion_map": {
+      "hook": "normal",
+      "act1_사건전": "tonedown",
+      "act2_사건": "toneup",
+      "act3_사건후": "normal",
+      "act4_평가": "tonedown",
+      "공포심": "tonedown"
+    },
+    "length_target": 620,
+    "char_per_sec": 6.9,
+    "duration_target_sec": "90-130",
+    "min_emotions": 3,
+    "emotion_jump_max": 1,
+    "ending_style": "습니다/입니다/였죠",
+    "forbidden": ["믿으시겠습니까", "놀라운 사실이 하나 더 있습니다", "상상할 수 없는", "어요체"],
+    "duo_config": {
+      "main_speaker": "Morgan (고독한 탐정, 남성)",
+      "sub_speaker": "Guri (여성 조수)",
+      "sub_speaker_max_sections": 3,
+      "sub_speaker_repertoire_primary": {
+        "id": "R08",
+        "name": "충격 반응 + 후속",
+        "placement": "act3_사건후 (Z340 해독 이후)",
+        "example": "51년째 미해결이라고요? FBI까지 수사했는데? 그런데 해독된 메시지가 조롱이라니..."
+      },
+      "sub_speaker_repertoire_secondary": {
+        "id": "R01",
+        "name": "의문 제기",
+        "placement": "act2_사건 (두건+십자원 마크 이후)",
+        "example": "잠깐요, 그런데 왜 매번 다른 무기를 사용한 겁니까?"
+      }
+    },
+    "catchphrase_start": "오늘의 기록.",
+    "catchphrase_end": "질문형 마무리 — 나머지 32명에 대한 열린 질문",
+    "connector_frequency": "3-4문장에 1회 연결재 삽입",
+    "narration_style_rules": [
+      "서사체 필수 — 체언 종결 단문 2개 연속 금지",
+      "관형절로 정보 조각 묶기",
+      "연결 형태소(-고, -며, -자마자)로 문장 이어붙이기",
+      "형사톤 형용사 허용 (incidents 채널)",
+      "정보 출처 화법 구분: 직접 관찰=단정형, 수사자료=사실형, 추론=추론형"
+    ]
+  },
+  "voice_hint": {
+    "main": {
+      "preset": "incidents-narrator",
+      "voice_name": "Morgan",
+      "provider": "typecast",
+      "model": "ssfm-v30",
+      "tempo": 0.93,
+      "default_emotion": "tonedown"
+    },
+    "assistant": {
+      "preset": "product-review-narrator",
+      "voice_name": "Guri",
+      "provider": "typecast",
+      "model": "ssfm-v21",
+      "default_emotion": "normal"
+    }
+  },
+  "series": null,
+  "source_strategy": {
+    "real_image_target": 6,
+    "real_image_sources": [
+      "조디악 킬러 자필 편지 원본 사진",
+      "Z340 암호문 이미지",
+      "경찰 발표 몽타주/Wanted Poster",
+      "Lake Berryessa 범행 현장 (차 문짝 기호)",
+      "Paul Stine 택시 살인 현장 부근",
+      "피 묻은 셔츠 조각 (신문사 발송 증거)"
+    ],
+    "veo_supplement": 2,
+    "veo_scenes": [
+      "1969년 밤, 어두운 호숫가 주차장 — 헤드라이트 불빛만 보이는 긴장감",
+      "검은 두건에 십자원 마크 — 공포스러운 실루엣"
+    ],
+    "signature_reuse": 2,
+    "signature_scenes": [
+      "인트로: 탐정 실루엣 시그니처",
+      "아웃트로: 탐정 뒤돌아서 걸어가는 시그니처"
+    ],
+    "note": "Veo는 3.0 Fast 또는 Kling v2-master Pro만 사용 (비용 절감). 실제 자료 최우선."
+  },
+  "visual_highlights": [
+    {
+      "moment": "Z340 암호문",
+      "description": "63개 기호로 이뤄진 340자 암호 — 51년 만에 해독",
+      "source_type": "실제 이미지"
+    },
+    {
+      "moment": "검은 두건+십자원",
+      "description": "Lake Berryessa 범행 시 착용한 검은 두건과 가슴의 십자원 마크",
+      "source_type": "veo (cinematic recreation)"
+    },
+    {
+      "moment": "몽타주",
+      "description": "3명의 10대 목격자 증언 기반 경찰 제작 몽타주",
+      "source_type": "실제 이미지"
+    },
+    {
+      "moment": "피 묻은 셔츠",
+      "description": "Stine의 피 묻은 셔츠 조각을 편지에 동봉하여 증거로 보냄",
+      "source_type": "실제 이미지"
+    }
+  ],
+  "key_facts_from_source": {
+    "confirmed_kills": 5,
+    "claimed_kills": 37,
+    "active_period": "1968.12~1969.10 (확인), 편지 1974년까지",
+    "ciphers": "4개 (Z408 해독, Z340 2020해독, Z13/Z32 미해독)",
+    "z340_decoded_message": "I HOPE YOU ARE HAVING LOTS OF FUN IN TRYING TO CATCH ME",
+    "top_suspect_cleared": "Arthur Leigh Allen — DNA/필적 불일치로 배제",
+    "dna_status": "2018년 봉투 타액에서 부분 DNA 추출, 법의학 유전체 분석 진행 중",
+    "case_status": "미해결 (FBI 2023년 공식 확인)"
+  },
+  "metadata": {
+    "created": "2026-04-14",
+    "planner_version": "v1.0",
+    "source_file": "output/zodiac-killer/source.md",
+    "source_count": 18
+  }
+}

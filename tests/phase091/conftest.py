@@ -54,6 +54,7 @@ def _pipeline_fake_env(monkeypatch: pytest.MonkeyPatch) -> None:
         "ELEVENLABS_API_KEY",
         "SHOTSTACK_API_KEY",
         "GOOGLE_API_KEY",
+        "OPENAI_API_KEY",  # 2026-04-22 추가: GPTImage2Adapter Stage 2 primary
     ):
         monkeypatch.setenv(var, "fake")
 
@@ -143,6 +144,27 @@ def mock_cli_runner() -> MagicMock:
 
 
 @pytest.fixture
+def mock_openai_client(fixture_png_bytes: bytes) -> MagicMock:
+    """Return a MagicMock shaped like ``openai.OpenAI(api_key=...)``.
+
+    Both ``images.generate`` and ``images.edit`` return a response whose
+    ``.data[0].b64_json`` contains base64-encoded ``fixture_png_bytes``.
+    Used by tests for ``scripts.orchestrator.api.gpt_image2.GPTImage2Adapter``
+    (Stage 2 primary, 2026-04-22). Mirrors ``mock_genai_client`` design.
+    """
+    import base64
+
+    client = MagicMock()
+    image_obj = MagicMock()
+    image_obj.b64_json = base64.b64encode(fixture_png_bytes).decode("ascii")
+    response = MagicMock()
+    response.data = [image_obj]
+    client.images.generate.return_value = response
+    client.images.edit.return_value = response
+    return client
+
+
+@pytest.fixture
 def mock_genai_client(fixture_png_bytes: bytes) -> MagicMock:
     """Return a MagicMock shaped like `google.genai.Client(api_key=...)`.
     `models.generate_content` returns a response whose candidates[0].content.parts
@@ -166,4 +188,5 @@ __all__ = [
     "mock_anthropic_client",  # DEPRECATED: see fixture docstring
     "mock_cli_runner",
     "mock_genai_client",
+    "mock_openai_client",
 ]

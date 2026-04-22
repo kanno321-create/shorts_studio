@@ -1,0 +1,290 @@
+{
+  "version": "v5",
+  "channel": "incidents_jp",
+  "category": "mystery",
+  "topic": "ロアノーク植民地",
+  "topic_en": "Lost Colony of Roanoke",
+  "language": "ja",
+  "total_clips": 16,
+  "clips": [
+    {
+      "index": 0,
+      "section_index": 0,
+      "section_type": "hook",
+      "speaker_id": "narrator",
+      "narration_sentence": "[イントロ シグネチャー]",
+      "start_ms": 0,
+      "duration_s": 3,
+      "source": {
+        "type": "signature",
+        "local_path": "sources/intro_signature.mp4",
+        "provider": "veo_reuse",
+        "volume": 0,
+        "description": "イントロ シグネチャー - 探偵シルエット"
+      }
+    },
+    {
+      "index": 1,
+      "section_index": 0,
+      "section_type": "hook",
+      "speaker_id": "narrator",
+      "narration_sentence": "千五百八十七年、百十七人がロアノーク島に渡った。三年後に戻ると、誰もいなかった。",
+      "start_ms": 3000,
+      "duration_s": 7,
+      "source": {
+        "type": "image",
+        "local_path": "sources/fort_raleigh.jpg",
+        "provider": "google_image",
+        "description": "Fort Raleigh National Historic Site - ロアノーク植民地が建てられた実際の遺跡"
+      }
+    },
+    {
+      "index": 2,
+      "section_index": 0,
+      "section_type": "hook",
+      "speaker_id": "narrator",
+      "narration_sentence": "柵に刻まれていたのはCROATOANの一語だけだった。今日の記録だ。",
+      "start_ms": 10000,
+      "duration_s": 3,
+      "source": {
+        "type": "image",
+        "local_path": "sources/croatoan_carving.jpg",
+        "provider": "wikimedia",
+        "description": "CROATOAN刻印発見場面 19世紀版画 - イギリス人が木の柱の文字を確認する様子"
+      }
+    },
+    {
+      "index": 3,
+      "section_index": 1,
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration_sentence": "総督ジョン・ホワイトが百十七人を率いて植民地を築いた。",
+      "start_ms": 13761,
+      "duration_s": 5,
+      "source": {
+        "type": "image",
+        "local_path": "sources/john_white_watercolor.jpg",
+        "provider": "wikimedia",
+        "description": "ジョン・ホワイトが1585年の第1次遠征時に描いたアメリカ先住民の水彩画（パブリックドメイン）"
+      }
+    },
+    {
+      "index": 4,
+      "section_index": 1,
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration_sentence": "八月には孫娘バージニア・デアが生まれている。アメリカで初めて誕生したイギリス人の赤ん坊だった。",
+      "start_ms": 18761,
+      "duration_s": 5,
+      "source": {
+        "type": "image",
+        "local_path": "sources/virginia_dare_statue.jpg",
+        "provider": "google_image",
+        "description": "バージニア・デア記念像 - Elizabethan Gardens, ロアノーク島"
+      }
+    },
+    {
+      "index": 5,
+      "section_index": 1,
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration_sentence": "ホワイトは補給のためにイギリスへ戻ったが、スペイン無敵艦隊の侵攻で出航禁止令が出され、三年間戻ることができなかった。",
+      "start_ms": 23761,
+      "duration_s": 12,
+      "source": {
+        "type": "image",
+        "local_path": "sources/spanish_armada.jpg",
+        "provider": "wikimedia",
+        "description": "1588年スペイン無敵艦隊 vs イギリス艦隊海戦の油絵（パブリックドメイン）"
+      }
+    },
+    {
+      "index": 6,
+      "section_index": 2,
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration_sentence": "千五百九十年八月、ようやく島に帰還した。だが植民地は空だった。柵の柱にCROATOANという文字が刻まれており、危険を示す十字の印はどこにもなかった。",
+      "start_ms": 35749,
+      "duration_s": 13,
+      "source": {
+        "type": "video",
+        "local_path": "sources/veo_empty_colony_croatoan.mp4",
+        "provider": "veo",
+        "volume": 0,
+        "description": "Veo 3.1 Lite - 霧に包まれた空っぽの16世紀植民地、CROATOAN刻印クローズアップ",
+        "veo_prompt": "Slow aerial tracking shot descending through dense morning fog revealing a deserted 16th-century English colonial village on a wooded island. Rough wooden palisade walls surround empty thatched-roof cottages. No people, no animals, complete silence. Camera slowly pushes toward a wooden gate post where the word CROATOAN is deeply carved in crude capital letters. Late afternoon golden light filtering through mist. Cinematic, desaturated earthy tones, documentary reconstruction style. No faces, no modern elements."
+      }
+    },
+    {
+      "index": 7,
+      "section_index": 3,
+      "section_type": "body",
+      "speaker_id": "assistant",
+      "narration_sentence": "四百三十七年経って、手がかりは見つかったんですか。",
+      "start_ms": 49326,
+      "duration_s": 5,
+      "source": {
+        "type": "image",
+        "local_path": "sources/white_return_1590.jpg",
+        "provider": "wikimedia",
+        "description": "ジョン・ホワイトの帰還版画 - The Lost Colony 歴史挿絵"
+      }
+    },
+    {
+      "index": 8,
+      "section_index": 4,
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration_sentence": "年輪分析で八百年間最悪の干ばつだったことが判明している。",
+      "start_ms": 54465,
+      "duration_s": 5,
+      "source": {
+        "type": "image",
+        "local_path": "sources/tree_rings_drought.jpg",
+        "provider": "google_image",
+        "description": "年輪（樹木年代学）断面写真 - 800年最悪の干ばつの科学的証拠"
+      }
+    },
+    {
+      "index": 9,
+      "section_index": 4,
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration_sentence": "ホワイトの地図をライトボックスに透かすと、隠されていた要塞記号が浮かび上がった。内陸百マイルの地点だ。",
+      "start_ms": 59465,
+      "duration_s": 7,
+      "source": {
+        "type": "image",
+        "local_path": "sources/hinde_map_secret.jpg",
+        "provider": "google_image",
+        "description": "ハインドマップ ライトボックス分析 - 空白パッチの下の隠された赤・青の要塞記号クローズアップ"
+      }
+    },
+    {
+      "index": 10,
+      "section_index": 4,
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration_sentence": "さらにランビー族のDNAからヨーロッパ系のY染色体が検出されている。",
+      "start_ms": 66465,
+      "duration_s": 6,
+      "source": {
+        "type": "image",
+        "local_path": "sources/hatteras_artifacts.jpg",
+        "provider": "google_image",
+        "description": "ハッテラス島発掘遺物 - 16世紀ヨーロッパの印章指輪クローズアップ。ヨーロッパ人と先住民の接触証拠"
+      }
+    },
+    {
+      "index": 11,
+      "section_index": 5,
+      "section_type": "body",
+      "speaker_id": "assistant",
+      "narration_sentence": "つまり、消えたのではなく...。",
+      "start_ms": 72352,
+      "duration_s": 3,
+      "source": {
+        "type": "image",
+        "local_path": "sources/hatteras_excavation.jpg",
+        "provider": "google_image",
+        "description": "ハッテラス島考古学発掘現場 - 陶器片、硬貨、印章などの遺物4分割写真"
+      }
+    },
+    {
+      "index": 12,
+      "section_index": 6,
+      "section_type": "body",
+      "speaker_id": "narrator",
+      "narration_sentence": "干ばつの中で先住民と合流し、少なくとも三か所に散ったと考えられている。CROATOANは危険信号ではなく、行き先を示すメッセージだった。",
+      "start_ms": 74984,
+      "duration_s": 11,
+      "source": {
+        "type": "image",
+        "local_path": "sources/roanoke_map_routes.jpg",
+        "provider": "google_image",
+        "description": "ジョン・ホワイト地図（ハインドマップ）全体 + 秘密の要塞記号インセット - 3か所の移動経路表示"
+      }
+    },
+    {
+      "index": 13,
+      "section_index": 7,
+      "section_type": "cta",
+      "speaker_id": "narrator",
+      "narration_sentence": "ホワイトは嵐に阻まれ、その島にたどり着けなかった。答えを刻んだのに、誰も読みに来なかった。バージニア・デアがどこでどう育ったのか、それは誰にもわからない。次の記録で。",
+      "start_ms": 85687,
+      "duration_s": 15,
+      "source": {
+        "type": "video",
+        "local_path": "sources/veo_sailing_ship_departure.mp4",
+        "provider": "veo",
+        "volume": 0,
+        "description": "Veo 3.1 Lite - 16世紀の帆船が港を出港する場面。ホワイトの悲劇的な別れ",
+        "veo_prompt": "Wide establishing shot of a 16th-century English wooden sailing ship slowly departing from a rocky harbor at dawn. Dramatic clouds overhead, warm golden sunrise light. The ship has worn sails catching the wind. Camera slowly dollies backward as the ship grows smaller against the vast Atlantic ocean horizon. Period-accurate vessel, no modern elements. Cinematic color grading, muted warm tones, historical documentary style. No faces visible, ship viewed from distance."
+      }
+    },
+    {
+      "index": 14,
+      "section_index": 8,
+      "section_type": "cta",
+      "speaker_id": "assistant",
+      "narration_sentence": "こういうミステリー、もっと気になりませんか。チャンネル登録、お願いします。",
+      "start_ms": 100936,
+      "duration_s": 6,
+      "source": {
+        "type": "image",
+        "local_path": "sources/hinde_map_full.jpg",
+        "provider": "wikimedia",
+        "description": "ハインドマップ全体（Virginea Pars）- バージニア・デアが育ったかもしれない未知の大陸の地図"
+      }
+    },
+    {
+      "index": 15,
+      "section_index": 8,
+      "section_type": "cta",
+      "speaker_id": "narrator",
+      "narration_sentence": "[アウトロ シグネチャー]",
+      "duration_s": 3,
+      "source": {
+        "type": "signature",
+        "local_path": "sources/outro_signature.mp4",
+        "provider": "veo_reuse",
+        "volume": 0,
+        "description": "アウトロ シグネチャー - 探偵が振り返って歩いていく場面"
+      }
+    }
+  ],
+  "character_assets": {
+    "detective": {
+      "local_path": "sources/character_detective.png",
+      "speaker_id": "narrator",
+      "description": "探偵キャラクター イラスト（冴木）"
+    },
+    "assistant": {
+      "local_path": "sources/character_assistant.png",
+      "speaker_id": "assistant",
+      "description": "助手キャラクター イラスト"
+    }
+  },
+  "source_stats": {
+    "total": 16,
+    "real_image": 10,
+    "veo_generated": 2,
+    "signature_reuse": 2,
+    "character_assets": 2,
+    "unique_sources": 16,
+    "pexels_count": 0,
+    "stock_ratio": 0.0,
+    "real_ratio": 0.83,
+    "all_unique": true,
+    "reuse_details": {}
+  },
+  "quality_notes": {
+    "unique_enforcement": "16クリップ全て異なるソース使用。繰り返し0件",
+    "veo_volume_zero": "全てのVeo/signature動画にvolume=0設定（ナレーション被り防止）",
+    "pexels_ban": "Pexels 0件（完全禁止遵守）",
+    "content_matching": "各文ごとにナレーション内容に合った個別画像/動画マッチング",
+    "resolution_check": "全画像400px以上確認済み",
+    "veo_model": "veo-3.1-lite-generate-preview（コスト最適）",
+    "source_origin": "韓国語版と同一の実写画像を使用（新規収集不要）"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "total_duration_ms": 130363,
+  "total_duration_s": 130.36,
+  "section_count": 10,
+  "sections": [
+    {
+      "index": 0,
+      "type": "hook",
+      "speaker": "narrator",
+      "start_ms": 0,
+      "end_ms": 14550,
+      "duration_ms": 14550,
+      "gap_after_ms": 700,
+      "text": "千九百六十九年、カリフォルニア。ひとりの殺人鬼が現れた。名乗ったのは、ゾディアック。五人を殺し、新聞社に暗号を送りつけ、警察を嘲り続けた。今日の記録だ。"
+    },
+    {
+      "index": 1,
+      "type": "body",
+      "speaker": "narrator",
+      "start_ms": 15250,
+      "end_ms": 35730,
+      "duration_ms": 20480,
+      "gap_after_ms": 150,
+      "text": "最初の犯行は千九百六十八年十二月。ベニシアの湖畔の道で、十七歳と十六歳のカップルが撃たれた。翌年七月にはヴァレーホの駐車場でも若い男女が襲われている。だが犯人はそのあと、自ら警察に電話をかけ、「俺がやった」と告げた。"
+    },
+    {
+      "index": 2,
+      "type": "body",
+      "speaker": "assistant",
+      "start_ms": 35880,
+      "end_ms": 40112,
+      "duration_ms": 4232,
+      "gap_after_ms": 150,
+      "text": "自分から名乗り出た... なぜそんなことをするんですか？"
+    },
+    {
+      "index": 3,
+      "type": "body",
+      "speaker": "narrator",
+      "start_ms": 40262,
+      "end_ms": 54394,
+      "duration_ms": 14132,
+      "gap_after_ms": 150,
+      "text": "見せつけたかったんだろう。九月にはさらに手口が変わった。レイク・ベリエッサで大学生のカップルを縛り上げ、ナイフで何度も刺している。犯人は、十字の印が描かれた黒い覆面をかぶっていた。"
+    },
+    {
+      "index": 4,
+      "type": "body",
+      "speaker": "narrator",
+      "start_ms": 54544,
+      "end_ms": 66168,
+      "duration_ms": 11624,
+      "gap_after_ms": 150,
+      "text": "十月にはサンフランシスコの街中でタクシー運転手を射殺した。街灯の下、目撃者は三人。顔も見られている... だが、逮捕には至っていない。"
+    },
+    {
+      "index": 5,
+      "type": "body",
+      "speaker": "narrator",
+      "start_ms": 66318,
+      "end_ms": 80450,
+      "duration_ms": 14132,
+      "gap_after_ms": 150,
+      "text": "ゾディアックは四通の暗号文を新聞社に送った。最初の暗号を解いたのは教師の夫婦だった。そこにはこう書かれていた。「人を殺すのは楽しい。森で獲物を狩るより、ずっと面白い」。"
+    },
+    {
+      "index": 6,
+      "type": "body",
+      "speaker": "assistant",
+      "start_ms": 80600,
+      "end_ms": 87705,
+      "duration_ms": 7105,
+      "gap_after_ms": 150,
+      "text": "五十一年も解けなかった暗号がありますよね。あれには、何が書かれていたんですか？"
+    },
+    {
+      "index": 7,
+      "type": "body",
+      "speaker": "narrator",
+      "start_ms": 87855,
+      "end_ms": 104025,
+      "duration_ms": 16170,
+      "gap_after_ms": 150,
+      "text": "二千二十年に、三人のアマチュア研究者がようやく解読した。三百四十文字、六十三種類の記号。五十一年かけて出た答えは... 「俺を捕まえるの、楽しんでるか」。五十年越しの嘲笑だった。"
+    },
+    {
+      "index": 8,
+      "type": "cta",
+      "speaker": "narrator",
+      "start_ms": 104175,
+      "end_ms": 123088,
+      "duration_ms": 18913,
+      "gap_after_ms": 150,
+      "text": "最有力の容疑者はDNA鑑定で否定されている。二千二十六年のいま、FBIが新たな人物を検討しているとも報じられた。だが犯人の名前は、いまだに分からない。残る暗号は二通。答えはまだ、その中に眠っているのかもしれない。"
+    },
+    {
+      "index": 9,
+      "type": "cta",
+      "speaker": "assistant",
+      "start_ms": 123238,
+      "end_ms": 130213,
+      "duration_ms": 6975,
+      "gap_after_ms": 150,
+      "text": "まだ解かれていない暗号がある... 気になりませんか。チャンネル登録、お願いします。"
+    }
+  ]
+}

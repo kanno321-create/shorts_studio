@@ -1,0 +1,1246 @@
+[
+  {
+    "startMs": 0,
+    "endMs": 220,
+    "words": [
+      "페루",
+      "사막",
+      "한가운데",
+      "길이"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 220,
+    "endMs": 520,
+    "words": [
+      "페루",
+      "사막",
+      "한가운데",
+      "길이"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 520,
+    "endMs": 960,
+    "words": [
+      "페루",
+      "사막",
+      "한가운데",
+      "길이"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 960,
+    "endMs": 1720,
+    "words": [
+      "페루",
+      "사막",
+      "한가운데",
+      "길이"
+    ],
+    "highlightIndex": 3
+  },
+  {
+    "startMs": 1720,
+    "endMs": 1980,
+    "words": [
+      "수백",
+      "미터짜리",
+      "그림들이"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 1980,
+    "endMs": 2420,
+    "words": [
+      "수백",
+      "미터짜리",
+      "그림들이"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 2420,
+    "endMs": 2760,
+    "words": [
+      "수백",
+      "미터짜리",
+      "그림들이"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 2760,
+    "endMs": 3580,
+    "words": [
+      "있습니다,",
+      "벌새,",
+      "거미,"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 3580,
+    "endMs": 4300,
+    "words": [
+      "있습니다,",
+      "벌새,",
+      "거미,"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 4300,
+    "endMs": 5040,
+    "words": [
+      "있습니다,",
+      "벌새,",
+      "거미,"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 5040,
+    "endMs": 5660,
+    "words": [
+      "원숭이,",
+      "그런데",
+      "이",
+      "그림은"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 5660,
+    "endMs": 6400,
+    "words": [
+      "원숭이,",
+      "그런데",
+      "이",
+      "그림은"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 6400,
+    "endMs": 6580,
+    "words": [
+      "원숭이,",
+      "그런데",
+      "이",
+      "그림은"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 6580,
+    "endMs": 6980,
+    "words": [
+      "원숭이,",
+      "그런데",
+      "이",
+      "그림은"
+    ],
+    "highlightIndex": 3
+  },
+  {
+    "startMs": 6980,
+    "endMs": 7760,
+    "words": [
+      "하늘에서만",
+      "보입니다,",
+      "2천",
+      "년"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 7760,
+    "endMs": 8380,
+    "words": [
+      "하늘에서만",
+      "보입니다,",
+      "2천",
+      "년"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 8380,
+    "endMs": 8660,
+    "words": [
+      "하늘에서만",
+      "보입니다,",
+      "2천",
+      "년"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 8660,
+    "endMs": 8940,
+    "words": [
+      "하늘에서만",
+      "보입니다,",
+      "2천",
+      "년"
+    ],
+    "highlightIndex": 3
+  },
+  {
+    "startMs": 8940,
+    "endMs": 9280,
+    "words": [
+      "전에,",
+      "오늘의",
+      "나스카",
+      "라인"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 9280,
+    "endMs": 9920,
+    "words": [
+      "전에,",
+      "오늘의",
+      "나스카",
+      "라인"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 9920,
+    "endMs": 10070,
+    "words": [
+      "전에,",
+      "오늘의",
+      "나스카",
+      "라인"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 10070,
+    "endMs": 10220,
+    "words": [
+      "전에,",
+      "오늘의",
+      "나스카",
+      "라인"
+    ],
+    "highlightIndex": 3
+  },
+  {
+    "startMs": 10600,
+    "endMs": 11420,
+    "words": [
+      "나스카라인,",
+      "페루",
+      "남부"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 11420,
+    "endMs": 12300,
+    "words": [
+      "나스카라인,",
+      "페루",
+      "남부"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 12300,
+    "endMs": 12620,
+    "words": [
+      "나스카라인,",
+      "페루",
+      "남부"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 12620,
+    "endMs": 12980,
+    "words": [
+      "사막에",
+      "새겨진",
+      "거대한"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 12980,
+    "endMs": 13320,
+    "words": [
+      "사막에",
+      "새겨진",
+      "거대한"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 13320,
+    "endMs": 13900,
+    "words": [
+      "사막에",
+      "새겨진",
+      "거대한"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 13900,
+    "endMs": 15120,
+    "words": [
+      "지상화입니다,",
+      "가장"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 15120,
+    "endMs": 15460,
+    "words": [
+      "지상화입니다,",
+      "가장"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 15460,
+    "endMs": 15680,
+    "words": [
+      "370미터",
+      "것은"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 15680,
+    "endMs": 15920,
+    "words": [
+      "370미터",
+      "것은"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 15920,
+    "endMs": 16340,
+    "words": [
+      "네",
+      "개를",
+      "축구장",
+      "4개를"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 16340,
+    "endMs": 16940,
+    "words": [
+      "네",
+      "개를",
+      "축구장",
+      "4개를"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 16940,
+    "endMs": 17600,
+    "words": [
+      "네",
+      "개를",
+      "축구장",
+      "4개를"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 17600,
+    "endMs": 17980,
+    "words": [
+      "네",
+      "개를",
+      "축구장",
+      "4개를"
+    ],
+    "highlightIndex": 3
+  },
+  {
+    "startMs": 17980,
+    "endMs": 18480,
+    "words": [
+      "이어붙인",
+      "크기입니다."
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 18480,
+    "endMs": 18920,
+    "words": [
+      "이어붙인",
+      "크기입니다."
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 19580,
+    "endMs": 20220,
+    "words": [
+      "잠깐요,",
+      "비행기도"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 20220,
+    "endMs": 20740,
+    "words": [
+      "잠깐요,",
+      "비행기도"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 20740,
+    "endMs": 21100,
+    "words": [
+      "없던",
+      "시대에",
+      "하늘에서만"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 21100,
+    "endMs": 21480,
+    "words": [
+      "없던",
+      "시대에",
+      "하늘에서만"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 21480,
+    "endMs": 22060,
+    "words": [
+      "없던",
+      "시대에",
+      "하늘에서만"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 22060,
+    "endMs": 22320,
+    "words": [
+      "보이는",
+      "그림을",
+      "왜",
+      "그린",
+      "겁니까?"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 22320,
+    "endMs": 22760,
+    "words": [
+      "보이는",
+      "그림을",
+      "왜",
+      "그린",
+      "겁니까?"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 22760,
+    "endMs": 22900,
+    "words": [
+      "보이는",
+      "그림을",
+      "왜",
+      "그린",
+      "겁니까?"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 22900,
+    "endMs": 23160,
+    "words": [
+      "보이는",
+      "그림을",
+      "왜",
+      "그린",
+      "겁니까?"
+    ],
+    "highlightIndex": 3
+  },
+  {
+    "startMs": 23160,
+    "endMs": 23560,
+    "words": [
+      "보이는",
+      "그림을",
+      "왜",
+      "그린",
+      "겁니까?"
+    ],
+    "highlightIndex": 4
+  },
+  {
+    "startMs": 23560,
+    "endMs": 24520,
+    "words": [
+      "바로",
+      "그겁니다,",
+      "이",
+      "그림을"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 24520,
+    "endMs": 25220,
+    "words": [
+      "바로",
+      "그겁니다,",
+      "이",
+      "그림을"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 25220,
+    "endMs": 25760,
+    "words": [
+      "바로",
+      "그겁니다,",
+      "이",
+      "그림을"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 25760,
+    "endMs": 26160,
+    "words": [
+      "바로",
+      "그겁니다,",
+      "이",
+      "그림을"
+    ],
+    "highlightIndex": 3
+  },
+  {
+    "startMs": 26160,
+    "endMs": 26360,
+    "words": [
+      "그린",
+      "나스카"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 26360,
+    "endMs": 26620,
+    "words": [
+      "그린",
+      "나스카"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 26620,
+    "endMs": 27080,
+    "words": [
+      "문명은",
+      "기원전",
+      "200년부터"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 27080,
+    "endMs": 27680,
+    "words": [
+      "문명은",
+      "기원전",
+      "200년부터"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 27680,
+    "endMs": 28360,
+    "words": [
+      "문명은",
+      "기원전",
+      "200년부터"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 28360,
+    "endMs": 29240,
+    "words": [
+      "기원후",
+      "600년까지"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 29240,
+    "endMs": 29860,
+    "words": [
+      "기원후",
+      "600년까지"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 29860,
+    "endMs": 30420,
+    "words": [
+      "존재했습니다."
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 30800,
+    "endMs": 31380,
+    "words": [
+      "당연히",
+      "하늘을",
+      "날",
+      "수단이"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 31380,
+    "endMs": 31720,
+    "words": [
+      "당연히",
+      "하늘을",
+      "날",
+      "수단이"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 31720,
+    "endMs": 31860,
+    "words": [
+      "당연히",
+      "하늘을",
+      "날",
+      "수단이"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 31860,
+    "endMs": 32259,
+    "words": [
+      "당연히",
+      "하늘을",
+      "날",
+      "수단이"
+    ],
+    "highlightIndex": 3
+  },
+  {
+    "startMs": 32259,
+    "endMs": 32640,
+    "words": [
+      "없었습니다."
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 33100,
+    "endMs": 33500,
+    "words": [
+      "제가",
+      "현장을",
+      "소름",
+      "돋습니다"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 33500,
+    "endMs": 33980,
+    "words": [
+      "제가",
+      "현장을",
+      "소름",
+      "돋습니다"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 33980,
+    "endMs": 34280,
+    "words": [
+      "제가",
+      "현장을",
+      "소름",
+      "돋습니다"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 34280,
+    "endMs": 34580,
+    "words": [
+      "제가",
+      "현장을",
+      "소름",
+      "돋습니다"
+    ],
+    "highlightIndex": 3
+  },
+  {
+    "startMs": 34580,
+    "endMs": 35540,
+    "words": [
+      "그림의",
+      "정밀도가"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 35540,
+    "endMs": 36080,
+    "words": [
+      "그림의",
+      "정밀도가"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 36080,
+    "endMs": 37400,
+    "words": [
+      "소름돋습니다,",
+      "단"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 37400,
+    "endMs": 37740,
+    "words": [
+      "소름돋습니다,",
+      "단"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 37740,
+    "endMs": 38140,
+    "words": [
+      "하나의",
+      "선으로",
+      "그려져",
+      "있고"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 38140,
+    "endMs": 38460,
+    "words": [
+      "하나의",
+      "선으로",
+      "그려져",
+      "있고"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 38460,
+    "endMs": 38800,
+    "words": [
+      "하나의",
+      "선으로",
+      "그려져",
+      "있고"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 38800,
+    "endMs": 39020,
+    "words": [
+      "하나의",
+      "선으로",
+      "그려져",
+      "있고"
+    ],
+    "highlightIndex": 3
+  },
+  {
+    "startMs": 39020,
+    "endMs": 40260,
+    "words": [
+      "시작점과",
+      "끝점이"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 40260,
+    "endMs": 40680,
+    "words": [
+      "시작점과",
+      "끝점이"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 40680,
+    "endMs": 41820,
+    "words": [
+      "연결됩니다,",
+      "수학적",
+      "설계"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 41820,
+    "endMs": 42420,
+    "words": [
+      "연결됩니다,",
+      "수학적",
+      "설계"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 42420,
+    "endMs": 42720,
+    "words": [
+      "연결됩니다,",
+      "수학적",
+      "설계"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 42720,
+    "endMs": 43000,
+    "words": [
+      "없이는",
+      "불가능한"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 43000,
+    "endMs": 43720,
+    "words": [
+      "없이는",
+      "불가능한"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 43720,
+    "endMs": 44140,
+    "words": [
+      "구조입니다."
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 44600,
+    "endMs": 45480,
+    "words": [
+      "보여주기",
+      "가지입니다,"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 45480,
+    "endMs": 45940,
+    "words": [
+      "보여주기",
+      "가지입니다,"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 46680,
+    "endMs": 47180,
+    "words": [
+      "신에게",
+      "제단",
+      "주기",
+      "위한",
+      "재단,"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 47180,
+    "endMs": 47420,
+    "words": [
+      "신에게",
+      "제단",
+      "주기",
+      "위한",
+      "재단,"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 47420,
+    "endMs": 47660,
+    "words": [
+      "신에게",
+      "제단",
+      "주기",
+      "위한",
+      "재단,"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 47660,
+    "endMs": 47880,
+    "words": [
+      "신에게",
+      "제단",
+      "주기",
+      "위한",
+      "재단,"
+    ],
+    "highlightIndex": 3
+  },
+  {
+    "startMs": 47880,
+    "endMs": 48420,
+    "words": [
+      "신에게",
+      "제단",
+      "주기",
+      "위한",
+      "재단,"
+    ],
+    "highlightIndex": 4
+  },
+  {
+    "startMs": 48420,
+    "endMs": 49240,
+    "words": [
+      "지하수",
+      "흐름을",
+      "표시한",
+      "지도"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 49240,
+    "endMs": 49580,
+    "words": [
+      "지하수",
+      "흐름을",
+      "표시한",
+      "지도"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 49580,
+    "endMs": 49940,
+    "words": [
+      "지하수",
+      "흐름을",
+      "표시한",
+      "지도"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 49940,
+    "endMs": 50260,
+    "words": [
+      "지하수",
+      "흐름을",
+      "표시한",
+      "지도"
+    ],
+    "highlightIndex": 3
+  },
+  {
+    "startMs": 50260,
+    "endMs": 50980,
+    "words": [
+      "혹은",
+      "천문",
+      "달력."
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 50980,
+    "endMs": 51340,
+    "words": [
+      "혹은",
+      "천문",
+      "달력."
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 51340,
+    "endMs": 51820,
+    "words": [
+      "혹은",
+      "천문",
+      "달력."
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 51820,
+    "endMs": 51992,
+    "words": [
+      "완벽하게",
+      "설명하지",
+      "못합니다"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 51992,
+    "endMs": 52164,
+    "words": [
+      "완벽하게",
+      "설명하지",
+      "못합니다"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 52164,
+    "endMs": 52336,
+    "words": [
+      "완벽하게",
+      "설명하지",
+      "못합니다"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 52336,
+    "endMs": 52508,
+    "words": [
+      "2천",
+      "년이",
+      "가설도"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 52508,
+    "endMs": 52680,
+    "words": [
+      "2천",
+      "년이",
+      "가설도"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 52680,
+    "endMs": 53240,
+    "words": [
+      "2천",
+      "년이",
+      "가설도"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 53240,
+    "endMs": 53540,
+    "words": [
+      "완벽합니다."
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 55740,
+    "endMs": 56460,
+    "words": [
+      "2000년이",
+      "지난",
+      "지금도"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 56460,
+    "endMs": 56620,
+    "words": [
+      "2000년이",
+      "지난",
+      "지금도"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 56620,
+    "endMs": 57060,
+    "words": [
+      "2000년이",
+      "지난",
+      "지금도"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 57060,
+    "endMs": 57420,
+    "words": [
+      "이",
+      "사막은",
+      "우리에게",
+      "답을"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 57420,
+    "endMs": 57940,
+    "words": [
+      "이",
+      "사막은",
+      "우리에게",
+      "답을"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 57940,
+    "endMs": 58240,
+    "words": [
+      "이",
+      "사막은",
+      "우리에게",
+      "답을"
+    ],
+    "highlightIndex": 2
+  },
+  {
+    "startMs": 58240,
+    "endMs": 58600,
+    "words": [
+      "이",
+      "사막은",
+      "우리에게",
+      "답을"
+    ],
+    "highlightIndex": 3
+  },
+  {
+    "startMs": 58600,
+    "endMs": 58820,
+    "words": [
+      "주지",
+      "않고"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 58820,
+    "endMs": 59020,
+    "words": [
+      "주지",
+      "않고"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 59020,
+    "endMs": 60160,
+    "words": [
+      "눌러주세요"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 60160,
+    "endMs": 60440,
+    "words": [
+      "많은",
+      "미스터리가"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 60440,
+    "endMs": 60980,
+    "words": [
+      "많은",
+      "미스터리가"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 60980,
+    "endMs": 61720,
+    "words": [
+      "궁금하시다면",
+      "구독을"
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 61720,
+    "endMs": 62380,
+    "words": [
+      "궁금하시다면",
+      "구독을"
+    ],
+    "highlightIndex": 1
+  },
+  {
+    "startMs": 62380,
+    "endMs": 62540,
+    "words": [
+      "눌러",
+      "주세요."
+    ],
+    "highlightIndex": 0
+  },
+  {
+    "startMs": 62540,
+    "endMs": 62900,
+    "words": [
+      "눌러",
+      "주세요."
+    ],
+    "highlightIndex": 1
+  }
+]

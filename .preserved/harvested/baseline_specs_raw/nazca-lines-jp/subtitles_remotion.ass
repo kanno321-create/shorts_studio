@@ -1,0 +1,58 @@
+[Script Info]
+Title: JA Subtitles
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,M PLUS Rounded 1c,72,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,3,0,2,40,40,350,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.44,Default,,0,0,0,,ペルーの砂漠のど
+Dialogue: 0,0:00:01.44,0:00:03.42,Default,,0,0,0,,真ん中に、全長数100
+Dialogue: 0,0:00:03.42,0:00:05.23,Default,,0,0,0,,メートルの絵がある。
+Dialogue: 0,0:00:05.23,0:00:06.67,Default,,0,0,0,,ハチドリ、クモ、
+Dialogue: 0,0:00:06.67,0:00:08.48,Default,,0,0,0,,サル。だが、この絵は
+Dialogue: 0,0:00:08.48,0:00:10.28,Default,,0,0,0,,空からしか見えない。
+Dialogue: 0,0:00:10.28,0:00:12.27,Default,,0,0,0,,2000年前に描かれた
+Dialogue: 0,0:00:12.27,0:00:14.08,Default,,0,0,0,,ものだ。今日の記録。
+Dialogue: 0,0:00:14.23,0:00:16.29,Default,,0,0,0,,ナスカの地上絵。ペルー
+Dialogue: 0,0:00:16.29,0:00:17.41,Default,,0,0,0,,南部の砂漠に
+Dialogue: 0,0:00:17.41,0:00:19.29,Default,,0,0,0,,刻まれた巨大な絵だ。
+Dialogue: 0,0:00:19.29,0:00:20.98,Default,,0,0,0,,最大のものは370
+Dialogue: 0,0:00:20.98,0:00:23.23,Default,,0,0,0,,メートル。サッカー場4つ
+Dialogue: 0,0:00:23.23,0:00:25.10,Default,,0,0,0,,分をつなげた大きさに
+Dialogue: 0,0:00:25.10,0:00:25.67,Default,,0,0,0,,なる。
+Dialogue: 0,0:00:25.82,0:00:27.66,Default,,0,0,0,,ちょっと待ってください。
+Dialogue: 0,0:00:27.66,0:00:29.51,Default,,0,0,0,,飛行機もなかった時代に、
+Dialogue: 0,0:00:29.51,0:00:31.36,Default,,0,0,0,,空からしか見えない絵を、
+Dialogue: 0,0:00:31.36,0:00:32.90,Default,,0,0,0,,なぜ描いたんですか？
+Dialogue: 0,0:00:33.05,0:00:34.98,Default,,0,0,0,,まさにそこだ。この絵を
+Dialogue: 0,0:00:34.98,0:00:37.09,Default,,0,0,0,,描いたナスカ文明は紀元前
+Dialogue: 0,0:00:37.09,0:00:39.02,Default,,0,0,0,,200年から紀元600
+Dialogue: 0,0:00:39.02,0:00:40.96,Default,,0,0,0,,年まで存在した。当然、
+Dialogue: 0,0:00:40.96,0:00:42.54,Default,,0,0,0,,空を飛ぶ手段なんて
+Dialogue: 0,0:00:42.54,0:00:43.42,Default,,0,0,0,,なかった。
+Dialogue: 0,0:00:43.57,0:00:45.29,Default,,0,0,0,,俺が現地の記録を見て
+Dialogue: 0,0:00:45.29,0:00:46.68,Default,,0,0,0,,驚いたのは、その
+Dialogue: 0,0:00:46.68,0:00:48.75,Default,,0,0,0,,精密さだ。1本の線だけで
+Dialogue: 0,0:00:48.75,0:00:50.48,Default,,0,0,0,,描かれていて、始点と
+Dialogue: 0,0:00:50.48,0:00:52.38,Default,,0,0,0,,終点がつながっている。
+Dialogue: 0,0:00:52.38,0:00:54.28,Default,,0,0,0,,数学的な設計なしには、
+Dialogue: 0,0:00:54.28,0:00:55.66,Default,,0,0,0,,不可能な構造だ。
+Dialogue: 0,0:00:55.81,0:00:57.87,Default,,0,0,0,,仮説は3つある。神に
+Dialogue: 0,0:00:57.87,0:00:59.73,Default,,0,0,0,,見せるための祭壇、
+Dialogue: 0,0:00:59.73,0:01:01.79,Default,,0,0,0,,地下水の流れを示した
+Dialogue: 0,0:01:01.79,0:01:03.64,Default,,0,0,0,,地図、それから天文
+Dialogue: 0,0:01:03.64,0:01:04.88,Default,,0,0,0,,カレンダー。
+Dialogue: 0,0:01:05.03,0:01:07.01,Default,,0,0,0,,だが、どの仮説も完全には
+Dialogue: 0,0:01:07.01,0:01:08.50,Default,,0,0,0,,説明できていない。
+Dialogue: 0,0:01:08.50,0:01:10.48,Default,,0,0,0,,2000年が経った今も、
+Dialogue: 0,0:01:10.48,0:01:12.46,Default,,0,0,0,,この砂漠は俺たちに答えを
+Dialogue: 0,0:01:12.46,0:01:13.62,Default,,0,0,0,,返していない。
+Dialogue: 0,0:01:13.77,0:01:15.32,Default,,0,0,0,,こういうミステリー、
+Dialogue: 0,0:01:15.32,0:01:17.17,Default,,0,0,0,,もっと気になりませんか。
+Dialogue: 0,0:01:17.17,0:01:18.87,Default,,0,0,0,,チャンネル登録、お願い
+Dialogue: 0,0:01:18.87,0:01:19.49,Default,,0,0,0,,します。
