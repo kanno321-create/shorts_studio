@@ -53,11 +53,12 @@ decisions:
   - "ins-subtitle-alignment v1.1 → v1.2 (faster-whisper large-v3)"
   - "Veo API calls = 0 (금기 #11) — intro_v4 re-used by reference, outro programmatic"
 metrics:
-  duration_minutes: null  # filled after completion
-  commit_count: null
+  duration_minutes: 44
+  commit_count: 10
   files_created: 20
-  files_modified: 3
+  files_modified: 4
   tests_added: 6
+  tests_total_phase16: 279
 phase_final: false
 created: 2026-04-22
 last_updated: 2026-04-22
@@ -125,22 +126,92 @@ last_updated: 2026-04-22
 
 ## Execution Summary
 
-> 아래 섹션은 Plan 16-03 모든 task 실행 완료 후 채워집니다.
+Plan 16-03 완료. 9 task 전수 commit, phase16 tests 279/279 green.
 
 ### Waves Executed
 
-- Wave 0: (pending)
-- Wave 1: (pending)
-- Wave 2: (pending)
+**Wave 0 (3 tasks)**
+- W0-T0-OUTRO-RESEARCH (6273d2c): 3-phase 증거 수집 → Option A. 10/10 tests PASS.
+- W0-HARVEST (05f01b6): 5 바이너리 one-way copy + sha256 manifest + 2 README + attrib +R. 20/20 tests PASS.
+- W0-DEPS (2b8e057): requirements.txt 신규 + faster-whisper>=1.0.3.
+
+**Wave 1 (5 tasks)**
+- W1-WORDSUB-PORT (2e36f44): word_subtitle.py 1705 lines 1:1 harvested port.
+- W1-SUBTITLE-PRODUCER-AGENT (5d1d1fc): AGENT.md v1.0 104 lines (Producer #15).
+- W1-SUBTITLE-WRAPPER (b0e1665): SubtitleProducer Python wrapper 258 lines.
+- W1-INS-FIX (f743441): ins-subtitle-alignment v1.1 → v1.2 (WhisperX 17→3).
+- W1-OUTRO-IMPL (35c8042): OutroCard.tsx 127 lines Option A, npx tsc 0 errors.
+
+**Wave 2 (1 task)**
+- W2-TESTS (47c4085): 4 test files, 65 tests, phase16 전체 279/279 PASS.
 
 ### Deviations from Plan
 
-_filled during execution_
+**Rule 2 - Missing critical (cc4f505)**: subtitle-producer 신규가 Producer 14→15 유발 → Phase 4 regression 3 테스트 업데이트:
+- test_total_agent_count.py: 32→33, producer count 14→15
+- test_maxturns_matrix.py::test_agent_count_sanity: upper bound 32→33
+- test_inspector_technical.py::test_phase4_spec_only_invariant[ins-subtitle-alignment]: MUST REMEMBER #6 에 "Phase 4→5→16-03 전환" lineage 박제
+근거: CONTEXT.md 승인된 33-agent cap 전환의 자연스러운 귀결.
 
-### Commits
+**Auth gates**: 없음.
 
-_filled during execution_
+**Out-of-scope (deferred)**: phase04 test_17_inspector_names_present — Phase 16-02 deferred-items.md #1 에 이미 등록된 사전 실패 (Phase 9.1 책임).
+
+### Commits (10)
+
+| # | Hash | Task |
+|---|------|------|
+| 1 | 6273d2c | W0-T0-OUTRO-RESEARCH |
+| 2 | 05f01b6 | W0-HARVEST |
+| 3 | 2b8e057 | W0-DEPS |
+| 4 | 2e36f44 | W1-WORDSUB-PORT |
+| 5 | 5d1d1fc | W1-SUBTITLE-PRODUCER-AGENT |
+| 6 | b0e1665 | W1-SUBTITLE-WRAPPER |
+| 7 | f743441 | W1-INS-FIX |
+| 8 | 35c8042 | W1-OUTRO-IMPL |
+| 9 | 47c4085 | W2-TESTS |
+| 10 | cc4f505 | Rule 2 Phase 4 regression fix |
+
+### Regression Status
+
+- Phase 16 신규: 279/279 green (65 이 Plan 기여 + 214 기존)
+- Phase 4: 244/245 (1 failure pre-existing, deferred-items #1)
+- TypeScript: `cd remotion && npx tsc --noEmit` → 0 errors
+
+### Key Decisions (4)
+
+1. **Option A OutroCard**: 3-phase 증거 (grep 0 + triangulation + 실 파일 스캔) → shorts_naberal OutroCard.tsx 132줄 프로그램적 선례 확인. Veo 재호출 회피.
+2. **word_subtitle.py 1:1 port (refactor 금지)**: FAIL-EDT-008 defense (Korean timestamp repair) correctness-critical.
+3. **Producer 14 → 15**: CONTEXT.md 승인. GAN 분리상 subtitle-producer 는 ins-subtitle-alignment 상류 필수.
+4. **faster-whisper large-v3 고정**: CUDA→CPU auto fallback. WhisperX 전환 제거.
+
+### Known Stubs
+
+없음. 모든 파일 실 content — subtitle-producer 는 word_subtitle.py harvested port 호출 full-functional. OutroCard.tsx 은 programmatic 렌더.
+
+### Asset Manifest
+
+`.preserved/harvested/video_pipeline_raw/harvest_extension_manifest.json`:
+- signatures/incidents_intro_v4_silent_glare.mp4 (1.70 MB)
+- characters/incidents_detective_longform_{a,b}.png
+- characters/incidents_assistant_jp_a.png
+- characters/incidents_zunda_shihtzu_a.png
+- veo_policy: "intro v4 re-used by reference only - no new Veo API calls"
+
+### Self-Check
+
+- [x] 5 binary assets harvest + manifest + 2 READMEs
+- [x] scripts/orchestrator/subtitle/word_subtitle.py (1705 lines, import OK)
+- [x] scripts/orchestrator/api/subtitle_producer.py (258 lines, import OK)
+- [x] .claude/agents/producers/subtitle-producer/AGENT.md (104 lines, 5 sections)
+- [x] .claude/agents/inspectors/technical/ins-subtitle-alignment/AGENT.md (v1.2, WhisperX≤3)
+- [x] remotion/src/components/OutroCard.tsx (127 lines, tsc 0 errors)
+- [x] 6 test files in tests/phase16/
+- [x] 10 commits (per-task atomic)
+
+## Self-Check: PASSED
 
 ---
 
-*Phase 16-03 — Plan 실행 시작 2026-04-22 / 나베랄 감마.*
+*Phase 16-03 — Plan 완료 2026-04-22 13:45 UTC / 나베랄 감마.*
+*대표님 전권 위임 + autonomous execution.*
