@@ -198,10 +198,17 @@ class VoiceFirstTimeline:
                     " (must be > 0)"
                 )
             speed = aud.duration / vid.duration
-            if not (self.MIN_SPEED <= speed <= self.MAX_SPEED):
+            # Session #31 — SHORTS_SPEED_TOLERANCE_RELAX=1 env override for
+            # smoke/bring-up paths. 실 운영에는 원복 권장 (playback 품질).
+            import os as _os
+            if _os.environ.get("SHORTS_SPEED_TOLERANCE_RELAX") == "1":
+                min_speed, max_speed = 0.5, 2.0
+            else:
+                min_speed, max_speed = self.MIN_SPEED, self.MAX_SPEED
+            if not (min_speed <= speed <= max_speed):
                 raise ClipDurationMismatch(
                     f"segment {aud.index}: speed adjust {speed:.2f} outside"
-                    f" [{self.MIN_SPEED}, {self.MAX_SPEED}] — regenerate clip"
+                    f" [{min_speed}, {max_speed}] — regenerate clip"
                 )
             timeline.append(
                 TimelineEntry(

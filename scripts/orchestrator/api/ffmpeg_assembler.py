@@ -146,7 +146,7 @@ class FFmpegAssembler:
         # Step 2 — concatenate video segments via concat demuxer.
         concat_list = tmp_video_dir / "concat.txt"
         concat_list.write_text(
-            "\n".join(f"file '{p.as_posix()}'" for p in segment_paths),
+            "\n".join(f"file '{p.resolve().as_posix()}'" for p in segment_paths),
             encoding="utf-8",
         )
         video_concat = tmp_video_dir / "video_concat.mp4"
@@ -166,7 +166,7 @@ class FFmpegAssembler:
         audio_concat_list = tmp_video_dir / "audio_concat.txt"
         audio_concat_list.write_text(
             "\n".join(
-                f"file '{Path(entry.audio_path).as_posix()}'"
+                f"file '{Path(entry.audio_path).resolve().as_posix()}'"
                 for entry in clips
             ),
             encoding="utf-8",

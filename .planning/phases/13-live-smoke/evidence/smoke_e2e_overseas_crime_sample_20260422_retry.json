@@ -1,0 +1,13 @@
+{
+  "session_id": "overseas_crime_sample_20260422_retry",
+  "status": "FAILED",
+  "wall_time_seconds": 115.2,
+  "gate_timestamps": {},
+  "gate_count": 0,
+  "final_video_id": "",
+  "total_cost_usd": 0.0,
+  "budget_cap_usd": 5.0,
+  "budget_breached": false,
+  "supervisor_rc1_count": 0,
+  "attempt_count": 2
+}

@@ -2,7 +2,7 @@
   "phase": "13-live-smoke",
   "plan": "13-06",
   "tier": "tier1_only",
-  "timestamp": "2026-04-21T16:00:06Z",
+  "timestamp": "2026-04-21T23:15:23Z",
   "all_passed": true,
   "checks": [
     {
@@ -20,7 +20,7 @@
         "--no-cov"
       ],
       "rc": 0,
-      "stdout_tail": ".......................................                                  [100%]\n39 passed, 5 deselected in 2.73s\n",
+      "stdout_tail": "..................................................                       [100%]\n50 passed, 5 deselected in 6.64s\n",
       "stderr_tail": "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\requests\\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.0.post2)/charset_normalizer (3.4.3) doesn't match a supported version!\n  warnings.warn(\n"
     },
     {
@@ -37,7 +37,7 @@
         "--no-cov"
       ],
       "rc": 0,
-      "stdout_tail": "tests/phase13/test_live_run.py::test_smoke_runner_live_subprocess_full_e2e\ntests/phase13/test_smoke_01_producer.py::test_smoke_01_real_claude_cli_producer_call_and_anchor\ntests/phase13/test_smoke_02_supervisor.py::test_smoke_02_real_claude_cli_supervisor_rc1_zero\ntests/phase13/test_smoke_03_upload_contract.py::test_smoke_03_real_youtube_unlisted_upload_and_cleanup\ntests/phase13/test_smoke_04_readback.py::test_smoke_04_real_videos_list_readback_after_upload\n\n5/54 tests collected (49 deselected) in 0.83s\n",
+      "stdout_tail": "tests/phase13/test_live_run.py::test_smoke_runner_live_subprocess_full_e2e\ntests/phase13/test_smoke_01_producer.py::test_smoke_01_real_claude_cli_producer_call_and_anchor\ntests/phase13/test_smoke_02_supervisor.py::test_smoke_02_real_claude_cli_supervisor_rc1_zero\ntests/phase13/test_smoke_03_upload_contract.py::test_smoke_03_real_youtube_unlisted_upload_and_cleanup\ntests/phase13/test_smoke_04_readback.py::test_smoke_04_real_videos_list_readback_after_upload\n\n5/65 tests collected (60 deselected) in 0.75s\n",
       "stderr_tail": "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\requests\\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.0.post2)/charset_normalizer (3.4.3) doesn't match a supported version!\n  warnings.warn(\n",
       "tier2_collected_count": 5
     },
@@ -82,7 +82,7 @@
         "--no-cov"
       ],
       "rc": 0,
-      "stdout_tail": "..............................                                           [100%]\n30 passed, 1520 deselected in 1.83s\n",
+      "stdout_tail": "........................................                                 [100%]\n40 passed, 1601 deselected in 1.74s\n",
       "stderr_tail": "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\requests\\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.0.post2)/charset_normalizer (3.4.3) doesn't match a supported version!\n  warnings.warn(\n",
       "markers_required": [
         "live_smoke",
@@ -98,7 +98,7 @@
         "--help"
       ],
       "rc": 0,
-      "stdout_tail": "usage: phase13_live_smoke.py [-h] [--live] [--max-attempts MAX_ATTEMPTS]\n                             [--budget-cap-usd BUDGET_CAP_USD]\n                             [--session-id SESSION_ID]\n                             [--state-root STATE_ROOT] [--verbose-compression]\n                             [--log-level LOG_LEVEL]\n\nPhase 13 Live Smoke — full E2E real API smoke + evidence chain.\nphase11_full_run.py clone + Wave 0~3 wire. Default dry-run ($0). Pass --live\n로만 실 과금 진입 (대표님 승인 후).\n\noptions:\n  -h, --help            show this help message and exit\n  --live                Real API calls. Default: dry-run mode ($0 preview).\n                        Requires env: TYPECAST_API_KEY + GOOGLE_API_KEY +\n                        FAL_KEY/KLING_API_KEY. Cost bounded ≤ --budget-cap-usd\n                        (default $5.00).\n  --max-attempts MAX_ATTEMPTS\n                        Retry attempts on mid-run failure (default 2). Budget\n                        cap is cumulative across attempts (Research Open Q\n                        #2).\n  --budget-cap-usd BUDGET_CAP_USD\n                        Hard cost cap USD (default $5.00). SMOKE-05 invariant.\n                        BudgetExceededError → exit 5.\n  --session-id SESSION_ID\n                        Session identifier (default: yyyyMMdd_HHMMSS).\n  --state-root STATE_ROOT\n                        Checkpointer state directory (default: state).\n  --verbose-compression\n                        Dump raw supervisor payload pre-compression to\n                        evidence (Research Open Q #6 ad-hoc forensic mode).\n  --log-level LOG_LEVEL\n                        Python logging level (default: INFO).\n",
+      "stdout_tail": "anning/phases/13-live-smoke/evidence)\n                        사용. Plan 15-06 live retry 단계에서 대표님 격리 경로로 분리 저장 가능.\n  --revision-from {TREND,NICHE,RESEARCH_NLM,BLUEPRINT,SCRIPT,POLISH,VOICE,ASSETS,ASSEMBLY,THUMBNAIL,METADATA,UPLOAD,MONITOR}\n                        UFL-01 — 기존 세션의 특정 GATE 부터 재실행 (대표님 재작업 요청). 해당 GATE\n                        이상 idx 의 state/<sid>/gate_NN.json 파일이 삭제되어\n                        Checkpointer.resume 이 그 지점으로 되돌아갑니다. --session-id 와 함께\n                        사용해야 기존 session 을 재사용할 수 있습니다.\n  --feedback FEEDBACK   UFL-01 — 대표님 피드백 텍스트. Producer invoker 가\n                        prior_user_feedback 으로 user_payload 에 주입하여 scripter /\n                        script-polisher 등 하류 에이전트가 재작업 방향 인지. --revision-from\n                        과 함께 사용 권장.\n  --revise-script REVISE_SCRIPT\n                        UFL-02 — 대표님 수동 대본 .md/.txt 경로. SCRIPT gate 에서\n                        scripter 에이전트를 skip 하고 지정 파일 내용을 script_md 로 주입.\n                        script-polisher (POLISH gate) 는 정상 실행되어 RUB 검증 수행.\n  --pause-after {TREND,NICHE,RESEARCH_NLM,BLUEPRINT,SCRIPT,POLISH,VOICE,ASSETS,ASSEMBLY,THUMBNAIL,METADATA,UPLOAD,MONITOR}\n                        UFL-03 — 지정 GATE 완료 후 pipeline 일시중지 (대표님 검토용).\n                        GateGuard.dispatch 이후 PipelinePauseSignal raise →\n                        runner graceful exit 0 + evidence pause_*.json 기록. 재개\n                        시 --session-id 재사용 + --revision-from 으로 재진입 가능.\n  --topic TOPIC         쉼표 구분 키워드 list 로 TREND gate pre-seed. trend-collector\n                        에이전트 자율 픽업 대신 대표님 지정 주제 주입. 예: --topic \"외국범죄,FBI\n                        수사,인터폴\". --niche 와 반드시 동반 사용.\n  --niche {documentary,humor,incidents,politics,trend,wildlife}\n                        NICHE gate pre-seed. 7 채널바이블 중 1개\n                        (incidents/documentary/humor/politics/trend/wildlife).\n                        --topic 와 반드시 동반 사용. 선택 시 niche-classifier 에이전트 skip,\n                        해당 채널바이블 경로가 RESEARCH_NLM~UPLOAD 전 11 gate 에 전파.\n",
       "stderr_tail": "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\requests\\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.0.post2)/charset_normalizer (3.4.3) doesn't match a supported version!\n  warnings.warn(\n",
       "required_flags": [
         "--live",
@@ -132,7 +132,7 @@
         "--skip-github-issue"
       ],
       "rc": 0,
-      "stdout_tail": "{\n  \"a_grade_count\": 1,\n  \"a_grade_details\": {\n    \"t2v_code_path\": 1\n  },\n  \"total_patterns_checked\": 8,\n  \"scan_time\": \"2026-04-22T01:00:05.617794+09:00\",\n  \"dry_run\": true,\n  \"harness_loaded\": false,\n  \"mode\": \"local-only\"\n}\n",
+      "stdout_tail": "{\n  \"a_grade_count\": 1,\n  \"a_grade_details\": {\n    \"t2v_code_path\": 1\n  },\n  \"total_patterns_checked\": 8,\n  \"scan_time\": \"2026-04-22T08:15:21.984370+09:00\",\n  \"dry_run\": true,\n  \"harness_loaded\": false,\n  \"mode\": \"local-only\"\n}\n",
       "stderr_tail": "[INFO] --skip-harness-import: local-only drift scan (deprecated_patterns.json only)\n"
     }
   ],

@@ -1,0 +1,13 @@
+{
+  "session_id": "20260422_035016",
+  "status": "DRY_RUN",
+  "wall_time_seconds": 0.0,
+  "gate_timestamps": {},
+  "gate_count": 0,
+  "final_video_id": "",
+  "total_cost_usd": 0.0,
+  "budget_cap_usd": 5.0,
+  "budget_breached": false,
+  "supervisor_rc1_count": 0,
+  "attempt_count": 0
+}

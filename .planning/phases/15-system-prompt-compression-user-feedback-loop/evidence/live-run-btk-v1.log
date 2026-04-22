@@ -1,0 +1,39 @@
+C:\Users\PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.0.post2)/charset_normalizer (3.4.3) doesn't match a supported version!
+  warnings.warn(
+2026-04-22 15:42:22,068 INFO smoke.phase13: ================================================================
+2026-04-22 15:42:22,068 INFO smoke.phase13: Phase 13 Live Smoke Runner \u2014 real API + budget cap + evidence anchoring (대표님)
+2026-04-22 15:42:22,068 INFO smoke.phase13: 세션: btk_v1_session31 | 모드: LIVE (실 과금) | 예산 상한: $5.00
+2026-04-22 15:42:22,068 INFO smoke.phase13: 등록된 provider (8): claude_cli, elevenlabs, kling, nanobanana, notebooklm, runway, typecast, youtube_api
+2026-04-22 15:42:22,068 INFO smoke.phase13: Evidence dir: C:\Users\PC\Desktop\naberal_group\studios\shorts\.planning\phases\13-live-smoke\evidence
+2026-04-22 15:42:22,068 INFO smoke.phase13: ================================================================
+2026-04-22 15:42:22,068 INFO smoke.phase13: [phase13] 주제 pre-seed 활성 \u2014 대표님 지정: niche=incidents, keywords=['BTK', '플로피디스크 메타데이터', '미국 캔자스', '연쇄살인 2005 체포']
+2026-04-22 15:42:22,068 INFO smoke.phase11: ========== Phase 11 smoke env 진단 (대표님) ==========
+2026-04-22 15:42:22,068 INFO smoke.phase11: [env] 필수 key 전부 존재 (대표님)
+2026-04-22 15:42:22,068 INFO smoke.phase11: [env] any-of 그룹 전부 존재 (대표님)
+2026-04-22 15:42:22,068 WARNING smoke.phase11: [env] 선택 key 누락 (graceful degrade 로 진행):
+2026-04-22 15:42:22,068 WARNING smoke.phase11:   · SHOTSTACK_API_KEY \u2014 Shotstack render (Phase 9.1 deprecated → ken_burns)
+2026-04-22 15:42:22,076 WARNING smoke.phase11:   · ELEVENLABS_DEFAULT_VOICE_ID \u2014 ElevenLabs voice pin (3-tier fallback OK if absent)
+2026-04-22 15:42:22,076 INFO smoke.phase11: ====================================================
+2026-04-22 15:42:22,076 INFO smoke.phase13: [phase13] live run attempt 1/2 \u2014 session=btk_v1_session31 (대표님)
+2026-04-22 15:42:22,095 WARNING scripts.orchestrator.shorts_pipeline: [pipeline] shotstack adapter 미초기화 (대표님 \u2014 SHOTSTACK_API_KEY 없음, Phase 9.1 ken_burns 로컬 대체): ShotstackAdapter: no API key supplied and SHOTSTACK_API_KEY is not set in the environment.
+2026-04-22 15:42:22,113 INFO smoke.phase13: [phase13] --skip-supervisor 활성 \u2014 supervisor auto-PASS (대표님)
+2026-04-22 15:42:22,113 INFO smoke.phase13: [pre-script] 대표님 수동 대본 로드: scripts\smoke\sample_scripts\overseas_crime_btk_v1.md (2000 chars)
+2026-04-22 15:42:22,113 INFO smoke.phase13: [phase13] UFL-02 revise-script wrap 적용 (대표님): scripts\smoke\sample_scripts\overseas_crime_btk_v1.md
+2026-04-22 15:42:22,113 INFO scripts.orchestrator.shorts_pipeline: [run] session=btk_v1_session31 resume_check
+2026-04-22 15:42:22,113 INFO smoke.phase13: [pre-seed] TREND gate \u2014 대표님 지정 키워드 주입 (4 개): ['BTK', '플로피디스크 메타데이터', '미국 캔자스', '연쇄살인 2005 체포']
+2026-04-22 15:42:22,113 INFO smoke.phase13: [phase13] --skip-supervisor auto-PASS: gate=TREND call=1 (대표님)
+2026-04-22 15:42:22,113 INFO smoke.phase13: [phase13] --skip-supervisor auto-PASS: gate=TREND call=2 (대표님)
+2026-04-22 15:42:22,113 ERROR smoke.phase13: [phase13] pipeline attempt 1 실패 (대표님): asdict() should be called on dataclass instances
+2026-04-22 15:42:22,113 INFO smoke.phase13: [phase13] 다음 attempt 진행 \u2014 budget 은 cumulative 유지 (대표님)
+2026-04-22 15:42:22,113 INFO smoke.phase13: [phase13] live run attempt 2/2 \u2014 session=btk_v1_session31 (대표님)
+2026-04-22 15:42:22,121 WARNING scripts.orchestrator.shorts_pipeline: [pipeline] shotstack adapter 미초기화 (대표님 \u2014 SHOTSTACK_API_KEY 없음, Phase 9.1 ken_burns 로컬 대체): ShotstackAdapter: no API key supplied and SHOTSTACK_API_KEY is not set in the environment.
+2026-04-22 15:42:22,125 INFO smoke.phase13: [phase13] --skip-supervisor 활성 \u2014 supervisor auto-PASS (대표님)
+2026-04-22 15:42:22,125 INFO smoke.phase13: [pre-script] 대표님 수동 대본 로드: scripts\smoke\sample_scripts\overseas_crime_btk_v1.md (2000 chars)
+2026-04-22 15:42:22,125 INFO smoke.phase13: [phase13] UFL-02 revise-script wrap 적용 (대표님): scripts\smoke\sample_scripts\overseas_crime_btk_v1.md
+2026-04-22 15:42:22,125 INFO scripts.orchestrator.shorts_pipeline: [run] session=btk_v1_session31 resume_check
+2026-04-22 15:42:22,125 INFO smoke.phase13: [pre-seed] TREND gate \u2014 대표님 지정 키워드 주입 (4 개): ['BTK', '플로피디스크 메타데이터', '미국 캔자스', '연쇄살인 2005 체포']
+2026-04-22 15:42:22,125 INFO smoke.phase13: [phase13] --skip-supervisor auto-PASS: gate=TREND call=1 (대표님)
+2026-04-22 15:42:22,125 INFO smoke.phase13: [phase13] --skip-supervisor auto-PASS: gate=TREND call=2 (대표님)
+2026-04-22 15:42:22,125 ERROR smoke.phase13: [phase13] pipeline attempt 2 실패 (대표님): asdict() should be called on dataclass instances
+2026-04-22 15:42:22,125 INFO smoke.phase13: [phase13] state_dir 부재 \u2014 gate_timestamps 수집 skipped: state\btk_v1_session31
+2026-04-22 15:42:22,125 INFO smoke.phase13: [phase13] smoke_e2e evidence → C:\Users\PC\Desktop\naberal_group\studios\shorts\.planning\phases\13-live-smoke\evidence\smoke_e2e_btk_v1_session31.json

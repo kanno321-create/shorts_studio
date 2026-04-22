@@ -98,6 +98,7 @@ class TypecastAdapter:
                 text=scene["text"],
                 emotion_style=scene.get("emotion_style", "neutral"),
                 voice_id=scene.get("voice_id", "detective_hao"),
+                model=scene.get("model", "ssfm-v30"),
             )
 
             # Pre-process: inject SSML pauses so short voices (Morgan etc.)
@@ -112,6 +113,7 @@ class TypecastAdapter:
                 emotion_style=req.emotion_style,
                 scene_id=req.scene_id,
                 output_path=output_path,
+                model=req.model,
             )
 
             duration = self._get_audio_duration(output_path)
@@ -262,11 +264,15 @@ class TypecastAdapter:
         emotion_style: str,
         scene_id: int,
         output_path: Path,
+        model: str = "ssfm-v30",
     ) -> Path:
         """Call the Typecast SDK once per chunk and concatenate the results.
 
         The ``typecast`` Python SDK is imported lazily so tests can mock
         this seam without the SDK installed. Returns ``output_path``.
+
+        Session #31 fix: Typecast SDK pydantic v2 upgrade requires ``model``
+        field on TTSRequest. Default ``ssfm-v30`` (2026Q2 한국어 주 모델).
         """
 
         from typecast import Typecast  # lazy
@@ -280,11 +286,15 @@ class TypecastAdapter:
             request: Any = TTSRequest(
                 voice_id=voice_id,
                 text=chunk,
+                model=model,
                 emotion=emotion_style,
                 output=Output(audio_format="mp3"),
             )
-            response = client.text_to_speech.generate(request=request)
-            tmp_path.write_bytes(response.audio)
+            # Session #31 — Typecast SDK API: client.text_to_speech(request=)
+            # returns TTSResponse(audio_data, duration, format). Old .generate()
+            # + .audio path deprecated.
+            response = client.text_to_speech(request=request)
+            tmp_path.write_bytes(response.audio_data)
             audio_paths.append(tmp_path)
 
         if len(audio_paths) == 1:

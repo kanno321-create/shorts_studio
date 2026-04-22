@@ -428,7 +428,12 @@ class ShortsPipeline:
         ctx.artifacts[GateName.SCRIPT] = self._artifact_path(output)
 
     def _run_polish(self, ctx: GateContext) -> None:
-        """GATE 6 — script-polisher Producer."""
+        """GATE 6 — script-polisher Producer.
+
+        Session #31 fix: producer output 이 ``scenes`` 키를 포함하는 dict 이면
+        dict 자체를 artifact 로 저장 (``_scenes_from_artifact`` dict 경로와
+        정합). ``artifact_path`` 필드가 있을 때만 Path 로 fallback.
+        """
         output = self._producer_loop(
             GateName.POLISH,
             lambda: self.producer_invoker(
@@ -438,7 +443,10 @@ class ShortsPipeline:
         )
         verdict = self.supervisor_invoker(GateName.POLISH, output)
         self.gate_guard.dispatch(GateName.POLISH, verdict)
-        ctx.artifacts[GateName.POLISH] = self._artifact_path(output)
+        if isinstance(output, dict) and isinstance(output.get("scenes"), list):
+            ctx.artifacts[GateName.POLISH] = output
+        else:
+            ctx.artifacts[GateName.POLISH] = self._artifact_path(output)
 
     def _run_voice(self, ctx: GateContext) -> None:
         """GATE 7 — Typecast primary, ElevenLabs fallback (AUDIO-01 / D-10)."""

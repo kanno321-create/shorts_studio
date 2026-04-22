@@ -1,0 +1,39 @@
+C:\Users\PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.0.post2)/charset_normalizer (3.4.3) doesn't match a supported version!
+  warnings.warn(
+2026-04-22 01:33:14,597 INFO smoke.phase13: ================================================================
+2026-04-22 01:33:14,597 INFO smoke.phase13: Phase 13 Live Smoke Runner — real API + budget cap + evidence anchoring (대표님)
+2026-04-22 01:33:14,597 INFO smoke.phase13: 세션: overseas_crime_sample_20260422 | 모드: LIVE (실 과금) | 예산 상한: $5.00
+2026-04-22 01:33:14,597 INFO smoke.phase13: 등록된 provider (8): claude_cli, elevenlabs, kling, nanobanana, notebooklm, runway, typecast, youtube_api
+2026-04-22 01:33:14,597 INFO smoke.phase13: Evidence dir: C:\Users\PC\Desktop\naberal_group\studios\shorts\.planning\phases\13-live-smoke\evidence
+2026-04-22 01:33:14,597 INFO smoke.phase13: ================================================================
+2026-04-22 01:33:14,597 INFO smoke.phase13: [phase13] 주제 pre-seed 활성 — 대표님 지정: niche=incidents, keywords=['해외범죄', 'FBI 수사', '인터폴', '국제 범죄 사건']
+2026-04-22 01:33:14,597 INFO smoke.phase11: ========== Phase 11 smoke env 진단 (대표님) ==========
+2026-04-22 01:33:14,597 INFO smoke.phase11: [env] 필수 key 전부 존재 (대표님)
+2026-04-22 01:33:14,597 INFO smoke.phase11: [env] any-of 그룹 전부 존재 (대표님)
+2026-04-22 01:33:14,597 WARNING smoke.phase11: [env] 선택 key 누락 (graceful degrade 로 진행):
+2026-04-22 01:33:14,597 WARNING smoke.phase11:   · SHOTSTACK_API_KEY — Shotstack render (Phase 9.1 deprecated → ken_burns)
+2026-04-22 01:33:14,597 WARNING smoke.phase11:   · ELEVENLABS_DEFAULT_VOICE_ID — ElevenLabs voice pin (3-tier fallback OK if absent)
+2026-04-22 01:33:14,597 INFO smoke.phase11: ====================================================
+2026-04-22 01:33:14,597 INFO smoke.phase13: [phase13] live run attempt 1/2 — session=overseas_crime_sample_20260422 (대표님)
+2026-04-22 01:33:14,615 WARNING scripts.orchestrator.shorts_pipeline: [pipeline] shotstack adapter 미초기화 (대표님 — SHOTSTACK_API_KEY 없음, Phase 9.1 ken_burns 로컬 대체): ShotstackAdapter: no API key supplied and SHOTSTACK_API_KEY is not set in the environment.
+2026-04-22 01:33:14,620 INFO scripts.orchestrator.shorts_pipeline: [run] session=overseas_crime_sample_20260422 resume_check
+2026-04-22 01:33:14,620 INFO smoke.phase13: [pre-seed] TREND gate — 대표님 지정 키워드 주입 (4 개): ['해외범죄', 'FBI 수사', '인터폴', '국제 범죄 사건']
+2026-04-22 01:33:14,630 WARNING scripts.orchestrator.invokers: [invoker] claude-cli CLI 오류 재시도 1/3 (대표님): claude CLI 실패 (rc=1, 대표님): �������� �ʹ� ��ϴ�.
+
+2026-04-22 01:33:14,639 WARNING scripts.orchestrator.invokers: [invoker] claude-cli CLI 오류 재시도 2/3 (대표님): claude CLI 실패 (rc=1, 대표님): �������� �ʹ� ��ϴ�.
+
+2026-04-22 01:33:14,647 ERROR smoke.phase13: [phase13] pipeline attempt 1 실패 (대표님): claude CLI 실패 (rc=1, 대표님): �������� �ʹ� ��ϴ�.
+
+2026-04-22 01:33:14,648 INFO smoke.phase13: [phase13] 다음 attempt 진행 — budget 은 cumulative 유지 (대표님)
+2026-04-22 01:33:14,648 INFO smoke.phase13: [phase13] live run attempt 2/2 — session=overseas_crime_sample_20260422 (대표님)
+2026-04-22 01:33:14,654 WARNING scripts.orchestrator.shorts_pipeline: [pipeline] shotstack adapter 미초기화 (대표님 — SHOTSTACK_API_KEY 없음, Phase 9.1 ken_burns 로컬 대체): ShotstackAdapter: no API key supplied and SHOTSTACK_API_KEY is not set in the environment.
+2026-04-22 01:33:14,659 INFO scripts.orchestrator.shorts_pipeline: [run] session=overseas_crime_sample_20260422 resume_check
+2026-04-22 01:33:14,659 INFO smoke.phase13: [pre-seed] TREND gate — 대표님 지정 키워드 주입 (4 개): ['해외범죄', 'FBI 수사', '인터폴', '국제 범죄 사건']
+2026-04-22 01:33:14,667 WARNING scripts.orchestrator.invokers: [invoker] claude-cli CLI 오류 재시도 1/3 (대표님): claude CLI 실패 (rc=1, 대표님): �������� �ʹ� ��ϴ�.
+
+2026-04-22 01:33:14,675 WARNING scripts.orchestrator.invokers: [invoker] claude-cli CLI 오류 재시도 2/3 (대표님): claude CLI 실패 (rc=1, 대표님): �������� �ʹ� ��ϴ�.
+
+2026-04-22 01:33:14,682 ERROR smoke.phase13: [phase13] pipeline attempt 2 실패 (대표님): claude CLI 실패 (rc=1, 대표님): �������� �ʹ� ��ϴ�.
+
+2026-04-22 01:33:14,683 INFO smoke.phase13: [phase13] state_dir 부재 — gate_timestamps 수집 skipped: state\overseas_crime_sample_20260422
+2026-04-22 01:33:14,684 INFO smoke.phase13: [phase13] smoke_e2e evidence → C:\Users\PC\Desktop\naberal_group\studios\shorts\.planning\phases\13-live-smoke\evidence\smoke_e2e_overseas_crime_sample_20260422.json

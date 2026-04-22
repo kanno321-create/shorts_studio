@@ -1,0 +1,65 @@
+{
+  "cap_usd": 5.0,
+  "total_usd": 0.0,
+  "breached": false,
+  "entry_count": 6,
+  "entries": [
+    {
+      "timestamp": "2026-04-22T07:31:55.718462",
+      "provider": "claude_cli",
+      "amount_usd": 0.0,
+      "cumulative_usd": 0.0,
+      "metadata": {
+        "note": "Max subscription inclusive — dry-run preview 대표님"
+      }
+    },
+    {
+      "timestamp": "2026-04-22T07:31:55.718462",
+      "provider": "notebooklm",
+      "amount_usd": 0.0,
+      "cumulative_usd": 0.0,
+      "metadata": {
+        "note": "Max subscription inclusive — dry-run preview 대표님"
+      }
+    },
+    {
+      "timestamp": "2026-04-22T07:31:55.718462",
+      "provider": "youtube_api",
+      "amount_usd": 0.0,
+      "cumulative_usd": 0.0,
+      "metadata": {
+        "note": "Free quota — dry-run preview 대표님"
+      }
+    },
+    {
+      "timestamp": "2026-04-22T07:31:55.718462",
+      "provider": "nanobanana",
+      "amount_usd": 0.0,
+      "cumulative_usd": 0.0,
+      "metadata": {
+        "note": "dry-run preview",
+        "estimated_if_live": 0.04
+      }
+    },
+    {
+      "timestamp": "2026-04-22T07:31:55.718462",
+      "provider": "kling",
+      "amount_usd": 0.0,
+      "cumulative_usd": 0.0,
+      "metadata": {
+        "note": "dry-run preview — 8 cuts",
+        "estimated_if_live": 2.8
+      }
+    },
+    {
+      "timestamp": "2026-04-22T07:31:55.718462",
+      "provider": "typecast",
+      "amount_usd": 0.0,
+      "cumulative_usd": 0.0,
+      "metadata": {
+        "note": "dry-run preview — 1K chars",
+        "estimated_if_live": 0.12
+      }
+    }
+  ]
+}

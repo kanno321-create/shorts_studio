@@ -1,0 +1,22 @@
+{
+  "session_id": "btk_v1_s31_r2",
+  "status": "FAILED",
+  "wall_time_seconds": 31.85,
+  "gate_timestamps": {
+    "TREND": "2026-04-22T07:13:44.921801+00:00",
+    "NICHE": "2026-04-22T07:13:44.922792+00:00",
+    "RESEARCH_NLM": "2026-04-22T07:14:16.723643+00:00",
+    "BLUEPRINT": "2026-04-22T07:14:16.723643+00:00",
+    "SCRIPT": "2026-04-22T07:14:16.723643+00:00",
+    "POLISH": "2026-04-22T07:14:16.723643+00:00",
+    "VOICE": "2026-04-22T07:14:16.747214+00:00",
+    "ASSETS": "2026-04-22T07:14:16.747214+00:00"
+  },
+  "gate_count": 8,
+  "final_video_id": "",
+  "total_cost_usd": 0.0,
+  "budget_cap_usd": 5.0,
+  "budget_breached": false,
+  "supervisor_rc1_count": 0,
+  "attempt_count": 2
+}

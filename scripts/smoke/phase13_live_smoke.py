@@ -900,19 +900,24 @@ def _trigger_real_upload(
     if not thumb_path.exists():
         raise RuntimeError(f"THUMBNAIL 이미지 부재: {thumb_path}")
 
-    # Upload plan — gate_12.json 에 저장된 seed 또는 manifest 기반.
+    # Upload plan — build_insert_body 는 nested snippet/status 구조 요구.
     plan = {
-        "privacy_status": "unlisted",
-        "category_id": "22",
-        "title": manifest["metadata"]["title"],
-        "description": manifest["metadata"]["description"],
-        "tags": manifest["metadata"].get("tags", []),
+        "snippet": {
+            "title": manifest["metadata"]["title"][:100],
+            "description": manifest["metadata"]["description"][:4500],
+            "tags": manifest["metadata"].get("tags", [])[:30],
+            "categoryId": "24",  # Entertainment
+            "defaultLanguage": "ko",
+        },
+        "status": {
+            "privacyStatus": "unlisted",
+            "embeddable": True,
+            "publicStatsViewable": True,
+        },
         "production_metadata": {
             "script_seed": "btk_v1",
             "assets_origin": f"session31 manifest: {manifest_path}",
-            "sha256": "",  # inject_into_description 가 계산
         },
-        "made_for_kids": False,
     }
 
     # googleapiclient + OAuth — lazy import (dry-run 비용 0 유지).
@@ -1331,6 +1336,13 @@ def _run_live(args: argparse.Namespace, session_id: str) -> int:
                 _os.environ["SHORTS_KST_WINDOW_BYPASS"] = "1"
                 logger.warning(
                     "[phase13] SHORTS_KST_WINDOW_BYPASS=1 적용 (대표님 오프-피크 테스트)",
+                )
+            # Session #31 — scene-manifest 경로는 speed tolerance relax 자동 적용.
+            if getattr(args, "scene_manifest", None):
+                import os as _os
+                _os.environ["SHORTS_SPEED_TOLERANCE_RELAX"] = "1"
+                logger.info(
+                    "[phase13] SHORTS_SPEED_TOLERANCE_RELAX=1 (manifest 경로 자동)",
                 )
             # UFL-01 — feedback / revision_from_gate 을 ctx.config 에 주입.
             # ShortsPipeline._run_<gate> 각 메서드가 ctx.config.get(

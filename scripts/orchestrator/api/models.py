@@ -88,6 +88,12 @@ class TypecastRequest(BaseModel):
         default="detective_hao",
         description="Channel-specific voice id.",
     )
+    # Session #31 — Typecast SDK v1 pydantic upgrade requires explicit model.
+    # ssfm-v30 = 최신 한국어 모델 (Morgan/Guri 등 주요 incidents voice 지원).
+    model: str = Field(
+        default="ssfm-v30",
+        description="Typecast model version. ssfm-v30 주 사용 (2026Q2 기준).",
+    )
 
 
 class ShotstackRenderRequest(BaseModel):
