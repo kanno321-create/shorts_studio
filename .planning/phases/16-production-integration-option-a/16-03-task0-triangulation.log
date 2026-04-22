@@ -1,0 +1,21 @@
+# Phase 16-03 Task 0 — Baseline visual_spec triangulation
+# Generated: 2026-04-22
+
+=== zodiac-killer (16 clips total) ===
+  clip[13]: type=image, src=zodiac-killer/z13_cipher.jpg, duration=398
+  clip[14]: type=image, src=zodiac-killer/zodiac_cipher_letter.jpg, duration=398
+  clip[15]: type=video, src=zodiac-killer/outro_signature.mp4, duration=99
+
+=== nazca-lines (0 clips total) ===
+
+=== roanoke-colony (16 clips total) ===
+  clip[13]: type=video, src=roanoke-colony/veo_sailing_ship_departure.mp4, duration=282
+  clip[14]: type=image, src=roanoke-colony/hinde_map_full.jpg, duration=177
+  clip[15]: type=video, src=roanoke-colony/outro_signature.mp4, duration=106
+
+# Phase C — shorts_naberal 실 파일 hash 확인 (outro_signature.mp4 3 episode)
+# zodiac-killer: sha256=9953df790e479cbc, size=2082298
+# db-cooper:     sha256=9953df790e479cbc, size=2082298
+# elisa-lam:     sha256=9953df790e479cbc, size=2082298
+# → identical shared asset. intro_v4 (sha256=00fe67843117c7ce) 와는 **다른 파일**.
+# → _shared/signatures/ 에 incidents_outro*.mp4 부재 → legacy artifact 로 추정. Remotion OutroCard.tsx 가 현재 priority path.
