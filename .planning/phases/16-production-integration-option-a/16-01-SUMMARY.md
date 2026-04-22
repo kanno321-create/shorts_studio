@@ -106,3 +106,10 @@ Rule 3 (blocker): 0 건 발생.
 - **SC#1 (Phase 16 에서 4/4 Plan SUMMARY 완료)**: 본 SUMMARY 로 1/4 달성 (16-01 / 16-02 / 16-03 / 16-04 중 16-01).
 - **SC#3 (Phase 16 신규 테스트 >= 55)**: 16-01 기여 = 79 tests (acceptance >= 55 초과 달성, 79/55 = 144% 달성).
 - **REQ-PROD-INT-01 (channel bible production active imprint)**: 완전 달성. incidents v1.0 SSOT 박제 + 12 feedback cross-reference + MEMORY.md index 등재 전수 통과, 79 tests green.
+
+## Self-Check: PASSED
+
+- 7 commits in chain 전수 FOUND (a65462e / b1d367b / 3369a5e / b653400 / f46d461 / 6325efe / e80347e)
+- 23 expected files FOUND (18 memory + 4 test infra + 1 SUMMARY)
+- MEMORY.md "Phase 16-01 Imprinted" heading count = 1
+- Final test run: 79 passed in 0.11s
