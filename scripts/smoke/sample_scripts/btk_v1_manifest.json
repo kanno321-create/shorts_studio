@@ -1,0 +1,75 @@
+{
+  "_comment": "Session #31 pre-baked scene manifest — BTK foreign crime Shorts. 대표님 '무조건 전체 파이프라인' 지시 경로.",
+  "blueprint": {
+    "niche_tag": "incidents",
+    "tone": "탐정 하오체 독백 + 조수 해요체 질문 (duo dialogue)",
+    "target_emotion": "긴장감 + 공허",
+    "scene_count": 3,
+    "target_duration_sec": 18
+  },
+  "script_md": "30년을 피한 연쇄살인범, 플로피디스크 한 장에 잡혔습니다. BTK, 자신의 자랑이 발목을 잡았습니다.",
+  "scenes": [
+    {
+      "scene_id": 1,
+      "speaker": "detective",
+      "text": "30년을 활개 치던 연쇄살인범이, 자기가 보낸 플로피디스크 한 장에 잡혔습니다.",
+      "emotion_style": "tonedown",
+      "voice_id": "tc_6256118ea1103af69f0a87ec",
+      "voice_name_ref": "Morgan (incidents-narrator, ssfm-v30)",
+      "prompt": "slow cinematic zoom on a vintage 3.5-inch floppy disk resting on an old desk, dust particles in warm tungsten light, dark noir atmosphere",
+      "anchor_frame": "assets/session31/anchor_001_hook.png",
+      "duration_seconds": 5,
+      "camera_move": "slow push-in"
+    },
+    {
+      "scene_id": 2,
+      "speaker": "detective",
+      "text": "2004년, 그가 물었습니다. 플로피디스크로 연락하면 추적이 가능합니까. 경찰의 답은 거짓말이었습니다.",
+      "emotion_style": "normal",
+      "voice_id": "tc_6256118ea1103af69f0a87ec",
+      "voice_name_ref": "Morgan (incidents-narrator, ssfm-v30)",
+      "prompt": "computer screen with blinking cursor, close-up on metadata fields revealing 'Author: Dennis' text, subtle camera drift, desaturated colors",
+      "anchor_frame": "assets/session31/anchor_002_twist.png",
+      "duration_seconds": 6,
+      "camera_move": "subtle drift"
+    },
+    {
+      "scene_id": 3,
+      "speaker": "detective",
+      "text": "지운 줄 알았던 흔적이, 30년 만에 그를 붙잡았습니다. 자랑 한 번이 인생 전부를 바꿉니다.",
+      "emotion_style": "whisper",
+      "voice_id": "tc_6256118ea1103af69f0a87ec",
+      "voice_name_ref": "Morgan (incidents-narrator, ssfm-v30)",
+      "prompt": "detective silhouette walking away through fog, street lamp casting long shadow, slow fade to black at the end",
+      "anchor_frame": "assets/session31/anchor_003_closure.png",
+      "duration_seconds": 5,
+      "camera_move": "slow pull-back"
+    }
+  ],
+  "thumbnail": {
+    "path": "assets/session31/thumbnail.png",
+    "title": "BTK",
+    "layout": "text_center",
+    "_note": "Placeholder 1280x720 — 세션 #31 smoke 용 최소 구성. 실 운영에는 Nano Banana Pro 생성 + 한국어 overlay 권장."
+  },
+  "metadata": {
+    "title": "30년 피한 연쇄살인범, 플로피 한 장에 잡힌 이유 #Shorts",
+    "title_roman": "30-nyeon pihan yeonswaesarinbeom, peullopi han jang-e jabhin iyu #Shorts",
+    "description": "BTK 라 불린 미국 캔자스 연쇄살인범의 30년. 그를 붙잡은 건 경찰 수사가 아니라, 본인이 보낸 플로피디스크 한 장이었습니다.\n\n✅ 실화 기반 — 2005년 체포\n✅ 피해자 실명 비공개\n✅ 디지털 포렌식 관점 정리\n\n#범죄 #미스터리 #FBI #디지털포렌식 #Shorts",
+    "description_roman": "BTK ra bulrin migug kaenjaseu yeonswaesarinbeom-ui 30-nyeon. geureul butjabeun geon gyeongchal susa-ga anira, bon-in-i bonaen peullopi diseukeu han jang-ieossseupnida.",
+    "tags": [
+      "범죄",
+      "미스터리",
+      "해외범죄",
+      "FBI",
+      "BTK",
+      "디지털포렌식",
+      "실화",
+      "Shorts",
+      "crime",
+      "mystery",
+      "cold case",
+      "forensics"
+    ]
+  }
+}

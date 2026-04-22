@@ -245,6 +245,23 @@ class ShortsPipeline:
         self.nanobanana = nanobanana_adapter or _try_adapter("nanobanana", lambda: NanoBananaAdapter(circuit_breaker=self.nanobanana_breaker),   nanobanana_adapter, "GOOGLE_API_KEY 없음")
         self.ken_burns  = ken_burns_adapter  or _try_adapter("ken_burns",  lambda: KenBurnsLocalAdapter(circuit_breaker=self.ken_burns_breaker), ken_burns_adapter,  "ffmpeg 확인 필요")
 
+        # Session #31 — ffmpeg-local ASSEMBLY composer as Shotstack fallback.
+        # Loaded lazily to keep the existing import graph tight; when SHOTSTACK
+        # is available we never instantiate this.
+        self.ffmpeg_assembler = None
+        if self.shotstack is None:
+            try:
+                from .api.ffmpeg_assembler import FFmpegAssembler
+                self.ffmpeg_assembler = FFmpegAssembler()
+                logger.info(
+                    "[pipeline] ffmpeg_assembler 활성 (대표님 — Shotstack 대체, ASSEMBLY local render)"
+                )
+            except Exception as exc:  # noqa: BLE001 — 초기화 실패 시 명시 raise
+                logger.error(
+                    "[pipeline] ffmpeg_assembler 초기화 실패 (대표님): %s", exc
+                )
+                raise
+
         # Voice-first assembly primitive (Plan 05).
         self.timeline = VoiceFirstTimeline()
 
@@ -488,23 +505,41 @@ class ShortsPipeline:
         ctx.artifacts[GateName.ASSETS] = output
 
     def _run_assembly(self, ctx: GateContext) -> None:
-        """GATE 9 — VoiceFirstTimeline + 720p Shotstack (ORCH-10 / ORCH-11)."""
+        """GATE 9 — VoiceFirstTimeline + 720p Shotstack (ORCH-10 / ORCH-11).
+
+        Session #31: Shotstack 미인증 환경에서는 ``self.ffmpeg_assembler``
+        (로컬 ffmpeg concat + audio overlay) 로 자동 대체.
+        """
         timeline = self.timeline.align(ctx.audio_segments, ctx.video_cuts)
         timeline = self.timeline.insert_transition_shots(timeline)
 
+        # Renderer 선택 — Shotstack 우선, 없으면 로컬 ffmpeg_assembler.
+        renderer = self.shotstack if self.shotstack is not None else self.ffmpeg_assembler
+        if renderer is None:
+            raise RuntimeError(
+                "ASSEMBLY renderer 미구성 (대표님) — Shotstack/ffmpeg_assembler 둘 다 없음"
+            )
+
         # ORCH-11 / D-11: render at 720p BEFORE any upscale attempt.
-        render_result = self.shotstack_breaker.call(
-            lambda: self.shotstack.render(
+        if self.shotstack is not None:
+            render_result = self.shotstack_breaker.call(
+                lambda: renderer.render(
+                    timeline, resolution="hd", aspect_ratio="9:16"
+                )
+            )
+        else:
+            # 로컬 ffmpeg — breaker 경로 우회 (subprocess 에 rate limit 없음)
+            render_result = renderer.render(
                 timeline, resolution="hd", aspect_ratio="9:16"
             )
-        )
+
         render_url = (render_result or {}).get("url", "")
         ctx.artifacts[GateName.ASSEMBLY] = Path(render_url) if render_url else None
 
         # Upscale is a Phase 8 NOOP (ShotstackAdapter.upscale returns
         # {"status": "skipped", ...}). Called AFTER render so the order is
         # observable and enforced by test_low_res_first.test_upscale_after_render.
-        self.shotstack.upscale(render_url)
+        renderer.upscale(render_url)
 
         verdict = self.supervisor_invoker(GateName.ASSEMBLY, render_result)
         artifact = ctx.artifacts[GateName.ASSEMBLY]

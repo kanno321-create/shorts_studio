@@ -285,6 +285,148 @@ class _PreScriptedProducerInvoker:
         return self._real(agent_name, gate, inputs)
 
 
+class _PreBakedPipelineInvoker:
+    """Session #31 대표님 "무조건 전체 파이프라인" 지시 — 수동 manifest 기반 전 gate 주입.
+
+    ``_PreScriptedProducerInvoker`` (UFL-02) 확장판. SCRIPT 만 대신 주입하는
+    대신, manifest JSON 으로 **BLUEPRINT/SCRIPT/POLISH/THUMBNAIL/METADATA/
+    UPLOAD/MONITOR** 전 Claude CLI 호출을 pre-baked output 으로 교체합니다.
+    실 API (Typecast / Kling / Nano Banana / YouTube) 는 그대로 호출됩니다.
+
+    Manifest schema 요약 (JSON):
+        {
+          "blueprint": {...},          # director output spec
+          "scenes": [                  # polisher output, scenes[]
+            {"scene_id": 1, "text": "...", "emotion_style": "neutral",
+             "voice_id": "detective_hao",
+             "prompt": "...", "anchor_frame": "...", "duration_seconds": 5}
+          ],
+          "thumbnail": {"path": "...", "title": "...", "layout": "..."},
+          "metadata": {"title": "...", "description": "...", "tags": [...]}
+        }
+
+    Silent passthrough 차단 — 필수 필드 누락 시 ``KeyError`` raise (금기 #3
+    준수, 명시적 실패).
+    """
+
+    _HANDLED_GATES = {
+        "TREND", "NICHE", "RESEARCH_NLM",  # pass-through to existing seed
+        "BLUEPRINT", "SCRIPT", "POLISH",
+        "THUMBNAIL", "METADATA", "UPLOAD", "MONITOR",
+    }
+
+    def __init__(self, real_invoker, manifest_path: Path) -> None:
+        self._real = real_invoker
+        self._manifest_path = str(manifest_path)
+        import json as _json
+        self._manifest = _json.loads(
+            Path(manifest_path).read_text(encoding="utf-8")
+        )
+        # 필수 키 조기 검증 — silent passthrough 방지.
+        for req in ("scenes", "metadata", "thumbnail"):
+            if req not in self._manifest:
+                raise KeyError(
+                    f"Manifest '{manifest_path}' 에 '{req}' 필수 키 없음 (대표님)"
+                )
+        scenes = self._manifest["scenes"]
+        if not scenes or not isinstance(scenes, list):
+            raise ValueError(
+                f"Manifest scenes[] 가 비었거나 list 아님: {manifest_path}"
+            )
+        # 각 scene 의 필수 필드 검증 — adapter contract.
+        for i, s in enumerate(scenes):
+            for fld in ("scene_id", "text", "prompt", "anchor_frame", "duration_seconds"):
+                if fld not in s:
+                    raise KeyError(
+                        f"scene[{i}] 에 '{fld}' 없음 ({manifest_path}, 대표님)"
+                    )
+        logger.info(
+            "[pre-baked] manifest 로드: %s (%d scenes)",
+            self._manifest_path,
+            len(scenes),
+        )
+
+    def __call__(self, agent_name: str, gate: str, inputs: dict) -> dict:
+        if gate == "BLUEPRINT":
+            bp = self._manifest.get("blueprint", {
+                "niche_tag": "incidents",
+                "tone": "탐정 하오체 + 조수 해요체",
+                "target_emotion": "긴장감",
+                "scene_count": len(self._manifest["scenes"]),
+            })
+            return {"gate": "BLUEPRINT", "verdict": "PASS", "seeded": True, **bp}
+
+        if gate == "SCRIPT":
+            return {
+                "gate": "SCRIPT", "verdict": "PASS", "seeded": True,
+                "script_md": self._manifest.get("script_md", ""),
+                "scenes": self._manifest["scenes"],
+                "user_provided": True,
+            }
+
+        if gate == "POLISH":
+            return {
+                "gate": "POLISH", "verdict": "PASS", "seeded": True,
+                "scenes": self._manifest["scenes"],
+                "polished_scenes": self._manifest["scenes"],
+                "polish_metadata": {
+                    "changes_count": 0,
+                    "semantic_delta": 0.0,
+                    "forbidden_words_removed": 0,
+                },
+            }
+
+        if gate == "THUMBNAIL":
+            tn = self._manifest["thumbnail"]
+            return {
+                "gate": "THUMBNAIL", "verdict": "PASS", "seeded": True,
+                "artifact_path": tn["path"],
+                "path": tn["path"],
+                "title_overlay": tn.get("title", ""),
+                "layout": tn.get("layout", "text_top"),
+            }
+
+        if gate == "METADATA":
+            md = self._manifest["metadata"]
+            return {
+                "gate": "METADATA", "verdict": "PASS", "seeded": True,
+                "title": md["title"],
+                "description": md["description"],
+                "tags": md.get("tags", []),
+                "title_roman": md.get("title_roman", ""),
+                "description_roman": md.get("description_roman", ""),
+            }
+
+        if gate == "UPLOAD":
+            # 실 YouTube 업로드는 runner 가 별도 트리거 (session #31 wiring).
+            # 본 invoker 는 publisher producer 의 spec 만 반환하며, 실 upload 는
+            # _run_live 의 post-pipeline phase 에서 youtube_uploader.publish() 호출.
+            return {
+                "gate": "UPLOAD", "verdict": "PASS", "seeded": True,
+                "upload_plan": {
+                    "privacy_status": "unlisted",
+                    "category_id": "22",
+                    "title": self._manifest["metadata"]["title"],
+                    "description": self._manifest["metadata"]["description"],
+                    "tags": self._manifest["metadata"].get("tags", []),
+                    "production_metadata": {
+                        "script_seed": "btk_v1",
+                        "assets_origin": "session31 manifest",
+                    },
+                },
+                "requires_runner_upload": True,
+            }
+
+        if gate == "MONITOR":
+            return {
+                "gate": "MONITOR", "verdict": "PASS", "seeded": True,
+                "status": "pending_runner_cleanup",
+            }
+
+        # TREND/NICHE/RESEARCH_NLM 등은 기존 seeded 체인으로 위임.
+        return self._real(agent_name, gate, inputs)
+
+
 class _AutoPassSupervisorInvoker:
     """F-LIVE-SMOKE-JSON-NONCOMPLIANCE 우회 — 모든 gate 자동 PASS 반환.
 
@@ -662,6 +804,28 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
             "layer 만 skip. 세션 #30 대표님 Option A 합의 경로."
         ),
     )
+    parser.add_argument(
+        "--scene-manifest",
+        default=None,
+        type=Path,
+        help=(
+            "세션 #31 — pre-baked scene manifest JSON. BLUEPRINT/SCRIPT/"
+            "POLISH/THUMBNAIL/METADATA/UPLOAD/MONITOR 의 producer 호출을 "
+            "manifest 기반 pre-baked output 으로 교체. 실 API (Typecast / "
+            "Kling / Nano Banana / YouTube) 는 그대로 호출. 대표님 "
+            "'무조건 전체 파이프라인 돌아가게' 지시 경로."
+        ),
+    )
+    parser.add_argument(
+        "--bypass-kst-window",
+        action="store_true",
+        default=False,
+        help=(
+            "KST 업로드 윈도우 (평일 20-23 / 주말 12-15) 게이트를 env var "
+            "SHORTS_KST_WINDOW_BYPASS=1 로 우회. 세션 #31 실 upload 검증 "
+            "시점이 오프-피크인 경우 사용. 실 운영에는 절대 금지 (AF-11)."
+        ),
+    )
     return parser.parse_args(argv)
 
 
@@ -693,6 +857,109 @@ def _print_banner(session_id: str, budget_cap: float, live: bool) -> None:
         EVIDENCE_DIR,
     )
     logger.info("=" * 64)
+
+
+def _trigger_real_upload(
+    session_id: str,
+    state_dir: Path,
+    manifest_path: Path,
+) -> None:
+    """Session #31 — pipeline 완주 후 실 YouTube 업로드 트리거.
+
+    ``_run_upload`` gate 는 producer spec 만 반환하므로, 본 함수가
+    ``youtube_uploader.publish()`` 를 직접 호출하여 실제 업로드 수행.
+    업로드된 video URL 을 ``gate_12.json`` artifacts 에 patch 하여
+    ``_extract_upload_url`` 이 정상 읽도록 함.
+
+    Raises
+    ------
+    RuntimeError
+        ASSEMBLY mp4 또는 THUMBNAIL image 파일 부재 시 (명시적 실패).
+    """
+    import json as _json
+    # ASSEMBLY artifact (로컬 mp4 경로) — gate_09.json 에서 추출.
+    assembly_cp = state_dir / "gate_09.json"
+    if not assembly_cp.exists():
+        raise RuntimeError(f"ASSEMBLY checkpoint 부재: {assembly_cp}")
+    assembly_payload = _json.loads(assembly_cp.read_text(encoding="utf-8"))
+    assembly_artifacts = assembly_payload.get("artifacts") or {}
+    video_path_str = assembly_artifacts.get("path")
+    if not video_path_str:
+        raise RuntimeError(
+            f"ASSEMBLY artifacts.path 없음 (대표님): {assembly_artifacts}"
+        )
+    video_path = Path(video_path_str)
+    if not video_path.exists():
+        raise RuntimeError(f"ASSEMBLY mp4 파일 부재: {video_path}")
+
+    # THUMBNAIL path — manifest 에서 직접 (gate_10 checkpoint 의 artifacts 는
+    # Path 이거나 URL 일 수 있어 manifest path 가 더 신뢰할 만함).
+    manifest = _json.loads(Path(manifest_path).read_text(encoding="utf-8"))
+    thumb_path_str = manifest["thumbnail"]["path"]
+    thumb_path = Path(thumb_path_str)
+    if not thumb_path.exists():
+        raise RuntimeError(f"THUMBNAIL 이미지 부재: {thumb_path}")
+
+    # Upload plan — gate_12.json 에 저장된 seed 또는 manifest 기반.
+    plan = {
+        "privacy_status": "unlisted",
+        "category_id": "22",
+        "title": manifest["metadata"]["title"],
+        "description": manifest["metadata"]["description"],
+        "tags": manifest["metadata"].get("tags", []),
+        "production_metadata": {
+            "script_seed": "btk_v1",
+            "assets_origin": f"session31 manifest: {manifest_path}",
+            "sha256": "",  # inject_into_description 가 계산
+        },
+        "made_for_kids": False,
+    }
+
+    # googleapiclient + OAuth — lazy import (dry-run 비용 0 유지).
+    import os as _os
+    from googleapiclient.discovery import build  # noqa: E402
+    from scripts.publisher.oauth import get_credentials  # noqa: E402
+    from scripts.publisher.youtube_uploader import publish  # noqa: E402
+
+    creds = get_credentials()
+    youtube = build("youtube", "v3", credentials=creds)
+    channel_id = _os.environ.get("YOUTUBE_CHANNEL_INCIDENTS_KR", "")
+    logger.info(
+        "[phase13] real upload 트리거 — video=%s, thumb=%s, channel=%s",
+        video_path, thumb_path, channel_id[:12] + "..." if channel_id else "(empty)",
+    )
+    try:
+        video_id = publish(
+            youtube=youtube,
+            plan=plan,
+            video_path=video_path,
+            thumbnail_path=thumb_path,
+            channel_id=channel_id,
+        )
+    except Exception as exc:  # noqa: BLE001 — 명시적 재-raise
+        logger.error(
+            "[phase13] youtube_uploader.publish 실패 (대표님): %s", exc,
+        )
+        raise
+
+    # gate_12.json artifacts 에 video_url patch — _extract_upload_url 이 읽도록.
+    upload_cp = state_dir / "gate_12.json"
+    video_url = f"https://youtu.be/{video_id}"
+    if upload_cp.exists():
+        payload = _json.loads(upload_cp.read_text(encoding="utf-8"))
+        artifacts = payload.get("artifacts") or {}
+        if not isinstance(artifacts, dict):
+            artifacts = {}
+        artifacts["video_url"] = video_url
+        artifacts["video_id"] = video_id
+        payload["artifacts"] = artifacts
+        upload_cp.write_text(
+            _json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+    logger.info(
+        "[phase13] real upload 완료 (대표님): video_id=%s url=%s",
+        video_id, video_url,
+    )
 
 
 def _video_id_from_url(url: str | None) -> str | None:
@@ -1048,6 +1315,23 @@ def _run_live(args: argparse.Namespace, session_id: str) -> int:
                     "[phase13] UFL-02 revise-script wrap 적용 (대표님): %s",
                     args.revise_script,
                 )
+            # Session #31 — --scene-manifest 지정 시 7 producer gate 동시 주입.
+            if getattr(args, "scene_manifest", None):
+                pipeline.producer_invoker = _PreBakedPipelineInvoker(
+                    pipeline.producer_invoker,
+                    args.scene_manifest,
+                )
+                logger.info(
+                    "[phase13] --scene-manifest wrap 적용 (대표님): %s",
+                    args.scene_manifest,
+                )
+            # Session #31 — KST window bypass env var 주입.
+            if getattr(args, "bypass_kst_window", False):
+                import os as _os
+                _os.environ["SHORTS_KST_WINDOW_BYPASS"] = "1"
+                logger.warning(
+                    "[phase13] SHORTS_KST_WINDOW_BYPASS=1 적용 (대표님 오프-피크 테스트)",
+                )
             # UFL-01 — feedback / revision_from_gate 을 ctx.config 에 주입.
             # ShortsPipeline._run_<gate> 각 메서드가 ctx.config.get(
             # "prior_user_feedback") 를 producer_invoker inputs 에 전달.
@@ -1135,6 +1419,12 @@ def _run_live(args: argparse.Namespace, session_id: str) -> int:
     # Evidence 집계 — Wave 1 유틸 2종.
     extract_producer_output(session_id, state_root, EVIDENCE_DIR)
     extract_supervisor_output(session_id, state_root, EVIDENCE_DIR)
+
+    # Session #31 — --scene-manifest 경로일 때 실 YouTube 업로드 트리거.
+    # pipeline 의 _run_upload 는 producer spec 만 반환하므로, 실 업로드는
+    # 본 runner 가 youtube_uploader.publish() 를 직접 호출하여 수행.
+    if getattr(args, "scene_manifest", None):
+        _trigger_real_upload(session_id, state_dir, args.scene_manifest)
 
     # Upload URL → video_id → anchor_upload_evidence → 즉시 cleanup (금기 #8).
     upload_url = _extract_upload_url(state_dir)
