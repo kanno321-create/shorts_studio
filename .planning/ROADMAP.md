@@ -483,7 +483,7 @@ Plans:
 
 **Plans (4):**
 - [ ] 16-01-PLAN.md — 채널바이블 v1.0 박제 (7채널: incidents / wildlife / humor / politics / trend / documentary + 1) + production feedback 12+ 메모리 매핑 (`feedback_script_tone_seupnida`, `feedback_duo_natural_dialogue`, `feedback_subtitle_semantic_grouping`, `feedback_video_clip_priority`, `feedback_outro_signature`, `feedback_series_ending_tiers`, `feedback_detective_exit_cta`, `feedback_watson_cta_pool`, `feedback_dramatization_allowed`, `feedback_info_source_distinction`, `feedback_veo_supplementary_only`, `feedback_number_split_subtitle`) + MEMORY.md 인덱스 갱신 [세션 #32 A1 상응, 코드 수정 없음 — 텍스트 박제만]
-- [ ] 16-02-PLAN.md — Remotion 렌더러 신규 모듈 (`scripts/orchestrator/api/remotion_renderer.py` 신규) + `shorts_pipeline.py` ASSEMBLY GATE 분기 (ffmpeg → Remotion 스위치, fallback 유지) + Remotion 컴포지션 11 Cards + 7 transitions 매핑 + 회귀 테스트 (Phase 16 unit ≥ 10) [세션 #32 A2 상응]
+- [x] 16-02-PLAN.md — Remotion 렌더러 신규 모듈 (`scripts/orchestrator/api/remotion_renderer.py` 신규) + `shorts_pipeline.py` ASSEMBLY GATE 분기 (ffmpeg → Remotion 스위치, fallback 유지) + Remotion 컴포지션 11 Cards + 7 transitions 매핑 + 회귀 테스트 (Phase 16 unit ≥ 10) [세션 #32 A2 상응]
 - [ ] 16-03-PLAN.md — 단어단위 자막 (`subtitles_remotion.ass` / `.json` 생성) + 인트로/아웃로 시그니처 재사용 (`output/_shared/signatures/incidents_intro_v4_silent_glare.mp4` 참조·복사) + 탐정(Morgan)·왓슨 캐릭터 오버레이 통합 + `ins-subtitle-alignment` 확장 또는 신규 producer 결정 [세션 #32 A3 상응]
 - [ ] 16-04-PLAN.md — `visual_spec.json` 스키마·생성 로직 + `output/<episode>/sources/` 디렉토리 구조 + 자료사진 수집 파이프 (`asset-sourcer` 확장, whitelist 재정의) + 영상:이미지 ≥ 30% 비율 강제 + baseline 검증 스크립트 [세션 #32 A4 상응]
 
