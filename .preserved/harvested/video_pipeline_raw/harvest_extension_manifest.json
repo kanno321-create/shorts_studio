@@ -1,0 +1,29 @@
+{
+  "signatures/incidents_intro_v4_silent_glare.mp4": {
+    "sha256": "00fe67843117c7ce88836dfdb97f3cd93585104be0af8222286a3b592b267959",
+    "size_bytes": 1782147
+  },
+  "characters/incidents_detective_longform_a.png": {
+    "sha256": "ad87d507835f3347c2121dd73b27b1e67668e45ef5913428667911d9cd31fde6",
+    "size_bytes": 731508
+  },
+  "characters/incidents_detective_longform_b.png": {
+    "sha256": "47b1a3f94cb822d580d3249ca527af31b9f2e60f7ca3a33ec6e65925c848f89c",
+    "size_bytes": 735998
+  },
+  "characters/incidents_assistant_jp_a.png": {
+    "sha256": "fd4775bc3dd190a25e4753f14e3ad3263db9114d6e84603d2f938d29a5fcf9ea",
+    "size_bytes": 659797
+  },
+  "characters/incidents_zunda_shihtzu_a.png": {
+    "sha256": "434f2fe6121e825d56ac2a1624b2e22debf2d3e9f99ed959879460a76524c305",
+    "size_bytes": 769358
+  },
+  "_metadata": {
+    "phase": "16-03",
+    "harvest_date": "2026-04-22",
+    "source_prefix": "C:/Users/PC/Desktop/shorts_naberal/output/_shared/",
+    "policy": "one-way read-only harvest per CLAUDE.md forbid-6",
+    "veo_policy": "intro v4 re-used by reference only - no new Veo API calls (CLAUDE.md forbid-11)"
+  }
+}
