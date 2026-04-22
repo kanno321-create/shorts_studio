@@ -22,6 +22,7 @@ import {
   SpeakerSubtitle,
 } from "../components/crime";
 import { BracketCaption } from "../components/BracketCaption";
+import { OutroCard, OUTRO_DURATION_FRAMES } from "../components/OutroCard";
 import { glitch } from "../lib/transitions/presentations/glitch";
 import { rgbSplit } from "../lib/transitions/presentations/rgb-split";
 import { zoomBlur } from "../lib/transitions/presentations/zoom-blur";
