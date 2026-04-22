@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://naberal.shorts/schemas/scene-manifest/v4",
+  "title": "SceneManifest v4",
+  "description": "Phase 16-04 SceneManifest v4 schema — aligned with scripter sentence-level timing hints for subtitle-producer.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["version", "channel", "topic", "total_clips", "clips", "source_stats"],
+  "properties": {
+    "version": {"type": "string", "const": "v4"},
+    "channel": {"type": "string", "enum": ["incidents", "wildlife", "humor", "politics", "trend", "documentary"]},
+    "category": {"type": "string"},
+    "topic": {"type": "string"},
+    "total_clips": {"type": "integer", "minimum": 1},
+    "clips": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["index", "section_type", "duration_s", "source"],
+        "properties": {
+          "index": {"type": "integer", "minimum": 0},
+          "section_type": {"type": "string", "enum": ["intro", "hook", "body", "outro"]},
+          "narration_sentence": {"type": "string"},
+          "duration_s": {"type": "number", "minimum": 0.1},
+          "source": {
+            "type": "object",
+            "required": ["type", "local_path", "provider"],
+            "properties": {
+              "type": {"type": "string", "enum": ["video", "image", "signature", "remotion"]},
+              "local_path": {"type": "string"},
+              "provider": {
+                "type": "string",
+                "enum": ["veo_reuse", "serper", "gpt_image2", "kling", "runway", "nano_banana", "remotion_card"]
+              },
+              "description": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "source_stats": {
+      "type": "object",
+      "required": ["total", "real_image", "signature", "real_ratio"],
+      "properties": {
+        "total": {"type": "integer", "minimum": 1},
+        "real_image": {"type": "integer", "minimum": 0},
+        "signature": {"type": "integer", "minimum": 0},
+        "unique_sources": {"type": "integer", "minimum": 0},
+        "real_ratio": {"type": "number", "minimum": 0.0, "maximum": 1.0}
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://naberal.shorts/schemas/visual-spec/v1",
+  "title": "VisualSpec v1 — incidents channel",
+  "description": "Phase 16-04 VisualSpec schema (REQ-PROD-INT-04). zodiac-killer baseline SSOT.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "titleLine1",
+    "titleLine2",
+    "titleKeywords",
+    "accentColor",
+    "channelName",
+    "hashtags",
+    "fontFamily",
+    "characterLeftSrc",
+    "characterRightSrc",
+    "subtitlePosition",
+    "subtitleHighlightColor",
+    "subtitleFontSize",
+    "audioSrc",
+    "durationInFrames",
+    "transitionType",
+    "clips"
+  ],
+  "properties": {
+    "titleLine1": {"type": "string", "minLength": 1, "maxLength": 30},
+    "titleLine2": {"type": "string", "minLength": 1, "maxLength": 30},
+    "titleKeywords": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["text", "color"],
+        "properties": {
+          "text": {"type": "string", "minLength": 1},
+          "color": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"}
+        }
+      }
+    },
+    "accentColor": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"},
+    "channelName": {"type": "string", "minLength": 1},
+    "hashtags": {"type": "string"},
+    "fontFamily": {"type": "string", "enum": ["BlackHanSans", "DoHyeon", "NotoSansKR"]},
+    "characterLeftSrc": {"type": "string", "pattern": ".*character_assistant\\.png$"},
+    "characterRightSrc": {"type": "string", "pattern": ".*character_detective\\.png$"},
+    "subtitlePosition": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+    "subtitleHighlightColor": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"},
+    "subtitleFontSize": {"type": "integer", "minimum": 24, "maximum": 128},
+    "audioSrc": {"type": "string", "minLength": 1},
+    "durationInFrames": {"type": "integer", "minimum": 1},
+    "transitionType": {
+      "type": "string",
+      "enum": ["fade", "glitch", "rgb-split", "zoom-blur", "light-leak", "clock-wipe", "pixelate", "checkerboard"]
+    },
+    "clips": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "src", "durationInFrames", "transition"],
+        "properties": {
+          "type": {"type": "string", "enum": ["video", "image"]},
+          "src": {"type": "string", "minLength": 1},
+          "durationInFrames": {"type": "integer", "minimum": 1},
+          "transition": {
+            "type": "string",
+            "enum": ["fade", "glitch", "rgb-split", "zoom-blur", "light-leak", "clock-wipe", "pixelate", "checkerboard"]
+          },
+          "movement": {
+            "oneOf": [
+              {"type": "string", "enum": ["zoom_in", "zoom_out", "pan_left", "pan_right"]},
+              {"type": "null"}
+            ]
+          }
+        }
+      }
+    }
+  }
+}
