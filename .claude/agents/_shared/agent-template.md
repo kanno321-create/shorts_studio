@@ -177,3 +177,5 @@ delegation_depth 필드를 확인하세요. 이미 1이면 sub-supervisor 재호
 6. **Supervisor 재호출 금지 (AGENT-05)** — Supervisor는 delegation_depth≥1에서 sub-supervisor를 호출하지 않는다. 재귀 depth 최대 1. 초과 감지 시 circuit_breaker 강제.
 7. **한국어 피드백 표준 (VQQA)** — semantic_feedback은 한국어로 작성. 영어 code-switching 금지 (Producer context와 언어 일치).
 8. **본 파일은 템플릿** — 실제 에이전트 제작 시 `<>` placeholder와 `<agent-slug>`를 모두 치환. MUST REMEMBER 섹션은 **절대 본문 중간으로 이동 금지** — AGENT-09 RoPE Lost-in-the-Middle 대응을 위해 항상 파일 **마지막 섹션**이어야 한다.
+9. **목업·빈 출력·placeholder 절대 금지 (2026-04-22 대표님 절대 규칙)** — 에이전트 출력 JSON 의 어떤 필드도 빈 배열·빈 문자열·null·`"TODO"` 같은 placeholder 로 채우지 않는다. 데이터 부족 시 `{"error": "...", "needed_inputs": [...]}` 로 명시적 실패. 빈 출력은 검사관 PASS 처리하지 말고 EmptyOutput verdict=FAIL. CLAUDE.md 금기 #10 + `.claude/memory/feedback_no_mockup_no_empty_files.md` SSOT.
+10. **Veo 호출 금지 — Kling 2.6 Pro 단독 (2026-04-22)** — I2V 어떤 분기도 Veo 사용 금지. shorts_naberal `VEO_PROMPT_GUIDE.md` 의 프롬프트 방법론은 Kling 응용으로만 활용. CLAUDE.md 금기 #11.

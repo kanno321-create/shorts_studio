@@ -5,6 +5,179 @@
 ### 핵심 결정
 1. naberal_harness v1.0 기반 신규 스튜디오 창업
 
+## Session #32 — 2026-04-22 (gpt-image-2 채택 → 충격 사건 → 옵션 A 즉시 도입 결정 → harvest 84 파일)
+
+### 세션 흐름 (전후사정 대화 보존)
+
+**Part 1 — gpt-image-2 vs Nano Banana 실증 비교**
+
+대표님 첫 발화: *"오픈AI의 덕테잎이라는 이미지 생성이 새로나왔는데 나노바나나보다 훨씬 좋다는데, 케릭의 모습이나 얼굴같은걸 일관성유지되면서 이미지 생성가능한지... api요금이 나노바나나랑 어떤지 차이도 보여줘"*
+
+→ 웹 리서치: gpt-image-2 = OpenAI 덕테잎 (2026-04-21 출시) 확인. 가격 비교: Low $0.006 / Medium $0.034 / High $0.21 vs Nano Banana 단일 $0.039.
+
+대표님: *"한번 테스트로 나노바나나랑 덕테잎으로 같은 프롬프트넣고 5장씩 뽑아봐"*
+
+→ 환경 점검 5문항 → 대표님 *"profile_kr_bright.png 그중에 이걸로 테스트"* (탐정 캐릭터 noir 일러스트 지정) → 대표님 *"진행"*. 50장 비교 매트릭스 (5 prompt × 2 model × 5 quality slot) 생성.
+
+대표님 점진적 평가:
+- *"모습이 나노바나나는 비율이 좋은데, gpt는 어좁이가되었네 근데 그래픽은 진짜 좋은것같네"*
+- *"gpt는 얼굴일관성유지라기보단 그냥 그얼굴만 나오네, 나노바나나는 살짝얼굴위치가 바뀐다던지있는데"* (Replication vs Identity 구분)
+- *"둘다 뭐 비슷한 실력이긴한데, 그래픽퀄리티가 지피티가 너무 좋은데>?"*
+
+대표님: *"gpt_image2_medium_b.png, nanobanana_medium_b.png 이거 두개를 kling 2.6으로 영상만들어봐라 걸어가면서 오다가 뒤돌아서 되돌아가는걸로 담배를 피면서 걷는모습 네온사인이 깜빡이는모습. 담배연기도 구현하고 걸을때 물튀는것도 눈동자로 이리저리 살피며 걷는장면"*
+
+→ Kling 2.6 Pro I2V 2개 영상 생성 (병렬 submit, ~75초 latency 각). 대표님 평가: *"그래픽퀄리티에서 gpt가 너무 앞선다"*
+
+대표님 결정: *"이제 결과대기할거없다 다 취소하고, gpt로 정하자"*
+
+→ 박제: `.claude/memory/project_image_stack_gpt_image2.md` 신설. anchor·썸네일 = gpt-image-2 primary, NB fallback. 비용 시뮬레이션: 월 4편 anchor 8장 medium = $1.09.
+
+**Part 2 — adapter 구현 + 회귀 테스트**
+
+대표님: *"sk-proj-..."* (OPENAI_API_KEY 채팅 평문 전송) → `.env` 등록. *"api key는 걱정말고 그냥 잘 저장해놔라"* — 보안 경고 중단.
+
+대표님: *"Next Action 다음세션용 체크리스트, 박제됨... 실행해라"*
+
+→ 5개 task 실행:
+1. `scripts/orchestrator/api/gpt_image2.py` (262줄) — `NanoBananaAdapter` signature 미러 + `edit_scene` 추가
+2. asset-sourcer / thumbnail-designer / ins-license AGENT.md 업데이트
+3. `tests/phase091/test_gpt_image2_{adapter,safety}.py` (10 tests) — **16/16 PASS** (NB 회귀 6 + 신규 10)
+4. conftest.py: OPENAI_API_KEY autouse + mock_openai_client fixture
+5. baseline 3 fail (shorts_pipeline 800줄 + runway_ratios + supervisor 17 inspector) — **stash 검증으로 사전 baseline 입증**
+
+**Part 3 — 🚨 충격 사건 (이번 세션 turning point)**
+
+대표님: *"지금 C:\\Users\\PC\\Desktop\\naberal_group\\studios\\shorts\\outputs\\ffmpeg_assembly\\assembled_1776844680770.mp4 업로드용 영상하나 만들었는데 ....큰일났다 이런 퀄리티로 어떻게 하노"*
+
+→ ffprobe 진단:
+- 720×1280 (Shorts 표준 1080×1920 대비 33% 다운스케일)
+- 519 kbps (권장 8 Mbps의 1/15)
+- AAC mono 44.1 kHz
+- 13.2초
+
+→ Root cause: `ffmpeg_assembler.py:235~239` `_resolve_target_resolution` default 가 "hd"(720p) + bitrate 명시 없음. shorts_pipeline 이 explicit `resolution="hd"` 호출.
+
+→ Fix:
+- `_transcode_clip`: `-crf 18 -b:v 8M -maxrate 12M -bufsize 16M -preset medium -profile:v high`
+- audio concat: `-ac 2 -ar 48000`
+- shorts_pipeline ffmpeg 분기: `resolution="fhd"` 강제
+- 검증: `repaired_demo.mp4` (1080×1920, 3.57 Mbps, stereo 48k) 시연
+
+**Part 4 — 충격 사건 심화 (architecture 격차 발견)**
+
+대표님: *"넌 뭐가 잘못된지 모르는듯... 잘봐라 진짜 업로드할만한 퀄리티를 이게 최소한의 퀄리티다... 한국채널: 사건기록부 [경로 3개]... 일본채널: 冴木の手帳 [경로 3개]... final.mp4가 각 폴더의 최종 결과물이다... 이것보다 훨씬 더잘만들수있다고해서 몇일씩이나 영상업로드 못하고 너랑 파이프라인 작업했는데, 지금 너가만든 영상보고 난 충격먹었다 큰일났다싶어서"*
+
+→ 6 폴더 (zodiac-killer, roanoke-colony, nazca-lines + 각 -jp) 분석:
+- final.mp4 specs: 1080p · **5~21 Mbps** · stereo 48k · **63~130초**
+- sources/ 13종 (`character_detective.png`, `character_assistant.png` (코기 셜록!), `intro_signature.mp4`, `outro_signature.mp4`, 사건 자료 사진 10+)
+- subtitles_remotion.ass: **0.16~0.5초 단위 강조 단어 컬러 변경** (faster-whisper word-level)
+- visual_spec.json: Remotion composition (intro → image clips with Ken Burns → outro), durationInFrames, transition fade, accentColor, channelName
+
+→ **본질 발견**: spec 정정 차원이 아니라 **콘텐츠 architecture (Remotion + 자막 + 자료사진 + 인트로/아웃로 + 캐릭터) 자체 누락**.
+
+대표님 긴 메시지로 production 시스템 전체 설명:
+*"먼저 말해줄건, 너가 처음 shorts_naberal 을 맵핑했는데 과거데이터와 신규데이터가 충돌이 발생하고...신규로 만들자해서 만듦. 나도동의함... 일단 shorts_naberal 안의 각종 로직 쇼츠용 템플릿, 그안에 상단에는 제목, 하단에는 구독 좋아요 랑 우리채널명. 중간에 영상이 들어가는데. 그 로직들이 전부 shorts_naberal 여기 안에 들어있다... 자막싱크 맞추는법, 자막 크기 및 자막폰트 자막글자수 (모든게 한국 일본 다름) 로직, tts감정이입 로직... 영상에 사용할 자료수집하는 로직, 어떠한 자료가 최우선이어야하는지에 관한 로직... 대본을 NLM 에게 받았을때 감정 및 컷마다 상황설명이있는데 그걸 전체 나레이션하면 안되고, 나레이션은 나레이션파트만하고 나머지는 나레이션에 입힐 감정등이고, 현재 상황을 설명한건 관련 증거영상 및 이미지(I2V)에 사용할 해당 씬에대한 내용임... 약 60~90초 정도로 만들면된다... 일본채널은 영상은 그대로사용하되, 템플릿을 일본껄로 바꿔야 하단에 채널명이랑 구독좋아요가 일본어고, 상단에는 강아지가 아니라 여자조수 남자탐정 콤비다... 대본대로 영상과 TTS 자막이 갖추어 졌으면 리모션으로 편집하고... 그와중에 항상 검사관이 검사를한다... 대본은 정의한대로 제대로 작성되었는가? 고독한 탐정의 독백이며, 그 탐정이 조수랑 사건 현장을 직접방문하여 수사하는 과정에서 찾아내는 증거물, 인터뷰에서 얻은 정보들을 독백으로 해당 사건의 스토리를 시간순서대로 스토리텔링을 해야하며, 조수는 한 영상에 2번정도 중요한 내용, 강조하고싶은 내용을 질문하고 , 탐정은 대답하는 방식으로 의미를 전달, 그리고 마지막은 탐정의 CTA, 최후는 조수의 CTA로 마무리... 이런 방식인데 이런방식을 설명하는 로직이나 관련자료, 설명자료, CLAUDE CODE의 스킬, 품질계약서, 명세서, 설계도, 그리고 정의되어있는 각종로직을 너가 찾아야겠다 이대로는 아예 시작도못하고 망하겠다"*
+
+**Part 5 — 절대 규칙 2종 박제 (대표님 새 지시)**
+
+대표님: *"앞으로 절대 목업, 빈파일은 절대금지사항이다, 메모리랑 CLAUDE.MD,. AGENT.MD에 저장해라"*
+
+→ 4곳 박제:
+1. `.claude/memory/feedback_no_mockup_no_empty_files.md` (신규 SSOT)
+2. `MEMORY.md` 인덱스
+3. `CLAUDE.md` 금기 #10 추가
+4. `.claude/agents/_shared/agent-template.md` MUST REMEMBER #9
+
+대표님: *"VEO는 안쓰니까 우리가 쓰는 영상에도 프롬프트를 활용하면된다"*
+
+→ CLAUDE.md 금기 #11 + agent-template MUST REMEMBER #10 + `feedback_i2v_prompt_principles.md` 에 VEO_PROMPT_GUIDE 활용 규칙 추가.
+
+**Part 6 — shorts_naberal 전수 매핑 + Gap Map**
+
+→ shorts_naberal 매핑:
+- 4 핵심 설계 문서 (`DESIGN_BIBLE.md` / `DESIGN_SPEC.md` / `NLM_PROMPT_GUIDE.md` / `VEO_PROMPT_GUIDE.md`)
+- 6-Stage 파이프라인 (RESEARCH NLM #1 → BLUEPRINT → SCRIPT NLM #2 → ASSETS 병렬 → RENDER Remotion → QA 42항목)
+- 3-Pipeline (`audio-pipeline/` + `visual-pipeline/` + `video-pipeline/`)
+- Remotion: 11 Cards + crime/longform 컴포넌트 + 7 트랜지션
+- 채널바이블 v1.0 7개 (incidents 포함, **왓슨**(조수) 정식 명칭, 4단계 구조, "습니다/입니다/였죠")
+
+→ 박제: `.claude/memory/reference_production_gap_map.md` — 11 누락 컴포넌트, 우리 13 GATE vs production 6-Stage 매핑, 복구 옵션 A/B/C 제시.
+
+**Part 7 — 옵션 A 결정 + Harvest 진행**
+
+대표님: *"A 즉시도입이다."*
+
+→ `.preserved/harvested/` 5 신규 폴더 + 84 파일 추가 harvest:
+- `audio_pipeline_raw/` (10 .py: word_subtitle, ja_subtitle, subtitle_generate, longform_subtitle, multi_speaker_tts, dialogue_generate, en_caption_translate, pronunciation, tts_generate, elevenlabs_alignment)
+- `video_pipeline_raw/` (12 .py: generate_intro_signature, remotion_render, _build_render_props_v2, auto_highlight, qa_check, scene_evaluator, sentence_splitter, smart_crop_916, face_mosaic, shorts_extractor, design_engine, ai_visual_generate)
+- `visual_pipeline_raw/` (8 .py: i2v_generate, t2i_generate, clip_timing, prompt_builder, reference_image, shot_planner, pipeline_runner, __init__)
+- `design_docs_raw/` (4 .md: DESIGN_BIBLE, DESIGN_SPEC, NLM_PROMPT_GUIDE, VEO_PROMPT_GUIDE)
+- `skills_raw/` (20 SKILL.md: shorts-{pipeline,script,editor,rendering,research,qa,video-sourcer,designer,director,safety,upload}, channel-{incidents,incidents-jp}, create-{shorts,video}, naberal-{coding-standards,identity,operations}, nlm-claude-integration, remotion)
+- `baseline_specs_raw/` (54 spec files: 6편 × visual_spec.json + subtitles_remotion.{ass,json,srt} + blueprint.json + scene-manifest.json + script.json + metadata.json + source.md + _upload_script.json + section_timing.json + sources_metadata.json)
+
+→ `attrib +R /S /D` (Windows) + `chmod -R a-w` (POSIX) 양쪽 read-only 잠금 적용. 총 9 폴더 160 파일 read-only.
+
+→ 박제: `.claude/memory/reference_harvested_full_index.md` — 9폴더 인덱스 + 5-Step 진입 + Phase A1~A4 로드맵.
+
+**Part 8 — 핸드오프 3종 작성**
+
+대표님: *"핸드오프 3종만들고, 다음세션에서 지금이랑 자연스럽게 이어서 작업가능하도록 전후사정 대화를 제대로 남기고 작업을 제대로 넘겨라"*
+
+→ 3종 작성:
+1. `WORK_HANDOFF.md` (세션 #32 섹션 prepend, 기존 #30 archived)
+2. `NEXT_SESSION_START.md` (전체 재작성, 세션 #33 진입 프롬프트 1-page)
+3. `SESSION_LOG.md` (이 entry, 시간순 + 대화 인용)
+
+### 핵심 결정 (세션 #32)
+
+1. **gpt-image-2 = 정지 이미지 anchor·썸네일 primary** — Kling I2V 2-way 비교에서 그래픽 퀄리티 압도 검증. NB 는 fallback.
+2. **목업·빈 파일 절대 금지** — 4곳 박제. `# TODO` / `pass` / 0byte / placeholder JSON 모두 금지.
+3. **Veo 호출 금지** — Kling 2.6 Pro 단독. VEO_PROMPT_GUIDE 는 Kling 응용 참조용.
+4. **옵션 A 즉시 도입** — Remotion + word_subtitle + intro_signature + 채널바이블 production 자산을 `.preserved/harvested/` 로 read-only 복사 후 우리 ASSEMBLY 재배선. Phase A1 → A4 단계적 진행.
+
+### 교훈 (재발 방지)
+
+1. **"spec 게이트 통과" ≠ "production 콘텐츠"** — 13초 720p 자막없음 영상이 ffmpeg 인코딩 fix 만으로 production 으로 인정될 수 없음. 콘텐츠 architecture (Remotion + 자막 + 자료사진 + 인트로/아웃로 + 캐릭터) 자체가 빠진 상태였음. 향후 모든 영상 산출물 보고 전 baseline 6편과 정량/정성 비교 필수.
+2. **"smoke 1장" ≠ "모델 평가"** — 첫 1장 비교만 보고 "gpt-image-2 얼굴 재현 우위" 평가는 성급했음. 2장 비교에서야 Replication vs Identity 구분 가능. 대표님 관찰력으로 정정 받음.
+3. **대표님의 "큰일났다" 충격은 architectural 누락 신호** — spec 차원의 fix 로 받아치지 말고 즉시 production baseline 전수 분석 모드 진입해야 함. 이번 사건의 핵심 학습.
+4. **harvest 우선, 코드 수정 후순위** — 옵션 A 도입 첫 세션은 자료 모으기만 했고 코드 한 줄도 수정 안 함. 의도적 — 회귀·드리프트 방지.
+
+### Git Commits (세션 #32 — uncommitted)
+
+이번 세션은 commit 없이 종료. 다음 세션 첫 행동으로 commit 권고.
+
+권고 commit 분할:
+```
+1. feat(image-stack): gpt-image-2 adapter + agent updates + 16 regression tests
+   (gpt_image2.py + asset-sourcer/thumbnail-designer/ins-license + tests + conftest)
+2. fix(ffmpeg): 1080p+8Mbps+stereo enforcement (assembled_*.mp4 quality fix)
+   (ffmpeg_assembler.py + shorts_pipeline.py)
+3. feat(memory): 4 new memories + CLAUDE.md no-mockup/no-Veo 금기 + agent-template
+4. chore(harvest): 5 new .preserved/harvested folders + 84 production assets read-only
+5. docs(handoff): session #32 → #33 3-doc handoff (충격 사건 + 옵션 A 진입)
+```
+
+### 다음 세션 진입점
+
+**A. NEXT_SESSION_START.md 읽기 — Phase A1 진입**:
+```
+cat NEXT_SESSION_START.md
+# 그 다음 "첫 5분 행동" 5개 명령부터
+```
+
+**B. 핸드오프 3종 (이 세션 산출)**:
+- WORK_HANDOFF.md (세션 #32 박제)
+- SESSION_LOG.md (이 entry)
+- NEXT_SESSION_START.md (세션 #33 진입 프롬프트)
+
+**C. 박제 메모리 4건 자동 로드 확인**:
+- `feedback_no_mockup_no_empty_files`
+- `reference_production_gap_map`
+- `reference_harvested_full_index`
+- `project_image_stack_gpt_image2`
+
+---
+
 ## Session #28 — 2026-04-21 (CLAUDE.md Navigator + game 스튜디오 창업)
 
 ### 진행 범위

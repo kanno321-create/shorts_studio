@@ -503,3 +503,60 @@ v1.0.2 밀스톤 초기화 — 2026-04-21. Phase 11 `complete_with_deferred` SC#
 ---
 
 *Phase 15 REQ 추가: 2026-04-22 — Phase 13 live smoke 실 재시도에서 노출된 invokers.py encoding 경로 root cause 해소 + 대표님 피드백 loop 인터페이스 구축. 대표님 직접 승인 (Option B 채택, "어떻게해서든 내가 명령할수있는기능을 만들어야지"). /gsd:plan-phase 15 로 진행.*
+
+## Phase 16 신규 REQ (PROD-INT — Production Integration Option A)
+
+**Phase 15 완료 후 세션 #32 shock-event 에서 노출된 "spec 통과 != production 콘텐츠" 아키텍처 격차** 해소. shorts_naberal production architecture (Remotion + faster-whisper + visual_spec + sources/) 를 incidents (Korean) 채널에 한해 **즉시 도입 (Option A)**. 신규 설계 아니라 **이식 (transplant)** — 38+ 세션 동안 검증된 패턴을 1:1 복사.
+
+**대표님 직접 승인 (2026-04-22, 전권 위임)**: 세션 #33 CONTEXT.md 참조.
+
+### PROD-INT — Production Integration (Plan 16-01~04)
+
+- [ ] **REQ-PROD-INT-01**: 채널바이블 incidents.md v1.0 박제 -> `.claude/memory/project_channel_bible_incidents_v1.md` + production feedback 12+ 메모리 매핑 (feedback_script_tone_seupnida / feedback_duo_natural_dialogue / feedback_subtitle_semantic_grouping / feedback_video_clip_priority / feedback_outro_signature / feedback_series_ending_tiers / feedback_detective_exit_cta / feedback_watson_cta_pool / feedback_dramatization_allowed / feedback_info_source_distinction / feedback_veo_supplementary_only / feedback_number_split_subtitle) + 타 5 채널 reference-only ref 메모리 (wildlife/humor/politics/trend/documentary) + MEMORY.md 인덱스 갱신. 코드 수정 0. **Plan 16-01 담당.**
+
+- [ ] **REQ-PROD-INT-02**: `scripts/orchestrator/api/remotion_renderer.py` 신규 — `.preserved/harvested/video_pipeline_raw/remotion_render.py` (1162 줄) 미러. ffmpeg_assembler 와 동일 시그니처 `render(timeline, resolution, aspect_ratio) -> dict`. remotion/ TypeScript 프로젝트 (Remotion 4.x + 7 transition presentation + ShortsVideo.tsx + 3 crime scene + BracketCaption + fonts + props-schema) bootstrap. shorts_pipeline._run_assembly 를 remotion > shotstack > ffmpeg 3분기 cascade 로 전환. 렌더 후 ffprobe baseline 검증 (1080x1920 + >=50s + h264) 내부 강제. **Plan 16-02 담당.**
+
+- [ ] **REQ-PROD-INT-03**: 신규 Producer `subtitle-producer` 추가 (Producer 14 -> 15, 32 -> 33 agents 상한 확장 — CONTEXT.md + Q3 근거 승인). `.preserved/harvested/audio_pipeline_raw/word_subtitle.py` (1697 줄) 을 `scripts/orchestrator/subtitle/word_subtitle.py` 로 1:1 이식 + Python wrapper `subtitle_producer.py` + AGENT.md v1.0 (5 섹션 schema 준수). faster-whisper large-v3 + Korean timestamp repair (clamp/merge/fallback) + subtitles_remotion.{srt,ass,json} 3종 동시 생성 + coverage >=95% 검증. Task 0 Outro 연구 선행 (remotion_render.py grep + visual_spec triangulation + shorts_naberal 실 파일 스캔) 후 OutroCard.tsx (Option A) 또는 outro 모듈 포팅 (Option B) 택 1. **Plan 16-03 담당.**
+
+- [ ] **REQ-PROD-INT-04**: Pydantic v2 `VisualSpec` + `ClipDesign` + `TitleKeyword` + `SourcesManifest` 모델을 `scripts/orchestrator/api/models.py` 에 추가 (기존 class 수정 금지). JSON Schema draft-07 2종 (visual-spec.v1 + scene-manifest.v4) 작성 — zodiac-killer baseline 과 동일. `visual_spec_builder.build(blueprint, script, channel_preset, sources_manifest, audio_duration) -> VisualSpec` 헬퍼 작성 (harvested `remotion_render.py:501~773` 포팅). `scripts/validate/verify_visual_spec_schema.py` + `verify_baseline_parity.py` 검증 CLI. **Plan 16-04 담당.**
+
+- [ ] **REQ-PROD-INT-05**: `ins-subtitle-alignment` AGENT.md description + role 정정 v1.1 -> v1.2 — "WhisperX + kresnik/wav2vec2-large-xlsr-korean" 을 "faster-whisper large-v3 기반 subtitle-producer 출력 검증" 으로 전환 (WhisperX 는 레거시 주석으로만 <=3회 언급 허용). 상류 subtitle-producer 명시. coverage >=95% 신규 검증 항목 추가. description <=1024자 유지. **Plan 16-03 담당.**
+
+- [ ] **REQ-PROD-INT-06**: `asset-sourcer` AGENT.md v1.2 -> v1.3 확장 — `<output_format>` 에 visual_spec (titleLine1/2 + titleKeywords + accentColor + channelName + fontFamily + characterLeftSrc(=assistant) + characterRightSrc(=detective) + subtitlePosition + durationInFrames + transitionType + clips[]) + sources_manifest (character 2 PNG + intro/outro signature + scene_sources >=5 + real_ratio >=0.75 + veo_supplement <=2) 필드 추가. `scripts.orchestrator.api.visual_spec_builder.build()` 호출 책임. shorts-designer 역할 흡수. 기존 섹션 전수 보전, append only. 신규 에이전트 없음. **Plan 16-04 담당.**
+
+- [ ] **REQ-PROD-INT-07**: 캐릭터 오버레이 책임 분할 배선 — asset-sourcer (파일 조달, `output/<episode>/sources/character_{assistant,detective}.png`) + remotion_renderer._inject_character_props (파일 존재 확인 + `remotion/public/<job_id>/` 복사 + props.characterLeftSrc / characterRightSrc 주입) + ShortsVideo.tsx (circular crop + border + face zoom 렌더). 좌 = assistant (왓슨/Guri, 파일명 고정), 우 = detective (Morgan, 파일명 고정) Q4 매핑 불변. CharacterRegistry (Phase 9.1) 재사용 권장. **Plan 16-02 + 16-03 + 16-04 공동.**
+
+- [ ] **REQ-PROD-INT-08**: 인트로 시그니처 기존 자산 재사용 — `shorts_naberal/output/_shared/signatures/incidents_intro_v4_silent_glare.mp4` (1.70 MB, Veo v4 silent glare) 를 `.preserved/harvested/video_pipeline_raw/signatures/` 로 one-way read-only 복사 (attrib +R + sha256 매니페스트). Veo API 신규 호출 0건 (CLAUDE.md 금기 #11). `generate_intro_signature.py` 는 참조 금지 코드로 보존. 아웃로는 shorts_naberal 에 `incidents_outro*.mp4` 부재 확인됨 (documentary/wildlife 만 존재) — Plan 16-03 Task 0 Option A (Remotion OutroCard) 채택 전제. **Plan 16-03 담당.**
+
+- [ ] **REQ-PROD-INT-09**: `output/<episode>/sources/` 디렉토리 계약 강제 — `SourcesManifest` Pydantic 모델 (scene_sources_count >=5, character 2 PNG + intro_signature mp4 + optional outro_signature, real_ratio >= 0.75). `scene-manifest.v4` JSON Schema 준수 (version="v4", channel, category, topic, total_clips, clips[].section_type in {intro,hook,body,outro}, source.provider in {veo_reuse,serper,gpt_image2,kling,runway,nano_banana,remotion_card}). **Plan 16-04 담당.**
+
+- [ ] **REQ-PROD-INT-10**: visual_spec.clipDesign[i].movement=null 은 의도적 freeze — remotion_renderer 내 `_NULL_FREEZE` sentinel 파이프 (harvested `remotion_render.py:843~869` 1:1 미러). build_shorts_props 내부 movement in VALID_MOVEMENTS 검증 + Zod 전 pop. 자동 round-robin 배정 중단 (visual_spec.clipDesign[] 전수 movement 명시 시 Designer 결정 보전). **Plan 16-02 + 16-04 공동.**
+
+- [ ] **REQ-PROD-INT-13**: ffprobe 기반 baseline 정량 비교 — `scripts/validate/verify_baseline_parity.py` CLI 가 shorts_naberal `output/{zodiac-killer, mary-celeste, db-cooper, elisa-lam, kitakyushu-matsunaga}/final.mp4` 중 >=3편을 baseline 으로 ffprobe 측정 후 우리 final.mp4 와 resolution / duration / bitrate / fps / codec 정량 비교. +/-10% tolerance. gate_guard ASSEMBLY 최종 체크 또는 CLI 호출. JSON report 출력. Pitfall 1 "spec 통과 = production 완료" 재발 방지. **Plan 16-04 담당.**
+
+- [ ] **REQ-PROD-INT-14**: Narration Drives Timing 불변 — TTS 실제 출력 duration 을 ffprobe 로 실측 -> `durationInFrames = sec * 30` 자동보정. caller 주장 duration 과 ffprobe 값 차이 > 1.0s 시 ffprobe 우선 + logger.warning. shorts-pipeline/SKILL.md Core Principle 준수. **Plan 16-02 담당 (remotion_renderer 내부 강제).**
+
+**Note on REQ-PROD-INT-11, -12**: Phase 16 research 초기 reservation 으로 제안되었으나 plan-phase 에서 **REQ-PROD-INT-01 에 통합 흡수** (채널바이블 박제 + 12 feedback 메모리 매핑). 두 ID 는 장기 드리프트 방지 위해 **사용 안 함** 명시 — 재사용 금지.
+
+### Phase 16 Traceability
+
+| REQ-ID | Phase | Plan |
+|--------|-------|------|
+| REQ-PROD-INT-01 | 16 | 16-01 |
+| REQ-PROD-INT-02 | 16 | 16-02 |
+| REQ-PROD-INT-03 | 16 | 16-03 |
+| REQ-PROD-INT-04 | 16 | 16-04 |
+| REQ-PROD-INT-05 | 16 | 16-03 |
+| REQ-PROD-INT-06 | 16 | 16-04 |
+| REQ-PROD-INT-07 | 16 | 16-02 + 16-03 + 16-04 |
+| REQ-PROD-INT-08 | 16 | 16-03 |
+| REQ-PROD-INT-09 | 16 | 16-04 |
+| REQ-PROD-INT-10 | 16 | 16-02 + 16-04 |
+| REQ-PROD-INT-13 | 16 | 16-04 |
+| REQ-PROD-INT-14 | 16 | 16-02 |
+
+**Phase 16 Coverage**: 12 유효 REQ (REQ-PROD-INT-11, -12 는 REQ-PROD-INT-01 로 통합 삭제). 전체 mapping: v1.0.1 96 + Phase 11 6 + Phase 12 6 + v1.0.2 12 + Phase 15 10 + Phase 16 12 = **142 REQ**.
+
+---
+
+*Phase 16 REQ 추가: 2026-04-22 (세션 #33) — Phase 16 production integration Option A (shorts_naberal Remotion + faster-whisper + visual_spec + sources/ 이식). 대표님 2026-04-22 전권 위임. 4 Plan (16-01 채널바이블 박제 / 16-02 Remotion 렌더러 + ASSEMBLY 분기 / 16-03 자막 producer + signature harvest + 캐릭터 오버레이 / 16-04 visual_spec + sources/ + asset-sourcer 확장 + baseline parity). Nyquist validation: 신규 Phase 16 테스트 >=90 (16-01 55 + 16-02 35 + 16-03 25 + 16-04 30), 기존 986+ regression preserved. /gsd:execute-phase 16 으로 실행 예정.*

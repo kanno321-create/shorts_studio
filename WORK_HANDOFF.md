@@ -1,13 +1,123 @@
 # WORK HANDOFF — shorts_studio
 
 ## 최종 업데이트
-- 날짜: 2026-04-22 (세션 **#30** — Phase 13 + Phase 14 + Phase 15 연속 실행, 해외범죄 샘플 쇼츠 1편 실제 제작 시도 + 대표님 원칙 2종 각인 + FAILURES auto-injection wiring)
-- 세션: **#30** (commits: Phase 13 complete + Phase 14 complete + Phase 15 Wave 0~4 2/3 + handoff `08fbce3` + **세션 후반 unstaged wiring**: session_start.py / FAILURES.md / FAILURES_INDEX.md / CLAUDE.md)
-- 상태: **Phase 15 Wave 4 Task 3 + Wave 5 + Wave 6 대기** — Live smoke retry (SPC-06) 가 Claude CLI JSON non-compliance 으로 실패. 대표님 "무한루프다" 지적 + `--skip-supervisor` 경로로 선택 합의. 세션 종료 직전 대표님 추가 지적 2건 반영: "봐주면서 하라" + "실패 교훈 자동 참조". 다음 세션 시작점 = NEXT_SESSION_START.md.
+- 날짜: 2026-04-22 (세션 **#32** — gpt-image-2 vs Nano Banana 실증 → adapter 도입 → **충격 사건 (production baseline 격차 발견)** → shorts_naberal 전수 매핑 → 옵션 A 즉시 도입 결정 → harvest 5 폴더 84 파일 추가 + read-only 잠금)
+- 세션: **#32** (uncommitted changes: 9 files modified + 신규 메모리 4 + 신규 코드 4 + harvest 84 files + 핸드오프 3종. **다음 세션 첫 commit 권고**)
+- 상태: **옵션 A Phase A1 대기** — Production 자산 harvest 완료, 채널바이블 박제 진입 준비 완료. 다음 세션 시작점 = `NEXT_SESSION_START.md`.
 
 ---
 
-## 세션 #30 (2026-04-22) 완료 항목
+## 세션 #32 (2026-04-22) 완료 항목
+
+### ✅ Part 1: gpt-image-2 vs Nano Banana 실증 + 채택 결정
+- 5 프롬프트 × 2 모델 × 5 품질 슬롯 = **50장 비교** (`outputs/compare_ducktape_vs_nanobanana/`)
+- Kling 2.6 Pro I2V × 2 영상 으로 anchor 영향력 검증
+- **대표님 판정**: "그래픽퀄리티에서 gpt가 너무 앞선다"
+- **결정 박제**: `.claude/memory/project_image_stack_gpt_image2.md` — anchor·썸네일 = gpt-image-2 primary, Nano Banana fallback
+- **OPENAI_API_KEY** `.env` 등록 (재질문 금지 원칙 준수)
+
+### ✅ Part 2: gpt-image-2 adapter + 에이전트 업데이트 + 회귀 테스트
+- `scripts/orchestrator/api/gpt_image2.py` (262줄) — `NanoBananaAdapter` signature 미러 + `edit_scene` 추가
+- asset-sourcer / thumbnail-designer / ins-license AGENT.md 업데이트 (whitelist 신설 + primary 명시)
+- `tests/phase091/test_gpt_image2_{adapter,safety}.py` — **16/16 PASS**
+- conftest.py: `OPENAI_API_KEY` autouse + `mock_openai_client` fixture 추가
+
+### 🚨 Part 3: 충격 사건 — Production baseline 격차 발견
+- 대표님 발화: **"지금 outputs/ffmpeg_assembly/assembled_1776844680770.mp4 업로드용 영상하나 만들었는데 큰일났다 이런 퀄리티로 어떻게하노"**
+- ffprobe: **720p 519kbps 13초 mono** vs Production **1080p 5~21Mbps 60~130초 stereo + 자막 + 인트로/아웃로 + 캐릭터 + 자료사진**
+- ffmpeg_assembler 인코딩 버그 fix (1080×1920 + 8M bitrate + stereo 48kHz) — `repaired_demo.mp4` 시연
+- 대표님 후속 지적: **"넌 뭐가 잘못된지 모르는듯, 진짜 업로드할만한 퀄리티를 이게 최소한의 퀄리티다"** (6편 baseline 경로 제공)
+- **본질 발견**: 단순 spec 정정 차원이 아니라 **콘텐츠 architecture (Remotion + 자막 + 자료사진 + 인트로/아웃로 + 캐릭터) 자체 누락**
+
+### ✅ Part 4: shorts_naberal 전수 매핑
+- 핵심 설계 문서 4종 (`DESIGN_BIBLE.md` / `DESIGN_SPEC.md` / `NLM_PROMPT_GUIDE.md` / `VEO_PROMPT_GUIDE.md`) 식별
+- **6-Stage 파이프라인** (RESEARCH → BLUEPRINT → SCRIPT → ASSETS 병렬 → RENDER (Remotion) → QA 42항목) 매핑
+- **3-Pipeline 분리** (`audio-pipeline/` / `visual-pipeline/` / `video-pipeline/`) + Remotion (TypeScript 11 Cards + crime/longform 컴포넌트 + 7 트랜지션) 매핑
+- **채널바이블 v1.0** 7개 발견 — 사건기록부 (탐정 1인칭 + **왓슨**(조수) 시청자 대리 질문 + 4단계 구조 + "습니다/입니다/였죠" 종결어미 + 듀얼 CTA + 시그니처 퇴장)
+- 박제: `.claude/memory/reference_production_gap_map.md` — 11 누락 컴포넌트 + 우리 13 GATE vs production 6-Stage 매핑
+
+### ✅ Part 5: 절대 규칙 2종 박제 (대표님 새 지시)
+- 대표님 발화: **"앞으로 절대 목업, 빈파일은 절대금지사항이다, 메모리랑 CLAUDE.MD, AGENT.MD에 저장해라"**
+  → 4곳 박제 (memory + CLAUDE.md 금기 #10 + agent-template MUST REMEMBER #9 + i2v_prompt feedback)
+- 대표님 발화: **"VEO는 안쓰니까 우리가 쓰는 영상에도 프롬프트를 활용하면된다"**
+  → CLAUDE.md 금기 #11 + agent-template MUST REMEMBER #10 + feedback_i2v_prompt_principles 업데이트
+
+### ✅ Part 6: 옵션 A 즉시 도입 결정 + Harvest 진행
+- 대표님 결정: **"A 즉시도입이다"**
+- **5 신규 폴더 + 84 파일 추가 harvest**: `audio_pipeline_raw/` (10) + `video_pipeline_raw/` (12) + `visual_pipeline_raw/` (8) + `design_docs_raw/` (4) + `skills_raw/` (20 SKILL.md) + `baseline_specs_raw/` (54 specs)
+- `attrib +R /S /D` (Windows) + `chmod -R a-w` (POSIX) 양쪽 read-only 잠금 적용
+- 박제: `.claude/memory/reference_harvested_full_index.md` — 9 폴더 160 파일 인덱스 + 5-Step 진입 + Phase A1~A4 로드맵
+
+---
+
+## 다음 세션 (#33) 시작점
+
+**`NEXT_SESSION_START.md`** 의 "첫 5분 행동" 5개 명령부터 진입.
+**Phase A1**: 채널바이블 박제 + production feedback 12+ 메모리 매핑 (2~3시간 텍스트 작업, 코드 수정 없음).
+
+---
+
+## ⚠️ 다음 세션 절대 준수 (세션 #32 박제)
+
+1. **목업·빈 파일 금지** (CLAUDE.md 금기 #10 신규)
+2. **Veo 호출 금지** (CLAUDE.md 금기 #11 신규) — VEO_PROMPT_GUIDE 는 Kling 응용 참조만
+3. **shorts_naberal 원본 수정 금지** (금기 #6 강화) — `.preserved/harvested/` read-only 잠금됨
+4. **production baseline 충족 검증 필수** — 60~120초 + 1080p + 자막 + 인트로/아웃로 + 캐릭터 + 자료사진
+5. **"spec 통과 = production 완료" 보고 금지** — 충격 사건 재발 방지
+
+---
+
+## 세션 #32 산출물 파일 목록 (uncommitted, 다음 세션 첫 commit 대상)
+
+### 신규 생성 (Memory) — 4 파일
+- `.claude/memory/feedback_no_mockup_no_empty_files.md`
+- `.claude/memory/reference_production_gap_map.md`
+- `.claude/memory/reference_harvested_full_index.md`
+- `.claude/memory/project_image_stack_gpt_image2.md`
+
+### 신규 생성 (Code) — 7 파일
+- `scripts/orchestrator/api/gpt_image2.py` (262줄)
+- `tests/phase091/test_gpt_image2_adapter.py` (7 tests)
+- `tests/phase091/test_gpt_image2_safety.py` (3 tests)
+- `scripts/experiments/{compare_image_models, _smoke_one_call, kling_compare_i2v, _repair_demo}.py`
+
+### 수정 (Memory + Docs + Agents + Code) — 12 파일
+- `.claude/memory/MEMORY.md` (인덱스 4 추가)
+- `.claude/memory/reference_api_keys_location.md` (OPENAI_API_KEY 등재)
+- `.claude/memory/feedback_i2v_prompt_principles.md` (VEO_PROMPT_GUIDE 활용 규칙)
+- `CLAUDE.md` (금기 #10, #11 추가)
+- `.claude/agents/_shared/agent-template.md` (MUST REMEMBER #9, #10 추가)
+- `.claude/agents/producers/asset-sourcer/AGENT.md`
+- `.claude/agents/producers/thumbnail-designer/AGENT.md`
+- `.claude/agents/inspectors/compliance/ins-license/AGENT.md`
+- `tests/phase091/conftest.py`
+- `scripts/orchestrator/api/ffmpeg_assembler.py` (1080p + 8M bitrate)
+- `scripts/orchestrator/shorts_pipeline.py` (ASSEMBLY 분기 fhd 강제)
+- `.env` (OPENAI_API_KEY 추가)
+
+### 신규 생성 (Harvest, read-only) — 84 파일
+- `.preserved/harvested/{audio_pipeline_raw,video_pipeline_raw,visual_pipeline_raw,design_docs_raw,skills_raw,baseline_specs_raw}/`
+
+### 신규 생성 (Output, sample) — non-tracked
+- `outputs/compare_ducktape_vs_nanobanana/` (50 이미지 + 2 Kling 영상 + run_log.json)
+- `outputs/ffmpeg_assembly/repaired_demo.mp4` (1080p fix 시연)
+
+### 핸드오프 (이 세션 마지막 작업) — 3 파일
+- `WORK_HANDOFF.md` (이 문서, 세션 #32 섹션 prepend)
+- `NEXT_SESSION_START.md` (전체 재작성, 세션 #33 진입 프롬프트)
+- `SESSION_LOG.md` (세션 #32 entry append)
+
+---
+
+## 세션 #30 (이전 세션, archived 참조용)
+
+### 최종 업데이트 (이전)
+- 날짜: 2026-04-22 (세션 #30 — Phase 13 + Phase 14 + Phase 15 연속 실행)
+- 상태: Phase 15 Wave 4 Task 3 + Wave 5 + Wave 6 대기 — Live smoke retry (SPC-06) 가 Claude CLI JSON non-compliance 으로 실패. 대표님 "무한루프다" 지적 + `--skip-supervisor` 경로로 선택 합의. **세션 #31 SESSION COMPLETE commit `13f0567` 으로 마무리** (final_video_id `guGF26Ge6lU` unlisted 업로드 + cleanup) — **그러나 그 영상이 세션 #32 충격 사건의 trigger 가 됨**.
+
+---
+
+## 세션 #30 (2026-04-22) 완료 항목 (이하 archived 참조)
 
 ### ✅ Phase 13 Live Smoke 재도전 — complete_with_deferred
 - 6 plans shipped (13-01~06) + TRACEABILITY + VALIDATION flip

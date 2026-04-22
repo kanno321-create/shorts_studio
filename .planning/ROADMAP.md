@@ -29,6 +29,7 @@
 - [x] **Phase 14: API Adapter Remediation** — phase05/06/07 pre-existing adapter drift 15 failures (veo_i2v + elevenlabs + shotstack) 전수 청산 + adapter contract 재정의 (milestone v1.0.2)
  (completed 2026-04-21)
 - [ ] **Phase 15: System Prompt Compression + User Feedback Loop** — Phase 13 live smoke 2026-04-22 attempt 에서 노출된 `invokers.py` → Claude CLI 경로 rc=1 근본 해소 (SPC-01~06) + 대표님 피드백 loop 인터페이스 (UFL-01~04: `--revision-from` / `--revise-script` / `--pause-after` / rating CLI). 대표님 직접 승인 2026-04-22.
+- [ ] **Phase 16: Production Integration Option A** — 세션 #32 충격 사건 (assembled_1776844680770.mp4 13s/720p/519kbps vs production baseline 60~130s/1080p/5~21Mbps + 자막·인트로/아웃로·캐릭터·자료사진) 해소. 4 Plan (16-01 채널바이블 v1.0 박제 + feedback 메모리 매핑 / 16-02 Remotion 렌더러 + ASSEMBLY 분기 / 16-03 단어단위 자막 + 인트로/아웃로 시그니처 + 탐정·왓슨 오버레이 / 16-04 visual_spec + sources 수집 파이프). Veo=기존 자산 참조만, Kling I2V only 유지. 대표님 직접 승인 2026-04-22.
 
 ---
 
@@ -457,6 +458,49 @@ Plans:
 - 영상 T2V 금지 (NotebookLM T1) — I2V + Anchor Frame only
 - K-pop 트렌드 음원 직접 사용 금지 (AF-13) — KOMCA + Content ID 위험
 - Selenium 업로드 영구 금지 (AF-8) — YouTube Data API v3 공식만
+
+### Phase 16: Production Integration Option A
+
+**Status:** Planned — research pending (2026-04-22)
+**Goal:** shorts_pipeline ASSEMBLY 산출물을 shorts_naberal production baseline (1080p · 60–120s · 단어단위 자막 · 인트로/아웃로 시그니처 · 탐정-왓슨 오버레이 · 자료사진 ≥5장 · Remotion 합성) 수준으로 끌어올린다. 세션 #32 에서 발견된 "spec 통과 ≠ production 콘텐츠" 아키텍처 격차 (`.claude/memory/reference_production_gap_map.md` 11 컴포넌트) 를 4 Plan 으로 해소한다.
+**Depends on:** Phase 15 (SPC/UFL 배선 완결) + .preserved/harvested/ 84 파일 read-only 잠금 (세션 #32 완료)
+**Requirements:** TBD (research-phase 후 plan-phase 에서 REQ-PROD-INT-01~NN 신규 등재 예정)
+
+**Success Criteria:**
+1. 4/4 Plan SUMMARY 완료 (16-01 ~ 16-04)
+2. 986+ 기존 회귀 테스트 전수 PASS 유지 (Phase 4 244 + Phase 5 329 + Phase 6 236 + Phase 7 177)
+3. 신규 Phase 16 테스트 ≥ 20개 PASS (Remotion 렌더러 unit + visual_spec 스키마 + 자막 통합 + 캐릭터 오버레이)
+4. 샘플 쇼츠 1편 production baseline 충족 증명 — ffprobe 측정: 1080×1920 + 해상도 1080p + ≥60s + 자막 트랙 존재 + 인트로/아웃로 각 ≥3초 + 자료사진 ≥5장 (visual_spec 카운트)
+5. "spec 통과 = production 완료" 오인 재발 방지 — verifier 가 shorts_naberal baseline 6편 (zodiac-killer / mary-celeste / ... ) 과 정량 비교 섹션 필수
+
+**Hard Constraints:**
+- 목업·빈 파일·placeholder 금지 (CLAUDE.md 금기 #10)
+- Veo API 신규 호출 금지 (CLAUDE.md 금기 #11) — 기존 자산 (`.preserved/harvested/` + `output/_shared/signatures/incidents_intro_v4_silent_glare.mp4` 등) 참조·복사만
+- shorts_naberal 원본 수정 금지 (금기 #6) — `.preserved/harvested/` read-only 유지
+- T2V 금지 (금기 #4) — I2V + Anchor Frame only, Kling 2.6 Pro 스택 유지
+- 32 에이전트 상한 유지 (금기 #9) — 신규 에이전트는 research 결과에 따라 결정, Producer 14 + Inspector 17 + Supervisor 1 초과 금지
+- SKILL.md ≤ 500줄 / 오케스트레이터 500~800줄 유지
+
+**Plans (4):**
+- [ ] 16-01-PLAN.md — 채널바이블 v1.0 박제 (7채널: incidents / wildlife / humor / politics / trend / documentary + 1) + production feedback 12+ 메모리 매핑 (`feedback_script_tone_seupnida`, `feedback_duo_natural_dialogue`, `feedback_subtitle_semantic_grouping`, `feedback_video_clip_priority`, `feedback_outro_signature`, `feedback_series_ending_tiers`, `feedback_detective_exit_cta`, `feedback_watson_cta_pool`, `feedback_dramatization_allowed`, `feedback_info_source_distinction`, `feedback_veo_supplementary_only`, `feedback_number_split_subtitle`) + MEMORY.md 인덱스 갱신 [세션 #32 A1 상응, 코드 수정 없음 — 텍스트 박제만]
+- [ ] 16-02-PLAN.md — Remotion 렌더러 신규 모듈 (`scripts/orchestrator/api/remotion_renderer.py` 신규) + `shorts_pipeline.py` ASSEMBLY GATE 분기 (ffmpeg → Remotion 스위치, fallback 유지) + Remotion 컴포지션 11 Cards + 7 transitions 매핑 + 회귀 테스트 (Phase 16 unit ≥ 10) [세션 #32 A2 상응]
+- [ ] 16-03-PLAN.md — 단어단위 자막 (`subtitles_remotion.ass` / `.json` 생성) + 인트로/아웃로 시그니처 재사용 (`output/_shared/signatures/incidents_intro_v4_silent_glare.mp4` 참조·복사) + 탐정(Morgan)·왓슨 캐릭터 오버레이 통합 + `ins-subtitle-alignment` 확장 또는 신규 producer 결정 [세션 #32 A3 상응]
+- [ ] 16-04-PLAN.md — `visual_spec.json` 스키마·생성 로직 + `output/<episode>/sources/` 디렉토리 구조 + 자료사진 수집 파이프 (`asset-sourcer` 확장, whitelist 재정의) + 영상:이미지 ≥ 30% 비율 강제 + baseline 검증 스크립트 [세션 #32 A4 상응]
+
+**Research Questions (4 — Veo 질문 제거, (a) 기존 자산 재사용 확정):**
+1. shorts_naberal Remotion 컴포지션 (11 Cards + 7 transitions) → 우리 GATE/모듈 매핑 어떻게?
+2. `visual_spec.json` 생성 주체 = `scripter` vs `asset-sourcer` vs `assembler` 중 누가?
+3. 단어단위 자막 ASS/JSON 포맷 → `ins-subtitle-alignment` 확장 vs 신규 producer 도입?
+4. 탐정+왓슨 캐릭터 오버레이 → `thumbnail-designer` 확장 vs `assembler` 확장 vs 신규 에이전트?
+
+**Fixed decisions (research 대상 아님):**
+- **Veo 방침**: (a) 기존 Veo 자산 재사용만 허용. `.preserved/harvested/video_pipeline_raw/` + `output/_shared/signatures/` 수집분을 참조·복사만. Veo API 신규 호출 금지. Kling 재생성도 이번 Phase 에선 시도하지 않음 (향후 Phase 17 분리 가능).
+
+**Notes:**
+- 세션 #32 핸드오프 3종 (`NEXT_SESSION_START.md` + `WORK_HANDOFF.md` 세션 #32 섹션 + `SESSION_LOG.md` Session #32) 가 Phase 16 의 pre-planning SSOT.
+- `.claude/memory/reference_harvested_full_index.md` 가 9 폴더 160 파일 인덱스.
+- `.claude/memory/reference_production_gap_map.md` 가 11 누락 컴포넌트 + production vs 우리 13 GATE 매핑.
+- `.claude/memory/project_image_stack_gpt_image2.md` 가 정지 이미지 스택 결정 (gpt-image-2 primary, Nano Banana fallback).
 
 ---
 

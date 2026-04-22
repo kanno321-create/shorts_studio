@@ -27,7 +27,9 @@ Whitelist 헌법: `../../harness/STRUCTURE.md` (변경 시 schema bump + 백업 
 6. **`shorts_naberal` 원본 수정** — Harvest 는 `.preserved/harvested/` 읽기 전용만 (chmod -w, Phase 3).
 7. **K-pop 트렌드 음원 직접 사용** — KOMCA + Content ID strike (AF-13). 하이브리드 crossfade 만.
 8. **일일 업로드** — 봇 패턴 + Inauthentic Content (AF-1, AF-11). 주 3~4편 + 48h+ 랜덤 + 한국 피크 시간.
-9. **32 에이전트 초과** — Anthropic sweet spot × 6배 (AF-10). Producer 14 + Inspector 17 + Supervisor 1 고정.
+9. **33 에이전트 초과** — Anthropic sweet spot × 6배 (AF-10). Producer 15 + Inspector 17 + Supervisor 1 고정. **AMEND 2026-04-22 세션 #33 Phase 16**: 32→33 = `subtitle-producer` Producer 신규 도입 (ins-subtitle-alignment/AGENT.md 가 예약한 상류 슬롯 충족 + GAN 분리 RUB-02 상 Inspector 확장 불가 — 선택지 부재). 이후 34 이상 금지.
+10. **목업/빈 파일/placeholder 생성** — `# TODO` / `pass` 단독 함수 / 0byte 파일 / 한 줄 README / 빈 출력 JSON (`{"i2v_clips": []}`) 절대 금지 (2026-04-22 대표님 절대 규칙). 미완은 `raise NotImplementedError("이유")`. 상세: `.claude/memory/feedback_no_mockup_no_empty_files.md`.
+11. **Veo 사용** — Veo 3.1 Lite/Fast 등 어떤 변종도 호출 금지. I2V 모델은 Kling 2.6 Pro 단독. 단 shorts_naberal `VEO_PROMPT_GUIDE.md` 의 프롬프트 작성 방법론은 **Kling 에 응용**해 활용 가능 (`feedback_i2v_prompt_principles` 참조).
 
 ## 🟢 필수사항 (Must-do)
 1. **Hook 3종 활성** — `pre_tool_use.py` (8 regex) + `post_tool_use.py` (로깅) + `session_start.py` (6-step 감사).
@@ -41,15 +43,17 @@ Whitelist 헌법: `../../harness/STRUCTURE.md` (변경 시 schema bump + 백업 
 
 ## 🗺️ Navigator — 상황 → 자산 (LLM 1-hop 라우팅)
 
-### 제작 (Producer 14)
+### 제작 (Producer 15 — Phase 16 에서 +1)
 - "쇼츠 돌려"/"영상 뽑아"/"파이프라인 실행" → `scripts/orchestrator/shorts_pipeline.py` + `shorts-supervisor`.
 - "트렌드 수집"/"니치 분류" → `trend-collector` + `niche-classifier` + `wiki/algorithm/MOC.md`.
 - "NotebookLM 리서치"/"팩트 수집" → `researcher` + `scripts/notebooklm/query.py` + `.claude/memory/feedback_notebooklm_query.md`.
 - "연출/씬/샷 기획" → `director` + `scene-planner` + `shot-planner`.
 - "대본 작성/교정" → `scripter` → `script-polisher` + `wiki/script/{NLM_2STEP_TEMPLATE,QUALITY_PATTERNS}.md`.
 - "TTS/보이스" → `voice-producer` + `.claude/memory/{project_tts_stack_typecast,reference_shorts_naberal_voice_setup}.md`.
-- "I2V 영상 생성"/"Kling/Veo" → `asset-sourcer` + `.claude/memory/{project_video_stack_kling26,feedback_i2v_prompt_principles}.md` + `wiki/render/i2v_prompt_engineering.md`.
+- "단어단위 자막 생성" (Phase 16 신규) → `subtitle-producer` + faster-whisper large-v3 + `.preserved/harvested/audio_pipeline_raw/` + `.claude/memory/reference_signature_and_character_assets.md`.
+- "I2V 영상 생성"/"Kling" → `asset-sourcer` + `.claude/memory/{project_video_stack_kling26,feedback_i2v_prompt_principles}.md` + `wiki/render/i2v_prompt_engineering.md`. (Veo 신규 호출 금지 — CLAUDE.md 금기 #11)
 - "조립/썸네일/SEO" → `assembler` + `thumbnail-designer` + `metadata-seo` + `wiki/render/MOC.md`.
+- "Remotion 합성"/"production 렌더" (Phase 16 신규) → `scripts/orchestrator/api/remotion_renderer.py` + `remotion/` TypeScript + `.planning/phases/16-production-integration-option-a/16-RESEARCH.md`.
 - "YouTube 업로드" → `publisher` + `scripts/publisher/youtube_uploader.py`.
 
 ### 검증 (Inspector 17 / 6 카테고리)

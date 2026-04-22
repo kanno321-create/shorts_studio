@@ -1,157 +1,98 @@
-# NEXT SESSION START — 세션 #31 진입 프롬프트
+# NEXT SESSION START — 세션 #33 진입 프롬프트
 
-**작성**: 2026-04-22 세션 #30 종료 시점 (세션 후반 대표님 원칙 2종 + FAILURES auto-injection wiring 반영 갱신)
-**작성자**: 대표님 지시 "핸드오프 3종 작성해줘"
-**1-page 경계**: 이 문서는 다음 세션의 첫 30초 진입 프롬프트 역할. 긴 맥락은 WORK_HANDOFF.md 참조.
+**작성**: 2026-04-22 세션 #32 종료 시점
+**작성자**: 대표님 지시 "핸드오프 3종만들고, 다음세션에서 지금이랑 자연스럽게 이어서 작업가능하도록 전후사정 대화를 제대로 남기고 작업을 제대로 넘겨라"
+**1-page 경계**: 이 문서는 다음 세션의 첫 30초 진입 프롬프트. 깊은 맥락은 WORK_HANDOFF.md, 대화 흐름은 SESSION_LOG.md `Session #32` 참조.
+
+---
+
+## 🚨 세션 #32 충격 사건 요약 (반드시 인지)
+
+대표님이 SESSION #31 산출물 (`outputs/ffmpeg_assembly/assembled_1776844680770.mp4`) 을 보시고 "**큰일났다 이런 퀄리티로 어떻게 하노**" 라 충격받으셨습니다. 분석 결과:
+
+- **우리 영상**: 13초 720p 519kbps · 자막없음 · 자료사진 0개 · 인트로/아웃로 없음 · 캐릭터 오버레이 없음
+- **Production baseline (`shorts_naberal/output/zodiac-killer/final.mp4` 등 6편)**: **60~130초 · 1080p · 5~21Mbps · 단어단위 자막 + 인트로/아웃로 시그니처 + 캐릭터 듀오(탐정+왓슨) + 사건 자료 사진 10~15개 + Ken Burns + Remotion 합성**
+
+**본질 차이**: spec 게이트 통과 ≠ production 콘텐츠. 우리는 **architecture 자체가 빠져있는 상태**였습니다. 대표님 표현: "**이대로는 아예 시작도못하고 망하겠다**".
+
+→ 대표님 결정 = **옵션 A 즉시 도입** (Remotion + word_subtitle + intro_signature + 채널바이블 production 자산을 `.preserved/harvested/` 로 가져와 우리 ASSEMBLY 재배선).
 
 ---
 
 ## 🧠 자동 주입 확인 (첫 5초)
 
-세션 #31 시작 시 `session_start.py` Hook 이 다음을 system reminder 로 자동 주입합니다. **따로 읽을 필요 없음 — 이미 context 에 있음**:
+세션 #33 시작 시 `session_start.py` Hook 이 다음을 자동 주입:
 
-1. 🔑 `.env` API keys 목록 (재질문 금지)
-2. 📋 WORK_HANDOFF.md 첫 30줄
-3. 🧠 MEMORY.md index + 2 feedback memory
-   - `feedback_infinite_loop_avoidance.md` — Phase 확장으로 원래 goal 지연 금지
-   - `feedback_lenient_retry_over_strict_block.md` — JSON/포맷 비준수 → hard-fail 금지, nudge retry 유도
-4. 📛 **최근 실패 사례 + 교훈** (open 1 + 최근 5 entry):
-   - `F-LIVE-SMOKE-JSON-NONCOMPLIANCE` (Tier A, **open**) — Claude CLI 자연어 반환 + empty stdout
-   - `F-META-HOOK-FAILURES-NOT-INJECTED` (Tier A, resolved) — 원칙 ≠ 실행, wiring 필수
-   - 그 외 F-D2-EXCEPTION-01/02 Wave 2/3 + FAIL-ARCH-01
-5. 🗺️ Navigator coverage + CONFLICT_MAP 상태
-
----
-
-## 🎯 대표님 합의된 단 하나의 목표
-
-**해외범죄 샘플 쇼츠 1편 실제 제작 + YouTube unlisted 업로드 + 자동 cleanup**
-
-Phase 추가 금지 (memory: `feedback_infinite_loop_avoidance.md` 자동 적용). 영상 1편 달성 이후 다음 단계 결정.
+1. 🔑 `.env` API keys (재질문 금지) — `OPENAI_API_KEY` 신규 추가됨 (gpt-image-2 안정 보관)
+2. 📋 WORK_HANDOFF.md 첫 30줄 (세션 #32 항목)
+3. 🧠 MEMORY.md index — **신규 4 메모리 자동 노출**:
+   - `feedback_no_mockup_no_empty_files` — **🔴 절대 금지**: 목업/스텁/빈 파일/placeholder 생성 (대표님 절대 규칙)
+   - `reference_production_gap_map` — production vs 우리 11 누락 컴포넌트
+   - `reference_harvested_full_index` — **🔴 옵션 A 진입 자료**: 9폴더 160파일 + 5-Step 진입 + Phase A1~A4 로드맵
+   - `project_image_stack_gpt_image2` — 정지 이미지 = gpt-image-2 primary
+4. 📛 최근 실패 (open + 최근 5)
+5. 🗺️ Navigator + CONFLICT_MAP
 
 ---
 
-## 📦 현재 상태 (세션 #30 종료)
+## 🎯 단 하나의 목표 (세션 #33)
 
-### 이미 shipped (사용 가능)
-- ✅ **Phase 13 Live Smoke 재도전** — complete_with_deferred (Tier 1 60 tests green)
-- ✅ **Phase 14 API Adapter Remediation** — complete_with_deferred (ADAPT-01~06 validated, 15→0 failures)
-- ✅ **Phase 15 Wave 0~4 (2/3)** — 27 commits:
-  - **encoding fix** (`_invoke_claude_cli_once` tempfile + `--append-system-prompt-file`)
-  - shorts-supervisor AGENT.md 10591→5712 chars (Progressive Disclosure)
-  - **5 UFL flags**: `--evidence-dir`, `--revision-from GATE`, `--feedback TEXT`, `--revise-script PATH`, `--pause-after GATE`
-  - `rate_video.py` CLI + `verify_feedback_format.py` (UFL-04 2/3)
+**Phase A1 진행** — `.preserved/harvested/theme_bible_raw/incidents.md` (사건기록부 v1.0 SSOT) + `skills_raw/channel-incidents/SKILL.md` + `baseline_specs_raw/zodiac-killer/visual_spec.json` 를 흡수해 **`.claude/memory/project_channel_bibles_v1.md`** 신규 박제 + production feedback 메모리 12+ 매핑.
 
-### 대기 (다음 세션 작업 후보)
-- 🚧 **Live smoke 실 영상 제작 시도** — 2차 시도 실패 (Claude CLI JSON 미준수). 해결책 합의됨 (아래 참조).
-- 🚧 Phase 15 Wave 4 Task 3 (researcher AGENT.md `<mandatory_reads>` 확장) — optional, 영상 제작에 not blocking
-- 🚧 Phase 15 Wave 5/6 (live retry + phase gate) — **Wave 5 는 아래 경로로 대체**
+**금지** (옵션 A 모든 단계 공통):
+- ❌ 코드 수정 (Phase A2~A4 에서, A1 은 박제만)
+- ❌ 13초 영상을 production 으로 인정
+- ❌ 자막·인트로·아웃로 누락된 영상을 production 으로 인정
+- ❌ "spec 통과 = 완료" 보고 (충격 사건 재발 방지)
+- ❌ 빈 출력 / placeholder / 목업 (CLAUDE.md 금기 #10)
+- ❌ Veo 호출 (CLAUDE.md 금기 #11) — 가이드만 Kling 응용용
+- ❌ shorts_naberal 원본 수정 (CLAUDE.md 금기 #6) — `.preserved/harvested/` read-only 잠금 완료
 
 ---
 
-## 🛠 대표님 승인된 경로 (세션 #31 에서 실행)
+## 🚀 첫 5분 행동 (Step 1 SSOT 흡수)
 
-### Step 1 (5분): `--skip-supervisor` flag 추가
-`scripts/smoke/phase13_live_smoke.py` 에 argparse flag 1개 + `_AutoPassSupervisorInvoker` wrapper 1개 (~20 lines):
-
-```python
-class _AutoPassSupervisorInvoker:
-    """모든 gate 자동 PASS 반환 — supervisor Claude CLI 호출 SKIP.
-
-    대표님 세션 #30 합의 경로: Claude CLI JSON schema 엄수 brittle 문제
-    우회. Quality gate 는 영상 제작 달성 후 점진 복구.
-    """
-    def __call__(self, gate, output):
-        from scripts.orchestrator.state import Verdict
-        return Verdict.PASS
-
-# phase13_live_smoke.py main:
-if args.skip_supervisor:
-    supervisor = _AutoPassSupervisorInvoker()
-else:
-    supervisor = make_default_supervisor_invoker(...)
+```
+1. cat .preserved/harvested/theme_bible_raw/incidents.md            # 사건기록부 v1.0 SSOT
+2. cat .preserved/harvested/skills_raw/channel-incidents/SKILL.md
+3. cat .preserved/harvested/baseline_specs_raw/zodiac-killer/visual_spec.json   # Remotion props 실제 예
+4. head -100 .preserved/harvested/baseline_specs_raw/zodiac-killer/subtitles_remotion.ass   # 자막 형식
+5. cat .preserved/harvested/skills_raw/channel-incidents-jp/SKILL.md   # 일본 채널
 ```
 
-테스트: `pytest tests/phase15/test_skip_supervisor.py` (새 파일, ~3 tests green)
+## 🚀 첫 1시간 행동 (Phase A1)
 
-### Step 2 (5분): 해외범죄 대본 1편 작성
-`scripts/smoke/sample_scripts/overseas_crime_interpol_v1.md` — 60초 분량:
-- incidents 채널바이블 준수 (탐정 하오체 + 조수 해요체)
-- Hook 3초 질문형 + 숫자/고유명사
-- Structure: Hook → 갈등/오해 (5-30초) → 핵심 3포인트 (30-90초) → 반전/정리 (마지막 2-5초)
-- 예시 소재: 인터폴 국제 적색수배 + FBI 해외 도피범 사건 (공개 정보만 사용, 실명 없음)
+1. 신규 메모리 작성 — `.claude/memory/project_channel_bibles_v1.md` (7 채널 v1.0 핵심 추출 + cross-ref)
+2. production feedback 12+ 메모리 식별 — `incidents.md` 에 cross-reference 된 메모리 이름 (`feedback_script_tone_seupnida`, `feedback_duo_natural_dialogue`, `feedback_subtitle_semantic_grouping`, `feedback_video_clip_priority`, `feedback_outro_signature`, `feedback_series_ending_tiers`, `feedback_detective_exit_cta`, `feedback_watson_cta_pool`, `feedback_dramatization_allowed`, `feedback_info_source_distinction`, `feedback_veo_supplementary_only`, `feedback_number_split_subtitle`) 의 production 원본 위치 확인 + 우리 `.claude/memory/` 로 매핑
+3. MEMORY.md 인덱스 갱신
+4. 보고 → 대표님 Phase A2 진행 여부 결정
 
-### Step 3 (20-30분): Live run
-```bash
-python scripts/smoke/phase13_live_smoke.py --live \
-    --topic "해외범죄,인터폴,FBI 수사" --niche incidents \
-    --revise-script scripts/smoke/sample_scripts/overseas_crime_interpol_v1.md \
-    --skip-supervisor \
-    --budget-cap-usd 5.00 \
-    --session-id "overseas_crime_sample_v1"
-```
+## 🚀 향후 (Phase A2~A4, 다음 세션 이후)
 
-예상 실행 흐름 (13 gates):
-- TREND/NICHE: pre-seeded skip ($0)
-- RESEARCH_NLM: 실 NotebookLM query ($0, Max sub)
-- BLUEPRINT: 실 Claude (director) — supervisor skip
-- SCRIPT: 대표님 대본 주입 (scripter skip)
-- POLISH: 실 Claude (script-polisher) — supervisor skip
-- VOICE: Typecast 실 API (~$0.12)
-- ASSETS: Kling I2V 실 API (~$2.80 — 8 cuts)
-- ASSEMBLY: ken_burns 로컬 FFmpeg ($0)
-- THUMBNAIL: Nano Banana (~$0.04)
-- METADATA: 실 Claude (metadata-seo) — supervisor skip
-- UPLOAD: YouTube API v3 unlisted (~$0 quota)
-- MONITOR: 상태 확인 + cleanup (videos.delete)
-- COMPLETE: evidence 5 files anchored
-
-**예상 총 비용**: ~$3.00, ~20-30분 wall time
-
-### Step 4 (대표님 검토): 영상 재생 + rating
-YouTube unlisted URL → 재생 → `rate_video.py --video-id <id> --rating N --feedback "..."` → `.claude/memory/feedback_video_quality.md` append
+- Phase A2 (2~3 세션): ASSEMBLY 재배선 — `scripts/orchestrator/api/remotion_renderer.py` 신규 + shorts_pipeline ASSEMBLY 분기
+- Phase A3 (1~2 세션): word_subtitle + intro/outro signature 통합
+- Phase A4 (1~2 세션): visual_spec.json 생성 로직 + sources/ 디렉토리 구조
 
 ---
 
-## ⚠ 금지 사항 (세션 #31 에서 피할 것)
+## ⚠️ 절대 준수 (이 세션에서 박제)
 
-1. **"Phase 16 발의" 금지** — memory `feedback_infinite_loop_avoidance.md` 자동 적용. 인프라 추가 전에 Step 1~4 로 영상 1편부터.
-2. **"또 다른 defer" 금지** — Live run 이 실패해도 phase 추가 없이 즉시 진단 + 최소 수정으로 재시도.
-3. **Supervisor AGENT.md 추가 압축 금지** — 10591→5712 이면 충분. 더 줄여도 JSON 엄수 해결 안 됨 (Claude CLI 대화형 session 자체 한계).
-4. **대본 에이전트에게 맡기지 말고 대표님 직접 작성** — UFL-02 의 `--revise-script` 는 정확히 이 use case.
-5. **$5 cap 엄수** — budget_counter.py 가 자동 enforce. 초과 시 즉시 abort.
-6. **Hard-fail 차단 금지 (lenient retry 원칙)** — memory `feedback_lenient_retry_over_strict_block.md` 자동 적용. JSON/포맷/품질 비준수 시 즉시 FAIL 말고 nudge retry (예시 첨부) 로 되돌려보내 재시도 (최소 2~3회). 단 AF-4/5/8/13 + skip_gates=True 등 법적·플랫폼 strike 위험 영역은 hard-block 유지.
-
----
-
-## 📋 세션 #31 진입 체크리스트
-
-- [ ] **system reminder 에 📛 최근 실패 사례 섹션 포함 여부 확인** — 없으면 `session_start.py` Hook 동작 실패이므로 재검토 (F-META-HOOK-FAILURES-NOT-INJECTED 재발)
-- [ ] `git status` — 세션 #30 unstaged 4종 확인 (session_start.py + FAILURES.md + FAILURES_INDEX.md + CLAUDE.md) → **첫 commit** `chore(handoff): session #30 tail wiring — FAILURES auto-injection + lenient retry principle`
-- [ ] `git log --oneline -10` — Phase 15 commits + 핸드오프 `08fbce3` 확인
-- [ ] Preflight: `python scripts/smoke/phase13_preflight.py` → ALL_PASS 확인
-- [ ] Step 1 `--skip-supervisor` flag 구현 → Step 2 해외범죄 대본 → Step 3 live run → Step 4 rating
-- [ ] 결과 보고: 영상 URL + 비용 + wall time + cleanup 확인
-- [ ] Live run 중 JSON/포맷 실패 시 — **nudge retry 먼저** (lenient retry memory 준수), 즉시 abort 금지
+1. **목업·빈 파일·placeholder 금지** (CLAUDE.md 금기 #10) — 모든 산출물 production-ready 실 콘텐츠
+2. **Veo 호출 금지** (CLAUDE.md 금기 #11) — Kling 단독, VEO_PROMPT_GUIDE 는 Kling 응용 참조만
+3. **shorts_naberal 원본 수정 금지** (금기 #6) — `.preserved/harvested/` 9 폴더 160 파일 read-only 잠금됨
+4. **production baseline 충족 검증 필수** — 60~120초 + 1080p + 자막 + 인트로/아웃로 + 캐릭터 + 자료사진 ≥ 5장
+5. **대표님께 "완료" 보고 전 baseline 6편과 정량/정성 비교** — 충격 사건 재발 방지
 
 ---
 
-## 🔗 Reference Files (빠른 이동)
+## 📚 깊은 맥락 (필요 시)
 
-- 핵심 runner: `scripts/smoke/phase13_live_smoke.py`
-- invokers (encoding fix): `scripts/orchestrator/invokers.py` L121-187
-- pipeline state machine: `scripts/orchestrator/shorts_pipeline.py` L171-319
-- 채널바이블 (incidents): `.preserved/harvested/theme_bible_raw/incidents.md`
-- Phase 15 plans: `.planning/phases/15-system-prompt-compression-user-feedback-loop/`
-- **Memory (2종, 자동 주입)**:
-  - `.claude/memory/feedback_infinite_loop_avoidance.md` — Phase 확장 금지
-  - `.claude/memory/feedback_lenient_retry_over_strict_block.md` — hard-fail 금지, nudge retry 선호
-- **FAILURES (자동 주입)**:
-  - `.claude/failures/FAILURES.md` — open entry + 최근 5건 자동 노출
-  - `.claude/failures/FAILURES_INDEX.md` — Phase 6+ 카테고리 색인
-- **Hook (세션 #30 후반 patch)**:
-  - `.claude/hooks/session_start.py` — `load_recent_failures()` (Step 6a)
+- **세션 #32 전체 흐름**: `SESSION_LOG.md` Session #32 entry — 대화 인용 포함
+- **세션 #32 박제 산출물**: `WORK_HANDOFF.md` 세션 #32 섹션
+- **production 격차 11 컴포넌트**: `.claude/memory/reference_production_gap_map.md`
+- **harvest 160 파일 인덱스**: `.claude/memory/reference_harvested_full_index.md`
+- **gpt-image-2 결정**: `.claude/memory/project_image_stack_gpt_image2.md`
 
 ---
 
-*이 문서는 세션 #31 진입 시 첫 30초 동안 읽힘. 나머지 상세는 WORK_HANDOFF.md + ARCHITECTURE.md 에 위임.*
+*세션 #32 종료 — 옵션 A Phase A1 진입 대기. 다음 세션 첫 행동: 위 "첫 5분 행동" 5개 명령부터.*

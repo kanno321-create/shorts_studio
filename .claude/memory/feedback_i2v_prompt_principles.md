@@ -44,3 +44,10 @@ type: feedback
 
 - [project_video_stack_kling26](project_video_stack_kling26.md) — Fallback 트리거 상세
 - `wiki/render/i2v_prompt_engineering.md` — 실 문서 (Templates + fallback 규칙)
+
+## VEO_PROMPT_GUIDE 활용 규칙 (2026-04-22 대표님 지시)
+
+shorts_naberal 의 `VEO_PROMPT_GUIDE.md` (Veo 3.1 Lite 용) 는 **참고 자료로 활용**.
+- **Veo 자체는 사용 안 함** — 우리 stack 은 Kling 2.6 Pro primary 고정
+- **단 프롬프트 작성 방법론·구조·표현 패턴은 Kling 에 응용** — VEO 가이드의 cinematic 묘사·micro motion·camera 지시·캐릭터 묘사 패턴은 모델 무관 universal patterns
+- 박제 위치: `wiki/render/i2v_prompt_engineering.md` 에 VEO_PROMPT_GUIDE 핵심 섹션 cross-reference 추가 권고 (다음 세션 작업)

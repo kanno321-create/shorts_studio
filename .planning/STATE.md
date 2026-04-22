@@ -190,6 +190,7 @@ Last activity: 2026-04-21
 ### Roadmap Evolution
 
 - Phase 9.1 inserted after Phase 9: Production Engine Wiring (URGENT) — 2026-04-20 세션 #24. 대표님 "영상 품질" 체감 테스트 중 발견된 구조적 drift 6건 복구 + Phase 5 orchestrator 의 producer_invoker / supervisor_invoker `NotImplementedError` wiring + Nano Banana Pro adapter 신설 + 캐릭터 레지스트리 + 4-stage chain 구현. Phase 10 (Sustained Operations) 진입 전 필수 선행 작업 (엔진 없이 운영 불가).
+- Phase 16 added: Production Integration Option A — 2026-04-22 세션 #33. 세션 #32 충격 사건 (assembled_1776844680770.mp4 13s/720p/519kbps vs shorts_naberal baseline 60~130s/1080p/5~21Mbps + 자막·인트로/아웃로·캐릭터·자료사진) 해소. 4 Plan (채널바이블 박제 / Remotion 렌더러 / 단어단위 자막·시그니처·캐릭터 / visual_spec·sources·자료사진). Veo 신규 호출 금지, 기존 자산 참조·복사만. 대표님 직접 승인 (A 전체 범위 + a Veo 자산 재사용).
 
 ### Key Decisions (D-1 ~ D-10)
 
