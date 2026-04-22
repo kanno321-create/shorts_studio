@@ -262,6 +262,28 @@ class ShortsPipeline:
                 )
                 raise
 
+        # Phase 16-02 — RemotionRenderer as priority-1 ASSEMBLY renderer.
+        # Falls back to Shotstack → ffmpeg_assembler when node / remotion / ffprobe
+        # are unavailable. Initialized AFTER shotstack+ffmpeg so fallback cascade
+        # is unchanged when Remotion cannot bootstrap.
+        self.remotion_renderer = None
+        try:
+            from .api.remotion_renderer import RemotionRenderer, RemotionUnavailable
+            self.remotion_renderer = RemotionRenderer()
+            logger.info(
+                "[pipeline] remotion_renderer 활성 (Phase 16-02 production path)"
+            )
+        except RemotionUnavailable as exc:
+            logger.warning(
+                "[pipeline] remotion_renderer 비활성 (%s) — Shotstack/ffmpeg fallback 사용",
+                exc,
+            )
+        except Exception as exc:  # noqa: BLE001 — 생성자 방어 (import 실패 포함)
+            logger.warning(
+                "[pipeline] remotion_renderer 초기화 실패 (%s) — fallback cascade 사용",
+                exc,
+            )
+
         # Voice-first assembly primitive (Plan 05).
         self.timeline = VoiceFirstTimeline()
 
@@ -513,32 +535,46 @@ class ShortsPipeline:
         ctx.artifacts[GateName.ASSETS] = output
 
     def _run_assembly(self, ctx: GateContext) -> None:
-        """GATE 9 — VoiceFirstTimeline + 720p Shotstack (ORCH-10 / ORCH-11).
+        """GATE 9 — VoiceFirstTimeline + Remotion/Shotstack/FFmpeg cascade.
 
-        Session #31: Shotstack 미인증 환경에서는 ``self.ffmpeg_assembler``
-        (로컬 ffmpeg concat + audio overlay) 로 자동 대체.
+        Phase 16-02: Remotion 1순위 (production path), Shotstack 2순위 (cloud),
+        ffmpeg_assembler 3순위 (로컬 fallback). 렌더러 선택은 생성자에서
+        결정된 가용성에 따라 자동으로 결정되며, 사용된 렌더러는
+        ``render_result['renderer']`` 필드로 추적된다.
         """
         timeline = self.timeline.align(ctx.audio_segments, ctx.video_cuts)
         timeline = self.timeline.insert_transition_shots(timeline)
 
-        # Renderer 선택 — Shotstack 우선, 없으면 로컬 ffmpeg_assembler.
-        renderer = self.shotstack if self.shotstack is not None else self.ffmpeg_assembler
+        # Phase 16-02 priority cascade: remotion > shotstack > ffmpeg
+        renderer = (
+            self.remotion_renderer
+            or self.shotstack
+            or self.ffmpeg_assembler
+        )
         if renderer is None:
             raise RuntimeError(
-                "ASSEMBLY renderer 미구성 (대표님) — Shotstack/ffmpeg_assembler 둘 다 없음"
+                "ASSEMBLY renderer 미구성 (대표님) — "
+                "Remotion/Shotstack/ffmpeg_assembler 모두 없음"
             )
 
-        # ORCH-11 / D-11: render at 720p BEFORE any upscale attempt.
-        if self.shotstack is not None:
+        # Render dispatch — Remotion 은 local subprocess 이므로 breaker 우회,
+        # Shotstack 만 rate-limit 이 있으므로 circuit breaker 경유.
+        if renderer is self.remotion_renderer:
+            logger.info("[ASSEMBLY] renderer=remotion (Phase 16-02 production path)")
+            render_result = renderer.render(
+                timeline, resolution="fhd", aspect_ratio="9:16"
+            )
+        elif renderer is self.shotstack:
+            logger.info("[ASSEMBLY] renderer=shotstack (cloud render)")
             render_result = self.shotstack_breaker.call(
                 lambda: renderer.render(
                     timeline, resolution="hd", aspect_ratio="9:16"
                 )
             )
         else:
-            # 로컬 ffmpeg — breaker 경로 우회 (subprocess 에 rate limit 없음)
-            # 2026-04-22 fix: 로컬 경로는 upscale NOOP 이므로 직접 fhd (1080×1920)
-            # 출력. Shotstack 경로의 hd→upscale 전략과 분리.
+            # 로컬 ffmpeg — breaker 경로 우회 (subprocess 에 rate limit 없음).
+            # 2026-04-22 fix: 로컬 경로는 upscale NOOP 이므로 직접 fhd 출력.
+            logger.info("[ASSEMBLY] renderer=ffmpeg-local (fallback)")
             render_result = renderer.render(
                 timeline, resolution="fhd", aspect_ratio="9:16"
             )
@@ -546,9 +582,16 @@ class ShortsPipeline:
         render_url = (render_result or {}).get("url", "")
         ctx.artifacts[GateName.ASSEMBLY] = Path(render_url) if render_url else None
 
-        # Upscale is a Phase 8 NOOP (ShotstackAdapter.upscale returns
-        # {"status": "skipped", ...}). Called AFTER render so the order is
-        # observable and enforced by test_low_res_first.test_upscale_after_render.
+        # Phase 16-02 — renderer metadata tracking (default when adapter didn't set)
+        if render_result is not None:
+            render_result.setdefault(
+                "renderer",
+                getattr(renderer, "__class__", type(renderer)).__name__.lower(),
+            )
+
+        # Upscale is a Phase 8 NOOP across all renderers (each adapter's
+        # upscale() returns {"status": "skipped", ...}). Called AFTER render
+        # so the order is observable (tests/phase04 regression).
         renderer.upscale(render_url)
 
         verdict = self.supervisor_invoker(GateName.ASSEMBLY, render_result)
