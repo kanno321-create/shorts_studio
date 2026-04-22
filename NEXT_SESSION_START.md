@@ -1,8 +1,25 @@
 # NEXT SESSION START — 세션 #31 진입 프롬프트
 
-**작성**: 2026-04-22 세션 #30 종료 시점
-**작성자**: 대표님 지시 "핸드오프 3종 작성해줘 다음세션에서하자"
+**작성**: 2026-04-22 세션 #30 종료 시점 (세션 후반 대표님 원칙 2종 + FAILURES auto-injection wiring 반영 갱신)
+**작성자**: 대표님 지시 "핸드오프 3종 작성해줘"
 **1-page 경계**: 이 문서는 다음 세션의 첫 30초 진입 프롬프트 역할. 긴 맥락은 WORK_HANDOFF.md 참조.
+
+---
+
+## 🧠 자동 주입 확인 (첫 5초)
+
+세션 #31 시작 시 `session_start.py` Hook 이 다음을 system reminder 로 자동 주입합니다. **따로 읽을 필요 없음 — 이미 context 에 있음**:
+
+1. 🔑 `.env` API keys 목록 (재질문 금지)
+2. 📋 WORK_HANDOFF.md 첫 30줄
+3. 🧠 MEMORY.md index + 2 feedback memory
+   - `feedback_infinite_loop_avoidance.md` — Phase 확장으로 원래 goal 지연 금지
+   - `feedback_lenient_retry_over_strict_block.md` — JSON/포맷 비준수 → hard-fail 금지, nudge retry 유도
+4. 📛 **최근 실패 사례 + 교훈** (open 1 + 최근 5 entry):
+   - `F-LIVE-SMOKE-JSON-NONCOMPLIANCE` (Tier A, **open**) — Claude CLI 자연어 반환 + empty stdout
+   - `F-META-HOOK-FAILURES-NOT-INJECTED` (Tier A, resolved) — 원칙 ≠ 실행, wiring 필수
+   - 그 외 F-D2-EXCEPTION-01/02 Wave 2/3 + FAIL-ARCH-01
+5. 🗺️ Navigator coverage + CONFLICT_MAP 상태
 
 ---
 
@@ -103,18 +120,19 @@ YouTube unlisted URL → 재생 → `rate_video.py --video-id <id> --rating N --
 3. **Supervisor AGENT.md 추가 압축 금지** — 10591→5712 이면 충분. 더 줄여도 JSON 엄수 해결 안 됨 (Claude CLI 대화형 session 자체 한계).
 4. **대본 에이전트에게 맡기지 말고 대표님 직접 작성** — UFL-02 의 `--revise-script` 는 정확히 이 use case.
 5. **$5 cap 엄수** — budget_counter.py 가 자동 enforce. 초과 시 즉시 abort.
+6. **Hard-fail 차단 금지 (lenient retry 원칙)** — memory `feedback_lenient_retry_over_strict_block.md` 자동 적용. JSON/포맷/품질 비준수 시 즉시 FAIL 말고 nudge retry (예시 첨부) 로 되돌려보내 재시도 (최소 2~3회). 단 AF-4/5/8/13 + skip_gates=True 등 법적·플랫폼 strike 위험 영역은 hard-block 유지.
 
 ---
 
 ## 📋 세션 #31 진입 체크리스트
 
-- [ ] `git status` + `git log --oneline -10` — Phase 15 commits 확인
-- [ ] `cat WORK_HANDOFF.md | head -50` — 세션 #30 맥락 로드
-- [ ] `.claude/memory/MEMORY.md` 읽기 (infinite loop 방지 memory 활성 확인)
-- [ ] `.claude/failures/FAILURES.md` tail 100 — F-LIVE-SMOKE-JSON-NONCOMPLIANCE entry 확인
+- [ ] **system reminder 에 📛 최근 실패 사례 섹션 포함 여부 확인** — 없으면 `session_start.py` Hook 동작 실패이므로 재검토 (F-META-HOOK-FAILURES-NOT-INJECTED 재발)
+- [ ] `git status` — 세션 #30 unstaged 4종 확인 (session_start.py + FAILURES.md + FAILURES_INDEX.md + CLAUDE.md) → **첫 commit** `chore(handoff): session #30 tail wiring — FAILURES auto-injection + lenient retry principle`
+- [ ] `git log --oneline -10` — Phase 15 commits + 핸드오프 `08fbce3` 확인
 - [ ] Preflight: `python scripts/smoke/phase13_preflight.py` → ALL_PASS 확인
-- [ ] Step 1 `--skip-supervisor` flag 구현 → Step 2 대본 → Step 3 live run → Step 4 rating
+- [ ] Step 1 `--skip-supervisor` flag 구현 → Step 2 해외범죄 대본 → Step 3 live run → Step 4 rating
 - [ ] 결과 보고: 영상 URL + 비용 + wall time + cleanup 확인
+- [ ] Live run 중 JSON/포맷 실패 시 — **nudge retry 먼저** (lenient retry memory 준수), 즉시 abort 금지
 
 ---
 
@@ -125,7 +143,14 @@ YouTube unlisted URL → 재생 → `rate_video.py --video-id <id> --rating N --
 - pipeline state machine: `scripts/orchestrator/shorts_pipeline.py` L171-319
 - 채널바이블 (incidents): `.preserved/harvested/theme_bible_raw/incidents.md`
 - Phase 15 plans: `.planning/phases/15-system-prompt-compression-user-feedback-loop/`
-- Memory: `.claude/memory/feedback_infinite_loop_avoidance.md`
+- **Memory (2종, 자동 주입)**:
+  - `.claude/memory/feedback_infinite_loop_avoidance.md` — Phase 확장 금지
+  - `.claude/memory/feedback_lenient_retry_over_strict_block.md` — hard-fail 금지, nudge retry 선호
+- **FAILURES (자동 주입)**:
+  - `.claude/failures/FAILURES.md` — open entry + 최근 5건 자동 노출
+  - `.claude/failures/FAILURES_INDEX.md` — Phase 6+ 카테고리 색인
+- **Hook (세션 #30 후반 patch)**:
+  - `.claude/hooks/session_start.py` — `load_recent_failures()` (Step 6a)
 
 ---
 

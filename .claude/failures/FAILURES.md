@@ -101,3 +101,20 @@ above schema or any existing entry once added — append-only Hook will deny.)
 - **검증 (미실행)**: 다음 세션 live run 시 13 gate dispatched + 최종 video_id + cleanup + budget ≤ $5 확인 후 resolved 로 flip.
 - **상태**: open (다음 세션 #31 에서 해소)
 - **관련**: Phase 11 SC#1 defer (live smoke 1차 defer 원인 — 초기 encoding bug) / Phase 12 AGENT-STD-03 `_compress_producer_output` (producer output 압축은 scope OK, 그러나 supervisor AGENT.md body / Claude CLI JSON 엄수는 scope 밖) / Phase 15 Wave 1 15-02 (encoding fix, 본 F 이후 유지) / `.claude/memory/feedback_infinite_loop_avoidance.md` (추가 Phase 발의 전 goal 재시도 우선)
+
+### F-META-HOOK-FAILURES-NOT-INJECTED — 원칙 있어도 Hook wiring 없으면 무의미 (세션 #30, 2026-04-22)
+- **Tier**: A (meta-infrastructure, 모든 실패 학습 경로의 상위 조건)
+- **발생 세션**: 2026-04-22 세션 #30 (대표님 직접 지적)
+- **재발 횟수**: 1 (신규)
+- **Trigger**: 대표님 세션 #30 종료 직전 지적 — "원칙에 실패하면 실패리스트에 올려서 교훈까지 제공하고 그걸 참조한뒤 작업시작하게하는거 아니가??"
+- **무엇**: FAILURES.md append-only 원칙 (D-11 Hook 강제) + entry schema (무엇/왜/정답/검증/상태) 는 모두 존재했으나, **세션 시작 시 자동 주입이 안 됨**. `session_start.py` 는 WORK_HANDOFF + MEMORY + env keys + Navigator coverage 만 주입하고 FAILURES 최근 entry 는 노출 안 함. 결과: F-LIVE-SMOKE-JSON-NONCOMPLIANCE 같은 open 실패가 다음 세션에서 자동으로 안 보여 같은 실수 반복 위험. FAILURES_INDEX.md 의 "Phase 6+ Entries" 섹션도 "(none yet)" 그대로 stale — F-D2-EXCEPTION-01/02 (Wave 2, 3), FAIL-ARCH-01, F-LIVE-SMOKE-JSON-NONCOMPLIANCE 모두 미등재.
+- **왜**: (1) 원칙 명문화와 hook wiring 이 분리 작업이라는 인식 부재 — CLAUDE.md "FAILURES.md append-only" 룰만 적고 session_start.py 에 load_recent_failures() 함수 연결 누락. (2) FAILURES_INDEX.md 는 수동 관리 파일인데 새 entry 추가 시 INDEX 동기화 프로토콜이 빠짐 (기존 "Update Protocol" 섹션은 있으나 실행 안 됨). (3) CONFLICT_MAP A-6 (skip_gates=True) 처럼 pre_tool_use.py regex 차단 같은 "코드 강제" 가 FAILURES 참조 경로에는 없음 — 텍스트 지시가 아니라 hook 강제로 전환됐어야 함.
+- **정답**: (1) `session_start.py` 에 `load_recent_failures()` 함수 추가 — FAILURES.md 에서 `### F-` 헤더 기준 entry split, open 상태 entry 전수 + 최근 5건 자동 주입 (800자 초과 시 truncate). (2) `FAILURES_INDEX.md` Phase 6+ Entries 섹션에 5 entry (FAIL-ARCH-01, F-D2-EXCEPTION-01, F-D2-EXCEPTION-02 Wave 2/3, F-LIVE-SMOKE-JSON-NONCOMPLIANCE, F-META-HOOK-FAILURES-NOT-INJECTED) 등재. (3) 본 entry 를 append-only 경로로 추가하여 스스로 다음 세션 #31 시작 시 open 상태로 노출되도록 함. (4) CLAUDE.md Session Init 섹션에 "session_start.py 가 FAILURES 자동 주입" 명시. **상위 원칙**: 새 원칙 추가 시 "코드 강제 wiring" 을 동반 작업으로 요구 — 텍스트 지시 단독은 drift 유발.
+- **검증**: (1) `python .claude/hooks/session_start.py` 실행 → `context` 필드에 "📛 최근 실패 사례 + 교훈" 섹션 포함 + open 1건 + 최근 5건 entry block 존재. (2) `grep -c "^### F-" .claude/failures/FAILURES.md` 와 `grep -c "See .F-" .claude/failures/FAILURES_INDEX.md` 값 일치 (drift 0). (3) 세션 #31 실제 시작 시 system reminder 에 본 entry 포함 여부 수동 확인 — 없으면 hook wiring 재검토.
+- **상태**: resolved (session_start.py + FAILURES_INDEX.md 동시 업데이트, 세션 #30 2026-04-22)
+- **Lessons (핵심 교훈)**:
+  1. **원칙 ≠ 실행 — wiring 동반 필수**: 새 룰 추가 시 텍스트 지시가 아니라 hook/script 코드 강제로 전환.
+  2. **FAILURES 는 자동 주입 = 학습 루프 완결 조건**: 실패 등재만 하고 다음 세션 자동 노출이 없으면 학습 안 됨.
+  3. **INDEX drift 금지**: 새 entry append 시 FAILURES_INDEX.md 동시 업데이트 프로토콜 준수.
+  4. **Meta-failure 등재 가치**: "인프라 gap 자체" 를 실패로 등재하면 다음 세션이 그 gap 의 재발을 차단.
+- **관련**: `session_start.py` v2 (2026-04-22 patch, load_recent_failures 추가) / `FAILURES_INDEX.md` Phase 6+ 섹션 / `.claude/memory/feedback_lenient_retry_over_strict_block.md` (같은 날짜 동반 원칙, nudge retry 철학) / `.claude/memory/feedback_infinite_loop_avoidance.md` (infrastructure 확장 지연 금지, 본 entry 는 확장이 아니라 gap 수리이므로 합치)

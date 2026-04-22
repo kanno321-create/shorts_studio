@@ -118,6 +118,76 @@ def load_memory_index(studio_root: Path) -> str | None:
         return None
 
 
+def load_recent_failures(studio_root: Path, max_entries: int = 5) -> str | None:
+    """`.claude/failures/FAILURES.md` 최근 N 개 entry + 전체 open 상태 entry 주입.
+
+    대표님 원칙 (2026-04-22): "실패하면 실패리스트에 올려서 교훈까지 제공하고
+    그걸 참조한뒤 작업시작" — 세션 시작 시 최근 실패 사례와 교훈을 자동 주입하여
+    같은 실수 반복 차단.
+
+    전략:
+    - 전체 읽어서 `### F...` 헤더 기준 entry split
+    - 최근 max_entries 개 + 상태 "open" 인 entry 전수 주입
+    - 각 entry 의 "무엇/왜/정답/상태/Lessons" 핵심 요약 보존
+    """
+    fail_file = studio_root / ".claude" / "failures" / "FAILURES.md"
+    if not fail_file.exists():
+        return None
+    try:
+        content = fail_file.read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        return None
+
+    # entry 경계: `### FAIL-` 또는 `### F-` 헤더 기준 분리
+    entry_pattern = re.compile(r"^### (F[A-Z-]+-?[A-Z0-9-]+|FAIL-[A-Z0-9-]+).*$", re.MULTILINE)
+    matches = list(entry_pattern.finditer(content))
+    if not matches:
+        return None
+
+    entries = []
+    for i, m in enumerate(matches):
+        start = m.start()
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(content)
+        block = content[start:end].strip()
+        # 상태 필드 추출
+        state_match = re.search(r"\*\*상태\*\*:\s*(\w+)", block)
+        state = state_match.group(1) if state_match else "unknown"
+        # 헤더 한 줄 추출
+        header_line = block.split("\n", 1)[0]
+        entries.append({"header": header_line, "body": block, "state": state})
+
+    # 선택 규칙: open 상태 전부 + 최근 max_entries (중복 제거, 최신 순)
+    open_entries = [e for e in entries if e["state"].lower() == "open"]
+    recent_entries = entries[-max_entries:] if len(entries) >= max_entries else entries
+    # 중복 제거 (header 기준)
+    seen_headers = set()
+    merged = []
+    for e in open_entries + list(reversed(recent_entries)):
+        if e["header"] not in seen_headers:
+            seen_headers.add(e["header"])
+            merged.append(e)
+
+    if not merged:
+        return None
+
+    lines = []
+    lines.append(f"**총 {len(entries)} 실패 등재. 아래는 open {len(open_entries)}건 + 최근 {min(max_entries, len(entries))}건 (중복 제거 {len(merged)}건):**")
+    lines.append("")
+    for e in merged:
+        # 각 entry 의 body 는 길이 제한 (1500자) + 상태 필드는 항상 보존
+        body = e["body"]
+        if len(body) > 1500:
+            # 상태 필드 라인을 찾아 preserve
+            state_line_match = re.search(r"(\*\*상태\*\*:.*?)$", body, re.MULTILINE)
+            state_line = state_line_match.group(1) if state_line_match else ""
+            body = body[:1500] + "\n... (truncated — 전체는 FAILURES.md 참조)"
+            if state_line and state_line not in body:
+                body += f"\n{state_line}"
+        lines.append(body)
+        lines.append("")
+    return "\n".join(lines)
+
+
 def check_navigator_coverage(studio_root: Path) -> dict:
     """Navigator coverage 검증 — scripts/validate/navigator_coverage.py 호출.
 
@@ -276,6 +346,19 @@ def main() -> int:
         lines.append(memory_idx)
     else:
         lines.append("ℹ️ `.claude/memory/MEMORY.md` 없음 — 메모리 시스템 미초기화 (신규 스튜디오).")
+
+    # 6a. 최근 실패 사례 + 교훈 자동 주입 (대표님 원칙 2026-04-22)
+    # "실패하면 실패리스트에 올려서 교훈까지 제공하고 그걸 참조한뒤 작업시작"
+    # → open 상태 entry 전부 + 최근 5건을 세션 시작 시 자동 노출하여 재발 차단
+    lines.append("")
+    lines.append("### 📛 최근 실패 사례 + 교훈 (.claude/failures/FAILURES.md)")
+    lines.append("**작업 시작 전 반드시 확인 — 같은 실패 반복 금지.**")
+    lines.append("")
+    recent_fails = load_recent_failures(studio_root, max_entries=5)
+    if recent_fails:
+        lines.append(recent_fails)
+    else:
+        lines.append("ℹ️ `.claude/failures/FAILURES.md` 없음 또는 entry 미등재 (신규 스튜디오).")
 
     # 6b. Navigator coverage check — 구현된 자산이 CLAUDE.md 에 등록됐는지 확인
     # (warning only, 파이프라인 차단 금지 — 하네스 Hook 원칙 "Fail Loud, Not Silent" 의

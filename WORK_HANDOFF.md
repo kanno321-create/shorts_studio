@@ -1,9 +1,9 @@
 # WORK HANDOFF — shorts_studio
 
 ## 최종 업데이트
-- 날짜: 2026-04-22 (세션 **#30** — Phase 13 + Phase 14 + Phase 15 연속 실행, 해외범죄 샘플 쇼츠 1편 실제 제작 시도)
-- 세션: **#30** (commits: Phase 13 complete + Phase 14 complete + Phase 15 Wave 0~4 2/3)
-- 상태: **Phase 15 Wave 4 Task 3 + Wave 5 + Wave 6 대기** — Live smoke retry (SPC-06) 가 Claude CLI JSON non-compliance 으로 실패. 대표님 "무한루프다" 지적 + `--skip-supervisor` 경로로 선택 합의. 다음 세션 시작점 = NEXT_SESSION_START.md.
+- 날짜: 2026-04-22 (세션 **#30** — Phase 13 + Phase 14 + Phase 15 연속 실행, 해외범죄 샘플 쇼츠 1편 실제 제작 시도 + 대표님 원칙 2종 각인 + FAILURES auto-injection wiring)
+- 세션: **#30** (commits: Phase 13 complete + Phase 14 complete + Phase 15 Wave 0~4 2/3 + handoff `08fbce3` + **세션 후반 unstaged wiring**: session_start.py / FAILURES.md / FAILURES_INDEX.md / CLAUDE.md)
+- 상태: **Phase 15 Wave 4 Task 3 + Wave 5 + Wave 6 대기** — Live smoke retry (SPC-06) 가 Claude CLI JSON non-compliance 으로 실패. 대표님 "무한루프다" 지적 + `--skip-supervisor` 경로로 선택 합의. 세션 종료 직전 대표님 추가 지적 2건 반영: "봐주면서 하라" + "실패 교훈 자동 참조". 다음 세션 시작점 = NEXT_SESSION_START.md.
 
 ---
 
@@ -40,13 +40,33 @@
 - 합의: **A. 수동 혼합 경로** — `--skip-supervisor` flag 1개 추가 + 대표님 대본 1개 주입 + VOICE/ASSETS/UPLOAD 실 API 실행 + 영상 1편 완성. Supervisor quality gate 는 영상 생성 후 점진 복구.
 - **Memory 박제**: `.claude/memory/feedback_infinite_loop_avoidance.md` — 다음 세션부터 자동 참조
 
+### ✅ 세션 #30 후반 — 대표님 원칙 2종 각인 + FAILURES auto-injection wiring (unstaged)
+
+**대표님 지적 #1 (2026-04-22, 세션 종료 직전)**: "너무 타이트하게하지말고 어느정도 봐주면서해라,,, 자연어 사용으로 실패했으면 되돌려보내서 다시하게하면되잖아"
+- 박제: `.claude/memory/feedback_lenient_retry_over_strict_block.md` (사용자 global memory)
+- 원칙: JSON/포맷 비준수 → hard-fail 차단 금지. nudge retry (원본 + 예시) 로 되돌려보내 재작성 유도. 최소 2~3회 retry. Empty stdout 도 같은 경로.
+- Hard-block 유지 영역: AF-4 (voice clone) / AF-5 (실존 피해자) / AF-8 (Selenium) / AF-13 (KOMCA) / skip_gates=True — 법적·플랫폼 strike 위험만.
+
+**대표님 지적 #2 (2026-04-22, 세션 종료 직전)**: "원칙에 실패하면 실패리스트에 올려서 교훈까지 제공하고 그걸 참조한뒤 작업시작하게하는거 아니가??"
+- 원칙 있어도 wiring 없음 = 무의미 → 코드 강제 전환
+- 패치 4종 (unstaged, 다음 세션 커밋 대상):
+  1. `.claude/hooks/session_start.py` — `load_recent_failures()` 함수 추가, FAILURES.md open entry 전수 + 최근 5건 자동 주입 (Step 6a). Entry 1500자 truncate + 상태 필드 preserve.
+  2. `.claude/failures/FAILURES.md` — 신규 entry `F-META-HOOK-FAILURES-NOT-INJECTED` append (Tier A, resolved, Lessons 4항 포함).
+  3. `.claude/failures/FAILURES_INDEX.md` — Phase 6+ Entries 섹션 stale 해소, 6 entry 실전 등재 (FAIL-ARCH-01 + F-D2-EXCEPTION-01/02 Wave 2/3 + F-LIVE-SMOKE-JSON-NONCOMPLIANCE + F-META-HOOK).
+  4. `CLAUDE.md` — Session Init 6→7 step 확장 (FAILURES.md 추가), 필수사항 4번 강화 (Lessons 필드 필수 + INDEX 동기화 + auto-injection 명시).
+- Smoke test 6/6 PASS: session_start.py 실행 시 "📛 최근 실패 사례 + 교훈" 섹션 + open entry + Lessons 필드 + 경고문 전수 주입 (13428자 context).
+
 ---
 
 ## 다음 세션 진입점 (세션 #31)
 
-1. **NEXT_SESSION_START.md** 읽기 (본 저장소 root) — 1-page 시작 프롬프트
-2. `.claude/memory/feedback_infinite_loop_avoidance.md` 자동 적용 (MEMORY.md 로드됨)
-3. 순서: `--skip-supervisor` flag 추가 → 해외범죄 대본 1편 작성 → live run → 영상 1편
+1. **System context 자동 주입 확인** (session_start.py 가 자동 실행) — 다음 섹션이 시스템 reminder 로 자동 노출됨:
+   - 🔑 .env API keys 목록 (재질문 금지)
+   - 🧠 MEMORY.md index (2 feedback memory 포함 — infinite loop avoidance + lenient retry)
+   - 📛 최근 실패 사례 + 교훈 (open 1 + 최근 5 entry 자동 노출 — F-LIVE-SMOKE-JSON-NONCOMPLIANCE + F-META-HOOK 포함)
+2. **NEXT_SESSION_START.md** 읽기 (본 저장소 root) — 1-page 시작 프롬프트 + 4-step 경로
+3. **첫 commit 작업**: 세션 #30 후반 unstaged wiring 4종 commit (session_start.py + FAILURES.md + FAILURES_INDEX.md + CLAUDE.md)
+4. 순서: `--skip-supervisor` flag 추가 → 해외범죄 대본 1편 작성 → live run → 영상 1편 → rating
 
 ---
 

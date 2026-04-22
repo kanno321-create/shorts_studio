@@ -20,8 +20,9 @@ maxTurns: 3
 2. `wiki/continuity_bible/channel_identity.md` — 채널 통합 정체성 (공통 baseline). niche 확정 후 추가 항목: `.preserved/harvested/theme_bible_raw/<niche_tag>.md` (근거규칙 참조 — 섹션당 숫자 1+ 또는 사례 1+).
 3. `.claude/skills/gate-dispatcher/SKILL.md` — GATE 4 RESEARCH_NLM dispatch 계약 (verdict 처리 규약).
 4. `.claude/memory/feedback_notebooklm_query.md` — NotebookLM 쿼리 feedback 박제 (WIKI-04 3-tier fallback 실장 참조).
+5. `.claude/memory/feedback_video_quality.md` — 대표님 영상 품질 피드백 이력 (UFL-04, Phase 15). Wave 4 이후 `scripts/smoke/rate_video.py` 가 축적하는 rating/feedback entry 를 매 호출마다 전수 로드하여 niche 팩트 수집에 대표님 선호를 반영합니다.
 
-**원칙**: 위 1~4 항목은 매 호출마다 전수 읽기. 샘플링/요약본 읽기/기억 의존 금지. 위반 시 F-D2-EXCEPTION-01 재발 위험.
+**원칙**: 위 1~5 항목은 매 호출마다 전수 읽기. 샘플링/요약본 읽기/기억 의존 금지. 위반 시 F-D2-EXCEPTION-01 재발 위험.
 </mandatory_reads>
 
 <output_format>

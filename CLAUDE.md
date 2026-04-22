@@ -12,8 +12,8 @@ Whitelist 헌법: `../../harness/STRUCTURE.md` (변경 시 schema bump + 백업 
 말투: 표준 정중 존댓말 ("~합니다", "~했습니다"). 사투리·반말 금지. 나베랄 그룹 전체의 AI — Layer 1 하네스와 Layer 2 스튜디오 모두 동일 정체성.
 
 ## Session Init (매 세션 필수)
-1. `CLAUDE.md` (이 파일) · 2. `WORK_HANDOFF.md` · 3. `docs/ARCHITECTURE.md` (TL;DR 2분 + 5섹션) · 4. `.claude/memory/MEMORY.md` (9 박제 지식) · 5. `.env` (API key 저장 — **대표님께 재질문 절대 금지**, F-CTX-01, `.claude/memory/reference_api_keys_location.md` 참조) · 6. `../../harness/docs/ARCHITECTURE.md` (첫 세션만).
-> **강제 로드**: `.claude/hooks/session_start.py` 가 2+4+5 를 매 세션 자동 주입. 텍스트 지시가 아니라 코드 강제 — F-CTX-01 재발 방지.
+1. `CLAUDE.md` (이 파일) · 2. `WORK_HANDOFF.md` · 3. `docs/ARCHITECTURE.md` (TL;DR 2분 + 5섹션) · 4. `.claude/memory/MEMORY.md` (박제 지식 인덱스) · 5. `.env` (API key 저장 — **대표님께 재질문 절대 금지**, F-CTX-01, `.claude/memory/reference_api_keys_location.md` 참조) · 6. `.claude/failures/FAILURES.md` (최근 실패 + 교훈 — **작업 시작 전 반드시 확인, 같은 실수 반복 금지**) · 7. `../../harness/docs/ARCHITECTURE.md` (첫 세션만).
+> **강제 로드**: `.claude/hooks/session_start.py` 가 2+4+5+6 을 매 세션 자동 주입 (open 상태 failure 전수 + 최근 5 entry). 텍스트 지시가 아니라 코드 강제 — F-CTX-01 + F-META-HOOK-FAILURES-NOT-INJECTED 재발 방지.
 
 ## Pipeline (13 operational GATE)
 `IDLE → TREND → NICHE → RESEARCH_NLM → BLUEPRINT → SCRIPT → POLISH → VOICE → ASSETS → ASSEMBLY → THUMBNAIL → METADATA → UPLOAD → MONITOR → COMPLETE` — 구현: `scripts/orchestrator/shorts_pipeline.py` + `gate_guard.py`. 상세: `docs/ARCHITECTURE.md §1`.
@@ -33,7 +33,7 @@ Whitelist 헌법: `../../harness/STRUCTURE.md` (변경 시 schema bump + 백업 
 1. **Hook 3종 활성** — `pre_tool_use.py` (8 regex) + `post_tool_use.py` (로깅) + `session_start.py` (6-step 감사).
 2. **SKILL.md ≤ 500줄** — 초과 시 `references/` 분리 (Progressive Disclosure).
 3. **오케스트레이터 500~800줄** — `shorts_pipeline.py` 5166줄 드리프트 재발 금지.
-4. **FAILURES.md append-only** — `.claude/failures/FAILURES.md` sha256 lock, Hook 강제.
+4. **FAILURES.md append-only + 자동 주입** — `.claude/failures/FAILURES.md` sha256 lock, `session_start.py` 가 open entry + 최근 5건 자동 노출. 새 실패 등재 시 **교훈(Lessons 필드) 포함 필수** + `FAILURES_INDEX.md` 동시 업데이트.
 5. **STRUCTURE.md Whitelist 준수** — 명시 외 폴더 생성 시 pre_tool_use 차단.
 6. **NotebookLM Fallback Chain** — NotebookLM RAG → `grep wiki/` → hardcoded defaults (WIKI-04).
 7. **한국어 존댓말 baseline** — 표준 정중 존댓말. 검증: `ins-korean-naturalness`.
