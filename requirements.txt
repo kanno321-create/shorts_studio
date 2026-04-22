@@ -1,0 +1,10 @@
+# shorts — Phase 16 production-integration dependencies
+# 본 파일은 Phase 16-03 에서 처음 생성. 기존 환경은 ad-hoc pip install 로 구축되어 있음.
+
+# ── Phase 16-03 신규 ────────────────────────────────────────────
+# faster-whisper large-v3 — word-level Korean subtitle alignment (subtitle-producer)
+# Plan 16-03 W0-DEPS (scripts/orchestrator/subtitle/word_subtitle.py 의존)
+faster-whisper>=1.0.3
+
+# ── 기존 코어 (참고용 — 실제 pip freeze 결과와 다를 수 있음) ─────
+# 파이프라인 런타임 의존성은 매 GATE 에서 필요 시 lazy import — 본 파일은 Phase 16 신규 의존 한정 문서화.
