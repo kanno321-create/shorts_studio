@@ -1,0 +1,68 @@
+{
+  "cap_usd": 5.0,
+  "total_usd": 2.96,
+  "breached": false,
+  "entry_count": 6,
+  "entries": [
+    {
+      "timestamp": "2026-04-22T16:54:48.358473",
+      "provider": "claude_cli",
+      "amount_usd": 0.0,
+      "cumulative_usd": 0.0,
+      "metadata": {
+        "note": "Max subscription inclusive 대표님"
+      }
+    },
+    {
+      "timestamp": "2026-04-22T16:54:48.358473",
+      "provider": "notebooklm",
+      "amount_usd": 0.0,
+      "cumulative_usd": 0.0,
+      "metadata": {
+        "note": "Max subscription inclusive 대표님"
+      }
+    },
+    {
+      "timestamp": "2026-04-22T16:58:09.557026",
+      "provider": "nanobanana",
+      "amount_usd": 0.04,
+      "cumulative_usd": 0.04,
+      "metadata": {
+        "gate": "THUMBNAIL",
+        "units": 1
+      }
+    },
+    {
+      "timestamp": "2026-04-22T16:58:09.557026",
+      "provider": "kling",
+      "amount_usd": 2.8,
+      "cumulative_usd": 2.84,
+      "metadata": {
+        "gate": "ASSETS",
+        "units": 8,
+        "note": "8 cuts × 5s"
+      }
+    },
+    {
+      "timestamp": "2026-04-22T16:58:09.557026",
+      "provider": "typecast",
+      "amount_usd": 0.12,
+      "cumulative_usd": 2.96,
+      "metadata": {
+        "gate": "VOICE",
+        "units": 1,
+        "note": "~1K chars"
+      }
+    },
+    {
+      "timestamp": "2026-04-22T16:58:09.557026",
+      "provider": "youtube_api",
+      "amount_usd": 0.0,
+      "cumulative_usd": 2.96,
+      "metadata": {
+        "gate": "UPLOAD",
+        "note": "free quota"
+      }
+    }
+  ]
+}

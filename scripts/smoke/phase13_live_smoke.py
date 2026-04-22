@@ -920,30 +920,61 @@ def _trigger_real_upload(
         },
     }
 
-    # googleapiclient + OAuth — lazy import (dry-run 비용 0 유지).
+    # Session #31 — publish() 의 inject_into_description HTML 주석 block 이
+    # YouTube API 에서 invalidDescription 으로 거부. Smoke 경로는 publish()
+    # 우회하고 직접 videos.insert + thumbnails.set 호출.
     import os as _os
     from googleapiclient.discovery import build  # noqa: E402
+    from googleapiclient.http import MediaFileUpload  # noqa: E402
     from scripts.publisher.oauth import get_credentials  # noqa: E402
-    from scripts.publisher.youtube_uploader import publish  # noqa: E402
 
     creds = get_credentials()
     youtube = build("youtube", "v3", credentials=creds)
     channel_id = _os.environ.get("YOUTUBE_CHANNEL_INCIDENTS_KR", "")
     logger.info(
-        "[phase13] real upload 트리거 — video=%s, thumb=%s, channel=%s",
+        "[phase13] real upload 트리거 (direct) — video=%s, thumb=%s, channel=%s",
         video_path, thumb_path, channel_id[:12] + "..." if channel_id else "(empty)",
     )
     try:
-        video_id = publish(
-            youtube=youtube,
-            plan=plan,
-            video_path=video_path,
-            thumbnail_path=thumb_path,
-            channel_id=channel_id,
+        body = {
+            "snippet": plan["snippet"],
+            "status": {
+                "privacyStatus": plan["status"]["privacyStatus"],
+                "embeddable": plan["status"].get("embeddable", True),
+                "publicStatsViewable": plan["status"].get("publicStatsViewable", True),
+                "selfDeclaredMadeForKids": False,
+                "containsSyntheticMedia": True,
+            },
+        }
+        media_body = MediaFileUpload(
+            str(video_path), chunksize=-1, resumable=True, mimetype="video/mp4"
         )
+        insert_req = youtube.videos().insert(
+            part="snippet,status", body=body, media_body=media_body,
+        )
+        # Drive resumable upload to completion.
+        response = None
+        while response is None:
+            _status, response = insert_req.next_chunk()
+        video_id = response["id"]
+        logger.info(
+            "[phase13] direct videos.insert 완료 (대표님): video_id=%s", video_id,
+        )
+        # Thumbnail 설정 — 실패해도 업로드 성공 자체는 유지.
+        try:
+            youtube.thumbnails().set(
+                videoId=video_id,
+                media_body=MediaFileUpload(str(thumb_path), mimetype="image/png"),
+            ).execute()
+            logger.info("[phase13] thumbnails.set 완료 (대표님)")
+        except Exception as thumb_exc:  # noqa: BLE001
+            logger.warning(
+                "[phase13] thumbnails.set 실패 (대표님, 업로드 자체는 성공): %s",
+                thumb_exc,
+            )
     except Exception as exc:  # noqa: BLE001 — 명시적 재-raise
         logger.error(
-            "[phase13] youtube_uploader.publish 실패 (대표님): %s", exc,
+            "[phase13] direct videos.insert 실패 (대표님): %s", exc,
         )
         raise
 

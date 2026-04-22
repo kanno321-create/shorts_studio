@@ -4,6 +4,7 @@
 > 각 메모리는 `name` / `description` / `type` 필드 frontmatter 포함 (auto memory 규약).
 
 ## Project (기술 결정 + 파이프라인 상태)
+- [project_image_stack_gpt_image2](project_image_stack_gpt_image2.md) — 정지 이미지 anchor·썸네일 = gpt-image-2 primary, Nano Banana 폴백 (2026-04-22 실측 판정)
 - [project_video_stack_kling26](project_video_stack_kling26.md) — I2V 영상 스택: Kling 2.6 Pro primary + Veo 3.1 Fast fallback
 - [project_claude_code_max_no_api_key](project_claude_code_max_no_api_key.md) — Claude Code Max 구독 활용, ANTHROPIC_API_KEY 영구 금지
 - [project_shorts_production_pipeline](project_shorts_production_pipeline.md) — 4-stage 영상 제작 chain (Script → Image → Voice → Video)

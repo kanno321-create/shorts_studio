@@ -24,9 +24,12 @@ type: reference
 | `ELEVENLABS_DEFAULT_VOICE_ID` | voice_discovery auto-resolve 실패 시 override | Optional |
 
 ### Image (Stage 2)
-| Key | 용도 |
-|-----|------|
-| `GOOGLE_API_KEY` | Nano Banana Pro (Gemini 3 Pro Image) 앵커 프레임 |
+| Key | 용도 | 우선순위 |
+|-----|------|---------|
+| `OPENAI_API_KEY` | gpt-image-2 ("ducktape") anchor 프레임 + 썸네일 | **Primary** (2026-04-22 확정) |
+| `GOOGLE_API_KEY` | Nano Banana (Gemini 2.5/3.x Flash Image) 폴백 | Fallback |
+
+> Stage 2 primary 교체 근거: [project_image_stack_gpt_image2](project_image_stack_gpt_image2.md) (2026-04-22 실측 판정).
 
 ### Video (Stage 4)
 | Key | 용도 | 우선순위 |

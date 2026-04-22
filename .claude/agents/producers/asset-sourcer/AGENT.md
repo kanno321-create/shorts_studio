@@ -22,6 +22,7 @@ I2V 영상 생성 + asset 조달 producer. shot-planner i2v_hint 기반으로 Kl
 4. `.claude/memory/project_video_stack_kling26.md` — Kling 2.6 Pro I2V stack 박제 지식 (asset-sourcer 고유 의존성).
 5. `.claude/memory/feedback_i2v_prompt_principles.md` — I2V prompt engineering 원칙 박제.
 6. `wiki/render/i2v_prompt_engineering.md` — I2V prompt 실장 가이드 SSOT.
+7. `.claude/memory/project_image_stack_gpt_image2.md` — **Stage 2 anchor 생성 = gpt-image-2 primary (2026-04-22 확정)**, Nano Banana 는 fallback.
 
 **원칙**: 위 1~6 항목은 매 호출마다 전수 읽기. 샘플링/요약본 읽기/기억 의존 금지. 위반 시 F-D2-EXCEPTION-01 재발 위험.
 </mandatory_reads>
@@ -212,10 +213,16 @@ audio:
 - freemusicarchive.org
 
 visual (이미지/영상):
+- **api.openai.com/v1/images** (gpt-image-2 생성 — Stage 2 primary, 2026-04-22 확정)
+- generativelanguage.googleapis.com (Nano Banana 생성 — fallback)
 - pixabay.com
 - unsplash.com
 - pexels.com
 - ccsearch.openverse.org (CC0/CC-BY)
+
+AI 생성 이미지 anchor provider 우선순위 (``project_image_stack_gpt_image2`` 참조):
+1. **Primary**: gpt-image-2 (quality: medium, $0.034/이미지, photorealism 우위 — Kling I2V 영상 퀄리티 상한 결정)
+2. **Fallback**: Nano Banana (Gemini 2.5/3.x Flash Image, $0.039/이미지) — gpt-image-2 rate limit / 5xx 시
 
 위 외 도메인 조달 시 raise SourceWhitelistViolation.
 
@@ -253,6 +260,10 @@ def check_af13(track_title, track_artist, duration_sec):
 ### Harvested assets (읽기 전용)
 - `.preserved/harvested/theme_bible_raw/*.md` — 니치별 mood 키워드 소스.
 - `.preserved/harvested/api_wrappers_raw/` — Epidemic Sound / Artlist wrapper signature 참조(Phase 5).
+
+### Image generation adapters (Phase 5 실장)
+- **`scripts/orchestrator/api/gpt_image2.py`** — Stage 2 primary (GPTImage2Adapter, 2026-04-22 추가).
+- `scripts/orchestrator/api/nanobanana.py` — Stage 2 fallback (NanoBananaAdapter, 호출 signature 동일).
 
 ### Validators
 - `scripts/validate/validate_all_agents.py` — AGENT-07/08/09.

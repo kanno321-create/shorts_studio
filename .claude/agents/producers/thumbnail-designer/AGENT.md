@@ -19,6 +19,7 @@ maxTurns: 3
 1. `.claude/failures/FAILURES.md` — 전체 (500줄 cap 하 전수 읽기 가능 — FAIL-PROTO-01). 과거 실패 전수 인지 후 작업. 샘플링/스킵 금지.
 2. `wiki/continuity_bible/channel_identity.md` — 채널 통합 정체성 (공통 baseline, thumbnail_style 폰트 + 컬러 팔레트). niche 확정 후 추가 항목: `.preserved/harvested/theme_bible_raw/<niche_tag>.md`.
 3. `.claude/skills/gate-dispatcher/SKILL.md` — GATE 11 THUMBNAIL dispatch 계약 (verdict 처리 규약).
+4. `.claude/memory/project_image_stack_gpt_image2.md` — **썸네일 배경 생성 = gpt-image-2 high tier ($0.21/이미지, 2026-04-22 확정)**. high 품질 필수 — 썸네일은 CTR 80% 좌우 요인이므로 photorealism 극대화.
 
 **원칙**: 위 1~3 항목은 매 호출마다 전수 읽기. 샘플링/요약본 읽기/기억 의존 금지. 위반 시 F-D2-EXCEPTION-01 재발 위험.
 </mandatory_reads>
@@ -233,7 +234,7 @@ def check_real_person_caption(text):
 ### Upstream / Downstream
 - **Upstream**: scripter (hook_text), niche-classifier (niche), asset-sourcer (anchor_image_ref).
 - **Downstream**: 
-  - Phase 5 `scripts/thumbnail/thumbnail_render.py` — 본 spec JSON을 입력받아 PNG/WEBP 렌더링.
+  - Phase 5 `scripts/thumbnail/thumbnail_render.py` — 본 spec JSON을 입력받아 PNG/WEBP 렌더링. **배경 이미지 생성은 `scripts/orchestrator/api/gpt_image2.py::GPTImage2Adapter.edit_scene(quality="high")` 사용** (2026-04-22 확정). fallback: `NanoBananaAdapter` (rate limit / 5xx 시).
   - ins-thumbnail-hook — hook_strength score 0-100 (≥60 PASS).
   - ins-mosaic — AF-5 3차 정적 검증 (asset_source_domain + url regex).
   - publisher — YouTube Data API thumbnail 업로드.

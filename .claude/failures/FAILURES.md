@@ -138,3 +138,30 @@ above schema or any existing entry once added — append-only Hook will deny.)
   3. **타입 힌트는 런타임 계약이 아니다**: `supervisor_invoker: Callable[[GateName, dict], Verdict]` 가 dataclass Verdict 를 명시해도 실제 impl 은 Enum 을 반환. mypy/ruff strict 검사가 없으면 drift 가 쌓인다.
   4. **lenient retry 원칙의 실전 적용**: JSON 에러도 type 에러도 hard-abort 없이 즉시 진단 → 최소 패치 → 재시도. 세션 #30 `feedback_lenient_retry_over_strict_block.md` 가 정확히 이 경로 권장.
 - **관련**: `F-LIVE-SMOKE-JSON-NONCOMPLIANCE` (선행 차단 원인, 본 bug 를 가려둔 상위 층) / `scripts/orchestrator/state.py` docstring 설계 노트 / `scripts/orchestrator/gate_guard.py` L171 `verdict=asdict(verdict)` / `tests/phase15/test_skip_supervisor.py` 4 dataclass 계약 테스트 / `.claude/memory/feedback_lenient_retry_over_strict_block.md` (대표님 원칙 준수)
+
+### F-PIPELINE-INCOMPLETE-WIRING — 14 gate pipeline 다수 구조적 gap 일괄 복구 (세션 #31, 2026-04-22)
+- **Tier**: A (pipeline end-to-end 작동 차단, 영상 배송 불가)
+- **발생 세션**: 2026-04-22 세션 #31 (대표님 "무조건 전체 파이프라인이 돌아가도록" 지시, 7 차 run r4~rC)
+- **재발 횟수**: 1 (복합 등재)
+- **Trigger**: --skip-supervisor + F-SUPERVISOR-VERDICT-TYPE-MISMATCH 해결 후 실 API 경로 도달하자 gate 마다 latent bug 연쇄 surface. 대표님 즉시 "무조건 돌게" 지시로 7 연속 run 동안 실시간 진단+패치.
+- **무엇**: 14 gate 파이프라인이 실 API 로 end-to-end 검증된 적이 없어 다음 구조적 gap 동시 존재 — (1) `_run_polish` 가 producer dict output 대신 `artifact_path` Path 로 저장해 scenes[] 추출 불가 silent passthrough, (2) ASSEMBLY 의 `shotstack.render()` hardcode 에 fallback 경로 없음 (Shotstack API key 미발급 환경에서 NoneType.render), (3) TypecastAdapter 가 SDK 신 API (`client.text_to_speech(request=)`) 대신 구 API (`client.text_to_speech.generate()`) 호출, (4) TypecastRequest 가 pydantic v2 필수 `model` 필드 누락, (5) Kling I2V duration 은 5|10 만 허용 (6s 거부), (6) VoiceFirstTimeline MIN/MAX_SPEED [0.8, 1.25] 엄격해 실 TTS/Kling 합 fail, (7) ffmpeg concat 이 상대경로 재귀 (concat.txt 위치 기준), (8) `_run_upload` 가 producer spec 만 반환하고 실 `youtube_uploader.publish` 호출 안 함, (9) publish() 의 `inject_into_description` HTML 주석이 YouTube API 의 invalidDescription 거부, (10) KST window 가드 (평일 20-23) 가 off-peak 검증 경로 막음.
+- **Scope**: 8 파일
+  - `scripts/orchestrator/api/ffmpeg_assembler.py` (NEW, 250 lines)
+  - `scripts/orchestrator/shorts_pipeline.py` (_run_assembly 분기 + _run_polish dict 저장 + ffmpeg_assembler wiring)
+  - `scripts/orchestrator/api/typecast.py` (SDK 신 API + model 필드)
+  - `scripts/orchestrator/api/models.py` (TypecastRequest model 필드)
+  - `scripts/orchestrator/voice_first_timeline.py` (SHORTS_SPEED_TOLERANCE_RELAX env override)
+  - `scripts/smoke/phase13_live_smoke.py` (_PreBakedPipelineInvoker + _trigger_real_upload direct insert + flags)
+  - `scripts/publisher/kst_window.py` (SHORTS_KST_WINDOW_BYPASS env)
+  - `scripts/smoke/sample_scripts/btk_v1_manifest.json` (scene 텍스트 단축 + duration 5s 통일) + `assets/session31/*.png` (4 placeholder)
+- **Commits**: `cc877f3` (초기 wiring) + `4120010` (bug chain resolution) + 본 commit
+- **Authorized by**: 대표님 세션 #31 "무조건 전체 파이프라인이 돌아가도록 해라 부탁좀하자"
+- **정답**: 세션 #31 final run (`btk_v1_s31_rC`) 결과 — **14/14 gates dispatched**, wall 201.2s, total_cost $2.96 (cap $5), final_video_id `guGF26Ge6lU`, YouTube unlisted 업로드→즉시 cleanup(videos.delete) 완료. 증거: `.planning/phases/13-live-smoke/evidence/smoke_e2e_btk_v1_s31_rC.json` + `live-run-btk-v1-s31-rC.log`.
+- **검증**: (1) smoke_e2e_btk_v1_s31_rC.json 에 `status="OK"`, `gate_count=14`, `final_video_id="guGF26Ge6lU"` 존재. (2) assembled mp4 (17.2s, 720x1280) 생성 확인 `outputs/ffmpeg_assembly/assembled_*.mp4`. (3) video_id guGF26Ge6lU 로 `videos.delete` 호출 log 존재. (4) `budget_breached=False` (total $2.96 < cap $5).
+- **상태**: resolved (세션 #31, 2026-04-22 — 영상 1편 실제 제작 + 업로드 + cleanup 완주 달성)
+- **Lessons (핵심 교훈)**:
+  1. **실 API end-to-end 검증 없는 파이프라인은 "작동하는 척"만 한다**: 986+ unit test + mock smoke 모두 녹색이어도 실 Claude + 실 Typecast + 실 Kling + 실 YouTube 체인이 한 번도 끝까지 완주한 적 없으면 gate 마다 latent bug 잠복. Session #29/30/31 에 걸쳐 JSON 엄수 → asdict 타입 → polish artifact → typecast SDK → Kling duration → ffmpeg 상대경로 → publish HTML 주석 총 10+ 에러가 "bypass 앞 단계 → 다음 단계 surface" 패턴으로 연쇄 노출.
+  2. **Bypass 패치는 "스위스 치즈 모델"을 역으로 실행한다**: 각 bypass (skip-supervisor, scene-manifest, direct videos.insert) 가 한 층 뚫을 때마다 다음 층의 hole 이 드러난다. 반대로 정석 구축은 모든 층을 앞서 증명해야 한다. Session #32+ 에서 각 층을 "bypass → real" 로 점진 복구 필요 — supervisor Claude CLI JSON 엄수 / producer→polish→scenes 계약 / publish() inject_into_description HTML escape / kst_window 실 운영 준수.
+  3. **"무조건 돌게 해라" 지시는 lenient retry 원칙과 정합한다**: 대표님 2026-04-22 memory (`feedback_lenient_retry_over_strict_block.md`) 의 정신 — hard abort 금지, nudge retry. 본 entry 의 7 회 연속 run + 실시간 inline 패치는 정확히 이 루프. 비용 $2.96 (cap 대비 59%) 로 영상 1편 배송.
+  4. **Pipeline 완주 ≠ 품질 보장**: skip-supervisor 는 inspector 품질 검증을 우회. 현재 상태는 "기술 완주" 이며 "콘텐츠 품질 완결" 이 아님. Session #32+ 복구 우선순위는 (a) supervisor 복귀 (b) inject_into_description 재활성화 (HTML escape) (c) publish_lock/kst_window 실 운영 (d) 앵커 프레임 Nano Banana 실 생성 (현재 solid-color placeholder).
+- **관련**: F-LIVE-SMOKE-JSON-NONCOMPLIANCE (skip-supervisor 원인) / F-SUPERVISOR-VERDICT-TYPE-MISMATCH (asdict chain) / `.claude/memory/feedback_lenient_retry_over_strict_block.md` (대표님 원칙) / `scripts/orchestrator/api/ffmpeg_assembler.py` (Shotstack 대체 신규) / `scripts/smoke/sample_scripts/btk_v1_manifest.json` (pre-baked scene 계약) / YouTube video_id `guGF26Ge6lU` (unlisted + immediate cleanup, channel history 보호)

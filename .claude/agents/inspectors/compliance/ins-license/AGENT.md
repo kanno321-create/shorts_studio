@@ -19,6 +19,7 @@ maxTurns: 3
 1. `.claude/failures/FAILURES.md` — 전체 (500줄 cap 하 전수 읽기 가능 — FAIL-PROTO-01). 과거 실패 전수 인지 후 작업. 샘플링/스킵 금지.
 2. `wiki/continuity_bible/channel_identity.md` — 채널 통합 정체성 (공통 baseline). Inspector 는 niche-specific bible 불필요 — 평가자는 producer 출력 검증이 주 역할.
 3. `.claude/skills/gate-dispatcher/SKILL.md` — Gate dispatch 계약 (verdict 처리 규약).
+4. `.claude/memory/project_image_stack_gpt_image2.md` — **AI 이미지 whitelist 허용 provider**: gpt-image-2 (primary) + Nano Banana (fallback). 2026-04-22 확정.
 
 **원칙**: 위 1~3 항목은 매 호출마다 전수 읽기. 샘플링/요약본 읽기/기억 의존 금지. 위반 시 KOMCA strike / AF-4 소송 / 채널 demonetization 직결.
 </mandatory_reads>
@@ -149,6 +150,7 @@ assets.voice.speaker_name 을 .claude/agents/_shared/af_bank.json::af4_voice_clo
 
 ## Royalty-free whitelist (COMPLY-02)
 
+### Audio (assets.audio[*])
 assets.audio[*].url 도메인 + license_type 확인:
   허용: epidemicsound.com, artlist.io, youtube.com/audiolibrary,
         freemusicarchive.org, pixabay.com/music, uppbeat.io
@@ -158,14 +160,25 @@ whitelist 외 도메인 또는 license_type 누락 시 verdict=FAIL.
 방송사 도메인(kbs.co.kr, imbc.com, sbs.co.kr, jtbc.co.kr, tving.com 등) 및
 KOMCA 관리 스트리밍(melon.com, genie.co.kr, bugs.co.kr) 매치 시 즉시 verdict=FAIL.
 
+### Image/Video (assets.visuals[*] / i2v_clips[*] anchor_frame)
+assets.visuals[*].source_domain + i2v_clips[*].anchor_frame 생성자 확인:
+  AI 생성 허용 (2026-04-22 확정, ``project_image_stack_gpt_image2``):
+    - api.openai.com/v1/images (gpt-image-2, **primary**)
+    - generativelanguage.googleapis.com (Nano Banana, **fallback**)
+  Stock 이미지 허용:
+    - pixabay.com, unsplash.com, pexels.com, ccsearch.openverse.org
+  + license_type ∈ {"CC0", "CC-BY", "royalty-free", "openai-content-policy", "google-ai-terms"}
+
+외 도메인/provider 매치 시 verdict=FAIL. 예: Midjourney (discord.com), Stable Diffusion 자가호스팅 (검증 불가) 차단.
+
 ## LogicQA (RUB-01)
 <main_q>이 producer_output이 AUDIO-04 + COMPLY-02 + COMPLY-04를 만족하는가?</main_q>
 <sub_qs>
-  q1: 모든 assets.audio[*].url 이 royalty-free whitelist 도메인에 속하는가?
+  q1: 모든 assets.audio[*].url + assets.visuals[*].source_domain 이 royalty-free whitelist 에 속하는가? (audio + image 통합 검증)
   q2: assets.audio[*] 에 K-pop artists/titles regex 매치가 0건인가?
   q3: assets.voice.speaker_name 이 AF-4 실존 인물 regex 매치 0건인가?
-  q4: 각 자산에 license_type + 출처 URL 메타데이터가 명시되어 있는가?
-  q5: KOMCA 데이터베이스 / 방송사 도메인 교차 확인 흔적(Phase 8 실장)이 존재하는가?
+  q4: 각 자산(audio + image)에 license_type + 출처 URL 메타데이터가 명시되어 있는가?
+  q5: KOMCA 데이터베이스 / 방송사 도메인 교차 확인 흔적(Phase 8 실장) + AI 이미지 provider 가 gpt-image-2/Nano Banana 둘 중 하나인지 확인되는가?
 </sub_qs>
 5 sub-q 중 3+ "Y"면 main_q=Y (다수결). 단, q1/q2/q3 중 하나라도 "N" 이면 main_q=N 강제 (100% block bar).
 
