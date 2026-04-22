@@ -285,6 +285,37 @@ class _PreScriptedProducerInvoker:
         return self._real(agent_name, gate, inputs)
 
 
+class _AutoPassSupervisorInvoker:
+    """F-LIVE-SMOKE-JSON-NONCOMPLIANCE 우회 — 모든 gate 자동 PASS 반환.
+
+    대표님 세션 #30 합의 경로 (Option A 수동 혼합):
+    Claude CLI 대화형 session 의 ``--json-schema`` 엄수가 brittle 하여
+    supervisor 호출이 자연어 응답 / empty stdout 을 반환하는 문제를 우회.
+    Inspector 17 의 실제 품질 검증은 그대로 유지되며, supervisor 의
+    aggregation layer 만 skip 됩니다.
+
+    Quality gate 는 영상 제작 달성 후 점진 복구 (F-LIVE-SMOKE 해소 후).
+
+    Signature: ``(gate, output: dict) -> Verdict`` — 실 invoker
+    :class:`scripts.orchestrator.invokers.ClaudeAgentSupervisorInvoker`
+    와 동일한 duck-typing 계약.
+    """
+
+    def __init__(self) -> None:
+        self._calls = 0
+
+    def __call__(self, gate, output: dict):
+        from scripts.orchestrator.state import Verdict
+        self._calls += 1
+        gate_name = getattr(gate, "name", str(gate))
+        logger.info(
+            "[phase13] --skip-supervisor auto-PASS: gate=%s call=%d (대표님)",
+            gate_name,
+            self._calls,
+        )
+        return Verdict.PASS
+
+
 def _build_pipeline_with_seed(
     session_id: str,
     state_root: Path,
@@ -606,6 +637,17 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
             "humor/politics/trend/wildlife). --topic 와 반드시 동반 사용. "
             "선택 시 niche-classifier 에이전트 skip, 해당 채널바이블 경로가 "
             "RESEARCH_NLM~UPLOAD 전 11 gate 에 전파."
+        ),
+    )
+    parser.add_argument(
+        "--skip-supervisor",
+        action="store_true",
+        default=False,
+        help=(
+            "F-LIVE-SMOKE-JSON-NONCOMPLIANCE 우회 — 모든 gate 의 supervisor "
+            "호출을 auto-PASS 로 교체 (Claude CLI JSON schema brittleness "
+            "회피). Inspector 17 품질 검증은 유지, supervisor aggregation "
+            "layer 만 skip. 세션 #30 대표님 Option A 합의 경로."
         ),
     )
     return parser.parse_args(argv)
@@ -974,6 +1016,14 @@ def _run_live(args: argparse.Namespace, session_id: str) -> int:
                 topic_keywords,
                 niche_tag,
             )
+            # F-LIVE-SMOKE-JSON-NONCOMPLIANCE 우회 — --skip-supervisor 지정 시
+            # 기본 supervisor_invoker 를 _AutoPassSupervisorInvoker 로 교체.
+            # 대표님 세션 #30 Option A 합의 경로. Inspector 17 품질 검증은 유지.
+            if getattr(args, "skip_supervisor", False):
+                pipeline.supervisor_invoker = _AutoPassSupervisorInvoker()
+                logger.info(
+                    "[phase13] --skip-supervisor 활성 — supervisor auto-PASS (대표님)",
+                )
             # UFL-02 — --revise-script 지정 시 기존 producer_invoker 를
             # _PreScriptedProducerInvoker 로 wrap. SCRIPT gate 에서만 scripter
             # skip, 나머지 gate 는 기존 chain (pre-seed 포함) 에 pass-through.
