@@ -101,9 +101,12 @@ class TypecastAdapter:
                 model=scene.get("model", "ssfm-v30"),
             )
 
-            # Pre-process: inject SSML pauses so short voices (Morgan etc.)
-            # don't glue sentences together on commas/terminals.
-            prepared_text = self._inject_punctuation_breaks(req.text)
+            # SSML injection DISABLED (2026-04-23 세션 #34 FIX-1+2):
+            # Typecast ssfm-v30 does not support SSML — `<break time="Xs"/>` tags
+            # are read literally as "브레이크 타임 제로쩜..." causing FAIL-1/2 in
+            # Ryan Waller v1. Native `auto_punctuation_pause:true` handles pauses.
+            # See: .claude/memory/feedback_typecast_ssml_literal_read.md
+            prepared_text = req.text
             chunks = self._chunk_text_for_typecast(prepared_text, DEFAULT_CHUNK_MAX_CHARS)
             output_path = self.output_dir / f"scene_{req.scene_id:03d}.mp3"
 

@@ -1,8 +1,173 @@
 # WORK HANDOFF — shorts_studio
 
 ## 최종 업데이트
-- 날짜: 2026-04-23 (세션 **#33** — Phase 16 Production Integration Option A 공식 완료 + 첫 production smoke Ryan Waller 쇼츠 제작 시도 + **대표님 5 실패 판정** + 근본 원인 전수 진단)
-- 세션: **#33** (주요 commits: Phase 16 planning+execute 39 commits 박제 완료. Ryan Waller 제작 artifacts 미commit — 다음 세션 첫 commit 필요)
+- 날짜: 2026-04-23 (세션 **#34** — Ryan Waller v2/v3/v3.1/v3.2 4회 재제작 실패 → INVARIANT 3-Rule 확립 + Script-Driven 3-Agent Pipeline v1 설계 → v4 실행은 세션 #35 로 이관)
+- 세션: **#34** 시작 시점에 세션 #33 핸드오프 (v1 실패 5 근본원인) 로부터 진입
+- 상태: **INVARIANT 영구 박제 완료 + v4 pipeline spec 완성**. 다음 세션 = `NEXT_SESSION_START.md` + `glistening-snacking-sparkle.md` plan 기반 새 영상 처음부터.
+
+---
+
+## 세션 #34 (2026-04-23) 완료 항목
+
+### 🎬 Part 1: Ryan Waller v2 → v3 → v3.1 → v3.2 (4 재제작 시도, 전부 실패 판정)
+
+**v2 (Session #34 오전)** — 5 FIX:
+- SSML injection 비활성화 (typecast.py L106 pass-through)
+- 한국판 웰시 코기 character_assistant.png 교체 (shorts_naberal/output/zodiac-killer)
+- Kling I2V 5s × 6 clips (fal.ai 경유)
+- 왓슨 CTA 추가 (feedback_watson_cta_pool#1 "이런 미스터리, 더 궁금하지 않으신가요")
+- Remotion render 6M bitrate + SRT mov_text mux
+- 결과: 45.38 MB / 64.45s / parity 8/9 → **대표님 판정 재차 실패** (5 신규 이슈)
+
+**v3** — 근본 재설계:
+- script_v3.json 9 section paragraph 구조 (reference zodiac-killer 모방)
+- TTS 9 call (section 단위, v2 20 call 에서 축소)
+- 자막 2-4 단어 chunking (공백 split)
+- 멀티소스 (YouTube + Wikimedia) 영상 수급 — video_sourcing/ 6 파일 prototype
+- 3 doc 다운로드 (uHCUrMZNiLE + 7lluGVAsiDw + ZI8G0KOOtqk) + 9 clip 추출
+- Kling 6 × 10s (fal.ai), outro_signature 복사
+- 결과: 75.08 MB / 101.30s / freeze 14건 → 실패
+
+**v3.1** — shot breakdown 도입:
+- script_v3_1 유지하되 visual_spec_v3_1 에서 23 clips (shot-level)
+- character_assistant.png 을 watson section scene clip 으로 사용 (❌ 대표님 "조수는 절대 영상에 등장하지 않는다")
+- 크리스마스 집 2.5s 로 축소 (v3 10s 내내 → v3.1 2.5s)
+- 의미 덩어리 자막 59 cues
+- 결과: 76.2 MB / 104.57s / freeze 15건 → 실패
+
+**v3.2** — Guri voice + PresetPrompt + Kling 공식 API:
+- Typecast TTSRequest 의 emotion 필드가 실제로는 silently dropped 되던 버그 발견 → `PresetPrompt(emotion_preset, emotion_intensity)` 로 교체
+- 조수 Guri `tc_6359e7ea258d1b6dc3abe6e6` ssfm-v21 (reference voice_pool 준수)
+- Kling 공식 JWT API (`api.klingai.com`, `model=kling-v2-6`, `mode=pro`, `duration=10`) 전환 — fal.ai 경유 폐기 (대표님 "kling에 직접들어가서해라 거기가 더 낫다")
+- doc clips 을 `ZI8G0KOOtqk` Full Interrogation only 로 재추출 (uHCUrMZNiLE Young Love / 7lluGVAsiDw Infamous 배제 — 여성 YouTuber 호스트)
+- 결과: 81.7 MB / 110.37s / parity 8/9 / freeze 23건 → **대표님 7 구체 지적 + 근본 프로세스 재설계 지시**
+
+### 🔴 Part 2: 대표님 7 구체 지적 (v3.2)
+
+1. 8초쯤 영상 반복 (Kling clip 재사용)
+2. 29초 크리스마스 집이 무관한 구간
+3. 1분17초 병원 복도 반복
+4. 1분25초 "my disk" 텍스트 (gpt-image-2 artifact)
+5. 1분32초 dismissed 파일 sync drift
+6. 1분37초 outro 조기 + 검은화면 왓슨 CTA
+7. 1분10초 탐정 whisper 텐션 급락
++ 자막-나레이션 싱크 드리프트
+
+**단일 root cause** = shot-level 대본-자료 1:1 매핑 부재 + 에이전트가 대본 정확히 안 읽음 + 시각 검증 능력 부재
+
+### 🔴 Part 3: 대표님 v4 절대원칙 3 (연속 지시)
+
+```
+Rule 1: "모든 에이전트는 대본을 반드시 보면서 작업한다"
+        + "이번 뿐만이아니라 앞으로 하는 모든 영상작업에 필수다"
+
+Rule 2: "절대원칙이 대본에적힌 감정표현, 상황표현, 움직임에관한표현등을 보고 제작하고,
+        절대 벗어나는 작업은 하지 않는다"
+
+Rule 3: "자료크롤링 / 영상작업 / 검사에이전트는 반드시 시각능력을 이용하여
+        시각적으로 분석할수있어야한다"
+        + "claude code 4.7opus 가 성능최고다"
+        + "에이전트선에서 가능하면 에이전트선에서 하라고해라 너가하면곤란해"
+```
+
+→ **영구 INVARIANT 3-Rule** 로 격상. Ryan Waller v4 한정 아님. 향후 모든 영상 작업 필수.
+
+### ✅ Part 4: 이 세션 영구 산출 (박제 완료)
+
+**신규 8 memories** (`.claude/memory/`):
+- `feedback_every_agent_reads_script_first.md` 🔴 Rule 1
+- `feedback_script_markers_absolute_compliance.md` 🔴 Rule 2
+- `feedback_agents_require_visual_analysis.md` 🔴 Rule 3
+- `feedback_shot_level_asset_1to1_mapping.md` (v3.2 지적 #1·#3)
+- `feedback_outro_signature_must_be_last_clip.md` (v3.2 지적 #6)
+- `feedback_whisper_volume_normalize.md` (v3.2 지적 #7)
+- `feedback_shot_filename_label_explicit.md` (shot_id 라벨 규칙)
+- `project_script_driven_agent_pipeline_v1.md` (Pipeline SSOT)
+
++ `MEMORY.md` 인덱스 8 entry 추가 (INVARIANT 3-Rule 섹션 신설 + v4 보조 섹션)
+
+**v4 Execution Blueprint**:
+- `C:/Users/PC/.claude/plans/glistening-snacking-sparkle.md` — 14 Step 상세 실행 순서 + Agent 0~5 + Inspector spec + 재사용 모듈 + 검증 기준 + out-of-scope
+
+### 🚫 Part 5: v4 실 render 는 세션 #35 로 이관
+
+v4 실 구현 (script_v4 shot breakdown + Agent 1 Sourcer + Agent 2 Producer × 22 Kling + TTS/render) 은 최소 3-4시간 + $8-20 비용. 세션 #34 컨텍스트 한계 (v3.2 까지 4회 iteration 소비) 로 안정적 완주 불가. 대표님 "다음세션에서할수있도록 핸드오프 3종" 지시 준수하여 **v4 실행 = 세션 #35** 첫 과제.
+
+---
+
+## 🗺️ 세션 #35 진입 경로
+
+**첫 5분 행동**: `NEXT_SESSION_START.md` 의 "첫 5분 행동" 블록 그대로 실행.
+
+**세션 #35 권장 순서**:
+1. 대표님께 사건 선택 (A Ryan Waller 재도전 / B TOP 5 pool 2-5위 / C 새 NLM 쿼리)
+2. INVARIANT 3-Rule 내재화 (memory 3종 + pipeline SSOT 정독)
+3. Agent 0 shot-breakdown 스크립트 작성 (범용화 — episode id 인자로)
+4. Agent 1~5 + Inspector 순차 실행 (각 단계 subagent vision 포함)
+5. 대표님 검수 → 합격 시 업로드
+
+---
+
+## 📂 세션 #34 산출물 전수
+
+### 영구 박제 (8 memories, MEMORY.md 인덱스)
+위 Part 4 참조.
+
+### v4 Execution Plan
+- `C:\Users\PC\.claude\plans\glistening-snacking-sparkle.md` (14 Step + 3-Rule + 14 Verification)
+
+### v3.2 Render Artifacts (참조·비교용)
+```
+output/ryan-waller/
+├── final_v3_2.mp4             (81.7 MB, 110.37s — 대표님 7 지적 대상)
+├── final_v3_1.mp4             (76.2 MB, 104.57s)
+├── final_v3.mp4               (75.08 MB, 101.30s)
+├── final_v2.mp4 / final.mp4   (v2/v1 실패작)
+├── script_v3.json             (narration SSOT)
+├── narration_v3_2.mp3         (Guri+Morgan+PresetPrompt)
+├── narration_timing_v3_2.json (section-level)
+├── subtitles_remotion_v3_2.{json,ass,srt}  (59 cues, semantic chunk)
+├── visual_spec_v3_2.json      (23 clips)
+├── baseline_parity_v3_2.json  (8/9 pass)
+└── sources/
+    ├── intro_signature.mp4, outro_signature.mp4
+    ├── character_{detective,assistant}.png
+    ├── broll_0{1..6}_*_v3.mp4         (Kling 공식 API 6 clips, 10s pro)
+    ├── real/
+    │   ├── raw_documentaries/ZI8G0KOOtqk_*.mp4  (65분 Full Interrogation raw)
+    │   ├── raw_doc_clips_v2/*.mp4               (9 ZI8G0K 추출 clips)
+    │   └── manifest_v3.json
+    └── real_v4/ (아직 없음, 세션 #35 Agent 1 이 생성)
+```
+
+### 신규 스크립트 (세션 #34)
+```
+scripts/experiments/
+├── generate_ryan_waller_tts_v3_2.py         (PresetPrompt + Guri)
+├── generate_ryan_waller_subtitles_v3_2.py   (semantic chunk)
+├── generate_ryan_waller_kling_official.py   (JWT API 패턴)
+├── extract_ryan_waller_doc_clips_v2.py      (ffmpeg 9:16 letterbox)
+├── build_ryan_waller_visual_spec_v3_2.py    (section → shot scale)
+└── render_ryan_waller_v3_2.py               (Remotion + SRT mux)
+```
+
+---
+
+## 📊 세션 #34 통계
+
+- 총 세션 소요: ~10 시간 (v2~v3.2 × 4 iteration + INVARIANT 확립 + 박제 + 핸드오프)
+- Ryan Waller 렌더: 4회 (v2 45 MB, v3 75 MB, v3.1 76 MB, v3.2 82 MB)
+- 대표님 판정 실패 회수: 4 (v2 5지적, v3 5신규지적, v3.1 미검수, v3.2 7지적)
+- 신규 memories 박제: **8** (INVARIANT 3 + 보조 5)
+- TTS 재생성: 4회 (v2 19 sentence-call / v3 9 section-call / v3.1 동일 / v3.2 PresetPrompt 첫 적용)
+- Kling I2V 비용: ~$9 (v2 5s×6 $2.10 + v3 10s×4 재생성 ~$3 + v3.2 공식 API 6×$0.70 $4.2)
+- **최대 성과**: INVARIANT 3-Rule 영구 박제 + Script-Driven Pipeline v1 SSOT (재사용 가능 템플릿)
+
+---
+
+---
+
+
 - 상태: **Ryan Waller v1 실패 → v2 교정 대기**. 다음 세션 시작점 = `NEXT_SESSION_START.md`. **5 실패 근본 원인 진단 완료**, 교정 방법 명시. 세션 #34 에서 FIX 1-5 일괄 교정 + v2 재제작.
 
 ---

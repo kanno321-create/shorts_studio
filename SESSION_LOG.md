@@ -1,5 +1,105 @@
 # SESSION LOG — shorts
 
+## Session #34 — 2026-04-23 (Ryan Waller v2→v3→v3.1→v3.2 4회 실패 → INVARIANT 3-Rule 영구 박제 + v4 Pipeline v1 설계)
+
+### 세션 요약
+
+세션 #33 핸드오프로 진입 (Ryan Waller v1 실패 + 5 근본원인 교정 계획). 세션 전체가 Ryan Waller 쇼츠 재제작 iteration 4회 (v2/v3/v3.1/v3.2) 로 진행, 전부 대표님 판정 실패. 실패 패턴 분석으로 INVARIANT 3-Rule 확립 + Script-Driven 3-Agent Pipeline v1 설계. v4 실 render 는 세션 제약으로 세션 #35 로 이관.
+
+### Part 1 — v2 교정
+
+대표님 "수정작업시작해". 세션 #33 핸드오프 5 FIX 순차 실행 (SSML 비활성화, 웰시 코기 교체, Kling 5s×6, 왓슨 CTA, SRT mux). 결과 v2 45.38 MB / 64.45s / parity 8/9. 대표님 **재차 실패** — 5 신규 지적 (프리징, 자막 2줄, 자료 의심, 영혼없음, 인트로 맥락 부재).
+
+### Part 2 — v3 구조 재설계
+
+대표님 지시 verbatim:
+> "관련자료는 위키에서 퍼와도된다...거기에 많더라"
+> "내가 말했잖아 시나리오, 대본대로 영상이 움직여야된다고"
+> "여러 매체를 검색해서 찾아와야지... 한군데만하면 안되고"
+
+Plan mode 진입 → v3 re-plan. script_v3 sections[] flat (sentences[] 폐기). 멀티소스 (YouTube + Wikimedia) 모듈 6 파일 prototype. 3 doc 다운로드 + 9 clip 추출. Kling 10s × 6 (fal.ai duration 제약 → 공식 API 로 재전환). outro_signature 복사. 결과 75 MB / freeze 14건.
+
+### Part 3 — v3.1 shot breakdown
+
+대표님 지적:
+- "조수는 절대 영상에 등장하지 않는다"
+- "크리스마스 집 2-3초만, 하루종일 틀고있노"
+- "자막 의미 덩어리"
+- "범인 얼굴·사건현장·피해자 많은데 이상한 것만"
+
+구현: 23 clips shot-level / watson character scene 제거 / 크리스마스 집 2.5s 축소 / 의미 덩어리 자막 59 cues. 결과 76.2 MB / freeze 15건.
+
+### Part 4 — v3.2 Guri + Kling 공식 API
+
+대표님 지시:
+> "여자 유튜버는 뭐하러 몇번씩이나 넣는건데?"
+> "조수 목소리는 guri 인데 왜 사용안하고 탐정목소리로 통일했노"
+> "kling에 직접들어가서해라 거기가 더 낫다. api크레딧도 많다"
+
+구현:
+- **Typecast TTSRequest.emotion 필드가 실제로는 silently dropped** 되던 버그 발견 → `PresetPrompt(emotion_preset, emotion_intensity)` 로 교체
+- 조수 Guri `tc_6359e7ea258d1b6dc3abe6e6` ssfm-v21
+- Kling 공식 JWT API (`api.klingai.com/v1/videos/image2video`, `model=kling-v2-6`, `mode=pro`, `duration=10`)
+- ZI8G0KOOtqk Full Interrogation only (uHCUrMZNiLE / 7lluGVAsiDw 여성 호스트 배제)
+
+결과: `final_v3_2.mp4` 81.7 MB / 110.37s / parity 8/9 / freeze 23건 → 대표님 **7 구체 지적**.
+
+### Part 5 — v4 3-Agent Pipeline 근본 재설계 (INVARIANT 확립)
+
+대표님 v3.2 7 지적 + v4 프로세스 지시 (verbatim):
+> "대본을 먼저 확인하고 자료를 외부에서 크롤링해오는 에이전트가 반드시 대본을 읽고 대본의 각컷씬마다 적절한 외부자료를 크롤링해오고 어떤씬에 쓰일건지 정확하게 적어놓고 파일이름같은곳에다가..."
+
+Plan mode 재진입 → v4 상세 spec 작성 중 대표님 **연속 3 절대원칙** 추가:
+
+**원칙 1 (Rule 1)**:
+> "모든 에이전트는 대본을 반드시 보면서 작업한다."
+> "이번 뿐만이아니라 앞으로 하는 모든 영상작업에 필수다"
+
+**원칙 2 (Rule 2)**:
+> "절대원칙이 대본에적힌 감정표현, 상황표현, 움직임에관한표현등을 보고 제작하고, 절대 벗어나는 작업은 하지 않는다."
+
+**원칙 3 (Rule 3)**:
+> "자료크롤링하는 에이전트와, 영상작업 에이전트, 검사에이전트는 반드시 본인들 작업시 크롤링시, 영상제작시 시각능력을 이용하여 본인이 다루고있는 자료를 시각적으로 분석을할수있어야한다."
+> "gemini로 이미지를 분석할필요없다 지금 claude code 4.7opus가 성능최고다."
+> "크롤링하는 에이전트를 claude 4.7 opus로 지정하면 에이전트선에서 가능한지 알아보고 가능하면 에이전트선에서 하라고해라 너가하면곤란해"
+
+→ **영구 INVARIANT 3-Rule** 로 격상.
+
+### Part 6 — 세션 판단 + 핸드오프 작성
+
+대표님 최종:
+> "수정 다끝나면 새로운 영상제작은 처음부터할꺼고 다음세션에서할수있도록 핸드오프 3종도 작성부탁해,,,수정작업 다끝나면"
+
+현실 판단: v4 실 구현 = 3-4시간 + $8-20. 세션 #34 이미 v2~v3.2 컨텍스트 포화. "다음세션에서할수있도록" 지시 준수 → v4 실 render = 세션 #35 과제, 이 세션 = 영구 박제 + 핸드오프 집중.
+
+### 핵심 결정 (이 세션 확정)
+
+1. **INVARIANT 3-Rule 영구 격상** — Ryan Waller 한정 아님, 향후 모든 영상/채널/에이전트
+2. **Script-Driven 3-Agent Pipeline v1** 설계 — Agent 0~5 + Inspector
+3. **Claude Opus 4.7 Subagent Vision** — 메인 직접 Read 금지, Agent tool + `model="opus"` spawn
+4. **Plan file** = v4 execution blueprint 영구 보관
+5. **8 memories 박제** (INVARIANT 3 + 보조 5)
+
+### 교훈 5
+
+1. 기존 자산 재활용이 품질 보장 안 함 — shot-level 1:1 매핑 필수
+2. 에이전트는 지시한 대로 작동 안 함 — INVARIANT Rule 1 로 강제
+3. API 파라미터 silently dropped 위험 — SDK 필드 introspection 필수
+4. 시각 검증 없는 text 매칭 한계 — subagent vision 필수
+5. 4번 실패 → 근본 재설계 = 1번 시도보다 가치 있음 (영구 자산)
+
+### 세션 #34 통계
+
+- 총 세션 소요: ~10 시간
+- Ryan Waller 렌더: 4회 (45 → 75 → 76 → 82 MB)
+- 대표님 판정 실패: 4회
+- 신규 memories: 8
+- Kling I2V 비용: ~$9
+- 플랜 파일 overwrite: 2회 (v3 → v4)
+- 최대 성과: INVARIANT 3-Rule + Pipeline v1 SSOT
+
+---
+
 ## Session #33 — 2026-04-23 (Phase 16 공식 완료 → Ryan Waller v1 실패 → 5 근본원인 진단 → 세션 종료 핸드오프)
 
 ### 세션 흐름 (전후사정 대화 보존)

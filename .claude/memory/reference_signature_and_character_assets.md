@@ -56,23 +56,31 @@ type: reference
 
 ---
 
-## 3. 아웃로 시그니처 — ⚠️ MISSING
+## 3. 아웃로 시그니처 — ✅ RESOLVED (2026-04-23 세션 #34 v3)
 
-**발견**: `_shared/signatures/` 에 **incidents outro 파일이 없음**.
-- `documentary_outro.mp4` (9.15 MB) ← documentary 채널용
-- `wildlife_outro.mp4` (10.57 MB) ← wildlife 채널용
-- `incidents_outro*.mp4` ← **부재**
+**결론 (옵션 C 입증)**: `_shared/signatures/` 에는 부재하지만, 각 에피소드의 `sources/` 에 **`outro_signature.mp4` 가 episode-local 자산으로 배치됨**. incidents 채널은 공용 outro 한 개를 각 에피소드에 복사해 사용.
 
-**가설**:
-- (A) Incidents 는 outro 를 별도 Veo 자산으로 갖지 않고, Remotion 측에서 프로그래매틱 생성 (텍스트 오버레이 + fade-out).
-- (B) Episode 별로 outro 를 last frame Ken Burns 또는 마지막 장면 확장으로 처리.
-- (C) `visual_spec.json:132-136` 의 `outro_signature.mp4` 참조는 Remotion `public/` 내부 별도 경로를 가리키며 `_shared/signatures/` 와 별개.
+**실물 위치 전수 (확인)**:
+- `shorts_naberal/output/zodiac-killer/sources/outro_signature.mp4` (2,082,298 bytes)
+- `shorts_naberal/output/db-cooper/sources/outro_signature.mp4`
+- `shorts_naberal/output/dyatlov-pass/sources/outro_signature.mp4`
+- `shorts_naberal/output/elisa-lam/sources/outro_signature.mp4`
+- `shorts_naberal/output/mary-celeste/sources/outro_signature.mp4`
+- 기타 incidents 에피소드 공통
 
-**Phase 16-03 Task 0 (리서치)**:
-1. `shorts_naberal/scripts/video-pipeline/remotion_render.py` 의 outro 생성 로직 grep
-2. `output/zodiac-killer/visual_spec.json:132-136` 의 `outro_signature.mp4` 경로 추적 — Remotion `public/` 구조 조사
-3. 다른 incidents 에피소드 (`db-cooper/`, `elisa-lam/`, `kitakyushu-matsunaga/`) 의 `visual_spec.json` 비교 — outro 패턴 공통점 확인
-4. 결론 기록 후 Plan 16-03 에 outro 처리 Task 추가
+**내용** (video 추정): 탐정 정면 → 뒤돌아 걸어감 (feedback_outro_signature 스타일 가이드 준수)
+
+**copy 방법**: 새 에피소드 제작 시 script 초반에 복사
+```bash
+cp "C:/Users/PC/Desktop/shorts_naberal/output/zodiac-killer/sources/outro_signature.mp4" \
+   "output/<episode>/sources/outro_signature.mp4"
+```
+
+**visual_spec 반영**: `sources_manifest["outro_signature"] = "outro_signature.mp4"` → `visual_spec_builder.build()` 가 자동으로 마지막 clip 으로 append (Option A programmatic OutroCard 대신 실 mp4 사용).
+
+**세션 #34 v3 교훈 (대표님 직접 지적 "아웃드로 시그니처 영상은 왜 안가져오노")**:
+- v2 까지는 "outro_signature=None" 으로 Option A (programmatic) 택했으나, 실 영상 시그니처 존재를 인지 못함
+- v3 에서 zodiac-killer 에서 복사 → visual_spec 의 마지막 clip 으로 자동 배치
 
 ---
 
