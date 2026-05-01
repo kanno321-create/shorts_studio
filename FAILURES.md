@@ -65,3 +65,22 @@
 **조치**: 즉시 `SKILL_HISTORY/<skill>/v*.md.bak` 에서 직전 버전 복원 → `git revert` → 본 엔트리 해결 commit 에서 reference.
 
 **Lock 재평가**: Exit 조건 재검증 (2개월 경과 + FAILURES ≥ 10 + taste gate 2회) 전까지 patch 금지 유지.
+
+---
+
+## F-D2-03 — D-2 Lock 위반 감지 (2026-05-01, skill_patch_counter)
+
+**증상**: D-2 Lock 기간 (2026-04-20 ~ 2026-06-20) 중 금지 경로 commit 발생.
+
+**위반 commit 수**: 5
+
+**상세**:
+- `5abd0f2` 2026-04-23T00:43:26+09:00 — `CLAUDE.md` (docs(33): session #33 handoff — Ryan Waller v1 fail + 5 root causes + 세션 종료)
+- `5a1c391` 2026-04-22T21:25:10+09:00 — `CLAUDE.md` (feat(16): phase 16 production integration option A — planning artifacts)
+- `ad8b3b7` 2026-04-22T15:35:31+09:00 — `.claude/hooks/session_start.py` (chore(handoff): session #30 tail wiring — FAILURES auto-injection + lenient retry principle)
+- `ad8b3b7` 2026-04-22T15:35:31+09:00 — `CLAUDE.md` (chore(handoff): session #30 tail wiring — FAILURES auto-injection + lenient retry principle)
+- `4d916a9` 2026-04-21T20:06:22+09:00 — `.claude/hooks/pre_tool_use.py` (feat(14-04): pre_tool_use.py ADAPT-06c warn-only Hook + .gitignore wiring)
+
+**조치**: 즉시 `SKILL_HISTORY/<skill>/v*.md.bak` 에서 직전 버전 복원 → `git revert` → 본 엔트리 해결 commit 에서 reference.
+
+**Lock 재평가**: Exit 조건 재검증 (2개월 경과 + FAILURES ≥ 10 + taste gate 2회) 전까지 patch 금지 유지.
